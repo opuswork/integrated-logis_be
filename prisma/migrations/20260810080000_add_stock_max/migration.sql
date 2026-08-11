@@ -1,0 +1,1 @@
+ALTER TABLE "stock_inventory" ADD COLUMN IF NOT EXISTS "stockMax" INTEGER;

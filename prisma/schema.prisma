@@ -1,0 +1,212 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+enum Role {
+  MEMBER
+  ADMIN
+  FACTORY
+}
+
+/** 지역 서브 관리자. ADMIN + null = Super admin */
+enum AdminRegion {
+  JUNGBU // 중부(덕소)
+  NAMBU  // 남부(기장)
+  SEOBU  // 서부(소사)
+}
+
+enum OrderStatus {
+  PLACED
+  WAITING_FOR_SHIPMENT
+  PREPARED
+  LOAD_NOTIFIED
+  SHIPPING
+  RECEIVED
+  PRINTING_COMPLETE
+  CANCELLED
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String   // bcrypt hash (cost 10)
+  
+  fullname  String
+  phone     String
+  
+  email     String?
+
+  role         Role          @default(MEMBER)
+  adminRegion  AdminRegion?  // ADMIN일 때만 사용. null이면 Super admin
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]  // One-to-many relationship: A user can place many orders
+  greetingForms GreetingForm[]
+
+  // Relation to the Church model (Moved inside the block)
+  churchId  Int?
+  church    Church?  @relation(fields: [churchId], references: [id])
+}
+
+model Church {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique // e.g., "서울5", "일동", "부산남"
+  region      String   // e.g., "서울", "일동", "부산" (great for filtering)
+  branchCode  String?  // e.g., "5", "남", or null for single churches
+  assigner    String   // e.g., "이영심(총)", "공석"
+  users       User[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+
+model Order {
+  id              Int          @id @default(autoincrement())
+  orderNumber     String       @unique // E.g., "ORD-2026-000001"
+  status          OrderStatus  @default(PLACED)
+  totalAmount     Float        @default(0.0)
+  notes           String?
+  /** 공장 화면 알림 (예: 주문서 변경요청발생!). 확인 후 null */
+  factoryAlert    String?
+
+  // Relations
+  userId          Int
+  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items           OrderItem[]
+  greetingForms   GreetingForm[]
+  
+  // One-to-One: Every order has exactly one shipment profile
+  shipment        Shipment?
+
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  @@index([userId])
+}
+
+
+
+// 2. New Shipment Model for Logistics Tracking
+model Shipment {
+  id              Int             @id @default(autoincrement())
+  fulfillmentType FulfillmentType @default(PARCEL)
+  
+  // Fields for PARCEL (Truck delivery)
+  carrier         String?         // E.g., "Sanc-Trucking-04", "FedEx"
+  trackingNumber  String?         
+  deliveryAddress String?         // Required if PARCEL
+  estimatedWindow DateTime?       // Expected arrival date/time
+
+  // Fields for PICKUP (Self-service)
+  pickupLocation  String?         // Which warehouse/hub they are coming to
+  pickupTimeSlot  DateTime?       // Scheduled time window for customer arrival
+  licensePlate    String?         // Optional: Vehicle info for security verification
+  
+  // Tracking status specifically for the physical movement
+  shippedAt       DateTime?
+  deliveredAt     DateTime?       // Or pickedUpAt
+
+  // Relation back to the Order
+  orderId         Int             @unique
+  order           Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+
+
+model OrderItem {
+  id          Int      @id @default(autoincrement())
+  productName String
+  quantity    Int      @default(1)
+  price       Float
+
+  // Relations
+  orderId     Int
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+}
+
+/// Product catalog for order "상품 추가" modal (Excel-sourced)
+model StockInventory {
+  id                Int      @id @default(autoincrement())
+  code              String   @unique // 코드
+  imageUrl          String? // Blob URL or /assets/products/gift_sets/...
+  imageStoredName   String? // 날짜+random 저장 파일명
+  imageOriginalName String? // 원본 파일명
+  productName       String // 품명
+  spec              String? // 규격
+  unit              Int // 판매 단위
+  stock             Int? // 창고 재고 수량 (null = 무제한)
+  stockMax          Int? // 기준/최대 재고 (표시용 current/max, null이면 현재수량만 표시)
+  effectiveDate     DateTime // 적용일자 (YYYYMMDD)
+  priceOver500man   Float // 전체 500만원이상 주문시 할인가격
+  priceOver100man   Float // 전체 100만원이상 주문시 할인가격
+  wholesalePrice    Float // 도매 (기본적용가격)
+  associatePrice    Float // 준회원
+  category          String // 구분 (선물세트, 일반품)
+  openStock         Boolean @default(true) @map("open_stock") // 고객 공개 여부
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("stock_inventory")
+  @@index([category])
+  @@index([productName])
+  @@index([openStock])
+}
+
+/// 인사장 작성 폼 (제품주문 연계 / 인사장만 의뢰)
+model GreetingForm {
+  id                Int      @id @default(autoincrement())
+  greetingNumber    String // 1~4
+  includeSelf       Boolean  @default(false) // 자체
+  imageUrl          String // Blob URL or /assets/greeting_form/...
+  imageStoredName   String // 날짜+random 저장 파일명
+  imageOriginalName String // 원본 파일명
+  content           String // 인사장내용
+  quantity          Int // 수량
+  size              String // 8칸 | 6칸 | 4칸
+  productName       String? // 제품주문 연계일 때만
+  receivePlace      String // 받을 곳
+  specialNote       String? // 특이사항
+  businessCard      String  @default("선택하세요") @map("business_card") // 명함 유무: 선택하세요 | 동봉
+  ordererName       String? // 성명(주문자)
+  churchName        String? // 중앙
+  phone             String? // 연락처
+  linkedToOrder     Boolean // true = 제품주문 연계, false = 인사장만 의뢰
+  submitted         Boolean  @default(false) // 인사장만 접수 완료 여부
+
+  orderId Int?
+  order   Order? @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  userId  Int?
+  user    User?  @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("greeting_form")
+  @@index([linkedToOrder])
+  @@index([orderId])
+  @@index([createdAt])
+}
+
+// 1. Define how the package gets to its destination
+enum FulfillmentType {
+  PARCEL   // Truck delivery by SANC
+  PICKUP   // Customer picks up with their own vehicle to save fees
+}
+
+

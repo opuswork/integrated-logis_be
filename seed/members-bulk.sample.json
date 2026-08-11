@@ -1,0 +1,76 @@
+{
+  "createMissingChurches": true,
+  "skipExisting": true,
+  "members": [
+    {
+      "churchName": "서울",
+      "fullname": "이명심(총무)",
+      "phone": "010-2420-1404",
+      "username": "user01024201404",
+      "password": "pass01024201404"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "이은미",
+      "phone": "010-3032-1440",
+      "username": "user01030321440",
+      "password": "pass01030321440"
+    },
+    {
+      "churchName": "서울23",
+      "fullname": "이은희",
+      "phone": "010-8883-0737",
+      "username": "user01088830737",
+      "password": "pass01088830737"
+    },
+    {
+      "churchName": "서울30",
+      "fullname": "정태심",
+      "phone": "010-2777-9380",
+      "username": "user01027779380",
+      "password": "pass01027779380"
+    },
+    {
+      "churchName": "서울48",
+      "fullname": "방성호",
+      "phone": "010-4357-7901",
+      "username": "user01043577901",
+      "password": "pass01043577901"
+    },
+    {
+      "churchName": "서울13",
+      "fullname": "하지영",
+      "phone": "010-8588-8514",
+      "username": "user01085888514",
+      "password": "pass01085888514"
+    },
+    {
+      "churchName": "서울1",
+      "fullname": "박성현",
+      "phone": "010-8796-1440",
+      "username": "user01087961440",
+      "password": "pass01087961440"
+    },
+    {
+      "churchName": "서울21",
+      "fullname": "김윤혜",
+      "phone": "010-4042-1443",
+      "username": "user01040421443",
+      "password": "pass01040421443"
+    },
+    {
+      "churchName": "서울27",
+      "fullname": "김선희",
+      "phone": "010-2631-1440",
+      "username": "user01026311440",
+      "password": "pass01026311440"
+    },
+    {
+      "churchName": "원주",
+      "fullname": "김혜령",
+      "phone": "010-2329-1440",
+      "username": "user01023291440",
+      "password": "pass01023291440"
+    }
+  ]
+}
