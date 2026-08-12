@@ -41,6 +41,10 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 .env.local
+
+# local DB migration dumps
+scripts/_local_data_dump*.sql
+scripts/_counts.sql
 nest-build.log.txt
 
 # temp directory
