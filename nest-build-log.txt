@@ -1,0 +1,7 @@
+﻿node.exe : error: unknown option '--verbose'
+At C:\Users\opuscore\AppData\Roaming\npm\npx.ps1:24 char:5
++     & "node$exe"  "$basedir/node_modules/npm/bin/npx-cli.js" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error: unknown option '--verbose':String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
