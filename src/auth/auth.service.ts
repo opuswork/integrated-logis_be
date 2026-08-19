@@ -209,6 +209,7 @@ export class AuthService {
           phone: true,
           role: true,
           adminRegion: true,
+          canApproveGreeting: true,
         },
       });
 
@@ -241,6 +242,7 @@ export class AuthService {
           role,
           adminRegion,
           isSuperAdmin: isSuperAdminUser({ role, adminRegion }),
+          canApproveGreeting: user.canApproveGreeting === true,
         },
       };
     } catch (error) {
@@ -269,6 +271,7 @@ export class AuthService {
           email: true,
           role: true,
           adminRegion: true,
+          canApproveGreeting: true,
           churchId: true,
           church: {
             select: {
@@ -299,6 +302,7 @@ export class AuthService {
           role,
           adminRegion,
           isSuperAdmin: isSuperAdminUser({ role, adminRegion }),
+          canApproveGreeting: user.canApproveGreeting === true,
           churchId: user.churchId,
           church: user.church,
         },

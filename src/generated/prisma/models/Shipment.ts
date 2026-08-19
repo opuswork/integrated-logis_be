@@ -549,10 +549,6 @@ export type EnumFulfillmentTypeFieldUpdateOperationsInput = {
   set?: $Enums.FulfillmentType
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type ShipmentCreateWithoutOrderInput = {
   fulfillmentType?: $Enums.FulfillmentType
   carrier?: string | null

@@ -7,13 +7,21 @@ import {
 
 import type { AuthUserPayload } from '../auth/jwt.strategy';
 import { GreetingImageStorageService } from '../greeting-form/greeting-image-storage.service';
-import { FulfillmentType, OrderStatus, Prisma } from '../generated/prisma/client';
+import {
+  AdminActivityAction,
+  AdminRegion,
+  FulfillmentType,
+  OrderStatus,
+  PackagingWorker,
+  Prisma,
+} from '../generated/prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import {
   CreateOrderDto,
   CreateShipmentDto,
 } from './dto/create-order.dto';
 import type { DeliveryAction } from './dto/delivery-action.dto';
+import type { UpdateAdminChecklistDto } from './dto/update-admin-checklist.dto';
 import {
   buildOrderNotes,
   estimatedWindowIso,
@@ -71,6 +79,41 @@ function toDate(value?: string) {
   return value ? new Date(value) : undefined;
 }
 
+function parseStoreRegionFromNotes(
+  notes: string | null | undefined,
+): AdminRegion | null {
+  if (!notes) {
+    return null;
+  }
+  if (/주문작업지역:[^/]*남부|지부매장:[^/]*남부/.test(notes)) {
+    return AdminRegion.NAMBU;
+  }
+  if (/주문작업지역:[^/]*중부|지부매장:[^/]*중부/.test(notes)) {
+    return AdminRegion.JUNGBU;
+  }
+  if (/주문작업지역:[^/]*서부|지부매장:[^/]*서부/.test(notes)) {
+    return AdminRegion.SEOBU;
+  }
+  return null;
+}
+
+function regionLabel(region: AdminRegion | null | undefined) {
+  if (region === AdminRegion.NAMBU) {
+    return '남부';
+  }
+  if (region === AdminRegion.JUNGBU) {
+    return '중부';
+  }
+  if (region === AdminRegion.SEOBU) {
+    return '서부';
+  }
+  return '최고';
+}
+
+function formatActivityTimestamp(date: Date) {
+  return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${String(date.getHours()).padStart(2, '0')}시 ${String(date.getMinutes()).padStart(2, '0')}분 ${String(date.getSeconds()).padStart(2, '0')}초`;
+}
+
 function mapShipmentInput(shipment: CreateShipmentDto) {
   return {
     fulfillmentType: shipment.fulfillmentType,
@@ -104,6 +147,7 @@ export class OrdersService {
           status: createOrderDto.status,
           totalAmount: createOrderDto.totalAmount,
           notes: createOrderDto.notes,
+          storeRegion: parseStoreRegionFromNotes(createOrderDto.notes),
           items: createOrderDto.items?.length
             ? {
                 create: createOrderDto.items.map((item) => ({
@@ -328,7 +372,12 @@ export class OrdersService {
           ...(userId !== undefined ? { userId } : {}),
           ...(status !== undefined ? { status } : {}),
           ...(totalAmount !== undefined ? { totalAmount } : {}),
-          ...(notes !== undefined ? { notes } : {}),
+          ...(notes !== undefined
+            ? {
+                notes,
+                storeRegion: parseStoreRegionFromNotes(notes),
+              }
+            : {}),
           ...(notifyFactory
             ? { factoryAlert: '주문서 변경요청발생!' }
             : {}),
@@ -346,6 +395,223 @@ export class OrdersService {
       status === OrderStatus.PREPARED ||
       status === OrderStatus.LOAD_NOTIFIED
     );
+  }
+
+  private assertCanMutateOrderRegion(
+    order: { storeRegion: AdminRegion | null },
+    actor: AuthUserPayload,
+  ) {
+    if (actor.role === 'admin' && actor.isSuperAdmin) {
+      return;
+    }
+    if (actor.role === 'admin' && actor.adminRegion) {
+      if (order.storeRegion && order.storeRegion !== actor.adminRegion) {
+        throw new ForbiddenException(
+          '관할 지역이 아닌 주문은 수정할 수 없습니다.',
+        );
+      }
+      return;
+    }
+    throw new ForbiddenException({ error: 'Forbidden' });
+  }
+
+  private computeReadyForShipment(order: {
+    packagingWorker: PackagingWorker | null;
+    orderConfirmedAt: Date | null;
+    paymentDone: boolean;
+    paymentAuthor: string | null;
+    greetingDone: boolean;
+    slipDone: boolean;
+    slipAuthor: string | null;
+    greetingForms?: { id: number }[];
+    shipment?: { fulfillmentType: FulfillmentType } | null;
+  }) {
+    const workerOk = order.packagingWorker != null;
+    const confirmOk = order.orderConfirmedAt != null;
+    const paymentOk =
+      order.paymentDone === true &&
+      !!order.paymentAuthor?.trim();
+    const needsGreeting = (order.greetingForms?.length ?? 0) > 0;
+    const greetingOk = !needsGreeting || order.greetingDone === true;
+    const needsSlip =
+      order.shipment?.fulfillmentType === FulfillmentType.PARCEL;
+    const slipOk =
+      !needsSlip ||
+      (order.slipDone === true && !!order.slipAuthor?.trim());
+    return workerOk && confirmOk && paymentOk && greetingOk && slipOk;
+  }
+
+  private async logAdminActivity(params: {
+    actor: AuthUserPayload;
+    actorName: string;
+    action: AdminActivityAction;
+    orderId: number;
+    orderNumber: string;
+    summary: string;
+  }) {
+    await this.prisma.adminActivity.create({
+      data: {
+        actorUserId: params.actor.id,
+        actorName: params.actorName,
+        actorRegion: params.actor.adminRegion,
+        action: params.action,
+        orderId: params.orderId,
+        orderNumber: params.orderNumber,
+        summary: params.summary,
+      },
+    });
+  }
+
+  private async resolveActorDisplayName(actor: AuthUserPayload) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: actor.id },
+      select: { fullname: true, username: true, canApproveGreeting: true },
+    });
+    return {
+      name: user?.fullname?.trim() || user?.username || actor.username,
+      canApproveGreeting: user?.canApproveGreeting === true,
+    };
+  }
+
+  listAdminActivities(limit = 50) {
+    return this.prisma.adminActivity.findMany({
+      orderBy: { createdAt: 'desc' },
+      take: Math.min(Math.max(limit, 1), 100),
+    });
+  }
+
+  async updateAdminChecklist(
+    id: number,
+    dto: UpdateAdminChecklistDto,
+    actor: AuthUserPayload,
+  ) {
+    const order = await this.findOne(id);
+    const { name: actorName, canApproveGreeting } =
+      await this.resolveActorDisplayName(actor);
+    const regionPrefix = `${regionLabel(actor.adminRegion)}매장 관리자`;
+    const now = new Date();
+
+    if (dto.action === 'greeting') {
+      if (actor.role !== 'factory' || !canApproveGreeting) {
+        throw new ForbiddenException(
+          '인사장완료는 Factory-G(인사장 승인) 계정만 저장할 수 있습니다.',
+        );
+      }
+    } else if (actor.role === 'admin') {
+      this.assertCanMutateOrderRegion(order, actor);
+    } else {
+      throw new ForbiddenException({ error: 'Forbidden' });
+    }
+
+    if (order.status === OrderStatus.CANCELLED) {
+      throw new BadRequestException('취소된 주문은 수정할 수 없습니다.');
+    }
+
+    const data: Prisma.OrderUpdateInput = {};
+    let activityAction: AdminActivityAction;
+    let summarySuffix: string;
+
+    if (dto.action === 'confirm') {
+      if (order.orderConfirmedAt) {
+        throw new BadRequestException('이미 주문확인이 완료되었습니다.');
+      }
+      data.orderConfirmedAt = now;
+      data.orderConfirmedBy = actorName;
+      if (
+        order.status === OrderStatus.PLACED ||
+        order.status === OrderStatus.WAITING_FOR_SHIPMENT
+      ) {
+        data.status = OrderStatus.WAITING_FOR_SHIPMENT;
+      }
+      activityAction = AdminActivityAction.ORDER_CONFIRM;
+      summarySuffix = '주문확인 클릭';
+    } else if (dto.action === 'worker') {
+      if (!dto.packagingWorker) {
+        throw new BadRequestException('작업자(매장/공장)를 선택해 주세요.');
+      }
+      data.packagingWorker = dto.packagingWorker;
+      activityAction = AdminActivityAction.WORKER_SAVE;
+      summarySuffix = `작업자 ${dto.packagingWorker === 'STORE' ? '매장' : '공장'} 저장`;
+    } else if (dto.action === 'payment') {
+      if (dto.done === undefined) {
+        throw new BadRequestException('결제완료 Y/N을 선택해 주세요.');
+      }
+      if (dto.done) {
+        const author = dto.author?.trim();
+        if (!author) {
+          throw new BadRequestException('결제완료 작성자를 입력해 주세요.');
+        }
+        data.paymentDone = true;
+        data.paymentAuthor = author;
+      } else {
+        data.paymentDone = false;
+        data.paymentAuthor = null;
+      }
+      activityAction = AdminActivityAction.PAYMENT_SAVE;
+      summarySuffix = `결제완료 ${dto.done ? 'Y' : 'N'} 저장`;
+    } else if (dto.action === 'greeting') {
+      if (dto.done === undefined) {
+        throw new BadRequestException('인사장완료 Y/N을 선택해 주세요.');
+      }
+      data.greetingDone = dto.done;
+      activityAction = AdminActivityAction.GREETING_SAVE;
+      summarySuffix = `인사장완료 ${dto.done ? 'Y' : 'N'} 저장`;
+    } else if (dto.action === 'slip') {
+      if (order.shipment?.fulfillmentType !== FulfillmentType.PARCEL) {
+        throw new BadRequestException(
+          '기표지완료는 택배 주문에만 적용됩니다.',
+        );
+      }
+      if (dto.done === undefined) {
+        throw new BadRequestException('기표지완료 Y/N을 선택해 주세요.');
+      }
+      if (dto.done) {
+        const author = dto.author?.trim();
+        if (!author) {
+          throw new BadRequestException('기표지완료 작성자를 입력해 주세요.');
+        }
+        data.slipDone = true;
+        data.slipAuthor = author;
+      } else {
+        data.slipDone = false;
+        data.slipAuthor = null;
+      }
+      activityAction = AdminActivityAction.SLIP_SAVE;
+      summarySuffix = `기표지완료 ${dto.done ? 'Y' : 'N'} 저장`;
+    } else {
+      throw new BadRequestException('지원하지 않는 액션입니다.');
+    }
+
+    const updated = await this.prisma.order.update({
+      where: { id },
+      data,
+      include: orderInclude,
+    });
+
+    const readyForShipment = this.computeReadyForShipment(updated);
+    const finalOrder =
+      updated.readyForShipment === readyForShipment
+        ? updated
+        : await this.prisma.order.update({
+            where: { id },
+            data: { readyForShipment },
+            include: orderInclude,
+          });
+
+    const actorLabel =
+      actor.role === 'factory'
+        ? `Factory-G ${actorName}님`
+        : `${regionPrefix} ${actorName}님`;
+    await this.logAdminActivity({
+      actor,
+      actorName,
+      action: activityAction,
+      orderId: id,
+      orderNumber: order.orderNumber,
+      summary: `${actorLabel}: 주문관리/${order.orderNumber}-${summarySuffix} [${formatActivityTimestamp(now)}]`,
+    });
+
+    return finalOrder;
   }
 
   async clearFactoryAlert(id: number, actor: AuthUserPayload) {

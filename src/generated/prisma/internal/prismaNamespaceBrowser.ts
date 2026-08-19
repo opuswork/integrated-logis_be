@@ -54,6 +54,7 @@ export const ModelName = {
   User: 'User',
   Church: 'Church',
   Order: 'Order',
+  AdminActivity: 'AdminActivity',
   Shipment: 'Shipment',
   OrderItem: 'OrderItem',
   StockInventory: 'StockInventory',
@@ -85,6 +86,7 @@ export const UserScalarFieldEnum = {
   email: 'email',
   role: 'role',
   adminRegion: 'adminRegion',
+  canApproveGreeting: 'canApproveGreeting',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   churchId: 'churchId'
@@ -113,12 +115,37 @@ export const OrderScalarFieldEnum = {
   totalAmount: 'totalAmount',
   notes: 'notes',
   factoryAlert: 'factoryAlert',
+  storeRegion: 'storeRegion',
+  packagingWorker: 'packagingWorker',
+  orderConfirmedAt: 'orderConfirmedAt',
+  orderConfirmedBy: 'orderConfirmedBy',
+  paymentDone: 'paymentDone',
+  paymentAuthor: 'paymentAuthor',
+  greetingDone: 'greetingDone',
+  slipDone: 'slipDone',
+  slipAuthor: 'slipAuthor',
+  readyForShipment: 'readyForShipment',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+
+
+export const AdminActivityScalarFieldEnum = {
+  id: 'id',
+  actorUserId: 'actorUserId',
+  actorName: 'actorName',
+  actorRegion: 'actorRegion',
+  action: 'action',
+  orderId: 'orderId',
+  orderNumber: 'orderNumber',
+  summary: 'summary',
+  createdAt: 'createdAt'
+} as const
+
+export type AdminActivityScalarFieldEnum = (typeof AdminActivityScalarFieldEnum)[keyof typeof AdminActivityScalarFieldEnum]
 
 
 export const ShipmentScalarFieldEnum = {

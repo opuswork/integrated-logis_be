@@ -400,6 +400,7 @@ export const ModelName = {
   User: 'User',
   Church: 'Church',
   Order: 'Order',
+  AdminActivity: 'AdminActivity',
   Shipment: 'Shipment',
   OrderItem: 'OrderItem',
   StockInventory: 'StockInventory',
@@ -419,7 +420,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "church" | "order" | "shipment" | "orderItem" | "stockInventory" | "greetingForm"
+    modelProps: "user" | "church" | "order" | "adminActivity" | "shipment" | "orderItem" | "stockInventory" | "greetingForm"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -642,6 +643,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.OrderCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.OrderCountAggregateOutputType> | number
+        }
+      }
+    }
+    AdminActivity: {
+      payload: Prisma.$AdminActivityPayload<ExtArgs>
+      fields: Prisma.AdminActivityFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AdminActivityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminActivityPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AdminActivityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminActivityPayload>
+        }
+        findFirst: {
+          args: Prisma.AdminActivityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminActivityPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AdminActivityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminActivityPayload>
+        }
+        findMany: {
+          args: Prisma.AdminActivityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminActivityPayload>[]
+        }
+        create: {
+          args: Prisma.AdminActivityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminActivityPayload>
+        }
+        createMany: {
+          args: Prisma.AdminActivityCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AdminActivityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminActivityPayload>[]
+        }
+        delete: {
+          args: Prisma.AdminActivityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminActivityPayload>
+        }
+        update: {
+          args: Prisma.AdminActivityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminActivityPayload>
+        }
+        deleteMany: {
+          args: Prisma.AdminActivityDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AdminActivityUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AdminActivityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminActivityPayload>[]
+        }
+        upsert: {
+          args: Prisma.AdminActivityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminActivityPayload>
+        }
+        aggregate: {
+          args: Prisma.AdminActivityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAdminActivity>
+        }
+        groupBy: {
+          args: Prisma.AdminActivityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdminActivityGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AdminActivityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdminActivityCountAggregateOutputType> | number
         }
       }
     }
@@ -989,6 +1064,7 @@ export const UserScalarFieldEnum = {
   email: 'email',
   role: 'role',
   adminRegion: 'adminRegion',
+  canApproveGreeting: 'canApproveGreeting',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   churchId: 'churchId'
@@ -1017,12 +1093,37 @@ export const OrderScalarFieldEnum = {
   totalAmount: 'totalAmount',
   notes: 'notes',
   factoryAlert: 'factoryAlert',
+  storeRegion: 'storeRegion',
+  packagingWorker: 'packagingWorker',
+  orderConfirmedAt: 'orderConfirmedAt',
+  orderConfirmedBy: 'orderConfirmedBy',
+  paymentDone: 'paymentDone',
+  paymentAuthor: 'paymentAuthor',
+  greetingDone: 'greetingDone',
+  slipDone: 'slipDone',
+  slipAuthor: 'slipAuthor',
+  readyForShipment: 'readyForShipment',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+
+
+export const AdminActivityScalarFieldEnum = {
+  id: 'id',
+  actorUserId: 'actorUserId',
+  actorName: 'actorName',
+  actorRegion: 'actorRegion',
+  action: 'action',
+  orderId: 'orderId',
+  orderNumber: 'orderNumber',
+  summary: 'summary',
+  createdAt: 'createdAt'
+} as const
+
+export type AdminActivityScalarFieldEnum = (typeof AdminActivityScalarFieldEnum)[keyof typeof AdminActivityScalarFieldEnum]
 
 
 export const ShipmentScalarFieldEnum = {
@@ -1194,6 +1295,13 @@ export type ListEnumAdminRegionFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -1236,6 +1344,34 @@ export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMode
 
 
 /**
+ * Reference to a field of type 'PackagingWorker'
+ */
+export type EnumPackagingWorkerFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PackagingWorker'>
+    
+
+
+/**
+ * Reference to a field of type 'PackagingWorker[]'
+ */
+export type ListEnumPackagingWorkerFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PackagingWorker[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AdminActivityAction'
+ */
+export type EnumAdminActivityActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AdminActivityAction'>
+    
+
+
+/**
+ * Reference to a field of type 'AdminActivityAction[]'
+ */
+export type ListEnumAdminActivityActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AdminActivityAction[]'>
+    
+
+
+/**
  * Reference to a field of type 'FulfillmentType'
  */
 export type EnumFulfillmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FulfillmentType'>
@@ -1246,13 +1382,6 @@ export type EnumFulfillmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$
  * Reference to a field of type 'FulfillmentType[]'
  */
 export type ListEnumFulfillmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FulfillmentType[]'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 /**
@@ -1409,6 +1538,7 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   church?: Prisma.ChurchOmit
   order?: Prisma.OrderOmit
+  adminActivity?: Prisma.AdminActivityOmit
   shipment?: Prisma.ShipmentOmit
   orderItem?: Prisma.OrderItemOmit
   stockInventory?: Prisma.StockInventoryOmit

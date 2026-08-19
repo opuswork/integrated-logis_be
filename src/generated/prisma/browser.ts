@@ -33,6 +33,11 @@ export type Church = Prisma.ChurchModel
  */
 export type Order = Prisma.OrderModel
 /**
+ * Model AdminActivity
+ * 관리자 액션 알림 피드
+ */
+export type AdminActivity = Prisma.AdminActivityModel
+/**
  * Model Shipment
  * 
  */

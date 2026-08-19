@@ -11,6 +11,7 @@
 export type * from './models/User.js'
 export type * from './models/Church.js'
 export type * from './models/Order.js'
+export type * from './models/AdminActivity.js'
 export type * from './models/Shipment.js'
 export type * from './models/OrderItem.js'
 export type * from './models/StockInventory.js'

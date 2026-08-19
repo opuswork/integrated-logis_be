@@ -47,3 +47,22 @@ export const FulfillmentType = {
 } as const
 
 export type FulfillmentType = (typeof FulfillmentType)[keyof typeof FulfillmentType]
+
+
+export const PackagingWorker = {
+  STORE: 'STORE',
+  FACTORY: 'FACTORY'
+} as const
+
+export type PackagingWorker = (typeof PackagingWorker)[keyof typeof PackagingWorker]
+
+
+export const AdminActivityAction = {
+  ORDER_CONFIRM: 'ORDER_CONFIRM',
+  WORKER_SAVE: 'WORKER_SAVE',
+  PAYMENT_SAVE: 'PAYMENT_SAVE',
+  GREETING_SAVE: 'GREETING_SAVE',
+  SLIP_SAVE: 'SLIP_SAVE'
+} as const
+
+export type AdminActivityAction = (typeof AdminActivityAction)[keyof typeof AdminActivityAction]

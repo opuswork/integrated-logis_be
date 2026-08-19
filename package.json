@@ -17,6 +17,7 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate:deploy": "prisma migrate deploy",
     "seed:admin": "node scripts/seed-admin.mjs",
+    "seed:factory-g": "node scripts/seed-factory-g.mjs",
     "db:migrate-local-to-render": "node scripts/migrate-local-to-render.mjs",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
