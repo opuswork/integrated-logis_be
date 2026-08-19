@@ -50,10 +50,13 @@ model User {
 
   role         Role          @default(MEMBER)
   adminRegion  AdminRegion?  // ADMIN일 때만 사용. null이면 Super admin
+  /** Factory-G: 인사장완료 승인 가능 (username 0102964708) */
+  canApproveGreeting Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   orders    Order[]  // One-to-many relationship: A user can place many orders
   greetingForms GreetingForm[]
+  adminActivities AdminActivity[]
 
   // Relation to the Church model (Moved inside the block)
   churchId  Int?
@@ -82,6 +85,25 @@ model Order {
   /** 공장 화면 알림 (예: 주문서 변경요청발생!). 확인 후 null */
   factoryAlert    String?
 
+  /** 주문 작업 매장 지역 (남부/중부/서부) */
+  storeRegion     AdminRegion?
+  /** 택배 작업 위치: 매장 | 공장 */
+  packagingWorker PackagingWorker? @map("packaging_worker")
+
+  orderConfirmedAt DateTime?
+  orderConfirmedBy String?
+
+  paymentDone   Boolean @default(false)
+  paymentAuthor String?
+
+  greetingDone Boolean @default(false)
+
+  slipDone   Boolean @default(false)
+  slipAuthor String?
+
+  /** 작업자+확인+결제+인사장+기표지 충족 시 true → 배송관리 후보 */
+  readyForShipment Boolean @default(false)
+
   // Relations
   userId          Int
   user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -95,6 +117,25 @@ model Order {
   updatedAt       DateTime     @updatedAt
 
   @@index([userId])
+  @@index([storeRegion])
+  @@index([readyForShipment])
+}
+
+/// 관리자 액션 알림 피드
+model AdminActivity {
+  id           Int                 @id @default(autoincrement())
+  actorUserId  Int?
+  actor        User?               @relation(fields: [actorUserId], references: [id], onDelete: SetNull)
+  actorName    String
+  actorRegion  AdminRegion?
+  action       AdminActivityAction
+  orderId      Int?
+  orderNumber  String
+  summary      String
+  createdAt    DateTime            @default(now())
+
+  @@index([createdAt])
+  @@index([actorUserId])
 }
 
 
@@ -207,6 +248,20 @@ model GreetingForm {
 enum FulfillmentType {
   PARCEL   // Truck delivery by SANC
   PICKUP   // Customer picks up with their own vehicle to save fees
+}
+
+/** 택배 작업 위치: 매장 | 공장 */
+enum PackagingWorker {
+  STORE
+  FACTORY
+}
+
+enum AdminActivityAction {
+  ORDER_CONFIRM
+  WORKER_SAVE
+  PAYMENT_SAVE
+  GREETING_SAVE
+  SLIP_SAVE
 }
 
 

@@ -45,6 +45,16 @@ export type OrderMinAggregateOutputType = {
   totalAmount: number | null
   notes: string | null
   factoryAlert: string | null
+  storeRegion: $Enums.AdminRegion | null
+  packagingWorker: $Enums.PackagingWorker | null
+  orderConfirmedAt: Date | null
+  orderConfirmedBy: string | null
+  paymentDone: boolean | null
+  paymentAuthor: string | null
+  greetingDone: boolean | null
+  slipDone: boolean | null
+  slipAuthor: string | null
+  readyForShipment: boolean | null
   userId: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -57,6 +67,16 @@ export type OrderMaxAggregateOutputType = {
   totalAmount: number | null
   notes: string | null
   factoryAlert: string | null
+  storeRegion: $Enums.AdminRegion | null
+  packagingWorker: $Enums.PackagingWorker | null
+  orderConfirmedAt: Date | null
+  orderConfirmedBy: string | null
+  paymentDone: boolean | null
+  paymentAuthor: string | null
+  greetingDone: boolean | null
+  slipDone: boolean | null
+  slipAuthor: string | null
+  readyForShipment: boolean | null
   userId: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -69,6 +89,16 @@ export type OrderCountAggregateOutputType = {
   totalAmount: number
   notes: number
   factoryAlert: number
+  storeRegion: number
+  packagingWorker: number
+  orderConfirmedAt: number
+  orderConfirmedBy: number
+  paymentDone: number
+  paymentAuthor: number
+  greetingDone: number
+  slipDone: number
+  slipAuthor: number
+  readyForShipment: number
   userId: number
   createdAt: number
   updatedAt: number
@@ -95,6 +125,16 @@ export type OrderMinAggregateInputType = {
   totalAmount?: true
   notes?: true
   factoryAlert?: true
+  storeRegion?: true
+  packagingWorker?: true
+  orderConfirmedAt?: true
+  orderConfirmedBy?: true
+  paymentDone?: true
+  paymentAuthor?: true
+  greetingDone?: true
+  slipDone?: true
+  slipAuthor?: true
+  readyForShipment?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -107,6 +147,16 @@ export type OrderMaxAggregateInputType = {
   totalAmount?: true
   notes?: true
   factoryAlert?: true
+  storeRegion?: true
+  packagingWorker?: true
+  orderConfirmedAt?: true
+  orderConfirmedBy?: true
+  paymentDone?: true
+  paymentAuthor?: true
+  greetingDone?: true
+  slipDone?: true
+  slipAuthor?: true
+  readyForShipment?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -119,6 +169,16 @@ export type OrderCountAggregateInputType = {
   totalAmount?: true
   notes?: true
   factoryAlert?: true
+  storeRegion?: true
+  packagingWorker?: true
+  orderConfirmedAt?: true
+  orderConfirmedBy?: true
+  paymentDone?: true
+  paymentAuthor?: true
+  greetingDone?: true
+  slipDone?: true
+  slipAuthor?: true
+  readyForShipment?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -218,6 +278,16 @@ export type OrderGroupByOutputType = {
   totalAmount: number
   notes: string | null
   factoryAlert: string | null
+  storeRegion: $Enums.AdminRegion | null
+  packagingWorker: $Enums.PackagingWorker | null
+  orderConfirmedAt: Date | null
+  orderConfirmedBy: string | null
+  paymentDone: boolean
+  paymentAuthor: string | null
+  greetingDone: boolean
+  slipDone: boolean
+  slipAuthor: string | null
+  readyForShipment: boolean
   userId: number
   createdAt: Date
   updatedAt: Date
@@ -253,6 +323,16 @@ export type OrderWhereInput = {
   totalAmount?: Prisma.FloatFilter<"Order"> | number
   notes?: Prisma.StringNullableFilter<"Order"> | string | null
   factoryAlert?: Prisma.StringNullableFilter<"Order"> | string | null
+  storeRegion?: Prisma.EnumAdminRegionNullableFilter<"Order"> | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.EnumPackagingWorkerNullableFilter<"Order"> | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  orderConfirmedBy?: Prisma.StringNullableFilter<"Order"> | string | null
+  paymentDone?: Prisma.BoolFilter<"Order"> | boolean
+  paymentAuthor?: Prisma.StringNullableFilter<"Order"> | string | null
+  greetingDone?: Prisma.BoolFilter<"Order"> | boolean
+  slipDone?: Prisma.BoolFilter<"Order"> | boolean
+  slipAuthor?: Prisma.StringNullableFilter<"Order"> | string | null
+  readyForShipment?: Prisma.BoolFilter<"Order"> | boolean
   userId?: Prisma.IntFilter<"Order"> | number
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
@@ -269,6 +349,16 @@ export type OrderOrderByWithRelationInput = {
   totalAmount?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   factoryAlert?: Prisma.SortOrderInput | Prisma.SortOrder
+  storeRegion?: Prisma.SortOrderInput | Prisma.SortOrder
+  packagingWorker?: Prisma.SortOrderInput | Prisma.SortOrder
+  orderConfirmedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  orderConfirmedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  paymentDone?: Prisma.SortOrder
+  paymentAuthor?: Prisma.SortOrderInput | Prisma.SortOrder
+  greetingDone?: Prisma.SortOrder
+  slipDone?: Prisma.SortOrder
+  slipAuthor?: Prisma.SortOrderInput | Prisma.SortOrder
+  readyForShipment?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -288,6 +378,16 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   totalAmount?: Prisma.FloatFilter<"Order"> | number
   notes?: Prisma.StringNullableFilter<"Order"> | string | null
   factoryAlert?: Prisma.StringNullableFilter<"Order"> | string | null
+  storeRegion?: Prisma.EnumAdminRegionNullableFilter<"Order"> | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.EnumPackagingWorkerNullableFilter<"Order"> | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  orderConfirmedBy?: Prisma.StringNullableFilter<"Order"> | string | null
+  paymentDone?: Prisma.BoolFilter<"Order"> | boolean
+  paymentAuthor?: Prisma.StringNullableFilter<"Order"> | string | null
+  greetingDone?: Prisma.BoolFilter<"Order"> | boolean
+  slipDone?: Prisma.BoolFilter<"Order"> | boolean
+  slipAuthor?: Prisma.StringNullableFilter<"Order"> | string | null
+  readyForShipment?: Prisma.BoolFilter<"Order"> | boolean
   userId?: Prisma.IntFilter<"Order"> | number
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
@@ -304,6 +404,16 @@ export type OrderOrderByWithAggregationInput = {
   totalAmount?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   factoryAlert?: Prisma.SortOrderInput | Prisma.SortOrder
+  storeRegion?: Prisma.SortOrderInput | Prisma.SortOrder
+  packagingWorker?: Prisma.SortOrderInput | Prisma.SortOrder
+  orderConfirmedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  orderConfirmedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  paymentDone?: Prisma.SortOrder
+  paymentAuthor?: Prisma.SortOrderInput | Prisma.SortOrder
+  greetingDone?: Prisma.SortOrder
+  slipDone?: Prisma.SortOrder
+  slipAuthor?: Prisma.SortOrderInput | Prisma.SortOrder
+  readyForShipment?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -324,6 +434,16 @@ export type OrderScalarWhereWithAggregatesInput = {
   totalAmount?: Prisma.FloatWithAggregatesFilter<"Order"> | number
   notes?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   factoryAlert?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  storeRegion?: Prisma.EnumAdminRegionNullableWithAggregatesFilter<"Order"> | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.EnumPackagingWorkerNullableWithAggregatesFilter<"Order"> | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
+  orderConfirmedBy?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  paymentDone?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
+  paymentAuthor?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  greetingDone?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
+  slipDone?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
+  slipAuthor?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  readyForShipment?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
   userId?: Prisma.IntWithAggregatesFilter<"Order"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
@@ -335,6 +455,16 @@ export type OrderCreateInput = {
   totalAmount?: number
   notes?: string | null
   factoryAlert?: string | null
+  storeRegion?: $Enums.AdminRegion | null
+  packagingWorker?: $Enums.PackagingWorker | null
+  orderConfirmedAt?: Date | string | null
+  orderConfirmedBy?: string | null
+  paymentDone?: boolean
+  paymentAuthor?: string | null
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: string | null
+  readyForShipment?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutOrdersInput
@@ -350,6 +480,16 @@ export type OrderUncheckedCreateInput = {
   totalAmount?: number
   notes?: string | null
   factoryAlert?: string | null
+  storeRegion?: $Enums.AdminRegion | null
+  packagingWorker?: $Enums.PackagingWorker | null
+  orderConfirmedAt?: Date | string | null
+  orderConfirmedBy?: string | null
+  paymentDone?: boolean
+  paymentAuthor?: string | null
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: string | null
+  readyForShipment?: boolean
   userId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -364,6 +504,16 @@ export type OrderUpdateInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orderConfirmedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
@@ -379,6 +529,16 @@ export type OrderUncheckedUpdateInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orderConfirmedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -394,6 +554,16 @@ export type OrderCreateManyInput = {
   totalAmount?: number
   notes?: string | null
   factoryAlert?: string | null
+  storeRegion?: $Enums.AdminRegion | null
+  packagingWorker?: $Enums.PackagingWorker | null
+  orderConfirmedAt?: Date | string | null
+  orderConfirmedBy?: string | null
+  paymentDone?: boolean
+  paymentAuthor?: string | null
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: string | null
+  readyForShipment?: boolean
   userId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -405,6 +575,16 @@ export type OrderUpdateManyMutationInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orderConfirmedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -416,6 +596,16 @@ export type OrderUncheckedUpdateManyInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orderConfirmedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -438,6 +628,16 @@ export type OrderCountOrderByAggregateInput = {
   totalAmount?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   factoryAlert?: Prisma.SortOrder
+  storeRegion?: Prisma.SortOrder
+  packagingWorker?: Prisma.SortOrder
+  orderConfirmedAt?: Prisma.SortOrder
+  orderConfirmedBy?: Prisma.SortOrder
+  paymentDone?: Prisma.SortOrder
+  paymentAuthor?: Prisma.SortOrder
+  greetingDone?: Prisma.SortOrder
+  slipDone?: Prisma.SortOrder
+  slipAuthor?: Prisma.SortOrder
+  readyForShipment?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -456,6 +656,16 @@ export type OrderMaxOrderByAggregateInput = {
   totalAmount?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   factoryAlert?: Prisma.SortOrder
+  storeRegion?: Prisma.SortOrder
+  packagingWorker?: Prisma.SortOrder
+  orderConfirmedAt?: Prisma.SortOrder
+  orderConfirmedBy?: Prisma.SortOrder
+  paymentDone?: Prisma.SortOrder
+  paymentAuthor?: Prisma.SortOrder
+  greetingDone?: Prisma.SortOrder
+  slipDone?: Prisma.SortOrder
+  slipAuthor?: Prisma.SortOrder
+  readyForShipment?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -468,6 +678,16 @@ export type OrderMinOrderByAggregateInput = {
   totalAmount?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   factoryAlert?: Prisma.SortOrder
+  storeRegion?: Prisma.SortOrder
+  packagingWorker?: Prisma.SortOrder
+  orderConfirmedAt?: Prisma.SortOrder
+  orderConfirmedBy?: Prisma.SortOrder
+  paymentDone?: Prisma.SortOrder
+  paymentAuthor?: Prisma.SortOrder
+  greetingDone?: Prisma.SortOrder
+  slipDone?: Prisma.SortOrder
+  slipAuthor?: Prisma.SortOrder
+  readyForShipment?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -543,6 +763,14 @@ export type FloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type NullableEnumPackagingWorkerFieldUpdateOperationsInput = {
+  set?: $Enums.PackagingWorker | null
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type OrderCreateNestedOneWithoutShipmentInput = {
   create?: Prisma.XOR<Prisma.OrderCreateWithoutShipmentInput, Prisma.OrderUncheckedCreateWithoutShipmentInput>
   connectOrCreate?: Prisma.OrderCreateOrConnectWithoutShipmentInput
@@ -593,6 +821,16 @@ export type OrderCreateWithoutUserInput = {
   totalAmount?: number
   notes?: string | null
   factoryAlert?: string | null
+  storeRegion?: $Enums.AdminRegion | null
+  packagingWorker?: $Enums.PackagingWorker | null
+  orderConfirmedAt?: Date | string | null
+  orderConfirmedBy?: string | null
+  paymentDone?: boolean
+  paymentAuthor?: string | null
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: string | null
+  readyForShipment?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
@@ -607,6 +845,16 @@ export type OrderUncheckedCreateWithoutUserInput = {
   totalAmount?: number
   notes?: string | null
   factoryAlert?: string | null
+  storeRegion?: $Enums.AdminRegion | null
+  packagingWorker?: $Enums.PackagingWorker | null
+  orderConfirmedAt?: Date | string | null
+  orderConfirmedBy?: string | null
+  paymentDone?: boolean
+  paymentAuthor?: string | null
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: string | null
+  readyForShipment?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
@@ -650,6 +898,16 @@ export type OrderScalarWhereInput = {
   totalAmount?: Prisma.FloatFilter<"Order"> | number
   notes?: Prisma.StringNullableFilter<"Order"> | string | null
   factoryAlert?: Prisma.StringNullableFilter<"Order"> | string | null
+  storeRegion?: Prisma.EnumAdminRegionNullableFilter<"Order"> | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.EnumPackagingWorkerNullableFilter<"Order"> | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  orderConfirmedBy?: Prisma.StringNullableFilter<"Order"> | string | null
+  paymentDone?: Prisma.BoolFilter<"Order"> | boolean
+  paymentAuthor?: Prisma.StringNullableFilter<"Order"> | string | null
+  greetingDone?: Prisma.BoolFilter<"Order"> | boolean
+  slipDone?: Prisma.BoolFilter<"Order"> | boolean
+  slipAuthor?: Prisma.StringNullableFilter<"Order"> | string | null
+  readyForShipment?: Prisma.BoolFilter<"Order"> | boolean
   userId?: Prisma.IntFilter<"Order"> | number
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
@@ -661,6 +919,16 @@ export type OrderCreateWithoutShipmentInput = {
   totalAmount?: number
   notes?: string | null
   factoryAlert?: string | null
+  storeRegion?: $Enums.AdminRegion | null
+  packagingWorker?: $Enums.PackagingWorker | null
+  orderConfirmedAt?: Date | string | null
+  orderConfirmedBy?: string | null
+  paymentDone?: boolean
+  paymentAuthor?: string | null
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: string | null
+  readyForShipment?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutOrdersInput
@@ -675,6 +943,16 @@ export type OrderUncheckedCreateWithoutShipmentInput = {
   totalAmount?: number
   notes?: string | null
   factoryAlert?: string | null
+  storeRegion?: $Enums.AdminRegion | null
+  packagingWorker?: $Enums.PackagingWorker | null
+  orderConfirmedAt?: Date | string | null
+  orderConfirmedBy?: string | null
+  paymentDone?: boolean
+  paymentAuthor?: string | null
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: string | null
+  readyForShipment?: boolean
   userId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -704,6 +982,16 @@ export type OrderUpdateWithoutShipmentInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orderConfirmedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
@@ -718,6 +1006,16 @@ export type OrderUncheckedUpdateWithoutShipmentInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orderConfirmedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -731,6 +1029,16 @@ export type OrderCreateWithoutItemsInput = {
   totalAmount?: number
   notes?: string | null
   factoryAlert?: string | null
+  storeRegion?: $Enums.AdminRegion | null
+  packagingWorker?: $Enums.PackagingWorker | null
+  orderConfirmedAt?: Date | string | null
+  orderConfirmedBy?: string | null
+  paymentDone?: boolean
+  paymentAuthor?: string | null
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: string | null
+  readyForShipment?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutOrdersInput
@@ -745,6 +1053,16 @@ export type OrderUncheckedCreateWithoutItemsInput = {
   totalAmount?: number
   notes?: string | null
   factoryAlert?: string | null
+  storeRegion?: $Enums.AdminRegion | null
+  packagingWorker?: $Enums.PackagingWorker | null
+  orderConfirmedAt?: Date | string | null
+  orderConfirmedBy?: string | null
+  paymentDone?: boolean
+  paymentAuthor?: string | null
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: string | null
+  readyForShipment?: boolean
   userId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -774,6 +1092,16 @@ export type OrderUpdateWithoutItemsInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orderConfirmedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
@@ -788,6 +1116,16 @@ export type OrderUncheckedUpdateWithoutItemsInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orderConfirmedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -801,6 +1139,16 @@ export type OrderCreateWithoutGreetingFormsInput = {
   totalAmount?: number
   notes?: string | null
   factoryAlert?: string | null
+  storeRegion?: $Enums.AdminRegion | null
+  packagingWorker?: $Enums.PackagingWorker | null
+  orderConfirmedAt?: Date | string | null
+  orderConfirmedBy?: string | null
+  paymentDone?: boolean
+  paymentAuthor?: string | null
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: string | null
+  readyForShipment?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutOrdersInput
@@ -815,6 +1163,16 @@ export type OrderUncheckedCreateWithoutGreetingFormsInput = {
   totalAmount?: number
   notes?: string | null
   factoryAlert?: string | null
+  storeRegion?: $Enums.AdminRegion | null
+  packagingWorker?: $Enums.PackagingWorker | null
+  orderConfirmedAt?: Date | string | null
+  orderConfirmedBy?: string | null
+  paymentDone?: boolean
+  paymentAuthor?: string | null
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: string | null
+  readyForShipment?: boolean
   userId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -844,6 +1202,16 @@ export type OrderUpdateWithoutGreetingFormsInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orderConfirmedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
@@ -858,6 +1226,16 @@ export type OrderUncheckedUpdateWithoutGreetingFormsInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orderConfirmedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -872,6 +1250,16 @@ export type OrderCreateManyUserInput = {
   totalAmount?: number
   notes?: string | null
   factoryAlert?: string | null
+  storeRegion?: $Enums.AdminRegion | null
+  packagingWorker?: $Enums.PackagingWorker | null
+  orderConfirmedAt?: Date | string | null
+  orderConfirmedBy?: string | null
+  paymentDone?: boolean
+  paymentAuthor?: string | null
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: string | null
+  readyForShipment?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -882,6 +1270,16 @@ export type OrderUpdateWithoutUserInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orderConfirmedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
@@ -896,6 +1294,16 @@ export type OrderUncheckedUpdateWithoutUserInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orderConfirmedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
@@ -910,6 +1318,16 @@ export type OrderUncheckedUpdateManyWithoutUserInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orderConfirmedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -961,6 +1379,16 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   totalAmount?: boolean
   notes?: boolean
   factoryAlert?: boolean
+  storeRegion?: boolean
+  packagingWorker?: boolean
+  orderConfirmedAt?: boolean
+  orderConfirmedBy?: boolean
+  paymentDone?: boolean
+  paymentAuthor?: boolean
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: boolean
+  readyForShipment?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -978,6 +1406,16 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   totalAmount?: boolean
   notes?: boolean
   factoryAlert?: boolean
+  storeRegion?: boolean
+  packagingWorker?: boolean
+  orderConfirmedAt?: boolean
+  orderConfirmedBy?: boolean
+  paymentDone?: boolean
+  paymentAuthor?: boolean
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: boolean
+  readyForShipment?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -991,6 +1429,16 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   totalAmount?: boolean
   notes?: boolean
   factoryAlert?: boolean
+  storeRegion?: boolean
+  packagingWorker?: boolean
+  orderConfirmedAt?: boolean
+  orderConfirmedBy?: boolean
+  paymentDone?: boolean
+  paymentAuthor?: boolean
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: boolean
+  readyForShipment?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1004,12 +1452,22 @@ export type OrderSelectScalar = {
   totalAmount?: boolean
   notes?: boolean
   factoryAlert?: boolean
+  storeRegion?: boolean
+  packagingWorker?: boolean
+  orderConfirmedAt?: boolean
+  orderConfirmedBy?: boolean
+  paymentDone?: boolean
+  paymentAuthor?: boolean
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: boolean
+  readyForShipment?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "status" | "totalAmount" | "notes" | "factoryAlert" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "status" | "totalAmount" | "notes" | "factoryAlert" | "storeRegion" | "packagingWorker" | "orderConfirmedAt" | "orderConfirmedBy" | "paymentDone" | "paymentAuthor" | "greetingDone" | "slipDone" | "slipAuthor" | "readyForShipment" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   items?: boolean | Prisma.Order$itemsArgs<ExtArgs>
@@ -1042,6 +1500,25 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
      * * 공장 화면 알림 (예: 주문서 변경요청발생!). 확인 후 null
      */
     factoryAlert: string | null
+    /**
+     * * 주문 작업 매장 지역 (남부/중부/서부)
+     */
+    storeRegion: $Enums.AdminRegion | null
+    /**
+     * * 택배 작업 위치: 매장 | 공장
+     */
+    packagingWorker: $Enums.PackagingWorker | null
+    orderConfirmedAt: Date | null
+    orderConfirmedBy: string | null
+    paymentDone: boolean
+    paymentAuthor: string | null
+    greetingDone: boolean
+    slipDone: boolean
+    slipAuthor: string | null
+    /**
+     * * 작업자+확인+결제+인사장+기표지 충족 시 true → 배송관리 후보
+     */
+    readyForShipment: boolean
     userId: number
     createdAt: Date
     updatedAt: Date
@@ -1478,6 +1955,16 @@ export interface OrderFieldRefs {
   readonly totalAmount: Prisma.FieldRef<"Order", 'Float'>
   readonly notes: Prisma.FieldRef<"Order", 'String'>
   readonly factoryAlert: Prisma.FieldRef<"Order", 'String'>
+  readonly storeRegion: Prisma.FieldRef<"Order", 'AdminRegion'>
+  readonly packagingWorker: Prisma.FieldRef<"Order", 'PackagingWorker'>
+  readonly orderConfirmedAt: Prisma.FieldRef<"Order", 'DateTime'>
+  readonly orderConfirmedBy: Prisma.FieldRef<"Order", 'String'>
+  readonly paymentDone: Prisma.FieldRef<"Order", 'Boolean'>
+  readonly paymentAuthor: Prisma.FieldRef<"Order", 'String'>
+  readonly greetingDone: Prisma.FieldRef<"Order", 'Boolean'>
+  readonly slipDone: Prisma.FieldRef<"Order", 'Boolean'>
+  readonly slipAuthor: Prisma.FieldRef<"Order", 'String'>
+  readonly readyForShipment: Prisma.FieldRef<"Order", 'Boolean'>
   readonly userId: Prisma.FieldRef<"Order", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Order", 'DateTime'>

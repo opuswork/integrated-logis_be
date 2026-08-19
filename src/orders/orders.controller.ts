@@ -30,6 +30,7 @@ import type { AuthUserPayload } from '../auth/jwt.strategy';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { DeliveryActionDto } from './dto/delivery-action.dto';
+import { UpdateAdminChecklistDto } from './dto/update-admin-checklist.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { OrdersService } from './orders.service';
 
@@ -120,10 +121,41 @@ export class OrdersController {
     );
   }
 
+  @Get('admin-activities')
+  @ApiOperation({ summary: '관리자 액션 알림 목록' })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  listAdminActivities(
+    @CurrentUser() user: AuthUserPayload,
+    @Query('limit') limit?: string,
+  ) {
+    if (user.role !== 'admin' && user.role !== 'factory') {
+      return [];
+    }
+    const parsed = limit ? Number(limit) : 50;
+    return this.ordersService.listAdminActivities(
+      Number.isFinite(parsed) ? parsed : 50,
+    );
+  }
+
   @Get(':id')
   @ApiOperation({ summary: '주문 상세' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.ordersService.findOne(id);
+  }
+
+  @Patch(':id/admin-checklist')
+  @ApiOperation({
+    summary: '관리자 주문 체크리스트 저장',
+    description:
+      'confirm | worker | payment | greeting | slip. 관할 지역 검증 및 readyForShipment 재계산.',
+  })
+  @ApiOkResponse({ description: '갱신된 주문' })
+  updateAdminChecklist(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: UpdateAdminChecklistDto,
+    @CurrentUser() user: AuthUserPayload,
+  ) {
+    return this.ordersService.updateAdminChecklist(id, body, user);
   }
 
   @Patch(':id/delivery-action')
