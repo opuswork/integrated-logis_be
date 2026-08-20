@@ -322,7 +322,12 @@ export class OrdersService {
       const isAdmin = actor.role === 'admin';
       const isOwner = actor.id === existing.userId;
       if (!isAdmin && !isOwner) {
-        throw new ForbiddenException('본인 또는 관리자만 주문을 수정할 수 있습니다.');
+        throw new ForbiddenException(
+          '본인 또는 관리자만 주문을 수정할 수 있습니다.',
+        );
+      }
+      if (isAdmin) {
+        this.assertCanMutateOrderRegion(existing, actor);
       }
     }
 
@@ -411,11 +416,11 @@ export class OrdersService {
     if (actor.role === 'admin' && actor.isSuperAdmin) {
       return;
     }
-    if (actor.role === 'factory') {
-      return;
-    }
     if (actor.role === 'admin' && actor.adminRegion) {
-      if (order.storeRegion && order.storeRegion !== actor.adminRegion) {
+      if (
+        !order.storeRegion ||
+        order.storeRegion !== actor.adminRegion
+      ) {
         throw new ForbiddenException(
           '관할 지역이 아닌 주문은 수정할 수 없습니다.',
         );
@@ -423,6 +428,26 @@ export class OrdersService {
       return;
     }
     throw new ForbiddenException('이 주문을 수정할 권한이 없습니다.');
+  }
+
+  private assertCanWriteShipmentOps(
+    actor: AuthUserPayload,
+    canApproveGreeting: boolean,
+  ) {
+    if (canApproveGreeting) {
+      throw new ForbiddenException(
+        'Factory-G는 인사장완료만 처리할 수 있습니다.',
+      );
+    }
+    if (actor.role === 'factory') {
+      return;
+    }
+    if (actor.role === 'admin' && actor.isSuperAdmin) {
+      return;
+    }
+    throw new ForbiddenException(
+      '배송·출고·포장 처리는 공장관리자(또는 최고관리자)만 가능합니다.',
+    );
   }
 
   private computeReadyForShipment(order: {
@@ -490,14 +515,6 @@ export class OrdersService {
     };
   }
 
-  private assertStaffActor(actor: AuthUserPayload) {
-    if (actor.role !== 'admin' && actor.role !== 'factory') {
-      throw new ForbiddenException(
-        '관리자(매장·공장)만 처리할 수 있습니다.',
-      );
-    }
-  }
-
   listAdminActivities(limit = 50) {
     return this.prisma.adminActivity.findMany({
       orderBy: { createdAt: 'desc' },
@@ -523,7 +540,17 @@ export class OrdersService {
         );
       }
     } else {
-      this.assertStaffActor(actor);
+      if (canApproveGreeting) {
+        throw new ForbiddenException(
+          'Factory-G는 인사장완료만 처리할 수 있습니다.',
+        );
+      }
+      if (actor.role !== 'admin') {
+        throw new ForbiddenException(
+          '주문 체크리스트는 매장 관리자만 처리할 수 있습니다.',
+        );
+      }
+      this.assertCanMutateOrderRegion(order, actor);
     }
 
     if (order.status === OrderStatus.CANCELLED) {
@@ -659,7 +686,8 @@ export class OrdersService {
       throw new BadRequestException('취소된 주문은 수정할 수 없습니다.');
     }
 
-    const { name: actorName } = await this.resolveActorDisplayName(actor);
+    const { name: actorName, canApproveGreeting } =
+      await this.resolveActorDisplayName(actor);
     const regionPrefix = `${regionLabel(actor.adminRegion)}매장 관리자`;
     const now = new Date();
     const data: Prisma.OrderUpdateInput = {};
@@ -667,8 +695,9 @@ export class OrdersService {
     let summarySuffix: string;
     const parcel = this.isParcelOrder(order);
 
+    this.assertCanWriteShipmentOps(actor, canApproveGreeting);
+
     if (dto.action === 'setShipDate') {
-      this.assertStaffActor(actor);
       if (!dto.shipDate) {
         throw new BadRequestException('출고요청일을 선택해 주세요.');
       }
@@ -682,7 +711,6 @@ export class OrdersService {
       activityAction = AdminActivityAction.SHIP_DATE_SAVE;
       summarySuffix = `출고요청일 ${dto.shipDate} 저장`;
     } else if (dto.action === 'setPackDept') {
-      this.assertStaffActor(actor);
       if (!dto.packDept) {
         throw new BadRequestException('포장구분을 선택해 주세요.');
       }
@@ -698,7 +726,6 @@ export class OrdersService {
       activityAction = AdminActivityAction.PACK_DEPT_SAVE;
       summarySuffix = `포장구분 ${dto.packDept === 'SOCK_PACK' ? '양말부포장' : '공장포장'} 저장`;
     } else if (dto.action === 'completePack') {
-      this.assertStaffActor(actor);
       if (!order.packDept) {
         throw new BadRequestException('포장구분을 먼저 저장해 주세요.');
       }
@@ -723,7 +750,6 @@ export class OrdersService {
       activityAction = AdminActivityAction.PACK_COMPLETE;
       summarySuffix = `포장완료 PT=${pt} / ${dto.packDate}`;
     } else if (dto.action === 'completeRelease') {
-      this.assertStaffActor(actor);
       if (!order.packDone) {
         throw new BadRequestException(
           '포장이 완료되지 않아 출고완료할 수 없습니다.',
@@ -744,7 +770,6 @@ export class OrdersService {
         ? '출고완료 → 발송대기'
         : '출고완료 (상차)';
     } else if (dto.action === 'finalComplete') {
-      this.assertStaffActor(actor);
       if (!order.releaseDone) {
         throw new BadRequestException(
           '출고완료 후에만 최종완료할 수 있습니다.',
@@ -762,7 +787,6 @@ export class OrdersService {
       activityAction = AdminActivityAction.FINAL_COMPLETE;
       summarySuffix = '최종완료 → 발송완료';
     } else if (dto.action === 'finalConfirm') {
-      this.assertStaffActor(actor);
       if (!parcel) {
         throw new BadRequestException('상차 주문은 최종확인이 없습니다.');
       }
@@ -852,6 +876,9 @@ export class OrdersService {
           '본인 또는 관리자만 주문서를 취소할 수 있습니다.',
         );
       }
+      if (isAdmin) {
+        this.assertCanMutateOrderRegion(order, actor);
+      }
       if (!this.canCancelOrderStatus(order.status)) {
         throw new BadRequestException(
           '주문서 취소는 배송중 이전 상태에서만 가능합니다.',
@@ -925,6 +952,8 @@ export class OrdersService {
     if (!isAdmin) {
       throw new ForbiddenException('관리자만 처리할 수 있습니다.');
     }
+
+    this.assertCanMutateOrderRegion(order, actor);
 
     switch (action) {
       case 'ADMIN_APPROVE': {
