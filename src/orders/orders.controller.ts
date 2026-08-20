@@ -155,7 +155,7 @@ export class OrdersController {
   @ApiOperation({
     summary: '관리자 주문 체크리스트 저장',
     description:
-      'confirm | worker | payment | greeting | slip. 관할 지역 검증 및 readyForShipment 재계산.',
+      'confirm | worker | payment | greeting | slip. 매장 관리자(자지역)만 비-greeting 처리. greeting은 Factory-G만. readyForShipment 재계산.',
   })
   @ApiOkResponse({ description: '갱신된 주문' })
   updateAdminChecklist(
@@ -170,7 +170,7 @@ export class OrdersController {
   @ApiOperation({
     summary: '배송·출고·포장 운영 액션',
     description:
-      'setShipDate | setPackDept | completePack | completeRelease | finalComplete | finalConfirm',
+      'setShipDate | setPackDept | completePack | completeRelease | finalComplete | finalConfirm. 공장관리자(비-G) 및 최고관리자만.',
   })
   @ApiOkResponse({ description: '갱신된 주문' })
   updateShipmentOps(
