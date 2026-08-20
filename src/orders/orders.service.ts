@@ -472,12 +472,25 @@ export class OrdersService {
   private async resolveActorDisplayName(actor: AuthUserPayload) {
     const user = await this.prisma.user.findUnique({
       where: { id: actor.id },
-      select: { fullname: true, username: true, canApproveGreeting: true },
+      select: {
+        fullname: true,
+        username: true,
+        canApproveGreeting: true,
+      },
     });
+    const username = user?.username ?? actor.username;
     return {
-      name: user?.fullname?.trim() || user?.username || actor.username,
-      canApproveGreeting: user?.canApproveGreeting === true,
+      name: user?.fullname?.trim() || username || actor.username,
+      username,
+      canApproveGreeting:
+        user?.canApproveGreeting === true || username === '01029647088',
     };
+  }
+
+  private assertStaffActor(actor: AuthUserPayload) {
+    if (actor.role !== 'admin' && actor.role !== 'factory') {
+      throw new ForbiddenException({ error: 'Forbidden' });
+    }
   }
 
   listAdminActivities(limit = 50) {
@@ -501,13 +514,11 @@ export class OrdersService {
     if (dto.action === 'greeting') {
       if (actor.role !== 'factory' || !canApproveGreeting) {
         throw new ForbiddenException(
-          '인사장완료는 Factory-G(인사장 승인) 계정만 저장할 수 있습니다.',
+          '인사장완료는 Factory-G(01029647088) 계정만 확인할 수 있습니다.',
         );
       }
-    } else if (actor.role === 'admin') {
-      this.assertCanMutateOrderRegion(order, actor);
     } else {
-      throw new ForbiddenException({ error: 'Forbidden' });
+      this.assertStaffActor(actor);
     }
 
     if (order.status === OrderStatus.CANCELLED) {
@@ -652,10 +663,7 @@ export class OrdersService {
     const parcel = this.isParcelOrder(order);
 
     if (dto.action === 'setShipDate') {
-      if (actor.role !== 'admin') {
-        throw new ForbiddenException({ error: 'Forbidden' });
-      }
-      this.assertCanMutateOrderRegion(order, actor);
+      this.assertStaffActor(actor);
       if (!dto.shipDate) {
         throw new BadRequestException('출고요청일을 선택해 주세요.');
       }
@@ -669,10 +677,7 @@ export class OrdersService {
       activityAction = AdminActivityAction.SHIP_DATE_SAVE;
       summarySuffix = `출고요청일 ${dto.shipDate} 저장`;
     } else if (dto.action === 'setPackDept') {
-      if (actor.role !== 'admin') {
-        throw new ForbiddenException({ error: 'Forbidden' });
-      }
-      this.assertCanMutateOrderRegion(order, actor);
+      this.assertStaffActor(actor);
       if (!dto.packDept) {
         throw new BadRequestException('포장구분을 선택해 주세요.');
       }
@@ -688,10 +693,7 @@ export class OrdersService {
       activityAction = AdminActivityAction.PACK_DEPT_SAVE;
       summarySuffix = `포장구분 ${dto.packDept === 'SOCK_PACK' ? '양말부포장' : '공장포장'} 저장`;
     } else if (dto.action === 'completePack') {
-      if (actor.role !== 'admin') {
-        throw new ForbiddenException({ error: 'Forbidden' });
-      }
-      this.assertCanMutateOrderRegion(order, actor);
+      this.assertStaffActor(actor);
       if (!order.packDept) {
         throw new BadRequestException('포장구분을 먼저 저장해 주세요.');
       }
@@ -716,11 +718,7 @@ export class OrdersService {
       activityAction = AdminActivityAction.PACK_COMPLETE;
       summarySuffix = `포장완료 PT=${pt} / ${dto.packDate}`;
     } else if (dto.action === 'completeRelease') {
-      if (actor.role !== 'factory') {
-        throw new ForbiddenException(
-          '출고완료는 공장 계정만 처리할 수 있습니다.',
-        );
-      }
+      this.assertStaffActor(actor);
       if (!order.packDone) {
         throw new BadRequestException(
           '포장이 완료되지 않아 출고완료할 수 없습니다.',
@@ -741,10 +739,7 @@ export class OrdersService {
         ? '출고완료 → 발송대기'
         : '출고완료 (상차)';
     } else if (dto.action === 'finalComplete') {
-      if (actor.role !== 'admin') {
-        throw new ForbiddenException({ error: 'Forbidden' });
-      }
-      this.assertCanMutateOrderRegion(order, actor);
+      this.assertStaffActor(actor);
       if (!order.releaseDone) {
         throw new BadRequestException(
           '출고완료 후에만 최종완료할 수 있습니다.',
@@ -762,12 +757,7 @@ export class OrdersService {
       activityAction = AdminActivityAction.FINAL_COMPLETE;
       summarySuffix = '최종완료 → 발송완료';
     } else if (dto.action === 'finalConfirm') {
-      // 출고관리의 최종확인 (택배만) — 공장
-      if (actor.role !== 'factory') {
-        throw new ForbiddenException(
-          '최종확인은 공장 계정만 처리할 수 있습니다.',
-        );
-      }
+      this.assertStaffActor(actor);
       if (!parcel) {
         throw new BadRequestException('상차 주문은 최종확인이 없습니다.');
       }

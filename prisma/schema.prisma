@@ -50,7 +50,7 @@ model User {
 
   role         Role          @default(MEMBER)
   adminRegion  AdminRegion?  // ADMIN일 때만 사용. null이면 Super admin
-  /** Factory-G: 인사장완료 승인 가능 (username 0102964708) */
+  /** Factory-G: 인사장완료 승인 가능 (username 01029647088) */
   canApproveGreeting Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
