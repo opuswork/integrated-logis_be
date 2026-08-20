@@ -322,7 +322,7 @@ export class OrdersService {
       const isAdmin = actor.role === 'admin';
       const isOwner = actor.id === existing.userId;
       if (!isAdmin && !isOwner) {
-        throw new ForbiddenException({ error: 'Forbidden' });
+        throw new ForbiddenException('본인 또는 관리자만 주문을 수정할 수 있습니다.');
       }
     }
 
@@ -411,6 +411,9 @@ export class OrdersService {
     if (actor.role === 'admin' && actor.isSuperAdmin) {
       return;
     }
+    if (actor.role === 'factory') {
+      return;
+    }
     if (actor.role === 'admin' && actor.adminRegion) {
       if (order.storeRegion && order.storeRegion !== actor.adminRegion) {
         throw new ForbiddenException(
@@ -419,7 +422,7 @@ export class OrdersService {
       }
       return;
     }
-    throw new ForbiddenException({ error: 'Forbidden' });
+    throw new ForbiddenException('이 주문을 수정할 권한이 없습니다.');
   }
 
   private computeReadyForShipment(order: {
@@ -489,7 +492,9 @@ export class OrdersService {
 
   private assertStaffActor(actor: AuthUserPayload) {
     if (actor.role !== 'admin' && actor.role !== 'factory') {
-      throw new ForbiddenException({ error: 'Forbidden' });
+      throw new ForbiddenException(
+        '관리자(매장·공장)만 처리할 수 있습니다.',
+      );
     }
   }
 
@@ -800,7 +805,9 @@ export class OrdersService {
 
   async clearFactoryAlert(id: number, actor: AuthUserPayload) {
     if (actor.role !== 'factory' && actor.role !== 'admin') {
-      throw new ForbiddenException({ error: 'Forbidden' });
+      throw new ForbiddenException(
+        '관리자(매장·공장)만 처리할 수 있습니다.',
+      );
     }
     await this.findOne(id);
     return this.prisma.order.update({
@@ -822,7 +829,9 @@ export class OrdersService {
 
     if (action === 'MEMBER_RECEIVE') {
       if (!isOwner && !isAdmin) {
-        throw new ForbiddenException({ error: 'Forbidden' });
+        throw new ForbiddenException(
+          '본인 또는 관리자만 상품수령할 수 있습니다.',
+        );
       }
       if (order.status !== OrderStatus.SHIPPING) {
         throw new BadRequestException(
@@ -839,7 +848,9 @@ export class OrdersService {
     // 회원(본인) 또는 관리자: 배송중 이전 주문서 취소
     if (action === 'CANCEL_ORDER') {
       if (!isOwner && !isAdmin) {
-        throw new ForbiddenException({ error: 'Forbidden' });
+        throw new ForbiddenException(
+          '본인 또는 관리자만 주문서를 취소할 수 있습니다.',
+        );
       }
       if (!this.canCancelOrderStatus(order.status)) {
         throw new BadRequestException(
@@ -862,7 +873,9 @@ export class OrdersService {
     // 공장: 상차완료 → 발송대기(PREPARED)
     if (action === 'FACTORY_PREPARE') {
       if (!isFactory) {
-        throw new ForbiddenException({ error: 'Forbidden' });
+        throw new ForbiddenException(
+          '공장 관리자만 상차완료할 수 있습니다.',
+        );
       }
       if (order.status !== OrderStatus.WAITING_FOR_SHIPMENT) {
         throw new BadRequestException(
@@ -879,7 +892,9 @@ export class OrdersService {
     // 공장: 배송시작 → 배송중(+ shippedAt)
     if (action === 'FACTORY_SHIP') {
       if (!isFactory) {
-        throw new ForbiddenException({ error: 'Forbidden' });
+        throw new ForbiddenException(
+          '공장 관리자만 배송시작할 수 있습니다.',
+        );
       }
       const canShip =
         order.status === OrderStatus.PREPARED ||
@@ -908,7 +923,7 @@ export class OrdersService {
     }
 
     if (!isAdmin) {
-      throw new ForbiddenException({ error: 'Forbidden' });
+      throw new ForbiddenException('관리자만 처리할 수 있습니다.');
     }
 
     switch (action) {
