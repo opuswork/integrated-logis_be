@@ -804,8 +804,23 @@ export class OrdersService {
         throw new BadRequestException('이미 최종확인된 주문입니다.');
       }
       data.finalConfirmDone = true;
+      data.status = OrderStatus.RECEIVED;
+      data.shipment = order.shipment
+        ? {
+            update: {
+              shippedAt: order.shipment.shippedAt ?? now,
+              deliveredAt: order.shipment.deliveredAt ?? now,
+            },
+          }
+        : {
+            create: {
+              fulfillmentType: 'PARCEL',
+              shippedAt: now,
+              deliveredAt: now,
+            },
+          };
       activityAction = AdminActivityAction.FINAL_CONFIRM;
-      summarySuffix = '최종확인 완료';
+      summarySuffix = '최종확인 → 배송완료';
     } else {
       throw new BadRequestException('지원하지 않는 액션입니다.');
     }
