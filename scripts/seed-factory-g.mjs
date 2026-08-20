@@ -1,6 +1,6 @@
 /**
  * Ensure Factory-G user (인사장완료 승인자).
- * username: 0102964708
+ * username: 01029647088
  *
  * Usage: node scripts/seed-factory-g.mjs
  */
@@ -8,7 +8,8 @@ import 'dotenv/config';
 import bcrypt from 'bcrypt';
 import pg from 'pg';
 
-const USERNAME = '0102964708';
+const USERNAME = '01029647088';
+const LEGACY_USERNAME = '0102964708';
 const DEFAULT_PASSWORD = process.env.SEED_FACTORY_G_PASS ?? 'factoryg1440';
 
 function buildPoolConfig(connectionString) {
@@ -36,6 +37,15 @@ async function main() {
 
   const pool = new pg.Pool(buildPoolConfig(connectionString));
   try {
+    // Clear legacy Factory-G flag on old username
+    await pool.query(
+      `UPDATE "User"
+       SET "canApproveGreeting" = false,
+           "updatedAt" = NOW()
+       WHERE username = $1`,
+      [LEGACY_USERNAME],
+    );
+
     const existing = await pool.query(
       `SELECT id, username, role FROM "User" WHERE username = $1`,
       [USERNAME],
@@ -64,6 +74,15 @@ async function main() {
       console.log(`Created Factory-G:`, inserted.rows[0]);
       console.log(`Default password: ${DEFAULT_PASSWORD}`);
     }
+
+    // Ensure no other user has greeting approval
+    await pool.query(
+      `UPDATE "User"
+       SET "canApproveGreeting" = false,
+           "updatedAt" = NOW()
+       WHERE username <> $1 AND "canApproveGreeting" = true`,
+      [USERNAME],
+    );
   } finally {
     await pool.end();
   }
