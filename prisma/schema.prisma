@@ -101,8 +101,25 @@ model Order {
   slipDone   Boolean @default(false)
   slipAuthor String?
 
-  /** 작업자+확인+결제+인사장+기표지 충족 시 true → 배송관리 후보 */
+  /** 작업자+확인+결제+인사장+기표지 충족 시 true → 배송/출고/포장 후보 */
   readyForShipment Boolean @default(false)
+
+  /** 배송관리: 출고요청일 */
+  requestedShipDate DateTime?
+  /** 포장구분: 공장포장 | 양말부포장 */
+  packDept PackDept?
+  packDate DateTime?
+  packPt String?
+  storagePlace String?
+  packDone Boolean @default(false)
+
+  /** 출고관리: 출고완료 */
+  releaseDone Boolean @default(false)
+  releaseDoneAt DateTime?
+
+  /** 배송관리: 최종완료 / 최종확인 */
+  finalCompleteDone Boolean @default(false)
+  finalConfirmDone Boolean @default(false)
 
   // Relations
   userId          Int
@@ -119,6 +136,8 @@ model Order {
   @@index([userId])
   @@index([storeRegion])
   @@index([readyForShipment])
+  @@index([requestedShipDate])
+  @@index([packDept])
 }
 
 /// 관리자 액션 알림 피드
@@ -256,12 +275,24 @@ enum PackagingWorker {
   FACTORY
 }
 
+/** 포장관리: 공장포장 | 양말부포장 */
+enum PackDept {
+  FACTORY_PACK
+  SOCK_PACK
+}
+
 enum AdminActivityAction {
   ORDER_CONFIRM
   WORKER_SAVE
   PAYMENT_SAVE
   GREETING_SAVE
   SLIP_SAVE
+  SHIP_DATE_SAVE
+  PACK_DEPT_SAVE
+  PACK_COMPLETE
+  RELEASE_COMPLETE
+  FINAL_COMPLETE
+  FINAL_CONFIRM
 }
 
 

@@ -1103,6 +1103,16 @@ export const OrderScalarFieldEnum = {
   slipDone: 'slipDone',
   slipAuthor: 'slipAuthor',
   readyForShipment: 'readyForShipment',
+  requestedShipDate: 'requestedShipDate',
+  packDept: 'packDept',
+  packDate: 'packDate',
+  packPt: 'packPt',
+  storagePlace: 'storagePlace',
+  packDone: 'packDone',
+  releaseDone: 'releaseDone',
+  releaseDoneAt: 'releaseDoneAt',
+  finalCompleteDone: 'finalCompleteDone',
+  finalConfirmDone: 'finalConfirmDone',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1354,6 +1364,20 @@ export type EnumPackagingWorkerFieldRefInput<$PrismaModel> = FieldRefInputType<$
  * Reference to a field of type 'PackagingWorker[]'
  */
 export type ListEnumPackagingWorkerFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PackagingWorker[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PackDept'
+ */
+export type EnumPackDeptFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PackDept'>
+    
+
+
+/**
+ * Reference to a field of type 'PackDept[]'
+ */
+export type ListEnumPackDeptFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PackDept[]'>
     
 
 
