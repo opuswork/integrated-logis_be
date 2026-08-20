@@ -268,15 +268,28 @@ export class OrdersService {
   }
 
   findAll(userId?: number, opts?: { readyForShipment?: boolean }) {
-    return this.prisma.order.findMany({
+    return this.healFinalConfirmedShippingOrders().then(() =>
+      this.prisma.order.findMany({
+        where: {
+          ...(userId !== undefined ? { userId } : {}),
+          ...(opts?.readyForShipment === true
+            ? { readyForShipment: true }
+            : {}),
+        },
+        include: orderInclude,
+        orderBy: { createdAt: 'desc' },
+      }),
+    );
+  }
+
+  /** 최종확인만 되고 status가 SHIPPING에 남은 건을 배송완료로 보정 */
+  private async healFinalConfirmedShippingOrders() {
+    await this.prisma.order.updateMany({
       where: {
-        ...(userId !== undefined ? { userId } : {}),
-        ...(opts?.readyForShipment === true
-          ? { readyForShipment: true }
-          : {}),
+        finalConfirmDone: true,
+        status: OrderStatus.SHIPPING,
       },
-      include: orderInclude,
-      orderBy: { createdAt: 'desc' },
+      data: { status: OrderStatus.RECEIVED },
     });
   }
 
@@ -784,13 +797,31 @@ export class OrdersService {
         throw new BadRequestException('이미 최종완료된 주문입니다.');
       }
       data.finalCompleteDone = true;
-      data.status = OrderStatus.SHIPPING;
       if (!parcel) {
-        // 상차: 최종확인도 함께 완료
+        // 상차: 최종확인도 함께 완료 → 배송완료
         data.finalConfirmDone = true;
+        data.status = OrderStatus.RECEIVED;
+        data.shipment = order.shipment
+          ? {
+              update: {
+                shippedAt: order.shipment.shippedAt ?? now,
+                deliveredAt: order.shipment.deliveredAt ?? now,
+              },
+            }
+          : {
+              create: {
+                fulfillmentType: 'PARCEL',
+                shippedAt: now,
+                deliveredAt: now,
+              },
+            };
+      } else {
+        data.status = OrderStatus.SHIPPING;
       }
       activityAction = AdminActivityAction.FINAL_COMPLETE;
-      summarySuffix = '최종완료 → 발송완료';
+      summarySuffix = parcel
+        ? '최종완료 → 배송중'
+        : '최종완료 → 배송완료';
     } else if (dto.action === 'finalConfirm') {
       if (!parcel) {
         throw new BadRequestException('상차 주문은 최종확인이 없습니다.');
@@ -801,6 +832,23 @@ export class OrdersService {
         );
       }
       if (order.finalConfirmDone) {
+        // 이미 확인됐지만 상태가 SHIPPING에 남은 경우 배송완료로 보정
+        if (order.status === OrderStatus.SHIPPING) {
+          return this.prisma.order.update({
+            where: { id },
+            data: {
+              status: OrderStatus.RECEIVED,
+              shipment: order.shipment
+                ? {
+                    update: {
+                      deliveredAt: order.shipment.deliveredAt ?? now,
+                    },
+                  }
+                : undefined,
+            },
+            include: orderInclude,
+          });
+        }
         throw new BadRequestException('이미 최종확인된 주문입니다.');
       }
       data.finalConfirmDone = true;
