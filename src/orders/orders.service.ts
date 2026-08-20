@@ -12,6 +12,7 @@ import {
   AdminRegion,
   FulfillmentType,
   OrderStatus,
+  PackDept,
   PackagingWorker,
   Prisma,
 } from '../generated/prisma/client';
@@ -22,6 +23,7 @@ import {
 } from './dto/create-order.dto';
 import type { DeliveryAction } from './dto/delivery-action.dto';
 import type { UpdateAdminChecklistDto } from './dto/update-admin-checklist.dto';
+import type { UpdateShipmentOpsDto } from './dto/update-shipment-ops.dto';
 import {
   buildOrderNotes,
   estimatedWindowIso,
@@ -265,9 +267,14 @@ export class OrdersService {
     return this.canEditOrderStatus(status);
   }
 
-  findAll(userId?: number) {
+  findAll(userId?: number, opts?: { readyForShipment?: boolean }) {
     return this.prisma.order.findMany({
-      where: userId !== undefined ? { userId } : undefined,
+      where: {
+        ...(userId !== undefined ? { userId } : {}),
+        ...(opts?.readyForShipment === true
+          ? { readyForShipment: true }
+          : {}),
+      },
       include: orderInclude,
       orderBy: { createdAt: 'desc' },
     });
@@ -533,51 +540,34 @@ export class OrdersService {
       activityAction = AdminActivityAction.WORKER_SAVE;
       summarySuffix = `작업자 ${dto.packagingWorker === 'STORE' ? '매장' : '공장'} 저장`;
     } else if (dto.action === 'payment') {
-      if (dto.done === undefined) {
-        throw new BadRequestException('결제완료 Y/N을 선택해 주세요.');
+      if (order.paymentDone) {
+        throw new BadRequestException('이미 결제완료가 확인되었습니다.');
       }
-      if (dto.done) {
-        const author = dto.author?.trim();
-        if (!author) {
-          throw new BadRequestException('결제완료 작성자를 입력해 주세요.');
-        }
-        data.paymentDone = true;
-        data.paymentAuthor = author;
-      } else {
-        data.paymentDone = false;
-        data.paymentAuthor = null;
-      }
+      data.paymentDone = true;
+      data.paymentAuthor = actorName;
       activityAction = AdminActivityAction.PAYMENT_SAVE;
-      summarySuffix = `결제완료 ${dto.done ? 'Y' : 'N'} 저장`;
+      summarySuffix = `결제완료 확인 (${actorName})`;
     } else if (dto.action === 'greeting') {
-      if (dto.done === undefined) {
-        throw new BadRequestException('인사장완료 Y/N을 선택해 주세요.');
+      if (order.greetingDone) {
+        throw new BadRequestException('이미 인사장완료가 확인되었습니다.');
       }
-      data.greetingDone = dto.done;
+      // Factory-G confirm = Y
+      data.greetingDone = true;
       activityAction = AdminActivityAction.GREETING_SAVE;
-      summarySuffix = `인사장완료 ${dto.done ? 'Y' : 'N'} 저장`;
+      summarySuffix = '인사장완료 확인';
     } else if (dto.action === 'slip') {
       if (order.shipment?.fulfillmentType !== FulfillmentType.PARCEL) {
         throw new BadRequestException(
           '기표지완료는 택배 주문에만 적용됩니다.',
         );
       }
-      if (dto.done === undefined) {
-        throw new BadRequestException('기표지완료 Y/N을 선택해 주세요.');
+      if (order.slipDone) {
+        throw new BadRequestException('이미 기표지완료가 확인되었습니다.');
       }
-      if (dto.done) {
-        const author = dto.author?.trim();
-        if (!author) {
-          throw new BadRequestException('기표지완료 작성자를 입력해 주세요.');
-        }
-        data.slipDone = true;
-        data.slipAuthor = author;
-      } else {
-        data.slipDone = false;
-        data.slipAuthor = null;
-      }
+      data.slipDone = true;
+      data.slipAuthor = actorName;
       activityAction = AdminActivityAction.SLIP_SAVE;
-      summarySuffix = `기표지완료 ${dto.done ? 'Y' : 'N'} 저장`;
+      summarySuffix = `기표지완료 확인 (${actorName})`;
     } else {
       throw new BadRequestException('지원하지 않는 액션입니다.');
     }
@@ -612,6 +602,210 @@ export class OrdersService {
     });
 
     return finalOrder;
+  }
+
+  private startOfTodayLocal() {
+    const d = new Date();
+    d.setHours(0, 0, 0, 0);
+    return d;
+  }
+
+  private parseDateOnly(value: string, label: string) {
+    const trimmed = value?.trim();
+    if (!trimmed || !/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
+      throw new BadRequestException(`${label} 형식이 올바르지 않습니다.`);
+    }
+    const date = new Date(`${trimmed}T00:00:00`);
+    if (Number.isNaN(date.getTime())) {
+      throw new BadRequestException(`${label} 형식이 올바르지 않습니다.`);
+    }
+    return date;
+  }
+
+  private isParcelOrder(order: {
+    shipment?: { fulfillmentType: FulfillmentType } | null;
+  }) {
+    return order.shipment?.fulfillmentType === FulfillmentType.PARCEL;
+  }
+
+  async updateShipmentOps(
+    id: number,
+    dto: UpdateShipmentOpsDto,
+    actor: AuthUserPayload,
+  ) {
+    const order = await this.findOne(id);
+    if (!order.readyForShipment) {
+      throw new BadRequestException(
+        '체크리스트가 완료되지 않은 주문입니다.',
+      );
+    }
+    if (order.status === OrderStatus.CANCELLED) {
+      throw new BadRequestException('취소된 주문은 수정할 수 없습니다.');
+    }
+
+    const { name: actorName } = await this.resolveActorDisplayName(actor);
+    const regionPrefix = `${regionLabel(actor.adminRegion)}매장 관리자`;
+    const now = new Date();
+    const data: Prisma.OrderUpdateInput = {};
+    let activityAction: AdminActivityAction;
+    let summarySuffix: string;
+    const parcel = this.isParcelOrder(order);
+
+    if (dto.action === 'setShipDate') {
+      if (actor.role !== 'admin') {
+        throw new ForbiddenException({ error: 'Forbidden' });
+      }
+      this.assertCanMutateOrderRegion(order, actor);
+      if (!dto.shipDate) {
+        throw new BadRequestException('출고요청일을 선택해 주세요.');
+      }
+      const shipDate = this.parseDateOnly(dto.shipDate, '출고요청일');
+      if (shipDate < this.startOfTodayLocal()) {
+        throw new BadRequestException(
+          '출고요청일은 오늘 이후만 선택할 수 있습니다.',
+        );
+      }
+      data.requestedShipDate = shipDate;
+      activityAction = AdminActivityAction.SHIP_DATE_SAVE;
+      summarySuffix = `출고요청일 ${dto.shipDate} 저장`;
+    } else if (dto.action === 'setPackDept') {
+      if (actor.role !== 'admin') {
+        throw new ForbiddenException({ error: 'Forbidden' });
+      }
+      this.assertCanMutateOrderRegion(order, actor);
+      if (!dto.packDept) {
+        throw new BadRequestException('포장구분을 선택해 주세요.');
+      }
+      if (order.packDone) {
+        throw new BadRequestException('이미 포장완료된 주문입니다.');
+      }
+      data.packDept =
+        dto.packDept === 'SOCK_PACK'
+          ? PackDept.SOCK_PACK
+          : PackDept.FACTORY_PACK;
+      data.storagePlace =
+        dto.packDept === 'SOCK_PACK' ? '양말' : '공장';
+      activityAction = AdminActivityAction.PACK_DEPT_SAVE;
+      summarySuffix = `포장구분 ${dto.packDept === 'SOCK_PACK' ? '양말부포장' : '공장포장'} 저장`;
+    } else if (dto.action === 'completePack') {
+      if (actor.role !== 'admin') {
+        throw new ForbiddenException({ error: 'Forbidden' });
+      }
+      this.assertCanMutateOrderRegion(order, actor);
+      if (!order.packDept) {
+        throw new BadRequestException('포장구분을 먼저 저장해 주세요.');
+      }
+      if (order.packDone) {
+        throw new BadRequestException('이미 포장완료된 주문입니다.');
+      }
+      const pt = dto.packPt?.trim();
+      if (!pt) {
+        throw new BadRequestException('PT를 입력해 주세요.');
+      }
+      if (!dto.packDate) {
+        throw new BadRequestException('포장완료일을 입력해 주세요.');
+      }
+      const packDate = this.parseDateOnly(dto.packDate, '포장완료일');
+      data.packPt = pt;
+      data.packDate = packDate;
+      data.packDone = true;
+      if (!order.storagePlace) {
+        data.storagePlace =
+          order.packDept === PackDept.SOCK_PACK ? '양말' : '공장';
+      }
+      activityAction = AdminActivityAction.PACK_COMPLETE;
+      summarySuffix = `포장완료 PT=${pt} / ${dto.packDate}`;
+    } else if (dto.action === 'completeRelease') {
+      if (actor.role !== 'factory') {
+        throw new ForbiddenException(
+          '출고완료는 공장 계정만 처리할 수 있습니다.',
+        );
+      }
+      if (!order.packDone) {
+        throw new BadRequestException(
+          '포장이 완료되지 않아 출고완료할 수 없습니다.',
+        );
+      }
+      if (order.releaseDone) {
+        throw new BadRequestException('이미 출고완료된 주문입니다.');
+      }
+      data.releaseDone = true;
+      data.releaseDoneAt = now;
+      if (parcel) {
+        // 택배: 발송대기 + 최종완료 활성 (최종확인은 아직 미완료)
+        data.status = OrderStatus.PREPARED;
+      }
+      // 상차: 상태 유지, 배송관리에서 최종완료만 활성화
+      activityAction = AdminActivityAction.RELEASE_COMPLETE;
+      summarySuffix = parcel
+        ? '출고완료 → 발송대기'
+        : '출고완료 (상차)';
+    } else if (dto.action === 'finalComplete') {
+      if (actor.role !== 'admin') {
+        throw new ForbiddenException({ error: 'Forbidden' });
+      }
+      this.assertCanMutateOrderRegion(order, actor);
+      if (!order.releaseDone) {
+        throw new BadRequestException(
+          '출고완료 후에만 최종완료할 수 있습니다.',
+        );
+      }
+      if (order.finalCompleteDone) {
+        throw new BadRequestException('이미 최종완료된 주문입니다.');
+      }
+      data.finalCompleteDone = true;
+      data.status = OrderStatus.SHIPPING;
+      if (!parcel) {
+        // 상차: 최종확인도 함께 완료
+        data.finalConfirmDone = true;
+      }
+      activityAction = AdminActivityAction.FINAL_COMPLETE;
+      summarySuffix = '최종완료 → 발송완료';
+    } else if (dto.action === 'finalConfirm') {
+      // 출고관리의 최종확인 (택배만) — 공장
+      if (actor.role !== 'factory') {
+        throw new ForbiddenException(
+          '최종확인은 공장 계정만 처리할 수 있습니다.',
+        );
+      }
+      if (!parcel) {
+        throw new BadRequestException('상차 주문은 최종확인이 없습니다.');
+      }
+      if (!order.finalCompleteDone) {
+        throw new BadRequestException(
+          '배송관리 최종완료 후에만 최종확인할 수 있습니다.',
+        );
+      }
+      if (order.finalConfirmDone) {
+        throw new BadRequestException('이미 최종확인된 주문입니다.');
+      }
+      data.finalConfirmDone = true;
+      activityAction = AdminActivityAction.FINAL_CONFIRM;
+      summarySuffix = '최종확인 완료';
+    } else {
+      throw new BadRequestException('지원하지 않는 액션입니다.');
+    }
+
+    const updated = await this.prisma.order.update({
+      where: { id },
+      data,
+      include: orderInclude,
+    });
+
+    const actorLabel =
+      actor.role === 'factory'
+        ? `공장관리자 ${actorName}님`
+        : `${regionPrefix} ${actorName}님`;
+    await this.logAdminActivity({
+      actor,
+      actorName,
+      action: activityAction,
+      orderId: id,
+      orderNumber: order.orderNumber,
+      summary: `${actorLabel}: 배송·출고/${order.orderNumber}-${summarySuffix} [${formatActivityTimestamp(now)}]`,
+    });
+
+    return updated;
   }
 
   async clearFactoryAlert(id: number, actor: AuthUserPayload) {

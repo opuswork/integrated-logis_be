@@ -29,14 +29,14 @@ export class UpdateAdminChecklistDto {
   packagingWorker?: 'STORE' | 'FACTORY';
 
   @ApiPropertyOptional({
-    description: 'payment/greeting/slip: true=Y, false=N',
+    description: 'payment/greeting/slip: (레거시) true=Y — confirm 액션은 done 없이 확정',
   })
   @IsOptional()
   @IsBoolean()
   done?: boolean;
 
   @ApiPropertyOptional({
-    description: '결제완료/기표지완료 작성자 (Y 저장 시 필수)',
+    description: '레거시 작성자 필드 — 서버가 로그인 사용자명으로 덮어씀',
   })
   @IsOptional()
   @IsString()

@@ -55,6 +55,16 @@ export type OrderMinAggregateOutputType = {
   slipDone: boolean | null
   slipAuthor: string | null
   readyForShipment: boolean | null
+  requestedShipDate: Date | null
+  packDept: $Enums.PackDept | null
+  packDate: Date | null
+  packPt: string | null
+  storagePlace: string | null
+  packDone: boolean | null
+  releaseDone: boolean | null
+  releaseDoneAt: Date | null
+  finalCompleteDone: boolean | null
+  finalConfirmDone: boolean | null
   userId: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -77,6 +87,16 @@ export type OrderMaxAggregateOutputType = {
   slipDone: boolean | null
   slipAuthor: string | null
   readyForShipment: boolean | null
+  requestedShipDate: Date | null
+  packDept: $Enums.PackDept | null
+  packDate: Date | null
+  packPt: string | null
+  storagePlace: string | null
+  packDone: boolean | null
+  releaseDone: boolean | null
+  releaseDoneAt: Date | null
+  finalCompleteDone: boolean | null
+  finalConfirmDone: boolean | null
   userId: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -99,6 +119,16 @@ export type OrderCountAggregateOutputType = {
   slipDone: number
   slipAuthor: number
   readyForShipment: number
+  requestedShipDate: number
+  packDept: number
+  packDate: number
+  packPt: number
+  storagePlace: number
+  packDone: number
+  releaseDone: number
+  releaseDoneAt: number
+  finalCompleteDone: number
+  finalConfirmDone: number
   userId: number
   createdAt: number
   updatedAt: number
@@ -135,6 +165,16 @@ export type OrderMinAggregateInputType = {
   slipDone?: true
   slipAuthor?: true
   readyForShipment?: true
+  requestedShipDate?: true
+  packDept?: true
+  packDate?: true
+  packPt?: true
+  storagePlace?: true
+  packDone?: true
+  releaseDone?: true
+  releaseDoneAt?: true
+  finalCompleteDone?: true
+  finalConfirmDone?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -157,6 +197,16 @@ export type OrderMaxAggregateInputType = {
   slipDone?: true
   slipAuthor?: true
   readyForShipment?: true
+  requestedShipDate?: true
+  packDept?: true
+  packDate?: true
+  packPt?: true
+  storagePlace?: true
+  packDone?: true
+  releaseDone?: true
+  releaseDoneAt?: true
+  finalCompleteDone?: true
+  finalConfirmDone?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -179,6 +229,16 @@ export type OrderCountAggregateInputType = {
   slipDone?: true
   slipAuthor?: true
   readyForShipment?: true
+  requestedShipDate?: true
+  packDept?: true
+  packDate?: true
+  packPt?: true
+  storagePlace?: true
+  packDone?: true
+  releaseDone?: true
+  releaseDoneAt?: true
+  finalCompleteDone?: true
+  finalConfirmDone?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -288,6 +348,16 @@ export type OrderGroupByOutputType = {
   slipDone: boolean
   slipAuthor: string | null
   readyForShipment: boolean
+  requestedShipDate: Date | null
+  packDept: $Enums.PackDept | null
+  packDate: Date | null
+  packPt: string | null
+  storagePlace: string | null
+  packDone: boolean
+  releaseDone: boolean
+  releaseDoneAt: Date | null
+  finalCompleteDone: boolean
+  finalConfirmDone: boolean
   userId: number
   createdAt: Date
   updatedAt: Date
@@ -333,6 +403,16 @@ export type OrderWhereInput = {
   slipDone?: Prisma.BoolFilter<"Order"> | boolean
   slipAuthor?: Prisma.StringNullableFilter<"Order"> | string | null
   readyForShipment?: Prisma.BoolFilter<"Order"> | boolean
+  requestedShipDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  packDept?: Prisma.EnumPackDeptNullableFilter<"Order"> | $Enums.PackDept | null
+  packDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  packPt?: Prisma.StringNullableFilter<"Order"> | string | null
+  storagePlace?: Prisma.StringNullableFilter<"Order"> | string | null
+  packDone?: Prisma.BoolFilter<"Order"> | boolean
+  releaseDone?: Prisma.BoolFilter<"Order"> | boolean
+  releaseDoneAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  finalCompleteDone?: Prisma.BoolFilter<"Order"> | boolean
+  finalConfirmDone?: Prisma.BoolFilter<"Order"> | boolean
   userId?: Prisma.IntFilter<"Order"> | number
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
@@ -359,6 +439,16 @@ export type OrderOrderByWithRelationInput = {
   slipDone?: Prisma.SortOrder
   slipAuthor?: Prisma.SortOrderInput | Prisma.SortOrder
   readyForShipment?: Prisma.SortOrder
+  requestedShipDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  packDept?: Prisma.SortOrderInput | Prisma.SortOrder
+  packDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  packPt?: Prisma.SortOrderInput | Prisma.SortOrder
+  storagePlace?: Prisma.SortOrderInput | Prisma.SortOrder
+  packDone?: Prisma.SortOrder
+  releaseDone?: Prisma.SortOrder
+  releaseDoneAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  finalCompleteDone?: Prisma.SortOrder
+  finalConfirmDone?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -388,6 +478,16 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   slipDone?: Prisma.BoolFilter<"Order"> | boolean
   slipAuthor?: Prisma.StringNullableFilter<"Order"> | string | null
   readyForShipment?: Prisma.BoolFilter<"Order"> | boolean
+  requestedShipDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  packDept?: Prisma.EnumPackDeptNullableFilter<"Order"> | $Enums.PackDept | null
+  packDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  packPt?: Prisma.StringNullableFilter<"Order"> | string | null
+  storagePlace?: Prisma.StringNullableFilter<"Order"> | string | null
+  packDone?: Prisma.BoolFilter<"Order"> | boolean
+  releaseDone?: Prisma.BoolFilter<"Order"> | boolean
+  releaseDoneAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  finalCompleteDone?: Prisma.BoolFilter<"Order"> | boolean
+  finalConfirmDone?: Prisma.BoolFilter<"Order"> | boolean
   userId?: Prisma.IntFilter<"Order"> | number
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
@@ -414,6 +514,16 @@ export type OrderOrderByWithAggregationInput = {
   slipDone?: Prisma.SortOrder
   slipAuthor?: Prisma.SortOrderInput | Prisma.SortOrder
   readyForShipment?: Prisma.SortOrder
+  requestedShipDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  packDept?: Prisma.SortOrderInput | Prisma.SortOrder
+  packDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  packPt?: Prisma.SortOrderInput | Prisma.SortOrder
+  storagePlace?: Prisma.SortOrderInput | Prisma.SortOrder
+  packDone?: Prisma.SortOrder
+  releaseDone?: Prisma.SortOrder
+  releaseDoneAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  finalCompleteDone?: Prisma.SortOrder
+  finalConfirmDone?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -444,6 +554,16 @@ export type OrderScalarWhereWithAggregatesInput = {
   slipDone?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
   slipAuthor?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   readyForShipment?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
+  requestedShipDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
+  packDept?: Prisma.EnumPackDeptNullableWithAggregatesFilter<"Order"> | $Enums.PackDept | null
+  packDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
+  packPt?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  storagePlace?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  packDone?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
+  releaseDone?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
+  releaseDoneAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
+  finalCompleteDone?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
+  finalConfirmDone?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
   userId?: Prisma.IntWithAggregatesFilter<"Order"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
@@ -465,6 +585,16 @@ export type OrderCreateInput = {
   slipDone?: boolean
   slipAuthor?: string | null
   readyForShipment?: boolean
+  requestedShipDate?: Date | string | null
+  packDept?: $Enums.PackDept | null
+  packDate?: Date | string | null
+  packPt?: string | null
+  storagePlace?: string | null
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: Date | string | null
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutOrdersInput
@@ -490,6 +620,16 @@ export type OrderUncheckedCreateInput = {
   slipDone?: boolean
   slipAuthor?: string | null
   readyForShipment?: boolean
+  requestedShipDate?: Date | string | null
+  packDept?: $Enums.PackDept | null
+  packDate?: Date | string | null
+  packPt?: string | null
+  storagePlace?: string | null
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: Date | string | null
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
   userId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -514,6 +654,16 @@ export type OrderUpdateInput = {
   slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requestedShipDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packDept?: Prisma.NullableEnumPackDeptFieldUpdateOperationsInput | $Enums.PackDept | null
+  packDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packPt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storagePlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDoneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  finalCompleteDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  finalConfirmDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
@@ -539,6 +689,16 @@ export type OrderUncheckedUpdateInput = {
   slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requestedShipDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packDept?: Prisma.NullableEnumPackDeptFieldUpdateOperationsInput | $Enums.PackDept | null
+  packDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packPt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storagePlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDoneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  finalCompleteDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  finalConfirmDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -564,6 +724,16 @@ export type OrderCreateManyInput = {
   slipDone?: boolean
   slipAuthor?: string | null
   readyForShipment?: boolean
+  requestedShipDate?: Date | string | null
+  packDept?: $Enums.PackDept | null
+  packDate?: Date | string | null
+  packPt?: string | null
+  storagePlace?: string | null
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: Date | string | null
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
   userId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -585,6 +755,16 @@ export type OrderUpdateManyMutationInput = {
   slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requestedShipDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packDept?: Prisma.NullableEnumPackDeptFieldUpdateOperationsInput | $Enums.PackDept | null
+  packDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packPt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storagePlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDoneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  finalCompleteDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  finalConfirmDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -606,6 +786,16 @@ export type OrderUncheckedUpdateManyInput = {
   slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requestedShipDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packDept?: Prisma.NullableEnumPackDeptFieldUpdateOperationsInput | $Enums.PackDept | null
+  packDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packPt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storagePlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDoneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  finalCompleteDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  finalConfirmDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -638,6 +828,16 @@ export type OrderCountOrderByAggregateInput = {
   slipDone?: Prisma.SortOrder
   slipAuthor?: Prisma.SortOrder
   readyForShipment?: Prisma.SortOrder
+  requestedShipDate?: Prisma.SortOrder
+  packDept?: Prisma.SortOrder
+  packDate?: Prisma.SortOrder
+  packPt?: Prisma.SortOrder
+  storagePlace?: Prisma.SortOrder
+  packDone?: Prisma.SortOrder
+  releaseDone?: Prisma.SortOrder
+  releaseDoneAt?: Prisma.SortOrder
+  finalCompleteDone?: Prisma.SortOrder
+  finalConfirmDone?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -666,6 +866,16 @@ export type OrderMaxOrderByAggregateInput = {
   slipDone?: Prisma.SortOrder
   slipAuthor?: Prisma.SortOrder
   readyForShipment?: Prisma.SortOrder
+  requestedShipDate?: Prisma.SortOrder
+  packDept?: Prisma.SortOrder
+  packDate?: Prisma.SortOrder
+  packPt?: Prisma.SortOrder
+  storagePlace?: Prisma.SortOrder
+  packDone?: Prisma.SortOrder
+  releaseDone?: Prisma.SortOrder
+  releaseDoneAt?: Prisma.SortOrder
+  finalCompleteDone?: Prisma.SortOrder
+  finalConfirmDone?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -688,6 +898,16 @@ export type OrderMinOrderByAggregateInput = {
   slipDone?: Prisma.SortOrder
   slipAuthor?: Prisma.SortOrder
   readyForShipment?: Prisma.SortOrder
+  requestedShipDate?: Prisma.SortOrder
+  packDept?: Prisma.SortOrder
+  packDate?: Prisma.SortOrder
+  packPt?: Prisma.SortOrder
+  storagePlace?: Prisma.SortOrder
+  packDone?: Prisma.SortOrder
+  releaseDone?: Prisma.SortOrder
+  releaseDoneAt?: Prisma.SortOrder
+  finalCompleteDone?: Prisma.SortOrder
+  finalConfirmDone?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -771,6 +991,10 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
+export type NullableEnumPackDeptFieldUpdateOperationsInput = {
+  set?: $Enums.PackDept | null
+}
+
 export type OrderCreateNestedOneWithoutShipmentInput = {
   create?: Prisma.XOR<Prisma.OrderCreateWithoutShipmentInput, Prisma.OrderUncheckedCreateWithoutShipmentInput>
   connectOrCreate?: Prisma.OrderCreateOrConnectWithoutShipmentInput
@@ -831,6 +1055,16 @@ export type OrderCreateWithoutUserInput = {
   slipDone?: boolean
   slipAuthor?: string | null
   readyForShipment?: boolean
+  requestedShipDate?: Date | string | null
+  packDept?: $Enums.PackDept | null
+  packDate?: Date | string | null
+  packPt?: string | null
+  storagePlace?: string | null
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: Date | string | null
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
@@ -855,6 +1089,16 @@ export type OrderUncheckedCreateWithoutUserInput = {
   slipDone?: boolean
   slipAuthor?: string | null
   readyForShipment?: boolean
+  requestedShipDate?: Date | string | null
+  packDept?: $Enums.PackDept | null
+  packDate?: Date | string | null
+  packPt?: string | null
+  storagePlace?: string | null
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: Date | string | null
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
@@ -908,6 +1152,16 @@ export type OrderScalarWhereInput = {
   slipDone?: Prisma.BoolFilter<"Order"> | boolean
   slipAuthor?: Prisma.StringNullableFilter<"Order"> | string | null
   readyForShipment?: Prisma.BoolFilter<"Order"> | boolean
+  requestedShipDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  packDept?: Prisma.EnumPackDeptNullableFilter<"Order"> | $Enums.PackDept | null
+  packDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  packPt?: Prisma.StringNullableFilter<"Order"> | string | null
+  storagePlace?: Prisma.StringNullableFilter<"Order"> | string | null
+  packDone?: Prisma.BoolFilter<"Order"> | boolean
+  releaseDone?: Prisma.BoolFilter<"Order"> | boolean
+  releaseDoneAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  finalCompleteDone?: Prisma.BoolFilter<"Order"> | boolean
+  finalConfirmDone?: Prisma.BoolFilter<"Order"> | boolean
   userId?: Prisma.IntFilter<"Order"> | number
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
@@ -929,6 +1183,16 @@ export type OrderCreateWithoutShipmentInput = {
   slipDone?: boolean
   slipAuthor?: string | null
   readyForShipment?: boolean
+  requestedShipDate?: Date | string | null
+  packDept?: $Enums.PackDept | null
+  packDate?: Date | string | null
+  packPt?: string | null
+  storagePlace?: string | null
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: Date | string | null
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutOrdersInput
@@ -953,6 +1217,16 @@ export type OrderUncheckedCreateWithoutShipmentInput = {
   slipDone?: boolean
   slipAuthor?: string | null
   readyForShipment?: boolean
+  requestedShipDate?: Date | string | null
+  packDept?: $Enums.PackDept | null
+  packDate?: Date | string | null
+  packPt?: string | null
+  storagePlace?: string | null
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: Date | string | null
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
   userId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -992,6 +1266,16 @@ export type OrderUpdateWithoutShipmentInput = {
   slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requestedShipDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packDept?: Prisma.NullableEnumPackDeptFieldUpdateOperationsInput | $Enums.PackDept | null
+  packDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packPt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storagePlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDoneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  finalCompleteDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  finalConfirmDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
@@ -1016,6 +1300,16 @@ export type OrderUncheckedUpdateWithoutShipmentInput = {
   slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requestedShipDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packDept?: Prisma.NullableEnumPackDeptFieldUpdateOperationsInput | $Enums.PackDept | null
+  packDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packPt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storagePlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDoneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  finalCompleteDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  finalConfirmDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1039,6 +1333,16 @@ export type OrderCreateWithoutItemsInput = {
   slipDone?: boolean
   slipAuthor?: string | null
   readyForShipment?: boolean
+  requestedShipDate?: Date | string | null
+  packDept?: $Enums.PackDept | null
+  packDate?: Date | string | null
+  packPt?: string | null
+  storagePlace?: string | null
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: Date | string | null
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutOrdersInput
@@ -1063,6 +1367,16 @@ export type OrderUncheckedCreateWithoutItemsInput = {
   slipDone?: boolean
   slipAuthor?: string | null
   readyForShipment?: boolean
+  requestedShipDate?: Date | string | null
+  packDept?: $Enums.PackDept | null
+  packDate?: Date | string | null
+  packPt?: string | null
+  storagePlace?: string | null
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: Date | string | null
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
   userId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1102,6 +1416,16 @@ export type OrderUpdateWithoutItemsInput = {
   slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requestedShipDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packDept?: Prisma.NullableEnumPackDeptFieldUpdateOperationsInput | $Enums.PackDept | null
+  packDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packPt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storagePlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDoneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  finalCompleteDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  finalConfirmDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
@@ -1126,6 +1450,16 @@ export type OrderUncheckedUpdateWithoutItemsInput = {
   slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requestedShipDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packDept?: Prisma.NullableEnumPackDeptFieldUpdateOperationsInput | $Enums.PackDept | null
+  packDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packPt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storagePlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDoneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  finalCompleteDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  finalConfirmDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1149,6 +1483,16 @@ export type OrderCreateWithoutGreetingFormsInput = {
   slipDone?: boolean
   slipAuthor?: string | null
   readyForShipment?: boolean
+  requestedShipDate?: Date | string | null
+  packDept?: $Enums.PackDept | null
+  packDate?: Date | string | null
+  packPt?: string | null
+  storagePlace?: string | null
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: Date | string | null
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutOrdersInput
@@ -1173,6 +1517,16 @@ export type OrderUncheckedCreateWithoutGreetingFormsInput = {
   slipDone?: boolean
   slipAuthor?: string | null
   readyForShipment?: boolean
+  requestedShipDate?: Date | string | null
+  packDept?: $Enums.PackDept | null
+  packDate?: Date | string | null
+  packPt?: string | null
+  storagePlace?: string | null
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: Date | string | null
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
   userId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1212,6 +1566,16 @@ export type OrderUpdateWithoutGreetingFormsInput = {
   slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requestedShipDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packDept?: Prisma.NullableEnumPackDeptFieldUpdateOperationsInput | $Enums.PackDept | null
+  packDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packPt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storagePlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDoneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  finalCompleteDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  finalConfirmDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
@@ -1236,6 +1600,16 @@ export type OrderUncheckedUpdateWithoutGreetingFormsInput = {
   slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requestedShipDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packDept?: Prisma.NullableEnumPackDeptFieldUpdateOperationsInput | $Enums.PackDept | null
+  packDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packPt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storagePlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDoneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  finalCompleteDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  finalConfirmDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1260,6 +1634,16 @@ export type OrderCreateManyUserInput = {
   slipDone?: boolean
   slipAuthor?: string | null
   readyForShipment?: boolean
+  requestedShipDate?: Date | string | null
+  packDept?: $Enums.PackDept | null
+  packDate?: Date | string | null
+  packPt?: string | null
+  storagePlace?: string | null
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: Date | string | null
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1280,6 +1664,16 @@ export type OrderUpdateWithoutUserInput = {
   slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requestedShipDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packDept?: Prisma.NullableEnumPackDeptFieldUpdateOperationsInput | $Enums.PackDept | null
+  packDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packPt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storagePlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDoneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  finalCompleteDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  finalConfirmDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
@@ -1304,6 +1698,16 @@ export type OrderUncheckedUpdateWithoutUserInput = {
   slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requestedShipDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packDept?: Prisma.NullableEnumPackDeptFieldUpdateOperationsInput | $Enums.PackDept | null
+  packDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packPt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storagePlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDoneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  finalCompleteDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  finalConfirmDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
@@ -1328,6 +1732,16 @@ export type OrderUncheckedUpdateManyWithoutUserInput = {
   slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requestedShipDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packDept?: Prisma.NullableEnumPackDeptFieldUpdateOperationsInput | $Enums.PackDept | null
+  packDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packPt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storagePlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDoneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  finalCompleteDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  finalConfirmDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1389,6 +1803,16 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   slipDone?: boolean
   slipAuthor?: boolean
   readyForShipment?: boolean
+  requestedShipDate?: boolean
+  packDept?: boolean
+  packDate?: boolean
+  packPt?: boolean
+  storagePlace?: boolean
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: boolean
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1416,6 +1840,16 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   slipDone?: boolean
   slipAuthor?: boolean
   readyForShipment?: boolean
+  requestedShipDate?: boolean
+  packDept?: boolean
+  packDate?: boolean
+  packPt?: boolean
+  storagePlace?: boolean
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: boolean
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1439,6 +1873,16 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   slipDone?: boolean
   slipAuthor?: boolean
   readyForShipment?: boolean
+  requestedShipDate?: boolean
+  packDept?: boolean
+  packDate?: boolean
+  packPt?: boolean
+  storagePlace?: boolean
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: boolean
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1462,12 +1906,22 @@ export type OrderSelectScalar = {
   slipDone?: boolean
   slipAuthor?: boolean
   readyForShipment?: boolean
+  requestedShipDate?: boolean
+  packDept?: boolean
+  packDate?: boolean
+  packPt?: boolean
+  storagePlace?: boolean
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: boolean
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "status" | "totalAmount" | "notes" | "factoryAlert" | "storeRegion" | "packagingWorker" | "orderConfirmedAt" | "orderConfirmedBy" | "paymentDone" | "paymentAuthor" | "greetingDone" | "slipDone" | "slipAuthor" | "readyForShipment" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "status" | "totalAmount" | "notes" | "factoryAlert" | "storeRegion" | "packagingWorker" | "orderConfirmedAt" | "orderConfirmedBy" | "paymentDone" | "paymentAuthor" | "greetingDone" | "slipDone" | "slipAuthor" | "readyForShipment" | "requestedShipDate" | "packDept" | "packDate" | "packPt" | "storagePlace" | "packDone" | "releaseDone" | "releaseDoneAt" | "finalCompleteDone" | "finalConfirmDone" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   items?: boolean | Prisma.Order$itemsArgs<ExtArgs>
@@ -1516,9 +1970,31 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     slipDone: boolean
     slipAuthor: string | null
     /**
-     * * 작업자+확인+결제+인사장+기표지 충족 시 true → 배송관리 후보
+     * * 작업자+확인+결제+인사장+기표지 충족 시 true → 배송/출고/포장 후보
      */
     readyForShipment: boolean
+    /**
+     * * 배송관리: 출고요청일
+     */
+    requestedShipDate: Date | null
+    /**
+     * * 포장구분: 공장포장 | 양말부포장
+     */
+    packDept: $Enums.PackDept | null
+    packDate: Date | null
+    packPt: string | null
+    storagePlace: string | null
+    packDone: boolean
+    /**
+     * * 출고관리: 출고완료
+     */
+    releaseDone: boolean
+    releaseDoneAt: Date | null
+    /**
+     * * 배송관리: 최종완료 / 최종확인
+     */
+    finalCompleteDone: boolean
+    finalConfirmDone: boolean
     userId: number
     createdAt: Date
     updatedAt: Date
@@ -1965,6 +2441,16 @@ export interface OrderFieldRefs {
   readonly slipDone: Prisma.FieldRef<"Order", 'Boolean'>
   readonly slipAuthor: Prisma.FieldRef<"Order", 'String'>
   readonly readyForShipment: Prisma.FieldRef<"Order", 'Boolean'>
+  readonly requestedShipDate: Prisma.FieldRef<"Order", 'DateTime'>
+  readonly packDept: Prisma.FieldRef<"Order", 'PackDept'>
+  readonly packDate: Prisma.FieldRef<"Order", 'DateTime'>
+  readonly packPt: Prisma.FieldRef<"Order", 'String'>
+  readonly storagePlace: Prisma.FieldRef<"Order", 'String'>
+  readonly packDone: Prisma.FieldRef<"Order", 'Boolean'>
+  readonly releaseDone: Prisma.FieldRef<"Order", 'Boolean'>
+  readonly releaseDoneAt: Prisma.FieldRef<"Order", 'DateTime'>
+  readonly finalCompleteDone: Prisma.FieldRef<"Order", 'Boolean'>
+  readonly finalConfirmDone: Prisma.FieldRef<"Order", 'Boolean'>
   readonly userId: Prisma.FieldRef<"Order", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Order", 'DateTime'>

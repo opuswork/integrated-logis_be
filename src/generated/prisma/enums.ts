@@ -57,12 +57,26 @@ export const PackagingWorker = {
 export type PackagingWorker = (typeof PackagingWorker)[keyof typeof PackagingWorker]
 
 
+export const PackDept = {
+  FACTORY_PACK: 'FACTORY_PACK',
+  SOCK_PACK: 'SOCK_PACK'
+} as const
+
+export type PackDept = (typeof PackDept)[keyof typeof PackDept]
+
+
 export const AdminActivityAction = {
   ORDER_CONFIRM: 'ORDER_CONFIRM',
   WORKER_SAVE: 'WORKER_SAVE',
   PAYMENT_SAVE: 'PAYMENT_SAVE',
   GREETING_SAVE: 'GREETING_SAVE',
-  SLIP_SAVE: 'SLIP_SAVE'
+  SLIP_SAVE: 'SLIP_SAVE',
+  SHIP_DATE_SAVE: 'SHIP_DATE_SAVE',
+  PACK_DEPT_SAVE: 'PACK_DEPT_SAVE',
+  PACK_COMPLETE: 'PACK_COMPLETE',
+  RELEASE_COMPLETE: 'RELEASE_COMPLETE',
+  FINAL_COMPLETE: 'FINAL_COMPLETE',
+  FINAL_CONFIRM: 'FINAL_CONFIRM'
 } as const
 
 export type AdminActivityAction = (typeof AdminActivityAction)[keyof typeof AdminActivityAction]

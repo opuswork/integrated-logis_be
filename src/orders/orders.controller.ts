@@ -31,6 +31,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { DeliveryActionDto } from './dto/delivery-action.dto';
 import { UpdateAdminChecklistDto } from './dto/update-admin-checklist.dto';
+import { UpdateShipmentOpsDto } from './dto/update-shipment-ops.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { OrdersService } from './orders.service';
 
@@ -110,7 +111,13 @@ export class OrdersController {
   findAll(
     @CurrentUser() user: AuthUserPayload,
     @Query('userId') userId?: string,
+    @Query('readyForShipment') readyForShipment?: string,
   ) {
+    const ready =
+      readyForShipment === 'true' ||
+      readyForShipment === '1' ||
+      readyForShipment === 'yes';
+
     if (user.role === 'member') {
       return this.ordersService.findAll(user.id);
     }
@@ -118,6 +125,7 @@ export class OrdersController {
     const parsed = userId ? Number(userId) : NaN;
     return this.ordersService.findAll(
       Number.isFinite(parsed) ? parsed : undefined,
+      ready ? { readyForShipment: true } : undefined,
     );
   }
 
@@ -156,6 +164,21 @@ export class OrdersController {
     @CurrentUser() user: AuthUserPayload,
   ) {
     return this.ordersService.updateAdminChecklist(id, body, user);
+  }
+
+  @Patch(':id/shipment-ops')
+  @ApiOperation({
+    summary: '배송·출고·포장 운영 액션',
+    description:
+      'setShipDate | setPackDept | completePack | completeRelease | finalComplete | finalConfirm',
+  })
+  @ApiOkResponse({ description: '갱신된 주문' })
+  updateShipmentOps(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: UpdateShipmentOpsDto,
+    @CurrentUser() user: AuthUserPayload,
+  ) {
+    return this.ordersService.updateShipmentOps(id, body, user);
   }
 
   @Patch(':id/delivery-action')

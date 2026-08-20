@@ -247,6 +247,13 @@ export type DateTimeNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
 }
 
+export type EnumPackDeptNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.PackDept | Prisma.EnumPackDeptFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PackDept[] | Prisma.ListEnumPackDeptFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PackDept[] | Prisma.ListEnumPackDeptFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPackDeptNullableFilter<$PrismaModel> | $Enums.PackDept | null
+}
+
 export type EnumOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.OrderStatus | Prisma.EnumOrderStatusFieldRefInput<$PrismaModel>
   in?: $Enums.OrderStatus[] | Prisma.ListEnumOrderStatusFieldRefInput<$PrismaModel>
@@ -295,6 +302,16 @@ export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
   _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
+}
+
+export type EnumPackDeptNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PackDept | Prisma.EnumPackDeptFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PackDept[] | Prisma.ListEnumPackDeptFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PackDept[] | Prisma.ListEnumPackDeptFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPackDeptNullableWithAggregatesFilter<$PrismaModel> | $Enums.PackDept | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPackDeptNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPackDeptNullableFilter<$PrismaModel>
 }
 
 export type EnumAdminActivityActionFilter<$PrismaModel = never> = {
@@ -566,6 +583,13 @@ export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
 }
 
+export type NestedEnumPackDeptNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.PackDept | Prisma.EnumPackDeptFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PackDept[] | Prisma.ListEnumPackDeptFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PackDept[] | Prisma.ListEnumPackDeptFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPackDeptNullableFilter<$PrismaModel> | $Enums.PackDept | null
+}
+
 export type NestedEnumOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.OrderStatus | Prisma.EnumOrderStatusFieldRefInput<$PrismaModel>
   in?: $Enums.OrderStatus[] | Prisma.ListEnumOrderStatusFieldRefInput<$PrismaModel>
@@ -614,6 +638,16 @@ export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
   _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumPackDeptNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PackDept | Prisma.EnumPackDeptFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PackDept[] | Prisma.ListEnumPackDeptFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PackDept[] | Prisma.ListEnumPackDeptFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPackDeptNullableWithAggregatesFilter<$PrismaModel> | $Enums.PackDept | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPackDeptNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPackDeptNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumAdminActivityActionFilter<$PrismaModel = never> = {
