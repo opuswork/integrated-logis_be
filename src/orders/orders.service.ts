@@ -755,6 +755,11 @@ export class OrdersService {
           '포장이 완료되지 않아 출고완료할 수 없습니다.',
         );
       }
+      if (!order.requestedShipDate) {
+        throw new BadRequestException(
+          '출고요청일을 먼저 입력한 후 출고완료할 수 있습니다.',
+        );
+      }
       if (order.releaseDone) {
         throw new BadRequestException('이미 출고완료된 주문입니다.');
       }
