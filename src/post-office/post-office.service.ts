@@ -17,10 +17,18 @@ const TEMPLATE_FILENAME = '우체국택배_업로드_컨버트_template.xlsx';
 const DATA_ROW_HEIGHT = 29.45;
 const COLUMN_COUNT = 18;
 
-export type HolidayGiftConvertOptions = {
-  boxUnit: number;
+export type HolidayGiftConvertOption = {
+  productLabel: string;
+  quantity: number;
   paymentType: '선불' | '착불';
-  productName: string;
+  boxUnit: number;
+};
+
+export type HolidayGiftConvertOptions = {
+  /** Optional; leave blank in Excel 주문자명 for manual fill when empty */
+  ordererName?: string;
+  churchName: string;
+  options: HolidayGiftConvertOption[];
 };
 
 type RecipientRow = {
@@ -52,21 +60,37 @@ export class PostOfficeService {
       throw new BadRequestException('엑셀 파일을 업로드해 주세요.');
     }
 
-    const boxUnit = Number(options.boxUnit);
-    if (!Number.isFinite(boxUnit) || boxUnit <= 0) {
-      throw new BadRequestException('박스단위는 1 이상의 숫자여야 합니다.');
+    const ordererName = options.ordererName?.trim() ?? '';
+    const churchName = options.churchName?.trim() ?? '';
+    if (!churchName) {
+      throw new BadRequestException('중앙을 입력해 주세요.');
     }
 
-    if (options.paymentType !== '선불' && options.paymentType !== '착불') {
-      throw new BadRequestException('선/착은 선불 또는 착불이어야 합니다.');
+    const convertOptions = (options.options ?? []).filter(
+      (o) => o.productLabel?.trim(),
+    );
+    if (convertOptions.length === 0) {
+      throw new BadRequestException('상품 옵션을 1개 이상 입력해 주세요.');
     }
 
-    const productName = options.productName?.trim() ?? '';
-    if (!productName) {
-      throw new BadRequestException('상품명을 선택해 주세요.');
+    for (const opt of convertOptions) {
+      const boxUnit = Number(opt.boxUnit);
+      if (!Number.isFinite(boxUnit) || boxUnit <= 0) {
+        throw new BadRequestException(
+          '박스단위는 1 이상의 숫자여야 합니다.',
+        );
+      }
+      if (opt.paymentType !== '선불' && opt.paymentType !== '착불') {
+        throw new BadRequestException('선/착은 선불 또는 착불이어야 합니다.');
+      }
+      const qty = Number(opt.quantity);
+      if (!Number.isFinite(qty) || qty < 1) {
+        throw new BadRequestException('수량은 1 이상이어야 합니다.');
+      }
     }
 
-    const centerName = await this.resolveCenterName(actor.id);
+    // 중앙만 검색값 사용. 이름은 엑셀에서 수동 입력할 수 있도록 비움(주문자명도 입력 시에만 채움).
+    const centerAndName = churchName;
     const recipients = this.parseRecipients(file.buffer);
 
     if (recipients.length === 0) {
@@ -83,46 +107,49 @@ export class PostOfficeService {
       throw new BadRequestException('변환 템플릿을 불러오지 못했습니다.');
     }
 
-    // Keep header row styles from the Korea Post sample template.
-    // Remove any leftover prototype/data rows.
     if (worksheet.rowCount > 1) {
       worksheet.spliceRows(2, worksheet.rowCount - 1);
     }
 
-    const total = recipients.length;
     const styleSource = this.createStylePrototype(worksheet);
+    const recipientCount = recipients.length;
+    let excelRowNumber = 2;
 
-    recipients.forEach((recipient, index) => {
-      const excelRowNumber = index + 2;
-      const values: Array<string | number | null> = [
-        null,
-        null,
-        null,
-        recipient.name,
-        recipient.address,
-        null,
-        normalizeMobilePhone(recipient.phoneRaw),
-        null,
-        `${productName}(${total}-${index + 1})`,
-        DELIVERY_MESSAGE,
-        boxUnit,
-        options.paymentType,
-        null, // 금액 blank
-        null,
-        null,
-        centerName,
-        null,
-        null,
-      ];
+    convertOptions.forEach((opt) => {
+      const productLabel = opt.productLabel.trim();
+      const boxUnit = Number(opt.boxUnit);
+      recipients.forEach((recipient, index) => {
+        const values: Array<string | number | null> = [
+          ordererName || null, // 주문자명: UI에서 입력한 경우만, 아니면 엑셀에서 수동 입력
+          null,
+          null,
+          recipient.name,
+          recipient.address,
+          null,
+          normalizeMobilePhone(recipient.phoneRaw),
+          null,
+          `${productLabel}(${recipientCount}-${index + 1})`,
+          DELIVERY_MESSAGE,
+          boxUnit,
+          opt.paymentType,
+          null,
+          null,
+          null,
+          centerAndName, // 중앙만 (이름 없음 — 엑셀에서 수동 입력)
+          null,
+          null,
+        ];
 
-      const row = worksheet.getRow(excelRowNumber);
-      row.height = DATA_ROW_HEIGHT;
-      values.forEach((value, columnIndex) => {
-        const cell = row.getCell(columnIndex + 1);
-        this.applyDataCellStyle(cell, styleSource[columnIndex]);
-        cell.value = value;
+        const row = worksheet.getRow(excelRowNumber);
+        row.height = DATA_ROW_HEIGHT;
+        values.forEach((value, columnIndex) => {
+          const cell = row.getCell(columnIndex + 1);
+          this.applyDataCellStyle(cell, styleSource[columnIndex]);
+          cell.value = value;
+        });
+        row.commit();
+        excelRowNumber += 1;
       });
-      row.commit();
     });
 
     const arrayBuffer = await workbook.xlsx.writeBuffer();
@@ -133,12 +160,7 @@ export class PostOfficeService {
     const candidates = [
       path.join(__dirname, '..', '..', 'templates', TEMPLATE_FILENAME),
       path.join(process.cwd(), 'templates', TEMPLATE_FILENAME),
-      path.join(
-        process.cwd(),
-        'be',
-        'templates',
-        TEMPLATE_FILENAME,
-      ),
+      path.join(process.cwd(), 'be', 'templates', TEMPLATE_FILENAME),
     ];
 
     for (const candidate of candidates) {
@@ -153,14 +175,12 @@ export class PostOfficeService {
   }
 
   private createStylePrototype(worksheet: Worksheet) {
-    // Snapshot style from an empty data row so each generated row matches sample.
     const prototypeRow = worksheet.getRow(2);
     prototypeRow.height = DATA_ROW_HEIGHT;
     const styles: Array<ReturnType<typeof snapshotCellStyle>> = [];
 
     for (let column = 1; column <= COLUMN_COUNT; column += 1) {
       const cell = prototypeRow.getCell(column);
-      // Default data look from the official sample: Arial 14, middle align.
       if (!cell.font?.name) {
         cell.font = { name: 'Arial', size: 14, family: 2 };
       }
@@ -194,60 +214,25 @@ export class PostOfficeService {
     }
   }
 
-  private async resolveCenterName(userId: number) {
-    const user = await this.prisma.user.findUnique({
-      where: { id: userId },
-      select: {
-        fullname: true,
-        church: { select: { name: true } },
-      },
-    });
-
-    if (!user) {
-      throw new BadRequestException('로그인 사용자 정보를 찾을 수 없습니다.');
-    }
-
-    const churchName = user.church?.name?.trim() ?? '';
-    const fullname = user.fullname?.trim() ?? '';
-
-    if (!churchName) {
-      throw new BadRequestException(
-        '중앙&이름에 사용할 교회명이 없습니다. 회원 정보에 교회를 연결해 주세요.',
-      );
-    }
-    if (!fullname) {
-      throw new BadRequestException(
-        '중앙&이름에 사용할 이름이 없습니다. 회원 정보를 확인해 주세요.',
-      );
-    }
-
-    return `${churchName} ${fullname}`;
-  }
-
   private parseRecipients(buffer: Buffer): RecipientRow[] {
     let workbook: XLSX.WorkBook;
     try {
       workbook = XLSX.read(buffer, { type: 'buffer' });
     } catch {
-      throw new BadRequestException(
-        '엑셀 파일을 읽지 못했습니다. .xlsx 형식인지 확인해 주세요.',
-      );
+      throw new BadRequestException('엑셀 파일을 읽을 수 없습니다.');
     }
 
     const sheetName = workbook.SheetNames[0];
     if (!sheetName) {
-      throw new BadRequestException('엑셀 시트가 없습니다.');
+      throw new BadRequestException('시트가 없습니다.');
     }
 
     const sheet = workbook.Sheets[sheetName];
-    const rows = XLSX.utils.sheet_to_json<Array<string | number | null>>(
-      sheet,
-      {
-        header: 1,
-        defval: '',
-        raw: false,
-      },
-    );
+    const rows = XLSX.utils.sheet_to_json<unknown[]>(sheet, {
+      header: 1,
+      defval: '',
+      raw: false,
+    });
 
     const recipients: RecipientRow[] = [];
 
@@ -255,7 +240,6 @@ export class PostOfficeService {
       if (!Array.isArray(row)) {
         continue;
       }
-
       const name = String(row[1] ?? '').trim();
       const phoneRaw = String(row[2] ?? '').trim();
       const address = String(row[3] ?? '').trim();
@@ -263,12 +247,14 @@ export class PostOfficeService {
       if (!name && !phoneRaw && !address) {
         continue;
       }
-
-      if (name === '수취인명' || name === '이름') {
+      if (
+        name === '수취인명' ||
+        name === '이름' ||
+        name.includes('수취인')
+      ) {
         continue;
       }
-
-      if (!name || !address) {
+      if (!name) {
         continue;
       }
 
@@ -279,6 +265,17 @@ export class PostOfficeService {
   }
 }
 
+function normalizeMobilePhone(raw: string) {
+  const digits = raw.replace(/\D/g, '');
+  if (digits.length === 11 && digits.startsWith('010')) {
+    return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
+  }
+  if (digits.length === 10) {
+    return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
+  }
+  return raw.trim();
+}
+
 function snapshotCellStyle(cell: Cell) {
   return {
     font: cell.font ? { ...cell.font } : undefined,
@@ -287,19 +284,4 @@ function snapshotCellStyle(cell: Cell) {
     fill: cell.fill ? { ...cell.fill } : undefined,
     numFmt: cell.numFmt,
   };
-}
-
-/** `10 3381 7789` / `01033817789` / `010-3381-7789` → `010-XXXX-XXXX` */
-export function normalizeMobilePhone(raw: string): string {
-  let digits = String(raw ?? '').replace(/\D/g, '');
-
-  if (digits.length === 10 && digits.startsWith('10')) {
-    digits = `0${digits}`;
-  }
-
-  if (digits.length === 11 && digits.startsWith('01')) {
-    return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
-  }
-
-  return String(raw ?? '').trim();
 }

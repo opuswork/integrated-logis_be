@@ -224,6 +224,8 @@ model StockInventory {
   associatePrice    Float // 준회원
   category          String // 구분 (선물세트, 일반품)
   openStock         Boolean @default(true) @map("open_stock") // 고객 공개 여부
+  boxName           String? @map("box_name") // 우체국 박스명 (예: 신앙촌 1호)
+  postWeight        Int?    @map("post_weight") // 우체국 박스 무게 KG (예: 2, 5)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
