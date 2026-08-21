@@ -206,6 +206,8 @@ export const StockInventoryScalarFieldEnum = {
   associatePrice: 'associatePrice',
   category: 'category',
   openStock: 'openStock',
+  boxName: 'boxName',
+  postWeight: 'postWeight',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

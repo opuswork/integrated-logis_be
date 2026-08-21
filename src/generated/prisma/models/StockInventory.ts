@@ -35,6 +35,7 @@ export type StockInventoryAvgAggregateOutputType = {
   priceOver100man: number | null
   wholesalePrice: number | null
   associatePrice: number | null
+  postWeight: number | null
 }
 
 export type StockInventorySumAggregateOutputType = {
@@ -46,6 +47,7 @@ export type StockInventorySumAggregateOutputType = {
   priceOver100man: number | null
   wholesalePrice: number | null
   associatePrice: number | null
+  postWeight: number | null
 }
 
 export type StockInventoryMinAggregateOutputType = {
@@ -66,6 +68,8 @@ export type StockInventoryMinAggregateOutputType = {
   associatePrice: number | null
   category: string | null
   openStock: boolean | null
+  boxName: string | null
+  postWeight: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -88,6 +92,8 @@ export type StockInventoryMaxAggregateOutputType = {
   associatePrice: number | null
   category: string | null
   openStock: boolean | null
+  boxName: string | null
+  postWeight: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -110,6 +116,8 @@ export type StockInventoryCountAggregateOutputType = {
   associatePrice: number
   category: number
   openStock: number
+  boxName: number
+  postWeight: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -125,6 +133,7 @@ export type StockInventoryAvgAggregateInputType = {
   priceOver100man?: true
   wholesalePrice?: true
   associatePrice?: true
+  postWeight?: true
 }
 
 export type StockInventorySumAggregateInputType = {
@@ -136,6 +145,7 @@ export type StockInventorySumAggregateInputType = {
   priceOver100man?: true
   wholesalePrice?: true
   associatePrice?: true
+  postWeight?: true
 }
 
 export type StockInventoryMinAggregateInputType = {
@@ -156,6 +166,8 @@ export type StockInventoryMinAggregateInputType = {
   associatePrice?: true
   category?: true
   openStock?: true
+  boxName?: true
+  postWeight?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -178,6 +190,8 @@ export type StockInventoryMaxAggregateInputType = {
   associatePrice?: true
   category?: true
   openStock?: true
+  boxName?: true
+  postWeight?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -200,6 +214,8 @@ export type StockInventoryCountAggregateInputType = {
   associatePrice?: true
   category?: true
   openStock?: true
+  boxName?: true
+  postWeight?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -309,6 +325,8 @@ export type StockInventoryGroupByOutputType = {
   associatePrice: number
   category: string
   openStock: boolean
+  boxName: string | null
+  postWeight: number | null
   createdAt: Date
   updatedAt: Date
   _count: StockInventoryCountAggregateOutputType | null
@@ -354,6 +372,8 @@ export type StockInventoryWhereInput = {
   associatePrice?: Prisma.FloatFilter<"StockInventory"> | number
   category?: Prisma.StringFilter<"StockInventory"> | string
   openStock?: Prisma.BoolFilter<"StockInventory"> | boolean
+  boxName?: Prisma.StringNullableFilter<"StockInventory"> | string | null
+  postWeight?: Prisma.IntNullableFilter<"StockInventory"> | number | null
   createdAt?: Prisma.DateTimeFilter<"StockInventory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StockInventory"> | Date | string
   ledgers?: Prisma.StockInventoryLedgerListRelationFilter
@@ -377,6 +397,8 @@ export type StockInventoryOrderByWithRelationInput = {
   associatePrice?: Prisma.SortOrder
   category?: Prisma.SortOrder
   openStock?: Prisma.SortOrder
+  boxName?: Prisma.SortOrderInput | Prisma.SortOrder
+  postWeight?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   ledgers?: Prisma.StockInventoryLedgerOrderByRelationAggregateInput
@@ -403,6 +425,8 @@ export type StockInventoryWhereUniqueInput = Prisma.AtLeast<{
   associatePrice?: Prisma.FloatFilter<"StockInventory"> | number
   category?: Prisma.StringFilter<"StockInventory"> | string
   openStock?: Prisma.BoolFilter<"StockInventory"> | boolean
+  boxName?: Prisma.StringNullableFilter<"StockInventory"> | string | null
+  postWeight?: Prisma.IntNullableFilter<"StockInventory"> | number | null
   createdAt?: Prisma.DateTimeFilter<"StockInventory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StockInventory"> | Date | string
   ledgers?: Prisma.StockInventoryLedgerListRelationFilter
@@ -426,6 +450,8 @@ export type StockInventoryOrderByWithAggregationInput = {
   associatePrice?: Prisma.SortOrder
   category?: Prisma.SortOrder
   openStock?: Prisma.SortOrder
+  boxName?: Prisma.SortOrderInput | Prisma.SortOrder
+  postWeight?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.StockInventoryCountOrderByAggregateInput
@@ -456,6 +482,8 @@ export type StockInventoryScalarWhereWithAggregatesInput = {
   associatePrice?: Prisma.FloatWithAggregatesFilter<"StockInventory"> | number
   category?: Prisma.StringWithAggregatesFilter<"StockInventory"> | string
   openStock?: Prisma.BoolWithAggregatesFilter<"StockInventory"> | boolean
+  boxName?: Prisma.StringNullableWithAggregatesFilter<"StockInventory"> | string | null
+  postWeight?: Prisma.IntNullableWithAggregatesFilter<"StockInventory"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"StockInventory"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"StockInventory"> | Date | string
 }
@@ -477,6 +505,8 @@ export type StockInventoryCreateInput = {
   associatePrice: number
   category: string
   openStock?: boolean
+  boxName?: string | null
+  postWeight?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ledgers?: Prisma.StockInventoryLedgerCreateNestedManyWithoutProductInput
@@ -500,6 +530,8 @@ export type StockInventoryUncheckedCreateInput = {
   associatePrice: number
   category: string
   openStock?: boolean
+  boxName?: string | null
+  postWeight?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ledgers?: Prisma.StockInventoryLedgerUncheckedCreateNestedManyWithoutProductInput
@@ -522,6 +554,8 @@ export type StockInventoryUpdateInput = {
   associatePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   category?: Prisma.StringFieldUpdateOperationsInput | string
   openStock?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  boxName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postWeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ledgers?: Prisma.StockInventoryLedgerUpdateManyWithoutProductNestedInput
@@ -545,6 +579,8 @@ export type StockInventoryUncheckedUpdateInput = {
   associatePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   category?: Prisma.StringFieldUpdateOperationsInput | string
   openStock?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  boxName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postWeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ledgers?: Prisma.StockInventoryLedgerUncheckedUpdateManyWithoutProductNestedInput
@@ -568,6 +604,8 @@ export type StockInventoryCreateManyInput = {
   associatePrice: number
   category: string
   openStock?: boolean
+  boxName?: string | null
+  postWeight?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -589,6 +627,8 @@ export type StockInventoryUpdateManyMutationInput = {
   associatePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   category?: Prisma.StringFieldUpdateOperationsInput | string
   openStock?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  boxName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postWeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -611,6 +651,8 @@ export type StockInventoryUncheckedUpdateManyInput = {
   associatePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   category?: Prisma.StringFieldUpdateOperationsInput | string
   openStock?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  boxName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postWeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -633,6 +675,8 @@ export type StockInventoryCountOrderByAggregateInput = {
   associatePrice?: Prisma.SortOrder
   category?: Prisma.SortOrder
   openStock?: Prisma.SortOrder
+  boxName?: Prisma.SortOrder
+  postWeight?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -646,6 +690,7 @@ export type StockInventoryAvgOrderByAggregateInput = {
   priceOver100man?: Prisma.SortOrder
   wholesalePrice?: Prisma.SortOrder
   associatePrice?: Prisma.SortOrder
+  postWeight?: Prisma.SortOrder
 }
 
 export type StockInventoryMaxOrderByAggregateInput = {
@@ -666,6 +711,8 @@ export type StockInventoryMaxOrderByAggregateInput = {
   associatePrice?: Prisma.SortOrder
   category?: Prisma.SortOrder
   openStock?: Prisma.SortOrder
+  boxName?: Prisma.SortOrder
+  postWeight?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -688,6 +735,8 @@ export type StockInventoryMinOrderByAggregateInput = {
   associatePrice?: Prisma.SortOrder
   category?: Prisma.SortOrder
   openStock?: Prisma.SortOrder
+  boxName?: Prisma.SortOrder
+  postWeight?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -701,6 +750,7 @@ export type StockInventorySumOrderByAggregateInput = {
   priceOver100man?: Prisma.SortOrder
   wholesalePrice?: Prisma.SortOrder
   associatePrice?: Prisma.SortOrder
+  postWeight?: Prisma.SortOrder
 }
 
 export type StockInventoryScalarRelationFilter = {
@@ -739,6 +789,8 @@ export type StockInventoryCreateWithoutLedgersInput = {
   associatePrice: number
   category: string
   openStock?: boolean
+  boxName?: string | null
+  postWeight?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -761,6 +813,8 @@ export type StockInventoryUncheckedCreateWithoutLedgersInput = {
   associatePrice: number
   category: string
   openStock?: boolean
+  boxName?: string | null
+  postWeight?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -798,6 +852,8 @@ export type StockInventoryUpdateWithoutLedgersInput = {
   associatePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   category?: Prisma.StringFieldUpdateOperationsInput | string
   openStock?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  boxName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postWeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -820,6 +876,8 @@ export type StockInventoryUncheckedUpdateWithoutLedgersInput = {
   associatePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   category?: Prisma.StringFieldUpdateOperationsInput | string
   openStock?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  boxName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postWeight?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -873,6 +931,8 @@ export type StockInventorySelect<ExtArgs extends runtime.Types.Extensions.Intern
   associatePrice?: boolean
   category?: boolean
   openStock?: boolean
+  boxName?: boolean
+  postWeight?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   ledgers?: boolean | Prisma.StockInventory$ledgersArgs<ExtArgs>
@@ -897,6 +957,8 @@ export type StockInventorySelectCreateManyAndReturn<ExtArgs extends runtime.Type
   associatePrice?: boolean
   category?: boolean
   openStock?: boolean
+  boxName?: boolean
+  postWeight?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["stockInventory"]>
@@ -919,6 +981,8 @@ export type StockInventorySelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   associatePrice?: boolean
   category?: boolean
   openStock?: boolean
+  boxName?: boolean
+  postWeight?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["stockInventory"]>
@@ -941,11 +1005,13 @@ export type StockInventorySelectScalar = {
   associatePrice?: boolean
   category?: boolean
   openStock?: boolean
+  boxName?: boolean
+  postWeight?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type StockInventoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "imageUrl" | "imageStoredName" | "imageOriginalName" | "productName" | "spec" | "unit" | "stock" | "stockMax" | "effectiveDate" | "priceOver500man" | "priceOver100man" | "wholesalePrice" | "associatePrice" | "category" | "openStock" | "createdAt" | "updatedAt", ExtArgs["result"]["stockInventory"]>
+export type StockInventoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "imageUrl" | "imageStoredName" | "imageOriginalName" | "productName" | "spec" | "unit" | "stock" | "stockMax" | "effectiveDate" | "priceOver500man" | "priceOver100man" | "wholesalePrice" | "associatePrice" | "category" | "openStock" | "boxName" | "postWeight" | "createdAt" | "updatedAt", ExtArgs["result"]["stockInventory"]>
 export type StockInventoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ledgers?: boolean | Prisma.StockInventory$ledgersArgs<ExtArgs>
   _count?: boolean | Prisma.StockInventoryCountOutputTypeDefaultArgs<ExtArgs>
@@ -976,6 +1042,8 @@ export type $StockInventoryPayload<ExtArgs extends runtime.Types.Extensions.Inte
     associatePrice: number
     category: string
     openStock: boolean
+    boxName: string | null
+    postWeight: number | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["stockInventory"]>
@@ -1419,6 +1487,8 @@ export interface StockInventoryFieldRefs {
   readonly associatePrice: Prisma.FieldRef<"StockInventory", 'Float'>
   readonly category: Prisma.FieldRef<"StockInventory", 'String'>
   readonly openStock: Prisma.FieldRef<"StockInventory", 'Boolean'>
+  readonly boxName: Prisma.FieldRef<"StockInventory", 'String'>
+  readonly postWeight: Prisma.FieldRef<"StockInventory", 'Int'>
   readonly createdAt: Prisma.FieldRef<"StockInventory", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"StockInventory", 'DateTime'>
 }
