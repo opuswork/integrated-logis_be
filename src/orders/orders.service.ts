@@ -679,8 +679,14 @@ export class OrdersService {
   }
 
   private isParcelOrder(order: {
+    notes?: string | null;
     shipment?: { fulfillmentType: FulfillmentType } | null;
   }) {
+    const notes = order.notes ?? '';
+    // notes 배달 우선: fulfillmentType이 PARCEL로 남아 있어도 상차
+    if (notes.includes('[배달]') || notes.includes('배달업체명:')) {
+      return false;
+    }
     return order.shipment?.fulfillmentType === FulfillmentType.PARCEL;
   }
 
@@ -796,36 +802,26 @@ export class OrdersService {
       if (order.finalCompleteDone) {
         throw new BadRequestException('이미 최종완료된 주문입니다.');
       }
+      // 택배·상차 공통: 최종완료 → 배송중, 최종확인은 별도 단계
       data.finalCompleteDone = true;
-      if (!parcel) {
-        // 상차: 최종확인도 함께 완료 → 배송완료
-        data.finalConfirmDone = true;
-        data.status = OrderStatus.RECEIVED;
-        data.shipment = order.shipment
-          ? {
-              update: {
-                shippedAt: order.shipment.shippedAt ?? now,
-                deliveredAt: order.shipment.deliveredAt ?? now,
-              },
-            }
-          : {
-              create: {
-                fulfillmentType: 'PARCEL',
-                shippedAt: now,
-                deliveredAt: now,
-              },
-            };
-      } else {
-        data.status = OrderStatus.SHIPPING;
-      }
+      data.status = OrderStatus.SHIPPING;
+      data.shipment = order.shipment
+        ? {
+            update: {
+              shippedAt: order.shipment.shippedAt ?? now,
+            },
+          }
+        : {
+            create: {
+              fulfillmentType: parcel
+                ? FulfillmentType.PARCEL
+                : FulfillmentType.PICKUP,
+              shippedAt: now,
+            },
+          };
       activityAction = AdminActivityAction.FINAL_COMPLETE;
-      summarySuffix = parcel
-        ? '최종완료 → 배송중'
-        : '최종완료 → 배송완료';
+      summarySuffix = '최종완료 → 배송중';
     } else if (dto.action === 'finalConfirm') {
-      if (!parcel) {
-        throw new BadRequestException('상차 주문은 최종확인이 없습니다.');
-      }
       if (!order.finalCompleteDone) {
         throw new BadRequestException(
           '배송관리 최종완료 후에만 최종확인할 수 있습니다.',
@@ -862,7 +858,9 @@ export class OrdersService {
           }
         : {
             create: {
-              fulfillmentType: 'PARCEL',
+              fulfillmentType: parcel
+                ? FulfillmentType.PARCEL
+                : FulfillmentType.PICKUP,
               shippedAt: now,
               deliveredAt: now,
             },
