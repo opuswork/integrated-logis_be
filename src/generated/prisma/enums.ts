@@ -41,6 +41,15 @@ export const OrderStatus = {
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
 
 
+export const StockLedgerType = {
+  INITIAL: 'INITIAL',
+  ADDITION: 'ADDITION',
+  ORDER_DEDUCT: 'ORDER_DEDUCT'
+} as const
+
+export type StockLedgerType = (typeof StockLedgerType)[keyof typeof StockLedgerType]
+
+
 export const FulfillmentType = {
   PARCEL: 'PARCEL',
   PICKUP: 'PICKUP'

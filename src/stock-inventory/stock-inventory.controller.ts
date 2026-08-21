@@ -149,6 +149,13 @@ export class StockInventoryController {
     return this.stockInventoryService.bulkImportFromFile(file, skip);
   }
 
+  @Get('status')
+  @ApiOperation({ summary: '재고 현황 대시보드 (지표·품목·변동 이력)' })
+  @ApiOkResponse({ description: '재고 현황 집계' })
+  getStatus() {
+    return this.stockInventoryService.getStatus();
+  }
+
   @Get()
   @ApiOperation({ summary: '재고/상품 목록' })
   @ApiQuery({ name: 'category', required: false, type: String })

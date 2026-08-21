@@ -1210,7 +1210,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     role: $Enums.Role
     adminRegion: $Enums.AdminRegion | null
     /**
-     * * Factory-G: 인사장완료 승인 가능 (username 0102964708)
+     * * Factory-G: 인사장완료 승인 가능 (username 01029647088)
      */
     canApproveGreeting: boolean
     createdAt: Date

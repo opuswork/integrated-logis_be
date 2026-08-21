@@ -356,6 +356,7 @@ export type StockInventoryWhereInput = {
   openStock?: Prisma.BoolFilter<"StockInventory"> | boolean
   createdAt?: Prisma.DateTimeFilter<"StockInventory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StockInventory"> | Date | string
+  ledgers?: Prisma.StockInventoryLedgerListRelationFilter
 }
 
 export type StockInventoryOrderByWithRelationInput = {
@@ -378,6 +379,7 @@ export type StockInventoryOrderByWithRelationInput = {
   openStock?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  ledgers?: Prisma.StockInventoryLedgerOrderByRelationAggregateInput
 }
 
 export type StockInventoryWhereUniqueInput = Prisma.AtLeast<{
@@ -403,6 +405,7 @@ export type StockInventoryWhereUniqueInput = Prisma.AtLeast<{
   openStock?: Prisma.BoolFilter<"StockInventory"> | boolean
   createdAt?: Prisma.DateTimeFilter<"StockInventory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StockInventory"> | Date | string
+  ledgers?: Prisma.StockInventoryLedgerListRelationFilter
 }, "id" | "code">
 
 export type StockInventoryOrderByWithAggregationInput = {
@@ -476,6 +479,7 @@ export type StockInventoryCreateInput = {
   openStock?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  ledgers?: Prisma.StockInventoryLedgerCreateNestedManyWithoutProductInput
 }
 
 export type StockInventoryUncheckedCreateInput = {
@@ -498,6 +502,7 @@ export type StockInventoryUncheckedCreateInput = {
   openStock?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  ledgers?: Prisma.StockInventoryLedgerUncheckedCreateNestedManyWithoutProductInput
 }
 
 export type StockInventoryUpdateInput = {
@@ -519,6 +524,7 @@ export type StockInventoryUpdateInput = {
   openStock?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ledgers?: Prisma.StockInventoryLedgerUpdateManyWithoutProductNestedInput
 }
 
 export type StockInventoryUncheckedUpdateInput = {
@@ -541,6 +547,7 @@ export type StockInventoryUncheckedUpdateInput = {
   openStock?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ledgers?: Prisma.StockInventoryLedgerUncheckedUpdateManyWithoutProductNestedInput
 }
 
 export type StockInventoryCreateManyInput = {
@@ -696,6 +703,156 @@ export type StockInventorySumOrderByAggregateInput = {
   associatePrice?: Prisma.SortOrder
 }
 
+export type StockInventoryScalarRelationFilter = {
+  is?: Prisma.StockInventoryWhereInput
+  isNot?: Prisma.StockInventoryWhereInput
+}
+
+export type StockInventoryCreateNestedOneWithoutLedgersInput = {
+  create?: Prisma.XOR<Prisma.StockInventoryCreateWithoutLedgersInput, Prisma.StockInventoryUncheckedCreateWithoutLedgersInput>
+  connectOrCreate?: Prisma.StockInventoryCreateOrConnectWithoutLedgersInput
+  connect?: Prisma.StockInventoryWhereUniqueInput
+}
+
+export type StockInventoryUpdateOneRequiredWithoutLedgersNestedInput = {
+  create?: Prisma.XOR<Prisma.StockInventoryCreateWithoutLedgersInput, Prisma.StockInventoryUncheckedCreateWithoutLedgersInput>
+  connectOrCreate?: Prisma.StockInventoryCreateOrConnectWithoutLedgersInput
+  upsert?: Prisma.StockInventoryUpsertWithoutLedgersInput
+  connect?: Prisma.StockInventoryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StockInventoryUpdateToOneWithWhereWithoutLedgersInput, Prisma.StockInventoryUpdateWithoutLedgersInput>, Prisma.StockInventoryUncheckedUpdateWithoutLedgersInput>
+}
+
+export type StockInventoryCreateWithoutLedgersInput = {
+  code: string
+  imageUrl?: string | null
+  imageStoredName?: string | null
+  imageOriginalName?: string | null
+  productName: string
+  spec?: string | null
+  unit: number
+  stock?: number | null
+  stockMax?: number | null
+  effectiveDate: Date | string
+  priceOver500man: number
+  priceOver100man: number
+  wholesalePrice: number
+  associatePrice: number
+  category: string
+  openStock?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type StockInventoryUncheckedCreateWithoutLedgersInput = {
+  id?: number
+  code: string
+  imageUrl?: string | null
+  imageStoredName?: string | null
+  imageOriginalName?: string | null
+  productName: string
+  spec?: string | null
+  unit: number
+  stock?: number | null
+  stockMax?: number | null
+  effectiveDate: Date | string
+  priceOver500man: number
+  priceOver100man: number
+  wholesalePrice: number
+  associatePrice: number
+  category: string
+  openStock?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type StockInventoryCreateOrConnectWithoutLedgersInput = {
+  where: Prisma.StockInventoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.StockInventoryCreateWithoutLedgersInput, Prisma.StockInventoryUncheckedCreateWithoutLedgersInput>
+}
+
+export type StockInventoryUpsertWithoutLedgersInput = {
+  update: Prisma.XOR<Prisma.StockInventoryUpdateWithoutLedgersInput, Prisma.StockInventoryUncheckedUpdateWithoutLedgersInput>
+  create: Prisma.XOR<Prisma.StockInventoryCreateWithoutLedgersInput, Prisma.StockInventoryUncheckedCreateWithoutLedgersInput>
+  where?: Prisma.StockInventoryWhereInput
+}
+
+export type StockInventoryUpdateToOneWithWhereWithoutLedgersInput = {
+  where?: Prisma.StockInventoryWhereInput
+  data: Prisma.XOR<Prisma.StockInventoryUpdateWithoutLedgersInput, Prisma.StockInventoryUncheckedUpdateWithoutLedgersInput>
+}
+
+export type StockInventoryUpdateWithoutLedgersInput = {
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageStoredName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageOriginalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  spec?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unit?: Prisma.IntFieldUpdateOperationsInput | number
+  stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  stockMax?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  priceOver500man?: Prisma.FloatFieldUpdateOperationsInput | number
+  priceOver100man?: Prisma.FloatFieldUpdateOperationsInput | number
+  wholesalePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  associatePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  openStock?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type StockInventoryUncheckedUpdateWithoutLedgersInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageStoredName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageOriginalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productName?: Prisma.StringFieldUpdateOperationsInput | string
+  spec?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unit?: Prisma.IntFieldUpdateOperationsInput | number
+  stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  stockMax?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  priceOver500man?: Prisma.FloatFieldUpdateOperationsInput | number
+  priceOver100man?: Prisma.FloatFieldUpdateOperationsInput | number
+  wholesalePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  associatePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  openStock?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type StockInventoryCountOutputType
+ */
+
+export type StockInventoryCountOutputType = {
+  ledgers: number
+}
+
+export type StockInventoryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  ledgers?: boolean | StockInventoryCountOutputTypeCountLedgersArgs
+}
+
+/**
+ * StockInventoryCountOutputType without action
+ */
+export type StockInventoryCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StockInventoryCountOutputType
+   */
+  select?: Prisma.StockInventoryCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * StockInventoryCountOutputType without action
+ */
+export type StockInventoryCountOutputTypeCountLedgersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StockInventoryLedgerWhereInput
+}
 
 
 export type StockInventorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -718,6 +875,8 @@ export type StockInventorySelect<ExtArgs extends runtime.Types.Extensions.Intern
   openStock?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  ledgers?: boolean | Prisma.StockInventory$ledgersArgs<ExtArgs>
+  _count?: boolean | Prisma.StockInventoryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stockInventory"]>
 
 export type StockInventorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -787,10 +946,18 @@ export type StockInventorySelectScalar = {
 }
 
 export type StockInventoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "imageUrl" | "imageStoredName" | "imageOriginalName" | "productName" | "spec" | "unit" | "stock" | "stockMax" | "effectiveDate" | "priceOver500man" | "priceOver100man" | "wholesalePrice" | "associatePrice" | "category" | "openStock" | "createdAt" | "updatedAt", ExtArgs["result"]["stockInventory"]>
+export type StockInventoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  ledgers?: boolean | Prisma.StockInventory$ledgersArgs<ExtArgs>
+  _count?: boolean | Prisma.StockInventoryCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type StockInventoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type StockInventoryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $StockInventoryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "StockInventory"
-  objects: {}
+  objects: {
+    ledgers: Prisma.$StockInventoryLedgerPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     code: string
@@ -1205,6 +1372,7 @@ readonly fields: StockInventoryFieldRefs;
  */
 export interface Prisma__StockInventoryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  ledgers<T extends Prisma.StockInventory$ledgersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StockInventory$ledgersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StockInventoryLedgerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1270,6 +1438,10 @@ export type StockInventoryFindUniqueArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.StockInventoryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StockInventoryInclude<ExtArgs> | null
+  /**
    * Filter, which StockInventory to fetch.
    */
   where: Prisma.StockInventoryWhereUniqueInput
@@ -1288,6 +1460,10 @@ export type StockInventoryFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Ex
    */
   omit?: Prisma.StockInventoryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StockInventoryInclude<ExtArgs> | null
+  /**
    * Filter, which StockInventory to fetch.
    */
   where: Prisma.StockInventoryWhereUniqueInput
@@ -1305,6 +1481,10 @@ export type StockInventoryFindFirstArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the StockInventory
    */
   omit?: Prisma.StockInventoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StockInventoryInclude<ExtArgs> | null
   /**
    * Filter, which StockInventory to fetch.
    */
@@ -1354,6 +1534,10 @@ export type StockInventoryFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Ext
    */
   omit?: Prisma.StockInventoryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StockInventoryInclude<ExtArgs> | null
+  /**
    * Filter, which StockInventory to fetch.
    */
   where?: Prisma.StockInventoryWhereInput
@@ -1401,6 +1585,10 @@ export type StockInventoryFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Omit specific fields from the StockInventory
    */
   omit?: Prisma.StockInventoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StockInventoryInclude<ExtArgs> | null
   /**
    * Filter, which StockInventories to fetch.
    */
@@ -1450,6 +1638,10 @@ export type StockInventoryCreateArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.StockInventoryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StockInventoryInclude<ExtArgs> | null
+  /**
    * The data needed to create a StockInventory.
    */
   data: Prisma.XOR<Prisma.StockInventoryCreateInput, Prisma.StockInventoryUncheckedCreateInput>
@@ -1497,6 +1689,10 @@ export type StockInventoryUpdateArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the StockInventory
    */
   omit?: Prisma.StockInventoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StockInventoryInclude<ExtArgs> | null
   /**
    * The data needed to update a StockInventory.
    */
@@ -1564,6 +1760,10 @@ export type StockInventoryUpsertArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.StockInventoryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StockInventoryInclude<ExtArgs> | null
+  /**
    * The filter to search for the StockInventory to update in case it exists.
    */
   where: Prisma.StockInventoryWhereUniqueInput
@@ -1590,6 +1790,10 @@ export type StockInventoryDeleteArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.StockInventoryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StockInventoryInclude<ExtArgs> | null
+  /**
    * Filter which StockInventory to delete.
    */
   where: Prisma.StockInventoryWhereUniqueInput
@@ -1610,6 +1814,30 @@ export type StockInventoryDeleteManyArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
+ * StockInventory.ledgers
+ */
+export type StockInventory$ledgersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StockInventoryLedger
+   */
+  select?: Prisma.StockInventoryLedgerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StockInventoryLedger
+   */
+  omit?: Prisma.StockInventoryLedgerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StockInventoryLedgerInclude<ExtArgs> | null
+  where?: Prisma.StockInventoryLedgerWhereInput
+  orderBy?: Prisma.StockInventoryLedgerOrderByWithRelationInput | Prisma.StockInventoryLedgerOrderByWithRelationInput[]
+  cursor?: Prisma.StockInventoryLedgerWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StockInventoryLedgerScalarFieldEnum | Prisma.StockInventoryLedgerScalarFieldEnum[]
+}
+
+/**
  * StockInventory without action
  */
 export type StockInventoryDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1621,4 +1849,8 @@ export type StockInventoryDefaultArgs<ExtArgs extends runtime.Types.Extensions.I
    * Omit specific fields from the StockInventory
    */
   omit?: Prisma.StockInventoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StockInventoryInclude<ExtArgs> | null
 }

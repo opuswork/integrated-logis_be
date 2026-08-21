@@ -15,8 +15,13 @@ import {
   PackDept,
   PackagingWorker,
   Prisma,
+  StockLedgerType,
 } from '../generated/prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
+import {
+  STOCK_ACTOR_ORDER_AUTO,
+  writeStockLedger,
+} from '../stock-inventory/stock-ledger';
 import {
   CreateOrderDto,
   CreateShipmentDto,
@@ -215,6 +220,13 @@ export class OrdersService {
         where: { id: catalog.id },
         data: { stock: catalog.stock - quantity },
       });
+      await writeStockLedger(tx, {
+        productId: catalog.id,
+        productName: catalog.productName,
+        type: StockLedgerType.ORDER_DEDUCT,
+        delta: -quantity,
+        actorLabel: STOCK_ACTOR_ORDER_AUTO,
+      });
     }
   }
 
@@ -243,7 +255,7 @@ export class OrdersService {
     for (const [productName, quantity] of qtyByName) {
       const catalog = await tx.stockInventory.findFirst({
         where: { productName },
-        select: { id: true, stock: true },
+        select: { id: true, stock: true, productName: true },
       });
 
       if (!catalog || catalog.stock === null) {
@@ -253,6 +265,13 @@ export class OrdersService {
       await tx.stockInventory.update({
         where: { id: catalog.id },
         data: { stock: catalog.stock + quantity },
+      });
+      await writeStockLedger(tx, {
+        productId: catalog.id,
+        productName: catalog.productName,
+        type: StockLedgerType.ORDER_DEDUCT,
+        delta: quantity,
+        actorLabel: STOCK_ACTOR_ORDER_AUTO,
       });
     }
   }

@@ -58,6 +58,7 @@ export const ModelName = {
   Shipment: 'Shipment',
   OrderItem: 'OrderItem',
   StockInventory: 'StockInventory',
+  StockInventoryLedger: 'StockInventoryLedger',
   GreetingForm: 'GreetingForm'
 } as const
 
@@ -210,6 +211,20 @@ export const StockInventoryScalarFieldEnum = {
 } as const
 
 export type StockInventoryScalarFieldEnum = (typeof StockInventoryScalarFieldEnum)[keyof typeof StockInventoryScalarFieldEnum]
+
+
+export const StockInventoryLedgerScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  productName: 'productName',
+  type: 'type',
+  delta: 'delta',
+  actorLabel: 'actorLabel',
+  orderId: 'orderId',
+  createdAt: 'createdAt'
+} as const
+
+export type StockInventoryLedgerScalarFieldEnum = (typeof StockInventoryLedgerScalarFieldEnum)[keyof typeof StockInventoryLedgerScalarFieldEnum]
 
 
 export const GreetingFormScalarFieldEnum = {

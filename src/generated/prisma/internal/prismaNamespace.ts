@@ -404,6 +404,7 @@ export const ModelName = {
   Shipment: 'Shipment',
   OrderItem: 'OrderItem',
   StockInventory: 'StockInventory',
+  StockInventoryLedger: 'StockInventoryLedger',
   GreetingForm: 'GreetingForm'
 } as const
 
@@ -420,7 +421,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "church" | "order" | "adminActivity" | "shipment" | "orderItem" | "stockInventory" | "greetingForm"
+    modelProps: "user" | "church" | "order" | "adminActivity" | "shipment" | "orderItem" | "stockInventory" | "stockInventoryLedger" | "greetingForm"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -942,6 +943,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    StockInventoryLedger: {
+      payload: Prisma.$StockInventoryLedgerPayload<ExtArgs>
+      fields: Prisma.StockInventoryLedgerFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StockInventoryLedgerFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockInventoryLedgerPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StockInventoryLedgerFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockInventoryLedgerPayload>
+        }
+        findFirst: {
+          args: Prisma.StockInventoryLedgerFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockInventoryLedgerPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StockInventoryLedgerFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockInventoryLedgerPayload>
+        }
+        findMany: {
+          args: Prisma.StockInventoryLedgerFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockInventoryLedgerPayload>[]
+        }
+        create: {
+          args: Prisma.StockInventoryLedgerCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockInventoryLedgerPayload>
+        }
+        createMany: {
+          args: Prisma.StockInventoryLedgerCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StockInventoryLedgerCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockInventoryLedgerPayload>[]
+        }
+        delete: {
+          args: Prisma.StockInventoryLedgerDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockInventoryLedgerPayload>
+        }
+        update: {
+          args: Prisma.StockInventoryLedgerUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockInventoryLedgerPayload>
+        }
+        deleteMany: {
+          args: Prisma.StockInventoryLedgerDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StockInventoryLedgerUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StockInventoryLedgerUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockInventoryLedgerPayload>[]
+        }
+        upsert: {
+          args: Prisma.StockInventoryLedgerUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockInventoryLedgerPayload>
+        }
+        aggregate: {
+          args: Prisma.StockInventoryLedgerAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStockInventoryLedger>
+        }
+        groupBy: {
+          args: Prisma.StockInventoryLedgerGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StockInventoryLedgerGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StockInventoryLedgerCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StockInventoryLedgerCountAggregateOutputType> | number
+        }
+      }
+    }
     GreetingForm: {
       payload: Prisma.$GreetingFormPayload<ExtArgs>
       fields: Prisma.GreetingFormFieldRefs
@@ -1190,6 +1265,20 @@ export const StockInventoryScalarFieldEnum = {
 export type StockInventoryScalarFieldEnum = (typeof StockInventoryScalarFieldEnum)[keyof typeof StockInventoryScalarFieldEnum]
 
 
+export const StockInventoryLedgerScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  productName: 'productName',
+  type: 'type',
+  delta: 'delta',
+  actorLabel: 'actorLabel',
+  orderId: 'orderId',
+  createdAt: 'createdAt'
+} as const
+
+export type StockInventoryLedgerScalarFieldEnum = (typeof StockInventoryLedgerScalarFieldEnum)[keyof typeof StockInventoryLedgerScalarFieldEnum]
+
+
 export const GreetingFormScalarFieldEnum = {
   id: 'id',
   greetingNumber: 'greetingNumber',
@@ -1408,6 +1497,20 @@ export type EnumFulfillmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$
 export type ListEnumFulfillmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FulfillmentType[]'>
     
 
+
+/**
+ * Reference to a field of type 'StockLedgerType'
+ */
+export type EnumStockLedgerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StockLedgerType'>
+    
+
+
+/**
+ * Reference to a field of type 'StockLedgerType[]'
+ */
+export type ListEnumStockLedgerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StockLedgerType[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -1566,6 +1669,7 @@ export type GlobalOmitConfig = {
   shipment?: Prisma.ShipmentOmit
   orderItem?: Prisma.OrderItemOmit
   stockInventory?: Prisma.StockInventoryOmit
+  stockInventoryLedger?: Prisma.StockInventoryLedgerOmit
   greetingForm?: Prisma.GreetingFormOmit
 }
 
