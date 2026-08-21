@@ -55,6 +55,8 @@ const orderInclude = {
       productName: true,
       receivePlace: true,
       orderId: true,
+      churchName: true,
+      ordererName: true,
     },
   },
   user: {
