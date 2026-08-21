@@ -183,13 +183,13 @@ export class StockInventoryController {
     return this.stockInventoryService.findAll(category, keyword, onlyOpen);
   }
 
-  @Get(':id(\\d+)')
+  @Get(':id')
   @ApiOperation({ summary: '재고/상품 단건 조회' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.stockInventoryService.findOne(id);
   }
 
-  @Put(':id(\\d+)')
+  @Put(':id')
   @ApiOperation({ summary: '재고/상품 전체 수정 (PUT, 이미지 선택)' })
   @ApiConsumes('multipart/form-data', 'application/json')
   @UseInterceptors(imageUploadInterceptor)
@@ -201,7 +201,7 @@ export class StockInventoryController {
     return this.stockInventoryService.replace(id, dto, file);
   }
 
-  @Patch(':id(\\d+)')
+  @Patch(':id')
   @ApiOperation({ summary: '재고/상품 부분 수정 (PATCH, 이미지 선택)' })
   @ApiConsumes('multipart/form-data', 'application/json')
   @UseInterceptors(imageUploadInterceptor)
@@ -213,7 +213,7 @@ export class StockInventoryController {
     return this.stockInventoryService.update(id, dto, file);
   }
 
-  @Delete(':id(\\d+)')
+  @Delete(':id')
   @ApiOperation({ summary: '재고/상품 삭제' })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.stockInventoryService.remove(id);
