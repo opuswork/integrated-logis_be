@@ -149,6 +149,7 @@ export class StockInventoryController {
     return this.stockInventoryService.bulkImportFromFile(file, skip);
   }
 
+  // Must be registered before :id so "status" is not captured by ParseIntPipe
   @Get('status')
   @ApiOperation({ summary: '재고 현황 대시보드 (지표·품목·변동 이력)' })
   @ApiOkResponse({ description: '재고 현황 집계' })
@@ -182,13 +183,13 @@ export class StockInventoryController {
     return this.stockInventoryService.findAll(category, keyword, onlyOpen);
   }
 
-  @Get(':id')
+  @Get(':id(\\d+)')
   @ApiOperation({ summary: '재고/상품 단건 조회' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.stockInventoryService.findOne(id);
   }
 
-  @Put(':id')
+  @Put(':id(\\d+)')
   @ApiOperation({ summary: '재고/상품 전체 수정 (PUT, 이미지 선택)' })
   @ApiConsumes('multipart/form-data', 'application/json')
   @UseInterceptors(imageUploadInterceptor)
@@ -200,7 +201,7 @@ export class StockInventoryController {
     return this.stockInventoryService.replace(id, dto, file);
   }
 
-  @Patch(':id')
+  @Patch(':id(\\d+)')
   @ApiOperation({ summary: '재고/상품 부분 수정 (PATCH, 이미지 선택)' })
   @ApiConsumes('multipart/form-data', 'application/json')
   @UseInterceptors(imageUploadInterceptor)
@@ -212,7 +213,7 @@ export class StockInventoryController {
     return this.stockInventoryService.update(id, dto, file);
   }
 
-  @Delete(':id')
+  @Delete(':id(\\d+)')
   @ApiOperation({ summary: '재고/상품 삭제' })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.stockInventoryService.remove(id);
