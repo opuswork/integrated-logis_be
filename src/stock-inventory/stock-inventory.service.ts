@@ -4,6 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { StockLedgerType } from '../generated/prisma/client';
 import * as XLSX from 'xlsx';
 
 import { PrismaService } from '../prisma/prisma.service';
@@ -13,6 +14,10 @@ import {
   UpdateStockInventoryDto,
 } from './dto/stock-inventory.dto';
 import { ProductImageStorageService } from './product-image-storage.service';
+import {
+  LOW_STOCK_THRESHOLD,
+  recordAdminStockChange,
+} from './stock-ledger';
 
 type ParsedRow = {
   code: string;
@@ -264,8 +269,9 @@ export class StockInventoryService {
     }
 
     const image = await this.resolveImageFields(file, dto.imageUrl);
+    const nextStock = dto.stock ?? null;
 
-    return this.prisma.stockInventory.create({
+    const created = await this.prisma.stockInventory.create({
       data: {
         code,
         imageUrl: image.imageUrl,
@@ -274,8 +280,8 @@ export class StockInventoryService {
         productName: dto.productName.trim(),
         spec: dto.spec?.trim() || null,
         unit: dto.unit,
-        stock: dto.stock ?? null,
-        stockMax: resolveStockMax(dto.stock ?? null, dto.stockMax ?? null),
+        stock: nextStock,
+        stockMax: resolveStockMax(nextStock, dto.stockMax ?? null),
         effectiveDate: new Date(dto.effectiveDate),
         priceOver500man: dto.priceOver500man,
         priceOver100man: dto.priceOver100man,
@@ -285,6 +291,15 @@ export class StockInventoryService {
         openStock: dto.openStock ?? true,
       },
     });
+
+    await recordAdminStockChange(this.prisma, {
+      productId: created.id,
+      productName: created.productName,
+      previousStock: null,
+      nextStock: created.stock,
+    });
+
+    return created;
   }
 
   findAll(category?: string, keyword?: string, openOnly = false) {
@@ -324,6 +339,117 @@ export class StockInventoryService {
     });
   }
 
+  async getStatus() {
+    const [products, ledgers] = await Promise.all([
+      this.prisma.stockInventory.findMany({
+        orderBy: [{ productName: 'asc' }],
+      }),
+      this.prisma.stockInventoryLedger.findMany({
+        orderBy: { createdAt: 'desc' },
+      }),
+    ]);
+
+    const byProduct = new Map<
+      number,
+      { initial: number; added: number; deducted: number }
+    >();
+
+    for (const p of products) {
+      byProduct.set(p.id, { initial: 0, added: 0, deducted: 0 });
+    }
+
+    const now = new Date();
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    let monthAdditionQty = 0;
+    let monthAdditionEvents = 0;
+    let orderDeductQty = 0;
+
+    for (const entry of ledgers) {
+      const agg = byProduct.get(entry.productId);
+      if (agg) {
+        if (entry.type === StockLedgerType.INITIAL) {
+          agg.initial += entry.delta;
+        } else if (entry.type === StockLedgerType.ADDITION) {
+          agg.added += entry.delta;
+        } else if (entry.type === StockLedgerType.ORDER_DEDUCT) {
+          if (entry.delta < 0) {
+            agg.deducted += -entry.delta;
+          }
+        }
+      }
+
+      if (
+        entry.type === StockLedgerType.ADDITION &&
+        entry.delta > 0 &&
+        entry.createdAt >= monthStart
+      ) {
+        monthAdditionQty += entry.delta;
+        monthAdditionEvents += 1;
+      }
+
+      if (
+        entry.type === StockLedgerType.ORDER_DEDUCT &&
+        entry.delta < 0
+      ) {
+        orderDeductQty += -entry.delta;
+      }
+    }
+
+    const tracked = products.filter(
+      (p) => p.stock !== null && p.stock !== undefined,
+    );
+    const totalCurrentStock = tracked.reduce(
+      (sum, p) => sum + (p.stock ?? 0),
+      0,
+    );
+    const lowStockCount = tracked.filter(
+      (p) => (p.stock ?? 0) <= LOW_STOCK_THRESHOLD,
+    ).length;
+
+    const rows = tracked.map((p) => {
+      const agg = byProduct.get(p.id) ?? {
+        initial: 0,
+        added: 0,
+        deducted: 0,
+      };
+      const current = p.stock ?? 0;
+      return {
+        id: p.id,
+        productName: p.productName,
+        initial: agg.initial,
+        added: agg.added,
+        deducted: agg.deducted,
+        current,
+        threshold: LOW_STOCK_THRESHOLD,
+        updatedAt: p.updatedAt,
+        isLow: current <= LOW_STOCK_THRESHOLD,
+      };
+    });
+
+    const history = ledgers.slice(0, 50).map((entry) => ({
+      id: entry.id,
+      createdAt: entry.createdAt,
+      type: entry.type,
+      productName: entry.productName,
+      delta: entry.delta,
+      actorLabel: entry.actorLabel,
+      orderId: entry.orderId,
+    }));
+
+    return {
+      metrics: {
+        totalCurrentStock,
+        trackedCount: tracked.length,
+        monthAdditionQty,
+        monthAdditionEvents,
+        orderDeductQty,
+        lowStockCount,
+      },
+      rows,
+      history,
+    };
+  }
+
   async findOne(id: number) {
     const item = await this.prisma.stockInventory.findUnique({
       where: { id },
@@ -352,7 +478,8 @@ export class StockInventoryService {
             imageOriginalName: current.imageOriginalName,
           };
 
-    return this.prisma.stockInventory.update({
+    const nextStock = dto.stock ?? null;
+    const updated = await this.prisma.stockInventory.update({
       where: { id },
       data: {
         code: dto.code.trim(),
@@ -362,8 +489,8 @@ export class StockInventoryService {
         productName: dto.productName.trim(),
         spec: dto.spec?.trim() || null,
         unit: dto.unit,
-        stock: dto.stock ?? null,
-        stockMax: resolveStockMax(dto.stock ?? null, dto.stockMax ?? null),
+        stock: nextStock,
+        stockMax: resolveStockMax(nextStock, dto.stockMax ?? null),
         effectiveDate: new Date(dto.effectiveDate),
         priceOver500man: dto.priceOver500man,
         priceOver100man: dto.priceOver100man,
@@ -373,6 +500,15 @@ export class StockInventoryService {
         openStock: dto.openStock ?? true,
       },
     });
+
+    await recordAdminStockChange(this.prisma, {
+      productId: updated.id,
+      productName: updated.productName,
+      previousStock: current.stock,
+      nextStock: updated.stock,
+    });
+
+    return updated;
   }
 
   async update(
@@ -402,7 +538,7 @@ export class StockInventoryService {
       }
     }
 
-    return this.prisma.stockInventory.update({
+    const updated = await this.prisma.stockInventory.update({
       where: { id },
       data: {
         ...(dto.code !== undefined ? { code: dto.code.trim() } : {}),
@@ -450,6 +586,17 @@ export class StockInventoryService {
         ...(dto.openStock !== undefined ? { openStock: dto.openStock } : {}),
       },
     });
+
+    if (dto.stock !== undefined) {
+      await recordAdminStockChange(this.prisma, {
+        productId: updated.id,
+        productName: updated.productName,
+        previousStock: current.stock,
+        nextStock: updated.stock,
+      });
+    }
+
+    return updated;
   }
 
   async remove(id: number) {
@@ -514,7 +661,10 @@ export class StockInventoryService {
             skippedCodes.push(parsed.code);
             continue;
           }
-          await this.prisma.stockInventory.update({
+          const before = await this.prisma.stockInventory.findUnique({
+            where: { code: parsed.code },
+          });
+          const updated = await this.prisma.stockInventory.update({
             where: { code: parsed.code },
             data: {
               imageUrl: parsed.imageUrl,
@@ -534,12 +684,20 @@ export class StockInventoryService {
               category: parsed.category,
             },
           });
+          if (before) {
+            await recordAdminStockChange(this.prisma, {
+              productId: updated.id,
+              productName: updated.productName,
+              previousStock: before.stock,
+              nextStock: updated.stock,
+            });
+          }
           summary.created += 1;
           createdCodes.push(parsed.code);
           continue;
         }
 
-        await this.prisma.stockInventory.create({
+        const created = await this.prisma.stockInventory.create({
           data: {
             code: parsed.code,
             imageUrl: parsed.imageUrl,
@@ -558,6 +716,12 @@ export class StockInventoryService {
             associatePrice: parsed.associatePrice,
             category: parsed.category,
           },
+        });
+        await recordAdminStockChange(this.prisma, {
+          productId: created.id,
+          productName: created.productName,
+          previousStock: null,
+          nextStock: created.stock,
         });
         summary.created += 1;
         createdCodes.push(parsed.code);

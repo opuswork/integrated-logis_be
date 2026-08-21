@@ -53,6 +53,11 @@ export type OrderItem = Prisma.OrderItemModel
  */
 export type StockInventory = Prisma.StockInventoryModel
 /**
+ * Model StockInventoryLedger
+ * 재고 변동 이력 (초기재고 / 추가재고 / 주문차감)
+ */
+export type StockInventoryLedger = Prisma.StockInventoryLedgerModel
+/**
  * Model GreetingForm
  * 인사장 작성 폼 (제품주문 연계 / 인사장만 의뢰)
  */

@@ -199,6 +199,12 @@ model OrderItem {
   @@index([orderId])
 }
 
+enum StockLedgerType {
+  INITIAL
+  ADDITION
+  ORDER_DEDUCT
+}
+
 /// Product catalog for order "상품 추가" modal (Excel-sourced)
 model StockInventory {
   id                Int      @id @default(autoincrement())
@@ -222,10 +228,30 @@ model StockInventory {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  ledgers StockInventoryLedger[]
+
   @@map("stock_inventory")
   @@index([category])
   @@index([productName])
   @@index([openStock])
+}
+
+/// 재고 변동 이력 (초기재고 / 추가재고 / 주문차감)
+model StockInventoryLedger {
+  id          Int             @id @default(autoincrement())
+  productId   Int
+  productName String
+  type        StockLedgerType
+  delta       Int // +추가 / -차감
+  actorLabel  String // "자동(주문관리 연동)" | "공장 관리자"
+  orderId     Int?
+  createdAt   DateTime        @default(now())
+
+  product StockInventory @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, type])
+  @@index([createdAt])
+  @@map("stock_inventory_ledger")
 }
 
 /// 인사장 작성 폼 (제품주문 연계 / 인사장만 의뢰)

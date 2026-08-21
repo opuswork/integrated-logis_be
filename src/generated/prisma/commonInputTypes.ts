@@ -348,6 +348,23 @@ export type EnumFulfillmentTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumFulfillmentTypeFilter<$PrismaModel>
 }
 
+export type EnumStockLedgerTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.StockLedgerType | Prisma.EnumStockLedgerTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.StockLedgerType[] | Prisma.ListEnumStockLedgerTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StockLedgerType[] | Prisma.ListEnumStockLedgerTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStockLedgerTypeFilter<$PrismaModel> | $Enums.StockLedgerType
+}
+
+export type EnumStockLedgerTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StockLedgerType | Prisma.EnumStockLedgerTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.StockLedgerType[] | Prisma.ListEnumStockLedgerTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StockLedgerType[] | Prisma.ListEnumStockLedgerTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStockLedgerTypeWithAggregatesFilter<$PrismaModel> | $Enums.StockLedgerType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStockLedgerTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStockLedgerTypeFilter<$PrismaModel>
+}
+
 export type NestedIntFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -682,6 +699,23 @@ export type NestedEnumFulfillmentTypeWithAggregatesFilter<$PrismaModel = never> 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumFulfillmentTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumFulfillmentTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumStockLedgerTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.StockLedgerType | Prisma.EnumStockLedgerTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.StockLedgerType[] | Prisma.ListEnumStockLedgerTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StockLedgerType[] | Prisma.ListEnumStockLedgerTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStockLedgerTypeFilter<$PrismaModel> | $Enums.StockLedgerType
+}
+
+export type NestedEnumStockLedgerTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StockLedgerType | Prisma.EnumStockLedgerTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.StockLedgerType[] | Prisma.ListEnumStockLedgerTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StockLedgerType[] | Prisma.ListEnumStockLedgerTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStockLedgerTypeWithAggregatesFilter<$PrismaModel> | $Enums.StockLedgerType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStockLedgerTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStockLedgerTypeFilter<$PrismaModel>
 }
 
 
