@@ -116,6 +116,7 @@ export class GreetingFormService {
       where: { id },
       data: {
         orderId: dto.orderId,
+        linkedToOrder: true,
         submitted: true,
       },
     });
