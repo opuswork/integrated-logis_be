@@ -44,7 +44,7 @@ export class PostOfficeController {
   @ApiBody({
     schema: {
       type: 'object',
-      required: ['file', 'churchName', 'options'],
+      required: ['file', 'ordererName', 'churchName', 'options'],
       properties: {
         file: {
           type: 'string',
@@ -53,7 +53,7 @@ export class PostOfficeController {
         },
         ordererName: {
           type: 'string',
-          description: '선택. 비우면 엑셀 주문자명은 공란',
+          description: '주문자 성명 (중앙&이름에 사용)',
         },
         churchName: { type: 'string', description: '중앙 검색값 (필수)' },
         options: {
