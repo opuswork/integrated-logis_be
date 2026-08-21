@@ -25,8 +25,7 @@ export type HolidayGiftConvertOption = {
 };
 
 export type HolidayGiftConvertOptions = {
-  /** Optional; leave blank in Excel 주문자명 for manual fill when empty */
-  ordererName?: string;
+  ordererName: string;
   churchName: string;
   options: HolidayGiftConvertOption[];
 };
@@ -65,6 +64,9 @@ export class PostOfficeService {
     if (!churchName) {
       throw new BadRequestException('중앙을 입력해 주세요.');
     }
+    if (!ordererName) {
+      throw new BadRequestException('주문자 성명을 입력해 주세요.');
+    }
 
     const convertOptions = (options.options ?? []).filter(
       (o) => o.productLabel?.trim(),
@@ -89,13 +91,21 @@ export class PostOfficeService {
       }
     }
 
-    // 중앙만 검색값 사용. 이름은 엑셀에서 수동 입력할 수 있도록 비움(주문자명도 입력 시에만 채움).
-    const centerAndName = churchName;
+    const grandTotal = convertOptions.reduce(
+      (sum, opt) => sum + Math.trunc(Number(opt.quantity)),
+      0,
+    );
+    const centerAndName = `${churchName} ${ordererName}`;
     const recipients = this.parseRecipients(file.buffer);
 
     if (recipients.length === 0) {
       throw new BadRequestException(
         '수취인 데이터가 없습니다. 명절선물_입력.xlsx 형식을 확인해 주세요.',
+      );
+    }
+    if (recipients.length < grandTotal) {
+      throw new BadRequestException(
+        `수취인이 ${grandTotal}명 필요합니다. (현재 ${recipients.length}명)`,
       );
     }
 
@@ -112,15 +122,19 @@ export class PostOfficeService {
     }
 
     const styleSource = this.createStylePrototype(worksheet);
-    const recipientCount = recipients.length;
     let excelRowNumber = 2;
+    let recipientCursor = 0;
 
-    convertOptions.forEach((opt) => {
-      const productLabel = opt.productLabel.trim();
+    for (const opt of convertOptions) {
+      const qty = Math.trunc(Number(opt.quantity));
       const boxUnit = Number(opt.boxUnit);
-      recipients.forEach((recipient, index) => {
+      const shortName = toPostOfficeProductName(opt.productLabel);
+
+      for (let i = 1; i <= qty; i += 1) {
+        const recipient = recipients[recipientCursor];
+        recipientCursor += 1;
         const values: Array<string | number | null> = [
-          ordererName || null, // 주문자명: UI에서 입력한 경우만, 아니면 엑셀에서 수동 입력
+          null, // 주문자명 공란
           null,
           null,
           recipient.name,
@@ -128,14 +142,14 @@ export class PostOfficeService {
           null,
           normalizeMobilePhone(recipient.phoneRaw),
           null,
-          `${productLabel}(${recipientCount}-${index + 1})`,
+          `매장)${shortName}(${grandTotal}-${i})`,
           DELIVERY_MESSAGE,
           boxUnit,
           opt.paymentType,
           null,
           null,
           null,
-          centerAndName, // 중앙만 (이름 없음 — 엑셀에서 수동 입력)
+          centerAndName,
           null,
           null,
         ];
@@ -149,8 +163,8 @@ export class PostOfficeService {
         });
         row.commit();
         excelRowNumber += 1;
-      });
-    });
+      }
+    }
 
     const arrayBuffer = await workbook.xlsx.writeBuffer();
     return Buffer.from(arrayBuffer);
@@ -263,6 +277,16 @@ export class PostOfficeService {
 
     return recipients;
   }
+}
+
+/** Strip box brackets / 매장) prefix for excel product cell. */
+function toPostOfficeProductName(label: string): string {
+  return label
+    .trim()
+    .replace(/^매장\)\s*/u, '')
+    .replace(/\[[^\]]*\]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function normalizeMobilePhone(raw: string) {
