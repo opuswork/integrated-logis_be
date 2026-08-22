@@ -3,15 +3,5927 @@
   "skipExisting": true,
   "members": [
     {
-      "churchName": "기장",
-      "fullname": "이원",
-      "phone": "010-2021-5795",
-      "username": "01020215795",
-      "password": "01020215795",
-      "email": "leeone@gmail.com"
+      "churchName": "서울5",
+      "fullname": "권용자",
+      "phone": "010-6272-4842",
+      "username": "01062724842",
+      "password": "01062724842",
+      "email": "kwonyj@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "김순옥",
+      "phone": "010-7272-1440",
+      "username": "01072721440",
+      "password": "01072721440",
+      "email": "kimso@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "김옥순",
+      "phone": "010-8126-3937",
+      "username": "01081263937",
+      "password": "01081263937",
+      "email": "kimos@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "김해임",
+      "phone": "010-2479-9947",
+      "username": "01024799947",
+      "password": "01024799947",
+      "email": "kimhi@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "김해자",
+      "phone": "010-3214-1440",
+      "username": "01032141440",
+      "password": "01032141440",
+      "email": "kimhj@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "문진순",
+      "phone": "010-7345-1716",
+      "username": "01073451716",
+      "password": "01073451716",
+      "email": "moonjs@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "송선희",
+      "phone": "010-4001-7733",
+      "username": "01040017733",
+      "password": "01040017733",
+      "email": "songsh@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "심봉숙",
+      "phone": "010-7529-1440",
+      "username": "01075291440",
+      "password": "01075291440",
+      "email": "shimbs@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "유복희",
+      "phone": "010-4801-6291",
+      "username": "01048016291",
+      "password": "01048016291",
+      "email": "yoobh@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "이순섭",
+      "phone": "010-2271-6634",
+      "username": "01022716634",
+      "password": "01022716634",
+      "email": "leess@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "이옥선",
+      "phone": "010-8836-8835",
+      "username": "01088368835",
+      "password": "01088368835",
+      "email": "leeos@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "임경자",
+      "phone": "010-7504-1440",
+      "username": "01075041440",
+      "password": "01075041440",
+      "email": "limgj@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "정효경",
+      "phone": "010-2464-8628",
+      "username": "01024648628",
+      "password": "01024648628",
+      "email": "junghg@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "김민정",
+      "phone": "010-6237-2848",
+      "username": "01062372848",
+      "password": "01062372848",
+      "email": "kimmj@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "백은순",
+      "phone": "010-5844-1440",
+      "username": "01058441440",
+      "password": "01058441440",
+      "email": "baekes@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "조정옥",
+      "phone": "010-7677-1440",
+      "username": "01076771440",
+      "password": "01076771440",
+      "email": "chojo@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "진예지",
+      "phone": "010-8777-1440",
+      "username": "01087771440",
+      "password": "01087771440",
+      "email": "jinyj@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "정주연",
+      "phone": "010-7733-1859",
+      "username": "01077331859",
+      "password": "01077331859",
+      "email": "jungjy@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "문태호",
+      "phone": "010-6809-6760",
+      "username": "01068096760",
+      "password": "01068096760",
+      "email": "moonth@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "박경출",
+      "phone": "010-4741-3358",
+      "username": "01047413358",
+      "password": "01047413358",
+      "email": "parkgc@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "박병희",
+      "phone": "010-2788-8067",
+      "username": "01027888067",
+      "password": "01027888067",
+      "email": "parkbh@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "서옥희",
+      "phone": "010-9071-0130",
+      "username": "01090710130",
+      "password": "01090710130",
+      "email": "seooh@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "송영분",
+      "phone": "010-6554-7444",
+      "username": "01065547444",
+      "password": "01065547444",
+      "email": "songyb@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "유애자",
+      "phone": "010-9246-0392",
+      "username": "01092460392",
+      "password": "01092460392",
+      "email": "yooaj@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "임영희",
+      "phone": "010-8638-4410",
+      "username": "01086384410",
+      "password": "01086384410",
+      "email": "limyh@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "정화임",
+      "phone": "010-2480-1442",
+      "username": "01024801442",
+      "password": "01024801442",
+      "email": "junghi@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "최정미",
+      "phone": "010-8654-9983",
+      "username": "01086549983",
+      "password": "01086549983",
+      "email": "choijm@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "홍영자B",
+      "phone": "010-5532-9120",
+      "username": "01055329120",
+      "password": "01055329120",
+      "email": "hongyjb@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "김금자",
+      "phone": "010-4223-0466",
+      "username": "01042230466",
+      "password": "01042230466",
+      "email": "kimgj@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "박부혜자",
+      "phone": "010-3288-8206",
+      "username": "01032888206",
+      "password": "01032888206",
+      "email": "parkbhj@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "박신욱",
+      "phone": "010-3780-0577",
+      "username": "01037800577",
+      "password": "01037800577",
+      "email": "parksu@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "송윤자",
+      "phone": "010-8950-3402",
+      "username": "01089503402",
+      "password": "01089503402",
+      "email": "songyj@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "김정자",
+      "phone": "010-5273-2842",
+      "username": "01052732842",
+      "password": "01052732842",
+      "email": "kimjj@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "남명희",
+      "phone": "010-2324-8845",
+      "username": "01023248845",
+      "password": "01023248845",
+      "email": "nammh@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "손옥자",
+      "phone": "010-4315-0822",
+      "username": "01043150822",
+      "password": "01043150822",
+      "email": "sohnoj@gmail.com"
+    },
+    {
+      "churchName": "서울23",
+      "fullname": "양순심",
+      "phone": "010-8909-2058",
+      "username": "01089092058",
+      "password": "01089092058",
+      "email": "yangss@gmail.com"
+    },
+    {
+      "churchName": "서울23",
+      "fullname": "이경자",
+      "phone": "010-7414-7764",
+      "username": "01074147764",
+      "password": "01074147764",
+      "email": "leegj@gmail.com"
+    },
+    {
+      "churchName": "서울23",
+      "fullname": "전순남",
+      "phone": "010-8825-0049",
+      "username": "01088250049",
+      "password": "01088250049",
+      "email": "jeonsn@gmail.com"
+    },
+    {
+      "churchName": "서울23",
+      "fullname": "김인복",
+      "phone": "010-8857-3870",
+      "username": "01088573870",
+      "password": "01088573870",
+      "email": "kimib@gmail.com"
+    },
+    {
+      "churchName": "서울30",
+      "fullname": "차풍례",
+      "phone": "010-4766-3048",
+      "username": "01047663048",
+      "password": "01047663048",
+      "email": "chapr@gmail.com"
+    },
+    {
+      "churchName": "서울30",
+      "fullname": "최성남",
+      "phone": "010-4563-8380",
+      "username": "01045638380",
+      "password": "01045638380",
+      "email": "choisn@gmail.com"
+    },
+    {
+      "churchName": "서울30",
+      "fullname": "홍순자",
+      "phone": "010-2397-6468",
+      "username": "01023976468",
+      "password": "01023976468",
+      "email": "hongsj@gmail.com"
+    },
+    {
+      "churchName": "서울30",
+      "fullname": "김길남",
+      "phone": "010-4428-4440",
+      "username": "01044284440",
+      "password": "01044284440",
+      "email": "kimgn@gmail.com"
+    },
+    {
+      "churchName": "서울30",
+      "fullname": "이순남",
+      "phone": "010-2412-7947",
+      "username": "01024127947",
+      "password": "01024127947",
+      "email": "leesn@gmail.com"
+    },
+    {
+      "churchName": "서울48",
+      "fullname": "신인자",
+      "phone": "010-4742-4685",
+      "username": "01047424685",
+      "password": "01047424685",
+      "email": "shinij@gmail.com"
+    },
+    {
+      "churchName": "서울48",
+      "fullname": "안효영",
+      "phone": "010-4871-6704",
+      "username": "01048716704",
+      "password": "01048716704",
+      "email": "ahnhy@gmail.com"
+    },
+    {
+      "churchName": "서울48",
+      "fullname": "유정희",
+      "phone": "010-9973-4581",
+      "username": "01099734581",
+      "password": "01099734581",
+      "email": "yoojh@gmail.com"
+    },
+    {
+      "churchName": "서울48",
+      "fullname": "윤남숙",
+      "phone": "010-3904-1804",
+      "username": "01039041804",
+      "password": "01039041804",
+      "email": "yoonns@gmail.com"
+    },
+    {
+      "churchName": "서울48",
+      "fullname": "허지혜",
+      "phone": "010-4739-4393",
+      "username": "01047394393",
+      "password": "01047394393",
+      "email": "huhjh@gmail.com"
+    },
+    {
+      "churchName": "서울48",
+      "fullname": "이훈자",
+      "phone": "010-7665-9226",
+      "username": "01076659226",
+      "password": "01076659226",
+      "email": "leehj@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "최양단",
+      "phone": "010-8273-1764",
+      "username": "01082731764",
+      "password": "01082731764",
+      "email": "choiyd@gmail.com"
+    },
+    {
+      "churchName": "서울13",
+      "fullname": "김미경",
+      "phone": "010-9072-4432",
+      "username": "01090724432",
+      "password": "01090724432",
+      "email": "kimmg@gmail.com"
+    },
+    {
+      "churchName": "서울13",
+      "fullname": "김중교",
+      "phone": "010-9971-0117",
+      "username": "01099710117",
+      "password": "01099710117",
+      "email": "kimjg@gmail.com"
+    },
+    {
+      "churchName": "서울13",
+      "fullname": "박경희",
+      "phone": "010-3798-6360",
+      "username": "01037986360",
+      "password": "01037986360",
+      "email": "parkgh@gmail.com"
+    },
+    {
+      "churchName": "서울13",
+      "fullname": "박순남",
+      "phone": "010-8787-9017",
+      "username": "01087879017",
+      "password": "01087879017",
+      "email": "parksn@gmail.com"
+    },
+    {
+      "churchName": "서울13",
+      "fullname": "백금순",
+      "phone": "010-2201-0175",
+      "username": "01022010175",
+      "password": "01022010175",
+      "email": "baekgs@gmail.com"
+    },
+    {
+      "churchName": "서울13",
+      "fullname": "신용연",
+      "phone": "010-2743-5118",
+      "username": "01027435118",
+      "password": "01027435118",
+      "email": "shinyy@gmail.com"
+    },
+    {
+      "churchName": "서울13",
+      "fullname": "정혜운",
+      "phone": "010-6481-3377",
+      "username": "01064813377",
+      "password": "01064813377",
+      "email": "junghu@gmail.com"
+    },
+    {
+      "churchName": "서울13",
+      "fullname": "조숙녀",
+      "phone": "010-8513-1228",
+      "username": "01085131228",
+      "password": "01085131228",
+      "email": "chosn@gmail.com"
+    },
+    {
+      "churchName": "서울13",
+      "fullname": "조현주",
+      "phone": "010-2378-3247",
+      "username": "01023783247",
+      "password": "01023783247",
+      "email": "chohj@gmail.com"
+    },
+    {
+      "churchName": "서울13",
+      "fullname": "박부자",
+      "phone": "010-2268-3893",
+      "username": "01022683893",
+      "password": "01022683893",
+      "email": "parkbj@gmail.com"
+    },
+    {
+      "churchName": "서울13",
+      "fullname": "염상숙",
+      "phone": "010-2231-3135",
+      "username": "01022313135",
+      "password": "01022313135",
+      "email": "yeomss@gmail.com"
+    },
+    {
+      "churchName": "서울13",
+      "fullname": "임추자",
+      "phone": "010-3722-8170",
+      "username": "01037228170",
+      "password": "01037228170",
+      "email": "limcj@gmail.com"
+    },
+    {
+      "churchName": "서울13",
+      "fullname": "장옥주",
+      "phone": "010-3215-4534",
+      "username": "01032154534",
+      "password": "01032154534",
+      "email": "jangoj@gmail.com"
+    },
+    {
+      "churchName": "서울1",
+      "fullname": "김영옥",
+      "phone": "010-4780-6005",
+      "username": "01047806005",
+      "password": "01047806005",
+      "email": "kimyo@gmail.com"
+    },
+    {
+      "churchName": "서울1",
+      "fullname": "신현재",
+      "phone": "010-7567-1440",
+      "username": "01075671440",
+      "password": "01075671440",
+      "email": "shinhj@gmail.com"
+    },
+    {
+      "churchName": "서울1",
+      "fullname": "최우인",
+      "phone": "010-4765-1440",
+      "username": "01047651440",
+      "password": "01047651440",
+      "email": "choiui@gmail.com"
+    },
+    {
+      "churchName": "서울1",
+      "fullname": "정혜윤",
+      "phone": "010-5169-1441",
+      "username": "01051691441",
+      "password": "01051691441",
+      "email": "junghy@gmail.com"
+    },
+    {
+      "churchName": "서울21",
+      "fullname": "박옥련",
+      "phone": "010-3237-1974",
+      "username": "01032371974",
+      "password": "01032371974",
+      "email": "parkor@gmail.com"
+    },
+    {
+      "churchName": "서울21",
+      "fullname": "이길숙",
+      "phone": "010-9978-9492",
+      "username": "01099789492",
+      "password": "01099789492",
+      "email": "leegs@gmail.com"
+    },
+    {
+      "churchName": "서울21",
+      "fullname": "조성란",
+      "phone": "010-5575-8595",
+      "username": "01055758595",
+      "password": "01055758595",
+      "email": "chosr@gmail.com"
+    },
+    {
+      "churchName": "서울21",
+      "fullname": "박경수",
+      "phone": "010-6269-3305",
+      "username": "01062693305",
+      "password": "01062693305",
+      "email": "parkgs@gmail.com"
+    },
+    {
+      "churchName": "서울21",
+      "fullname": "유동주",
+      "phone": "010-5298-4227",
+      "username": "01052984227",
+      "password": "01052984227",
+      "email": "yoodj@gmail.com"
+    },
+    {
+      "churchName": "서울1",
+      "fullname": "윤경숙",
+      "phone": "010-4441-4491",
+      "username": "01044414491",
+      "password": "01044414491",
+      "email": "yoongs@gmail.com"
+    },
+    {
+      "churchName": "서울1",
+      "fullname": "정화자",
+      "phone": "010-7531-1440",
+      "username": "01075311440",
+      "password": "01075311440",
+      "email": "junghj@gmail.com"
+    },
+    {
+      "churchName": "서울1",
+      "fullname": "조희원",
+      "phone": "010-4596-4977",
+      "username": "01045964977",
+      "password": "01045964977",
+      "email": "chohw@gmail.com"
+    },
+    {
+      "churchName": "서울27",
+      "fullname": "유향준",
+      "phone": "010-3755-2837",
+      "username": "01037552837",
+      "password": "01037552837",
+      "email": "yoohj@gmail.com"
+    },
+    {
+      "churchName": "서울27",
+      "fullname": "최정숙",
+      "phone": "010-3933-1386",
+      "username": "01039331386",
+      "password": "01039331386",
+      "email": "choijs@gmail.com"
+    },
+    {
+      "churchName": "서울27",
+      "fullname": "표진선",
+      "phone": "010-6243-3498",
+      "username": "01062433498",
+      "password": "01062433498",
+      "email": "pyojs@gmail.com"
+    },
+    {
+      "churchName": "서울27",
+      "fullname": "박덕숙",
+      "phone": "010-7322-8579",
+      "username": "01073228579",
+      "password": "01073228579",
+      "email": "parkds@gmail.com"
+    },
+    {
+      "churchName": "서울27",
+      "fullname": "최일순",
+      "phone": "010-6203-6814",
+      "username": "01062036814",
+      "password": "01062036814",
+      "email": "choiis@gmail.com"
+    },
+    {
+      "churchName": "서울27",
+      "fullname": "박복희",
+      "phone": "010-2261-0153",
+      "username": "01022610153",
+      "password": "01022610153",
+      "email": "parkbh@gmail.com"
+    },
+    {
+      "churchName": "서울27",
+      "fullname": "박금윤",
+      "phone": "010-3528-4215",
+      "username": "01035284215",
+      "password": "01035284215",
+      "email": "parkgy@gmail.com"
+    },
+    {
+      "churchName": "서울27",
+      "fullname": "박병례",
+      "phone": "010-6252-8714",
+      "username": "01062528714",
+      "password": "01062528714",
+      "email": "parkbr@gmail.com"
+    },
+    {
+      "churchName": "서울27",
+      "fullname": "박옥순",
+      "phone": "010-8878-1440",
+      "username": "01088781440",
+      "password": "01088781440",
+      "email": "parkos@gmail.com"
+    },
+    {
+      "churchName": "서울27",
+      "fullname": "심영자",
+      "phone": "010-4646-3769",
+      "username": "01046463769",
+      "password": "01046463769",
+      "email": "shimyj@gmail.com"
+    },
+    {
+      "churchName": "원주",
+      "fullname": "송미경",
+      "phone": "010-8823-7458",
+      "username": "01088237458",
+      "password": "01088237458",
+      "email": "songmg@gmail.com"
+    },
+    {
+      "churchName": "원주",
+      "fullname": "이남주",
+      "phone": "010-3436-7221",
+      "username": "01034367221",
+      "password": "01034367221",
+      "email": "leenj@gmail.com"
+    },
+    {
+      "churchName": "원주",
+      "fullname": "송영순",
+      "phone": "010-4877-6450",
+      "username": "01048776450",
+      "password": "01048776450",
+      "email": "songys@gmail.com"
+    },
+    {
+      "churchName": "원주",
+      "fullname": "황금자",
+      "phone": "010-7244-1440",
+      "username": "01072441440",
+      "password": "01072441440",
+      "email": "hwanggj@gmail.com"
+    },
+    {
+      "churchName": "춘천",
+      "fullname": "김정현",
+      "phone": "010-5892-2689",
+      "username": "01058922689",
+      "password": "01058922689",
+      "email": "kimjh@gmail.com"
+    },
+    {
+      "churchName": "춘천",
+      "fullname": "정세진",
+      "phone": "010-2611-1440",
+      "username": "01026111440",
+      "password": "01026111440",
+      "email": "jungsj@gmail.com"
+    },
+    {
+      "churchName": "춘천",
+      "fullname": "곽옥희",
+      "phone": "010-6374-9477",
+      "username": "01063749477",
+      "password": "01063749477",
+      "email": "kwakoh@gmail.com"
+    },
+    {
+      "churchName": "강릉",
+      "fullname": "김진자",
+      "phone": "010-7648-2263",
+      "username": "01076482263",
+      "password": "01076482263",
+      "email": "kimjj@gmail.com"
+    },
+    {
+      "churchName": "강릉",
+      "fullname": "이옥순",
+      "phone": "010-4323-3902",
+      "username": "01043233902",
+      "password": "01043233902",
+      "email": "leeos@gmail.com"
+    },
+    {
+      "churchName": "인제",
+      "fullname": "김옥연",
+      "phone": "010-7742-2675",
+      "username": "01077422675",
+      "password": "01077422675",
+      "email": "kimoy@gmail.com"
+    },
+    {
+      "churchName": "속초",
+      "fullname": "김순자",
+      "phone": "010-5063-0684",
+      "username": "01050630684",
+      "password": "01050630684",
+      "email": "kimsj@gmail.com"
+    },
+    {
+      "churchName": "영월",
+      "fullname": "손성심",
+      "phone": "010-4437-2444",
+      "username": "01044372444",
+      "password": "01044372444",
+      "email": "sohnss@gmail.com"
+    },
+    {
+      "churchName": "의정부",
+      "fullname": "김오임",
+      "phone": "010-5628-5644",
+      "username": "01056285644",
+      "password": "01056285644",
+      "email": "kimoi@gmail.com"
+    },
+    {
+      "churchName": "의정부",
+      "fullname": "유형자",
+      "phone": "010-8775-3464",
+      "username": "01087753464",
+      "password": "01087753464",
+      "email": "yoohj@gmail.com"
+    },
+    {
+      "churchName": "의정부",
+      "fullname": "이순옥",
+      "phone": "010-8378-3477",
+      "username": "01083783477",
+      "password": "01083783477",
+      "email": "leeso@gmail.com"
+    },
+    {
+      "churchName": "의정부",
+      "fullname": "장옥희",
+      "phone": "010-2485-3307",
+      "username": "01024853307",
+      "password": "01024853307",
+      "email": "jangoh@gmail.com"
+    },
+    {
+      "churchName": "의정부",
+      "fullname": "정명자",
+      "phone": "010-5064-1440",
+      "username": "01050641440",
+      "password": "01050641440",
+      "email": "jungmj@gmail.com"
+    },
+    {
+      "churchName": "의정부",
+      "fullname": "박진숙",
+      "phone": "010-7287-1440",
+      "username": "01072871440",
+      "password": "01072871440",
+      "email": "parkjs@gmail.com"
+    },
+    {
+      "churchName": "의정부",
+      "fullname": "김영숙",
+      "phone": "010-2268-7790",
+      "username": "01022687790",
+      "password": "01022687790",
+      "email": "kimys@gmail.com"
+    },
+    {
+      "churchName": "의정부",
+      "fullname": "박연숙",
+      "phone": "010-8253-1440",
+      "username": "01082531440",
+      "password": "01082531440",
+      "email": "parkys@gmail.com"
+    },
+    {
+      "churchName": "동두천",
+      "fullname": "손능옥",
+      "phone": "010-3573-0268",
+      "username": "01035730268",
+      "password": "01035730268",
+      "email": "sohnno@gmail.com"
+    },
+    {
+      "churchName": "의정부",
+      "fullname": "강옥심",
+      "phone": "010-8609-9885",
+      "username": "01086099885",
+      "password": "01086099885",
+      "email": "kangos@gmail.com"
+    },
+    {
+      "churchName": "의정부",
+      "fullname": "이난자",
+      "phone": "010-8985-2211",
+      "username": "01089852211",
+      "password": "01089852211",
+      "email": "leenj@gmail.com"
+    },
+    {
+      "churchName": "의정부",
+      "fullname": "정숙자",
+      "phone": "010-4032-4447",
+      "username": "01040324447",
+      "password": "01040324447",
+      "email": "jungsj@gmail.com"
+    },
+    {
+      "churchName": "의정부",
+      "fullname": "정영조",
+      "phone": "010-7564-1576",
+      "username": "01075641576",
+      "password": "01075641576",
+      "email": "jungyj@gmail.com"
+    },
+    {
+      "churchName": "의정부",
+      "fullname": "곽영애",
+      "phone": "010-4549-3160",
+      "username": "01045493160",
+      "password": "01045493160",
+      "email": "kwakya@gmail.com"
+    },
+    {
+      "churchName": "의정부",
+      "fullname": "추정순",
+      "phone": "010-5919-1440",
+      "username": "01059191440",
+      "password": "01059191440",
+      "email": "choojs@gmail.com"
+    },
+    {
+      "churchName": "청평",
+      "fullname": "이영순",
+      "phone": "010-3245-5442",
+      "username": "01032455442",
+      "password": "01032455442",
+      "email": "leeys@gmail.com"
+    },
+    {
+      "churchName": "양평",
+      "fullname": "유옥숙",
+      "phone": "010-8834-8617",
+      "username": "01088348617",
+      "password": "01088348617",
+      "email": "yooos@gmail.com"
+    },
+    {
+      "churchName": "양평",
+      "fullname": "하영자",
+      "phone": "010-9420-4385",
+      "username": "01094204385",
+      "password": "01094204385",
+      "email": "hayj@gmail.com"
+    },
+    {
+      "churchName": "이천",
+      "fullname": "어정숙",
+      "phone": "010-8669-2831",
+      "username": "01086692831",
+      "password": "01086692831",
+      "email": "eohjs@gmail.com"
+    },
+    {
+      "churchName": "이천",
+      "fullname": "강대익",
+      "phone": "010-2353-0474",
+      "username": "01023530474",
+      "password": "01023530474",
+      "email": "kangdi@gmail.com"
+    },
+    {
+      "churchName": "청주",
+      "fullname": "박창성",
+      "phone": "010-4598-3613",
+      "username": "01045983613",
+      "password": "01045983613",
+      "email": "parkcs@gmail.com"
+    },
+    {
+      "churchName": "청주",
+      "fullname": "신흥철",
+      "phone": "010-5756-1448",
+      "username": "01057561448",
+      "password": "01057561448",
+      "email": "shinhc@gmail.com"
+    },
+    {
+      "churchName": "청주",
+      "fullname": "유황옥",
+      "phone": "010-8300-1340",
+      "username": "01083001340",
+      "password": "01083001340",
+      "email": "yooho@gmail.com"
+    },
+    {
+      "churchName": "청주",
+      "fullname": "이희수",
+      "phone": "010-9406-5915",
+      "username": "01094065915",
+      "password": "01094065915",
+      "email": "leehs@gmail.com"
+    },
+    {
+      "churchName": "청주",
+      "fullname": "정상구",
+      "phone": "010-2420-1440",
+      "username": "01024201440",
+      "password": "01024201440",
+      "email": "jungsg@gmail.com"
+    },
+    {
+      "churchName": "청주",
+      "fullname": "정석분",
+      "phone": "010-7530-1440",
+      "username": "01075301440",
+      "password": "01075301440",
+      "email": "jungsb@gmail.com"
+    },
+    {
+      "churchName": "청주",
+      "fullname": "최호순",
+      "phone": "010-8840-0649",
+      "username": "01088400649",
+      "password": "01088400649",
+      "email": "choihs@gmail.com"
+    },
+    {
+      "churchName": "청주",
+      "fullname": "김세은",
+      "phone": "010-5588-2844",
+      "username": "01055882844",
+      "password": "01055882844",
+      "email": "kimse@gmail.com"
+    },
+    {
+      "churchName": "청주",
+      "fullname": "김태현",
+      "phone": "010-4851-7882",
+      "username": "01048517882",
+      "password": "01048517882",
+      "email": "kimth@gmail.com"
+    },
+    {
+      "churchName": "청주",
+      "fullname": "박경선",
+      "phone": "010-2962-9697",
+      "username": "01029629697",
+      "password": "01029629697",
+      "email": "parkgs@gmail.com"
+    },
+    {
+      "churchName": "청주",
+      "fullname": "박종열",
+      "phone": "010-5041-2913",
+      "username": "01050412913",
+      "password": "01050412913",
+      "email": "parkjy@gmail.com"
+    },
+    {
+      "churchName": "청주",
+      "fullname": "윤귀용",
+      "phone": "010-9911-1440",
+      "username": "01099111440",
+      "password": "01099111440",
+      "email": "yoongy@gmail.com"
+    },
+    {
+      "churchName": "청주",
+      "fullname": "이춘만",
+      "phone": "010-7155-3293",
+      "username": "01071553293",
+      "password": "01071553293",
+      "email": "leecm@gmail.com"
+    },
+    {
+      "churchName": "청주",
+      "fullname": "채원병",
+      "phone": "010-6756-7667",
+      "username": "01067567667",
+      "password": "01067567667",
+      "email": "userwb@gmail.com"
+    },
+    {
+      "churchName": "청주",
+      "fullname": "최면숙",
+      "phone": "010-8434-9697",
+      "username": "01084349697",
+      "password": "01084349697",
+      "email": "choims@gmail.com"
+    },
+    {
+      "churchName": "청주",
+      "fullname": "박옥남",
+      "phone": "010-2458-1440",
+      "username": "01024581440",
+      "password": "01024581440",
+      "email": "parkon@gmail.com"
+    },
+    {
+      "churchName": "충주",
+      "fullname": "조혜영",
+      "phone": "010-4852-1440",
+      "username": "01048521440",
+      "password": "01048521440",
+      "email": "chohy@gmail.com"
+    },
+    {
+      "churchName": "충주",
+      "fullname": "박지영",
+      "phone": "010-4546-6001",
+      "username": "01045466001",
+      "password": "01045466001",
+      "email": "parkjy@gmail.com"
+    },
+    {
+      "churchName": "충주",
+      "fullname": "이정숙",
+      "phone": "010-9418-2163",
+      "username": "01094182163",
+      "password": "01094182163",
+      "email": "leejs@gmail.com"
+    },
+    {
+      "churchName": "제천",
+      "fullname": "선윤옥",
+      "phone": "010-3349-1197",
+      "username": "01033491197",
+      "password": "01033491197",
+      "email": "sunyo@gmail.com"
+    },
+    {
+      "churchName": "보은",
+      "fullname": "박홍자",
+      "phone": "010-8434-7927",
+      "username": "01084347927",
+      "password": "01084347927",
+      "email": "parkhj@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "김순덕",
+      "phone": "010-5265-8319",
+      "username": "01052658319",
+      "password": "01052658319",
+      "email": "kimsd@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "김순옥",
+      "phone": "010-5498-8554",
+      "username": "01054988554",
+      "password": "01054988554",
+      "email": "kimso@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "김종님",
+      "phone": "010-2414-9675",
+      "username": "01024149675",
+      "password": "01024149675",
+      "email": "kimjn@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "김진순",
+      "phone": "010-3291-7476",
+      "username": "01032917476",
+      "password": "01032917476",
+      "email": "kimjs@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "김향자",
+      "phone": "010-3758-2508",
+      "username": "01037582508",
+      "password": "01037582508",
+      "email": "kimhj@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "박영례",
+      "phone": "010-5576-0189",
+      "username": "01055760189",
+      "password": "01055760189",
+      "email": "parkyr@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "서성자",
+      "phone": "010-7176-3478",
+      "username": "01071763478",
+      "password": "01071763478",
+      "email": "seosj@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "윤기애",
+      "phone": "010-7238-0224",
+      "username": "01072380224",
+      "password": "01072380224",
+      "email": "yoonga@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "이금분",
+      "phone": "010-4147-1440",
+      "username": "01041471440",
+      "password": "01041471440",
+      "email": "leegb@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "정영이",
+      "phone": "010-2847-7221",
+      "username": "01028477221",
+      "password": "01028477221",
+      "email": "jungyi@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "최야순",
+      "phone": "010-8747-8917",
+      "username": "01087478917",
+      "password": "01087478917",
+      "email": "choiys@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "한성순",
+      "phone": "010-3922-5155",
+      "username": "01039225155",
+      "password": "01039225155",
+      "email": "hanss@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "김경선",
+      "phone": "010-4222-5778",
+      "username": "01042225778",
+      "password": "01042225778",
+      "email": "kimgs@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "김금숙",
+      "phone": "010-7178-6245",
+      "username": "01071786245",
+      "password": "01071786245",
+      "email": "kimgs@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "김양순",
+      "phone": "010-8751-2677",
+      "username": "01087512677",
+      "password": "01087512677",
+      "email": "kimys@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "김정수",
+      "phone": "010-8875-1706",
+      "username": "01088751706",
+      "password": "01088751706",
+      "email": "kimjs@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "김진순",
+      "phone": "010-3291-7476",
+      "username": "01032917476",
+      "password": "01032917476",
+      "email": "kimjs@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "모효순",
+      "phone": "010-3440-4214",
+      "username": "01034404214",
+      "password": "01034404214",
+      "email": "mohs@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "박순덕",
+      "phone": "010-4641-1537",
+      "username": "01046411537",
+      "password": "01046411537",
+      "email": "parksd@gmail.com"
     },
     {
       "churchName": "기장",
+      "fullname": "최인화",
+      "phone": "010-8705-5487",
+      "username": "01087055487",
+      "password": "01087055487",
+      "email": "choiih@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "안병랑",
+      "phone": "010-5476-7652",
+      "username": "01054767652",
+      "password": "01054767652",
+      "email": "ahnbr@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "이성심",
+      "phone": "010-4221-7440",
+      "username": "01042217440",
+      "password": "01042217440",
+      "email": "leess@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "이정례",
+      "phone": "010-2756-1912",
+      "username": "01027561912",
+      "password": "01027561912",
+      "email": "leejr@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "임유하",
+      "phone": "010-3812-2282",
+      "username": "01038122282",
+      "password": "01038122282",
+      "email": "limyh@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "조정남",
+      "phone": "010-7680-0580",
+      "username": "01076800580",
+      "password": "01076800580",
+      "email": "chojn@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "김기린",
+      "phone": "010-8873-0571",
+      "username": "01088730571",
+      "password": "01088730571",
+      "email": "kimgr@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "김정녀",
+      "phone": "010-6607-5560",
+      "username": "01066075560",
+      "password": "01066075560",
+      "email": "kimjn@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "박양자",
+      "phone": "010-6768-7585",
+      "username": "01067687585",
+      "password": "01067687585",
+      "email": "parkyj@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "박인화B",
+      "phone": "010-3390-8960",
+      "username": "01033908960",
+      "password": "01033908960",
+      "email": "parkihb@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "박현수",
+      "phone": "010-5143-2282",
+      "username": "01051432282",
+      "password": "01051432282",
+      "email": "parkhs@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "이옥희",
+      "phone": "010-8146-0624",
+      "username": "01081460624",
+      "password": "01081460624",
+      "email": "leeoh@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "이경희",
+      "phone": "010-5247-3202",
+      "username": "01052473202",
+      "password": "01052473202",
+      "email": "leegh@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "임명순",
+      "phone": "010-4434-2358",
+      "username": "01044342358",
+      "password": "01044342358",
+      "email": "limms@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "길명님",
+      "phone": "010-7130-9912",
+      "username": "01071309912",
+      "password": "01071309912",
+      "email": "gilmn@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "정영애",
+      "phone": "010-3276-9239",
+      "username": "01032769239",
+      "password": "01032769239",
+      "email": "jungya@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "손정숙",
+      "phone": "010-2406-7343",
+      "username": "01024067343",
+      "password": "01024067343",
+      "email": "sohnjs@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "김기화",
+      "phone": "010-3921-1440",
+      "username": "01039211440",
+      "password": "01039211440",
+      "email": "kimgh@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "백지원",
+      "phone": "010-2394-8192",
+      "username": "01023948192",
+      "password": "01023948192",
+      "email": "baekjw@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "황영자",
+      "phone": "010-3896-8497",
+      "username": "01038968497",
+      "password": "01038968497",
+      "email": "hwangyj@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "이경숙",
+      "phone": "010-5303-4526",
+      "username": "01053034526",
+      "password": "01053034526",
+      "email": "leegs@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "김영일",
+      "phone": "010-2676-5883",
+      "username": "01026765883",
+      "password": "01026765883",
+      "email": "kimyi@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "김정숙A",
+      "phone": "010-2224-3100",
+      "username": "01022243100",
+      "password": "01022243100",
+      "email": "kimjsa@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "김정숙B",
+      "phone": "010-7472-1440",
+      "username": "01074721440",
+      "password": "01074721440",
+      "email": "kimjsb@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "윤보영",
+      "phone": "010-4612-7955",
+      "username": "01046127955",
+      "password": "01046127955",
+      "email": "yoonby@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "이선기",
+      "phone": "010-7566-5784",
+      "username": "01075665784",
+      "password": "01075665784",
+      "email": "leesg@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "이주희",
+      "phone": "010-3039-3202",
+      "username": "01030393202",
+      "password": "01030393202",
+      "email": "leejh@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "이화자",
+      "phone": "010-2020-3159",
+      "username": "01020203159",
+      "password": "01020203159",
+      "email": "leehj@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "장동화",
+      "phone": "010-9990-3497",
+      "username": "01099903497",
+      "password": "01099903497",
+      "email": "jangdh@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "장혜자",
+      "phone": "010-3103-5682",
+      "username": "01031035682",
+      "password": "01031035682",
+      "email": "janghj@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "조차남",
+      "phone": "010-8720-5794",
+      "username": "01087205794",
+      "password": "01087205794",
+      "email": "chocn@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "최갑희",
+      "phone": "010-4222-2023",
+      "username": "01042222023",
+      "password": "01042222023",
+      "email": "choigh@gmail.com"
+    },
+    {
+      "churchName": "서울15",
+      "fullname": "선동출",
+      "phone": "010-5597-9247",
+      "username": "01055979247",
+      "password": "01055979247",
+      "email": "sundc@gmail.com"
+    },
+    {
+      "churchName": "서울15",
+      "fullname": "권오숙",
+      "phone": "010-7797-8197",
+      "username": "01077978197",
+      "password": "01077978197",
+      "email": "kwonos@gmail.com"
+    },
+    {
+      "churchName": "서울15",
+      "fullname": "정미자",
+      "phone": "010-8739-5355",
+      "username": "01087395355",
+      "password": "01087395355",
+      "email": "jungmj@gmail.com"
+    },
+    {
+      "churchName": "서울22",
+      "fullname": "박영혜",
+      "phone": "010-5759-1440",
+      "username": "01057591440",
+      "password": "01057591440",
+      "email": "parkyh@gmail.com"
+    },
+    {
+      "churchName": "서울22",
+      "fullname": "서명자",
+      "phone": "010-4306-7533",
+      "username": "01043067533",
+      "password": "01043067533",
+      "email": "seomj@gmail.com"
+    },
+    {
+      "churchName": "서울22",
+      "fullname": "윤정섭",
+      "phone": "010-5225-8541",
+      "username": "01052258541",
+      "password": "01052258541",
+      "email": "yoonjs@gmail.com"
+    },
+    {
+      "churchName": "서울22",
+      "fullname": "김성희",
+      "phone": "010-2222-0233",
+      "username": "01022220233",
+      "password": "01022220233",
+      "email": "kimsh@gmail.com"
+    },
+    {
+      "churchName": "서울22",
+      "fullname": "김순자",
+      "phone": "010-7445-1764",
+      "username": "01074451764",
+      "password": "01074451764",
+      "email": "kimsj@gmail.com"
+    },
+    {
+      "churchName": "서울22",
+      "fullname": "윤영자",
+      "phone": "010-4766-2279",
+      "username": "01047662279",
+      "password": "01047662279",
+      "email": "yoonyj@gmail.com"
+    },
+    {
+      "churchName": "서울22",
+      "fullname": "이선구",
+      "phone": "010-3356-4958",
+      "username": "01033564958",
+      "password": "01033564958",
+      "email": "leesg@gmail.com"
+    },
+    {
+      "churchName": "서울22",
+      "fullname": "이선자",
+      "phone": "010-5221-4407",
+      "username": "01052214407",
+      "password": "01052214407",
+      "email": "leesj@gmail.com"
+    },
+    {
+      "churchName": "서울31",
+      "fullname": "송순이",
+      "phone": "010-8723-0114",
+      "username": "01087230114",
+      "password": "01087230114",
+      "email": "songsi@gmail.com"
+    },
+    {
+      "churchName": "서울38",
+      "fullname": "강계숙",
+      "phone": "010-3832-8405",
+      "username": "01038328405",
+      "password": "01038328405",
+      "email": "kanggs@gmail.com"
+    },
+    {
+      "churchName": "서울38",
+      "fullname": "김옥길",
+      "phone": "010-4326-0121",
+      "username": "01043260121",
+      "password": "01043260121",
+      "email": "kimog@gmail.com"
+    },
+    {
+      "churchName": "서울38",
+      "fullname": "이은희",
+      "phone": "010-5177-2590",
+      "username": "01051772590",
+      "password": "01051772590",
+      "email": "leeeh@gmail.com"
+    },
+    {
+      "churchName": "서울38",
+      "fullname": "김태은",
+      "phone": "010-5117-0197",
+      "username": "01051170197",
+      "password": "01051170197",
+      "email": "kimte@gmail.com"
+    },
+    {
+      "churchName": "서울38",
+      "fullname": "박경자",
+      "phone": "010-8341-4145",
+      "username": "01083414145",
+      "password": "01083414145",
+      "email": "parkgj@gmail.com"
+    },
+    {
+      "churchName": "서울38",
+      "fullname": "박길화",
+      "phone": "010-9956-2780",
+      "username": "01099562780",
+      "password": "01099562780",
+      "email": "parkgh@gmail.com"
+    },
+    {
+      "churchName": "서울38",
+      "fullname": "최풍자",
+      "phone": "010-4020-2615",
+      "username": "01040202615",
+      "password": "01040202615",
+      "email": "choipj@gmail.com"
+    },
+    {
+      "churchName": "서울38",
+      "fullname": "홍경자",
+      "phone": "010-3709-2008",
+      "username": "01037092008",
+      "password": "01037092008",
+      "email": "honggj@gmail.com"
+    },
+    {
+      "churchName": "서울38",
+      "fullname": "황숙자",
+      "phone": "010-7939-7273",
+      "username": "01079397273",
+      "password": "01079397273",
+      "email": "hwangsj@gmail.com"
+    },
+    {
+      "churchName": "서울40",
+      "fullname": "김임순",
+      "phone": "010-3033-3500",
+      "username": "01030333500",
+      "password": "01030333500",
+      "email": "kimis@gmail.com"
+    },
+    {
+      "churchName": "서울40",
+      "fullname": "김종숙",
+      "phone": "010-3926-1131",
+      "username": "01039261131",
+      "password": "01039261131",
+      "email": "kimjs@gmail.com"
+    },
+    {
+      "churchName": "서울40",
+      "fullname": "이향숙",
+      "phone": "010-6227-8473",
+      "username": "01062278473",
+      "password": "01062278473",
+      "email": "leehs@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "김우자",
+      "phone": "010-3783-7323",
+      "username": "01037837323",
+      "password": "01037837323",
+      "email": "kimuj@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "나달자",
+      "phone": "010-2605-2411",
+      "username": "01026052411",
+      "password": "01026052411",
+      "email": "nadj@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "서명자",
+      "phone": "010-4592-1585",
+      "username": "01045921585",
+      "password": "01045921585",
+      "email": "seomj@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "손화지",
+      "phone": "010-3724-0197",
+      "username": "01037240197",
+      "password": "01037240197",
+      "email": "sohnhj@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "오희숙",
+      "phone": "010-5207-9722",
+      "username": "01052079722",
+      "password": "01052079722",
+      "email": "ohhs@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "유옥희",
+      "phone": "010-5295-7968",
+      "username": "01052957968",
+      "password": "01052957968",
+      "email": "yoooh@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "이선옥",
+      "phone": "010-4261-5483",
+      "username": "01042615483",
+      "password": "01042615483",
+      "email": "leeso@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "이옥지",
+      "phone": "010-5024-2572",
+      "username": "01050242572",
+      "password": "01050242572",
+      "email": "leeoj@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "정순지",
+      "phone": "010-7294-7900",
+      "username": "01072947900",
+      "password": "01072947900",
+      "email": "jungsj@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "정해금",
+      "phone": "010-5202-1613",
+      "username": "01052021613",
+      "password": "01052021613",
+      "email": "junghg@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "조명순",
+      "phone": "010-4878-9479",
+      "username": "01048789479",
+      "password": "01048789479",
+      "email": "choms@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "최송자",
+      "phone": "010-5270-7192",
+      "username": "01052707192",
+      "password": "01052707192",
+      "email": "choisj@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "양정임",
+      "phone": "010-9461-4029",
+      "username": "01094614029",
+      "password": "01094614029",
+      "email": "yangji@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "이향숙",
+      "phone": "010-3238-8611",
+      "username": "01032388611",
+      "password": "01032388611",
+      "email": "leehs@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "조인숙",
+      "phone": "010-5309-1440",
+      "username": "01053091440",
+      "password": "01053091440",
+      "email": "chois@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "최영희B",
+      "phone": "010-4420-0582",
+      "username": "01044200582",
+      "password": "01044200582",
+      "email": "choiyhb@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "황현순",
+      "phone": "010-5248-7370",
+      "username": "01052487370",
+      "password": "01052487370",
+      "email": "hwanghs@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "신정희",
+      "phone": "010-6471-3306",
+      "username": "01064713306",
+      "password": "01064713306",
+      "email": "shinjh@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "이순자",
+      "phone": "010-5325-3652",
+      "username": "01053253652",
+      "password": "01053253652",
+      "email": "leesj@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "오혜정",
+      "phone": "010-7517-9177",
+      "username": "01075179177",
+      "password": "01075179177",
+      "email": "ohhj@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "임영숙",
+      "phone": "010-9092-1444",
+      "username": "01090921444",
+      "password": "01090921444",
+      "email": "limys@gmail.com"
+    },
+    {
+      "churchName": "서울12",
+      "fullname": "김영자",
+      "phone": "010-3291-1440",
+      "username": "01032911440",
+      "password": "01032911440",
+      "email": "kimyj@gmail.com"
+    },
+    {
+      "churchName": "서울12",
+      "fullname": "임점자",
+      "phone": "010-8880-5888",
+      "username": "01088805888",
+      "password": "01088805888",
+      "email": "limjj@gmail.com"
+    },
+    {
+      "churchName": "서울12",
+      "fullname": "김전숙",
+      "phone": "010-5598-5303",
+      "username": "01055985303",
+      "password": "01055985303",
+      "email": "kimjs@gmail.com"
+    },
+    {
+      "churchName": "서울12",
+      "fullname": "노경아",
+      "phone": "010-9049-9976",
+      "username": "01090499976",
+      "password": "01090499976",
+      "email": "nohga@gmail.com"
+    },
+    {
+      "churchName": "서울12",
+      "fullname": "성낙주",
+      "phone": "010-2291-5866",
+      "username": "01022915866",
+      "password": "01022915866",
+      "email": "sungnj@gmail.com"
+    },
+    {
+      "churchName": "서울12",
+      "fullname": "윤영자",
+      "phone": "010-4922-7740",
+      "username": "01049227740",
+      "password": "01049227740",
+      "email": "yoonyj@gmail.com"
+    },
+    {
+      "churchName": "서울12",
+      "fullname": "황정자",
+      "phone": "010-9138-3832",
+      "username": "01091383832",
+      "password": "01091383832",
+      "email": "hwangjj@gmail.com"
+    },
+    {
+      "churchName": "서울25",
+      "fullname": "강선미",
+      "phone": "010-3939-7629",
+      "username": "01039397629",
+      "password": "01039397629",
+      "email": "kangsm@gmail.com"
+    },
+    {
+      "churchName": "서울25",
+      "fullname": "권미정",
+      "phone": "010-4519-0239",
+      "username": "01045190239",
+      "password": "01045190239",
+      "email": "kwonmj@gmail.com"
+    },
+    {
+      "churchName": "서울25",
+      "fullname": "남순자",
+      "phone": "010-5659-3707",
+      "username": "01056593707",
+      "password": "01056593707",
+      "email": "namsj@gmail.com"
+    },
+    {
+      "churchName": "서울25",
+      "fullname": "정명숙",
+      "phone": "010-2690-6383",
+      "username": "01026906383",
+      "password": "01026906383",
+      "email": "jungms@gmail.com"
+    },
+    {
+      "churchName": "서울25",
+      "fullname": "이병윤",
+      "phone": "010-3784-5012",
+      "username": "01037845012",
+      "password": "01037845012",
+      "email": "leeby@gmail.com"
+    },
+    {
+      "churchName": "서울41",
+      "fullname": "최성자",
+      "phone": "010-3271-7956",
+      "username": "01032717956",
+      "password": "01032717956",
+      "email": "choisj@gmail.com"
+    },
+    {
+      "churchName": "서울41",
+      "fullname": "홍성야",
+      "phone": "010-4039-4274",
+      "username": "01040394274",
+      "password": "01040394274",
+      "email": "hongsy@gmail.com"
+    },
+    {
+      "churchName": "서울43",
+      "fullname": "김금순",
+      "phone": "010-5124-4270",
+      "username": "01051244270",
+      "password": "01051244270",
+      "email": "kimgs@gmail.com"
+    },
+    {
+      "churchName": "서울43",
+      "fullname": "오순자",
+      "phone": "010-4718-0441",
+      "username": "01047180441",
+      "password": "01047180441",
+      "email": "ohsj@gmail.com"
+    },
+    {
+      "churchName": "서울43",
+      "fullname": "이금선",
+      "phone": "010-2282-8654",
+      "username": "01022828654",
+      "password": "01022828654",
+      "email": "leegs@gmail.com"
+    },
+    {
+      "churchName": "서울43",
+      "fullname": "손종화",
+      "phone": "010-9054-0316",
+      "username": "01090540316",
+      "password": "01090540316",
+      "email": "sohnjh@gmail.com"
+    },
+    {
+      "churchName": "서울43",
+      "fullname": "김일선",
+      "phone": "010-5668-6208",
+      "username": "01056686208",
+      "password": "01056686208",
+      "email": "kimis@gmail.com"
+    },
+    {
+      "churchName": "서울43",
+      "fullname": "이춘자",
+      "phone": "010-6586-3032",
+      "username": "01065863032",
+      "password": "01065863032",
+      "email": "leecj@gmail.com"
+    },
+    {
+      "churchName": "서울43",
+      "fullname": "이회옥",
+      "phone": "010-8744-4922",
+      "username": "01087444922",
+      "password": "01087444922",
+      "email": "leeho@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "박선향",
+      "phone": "010-7572-1440",
+      "username": "01075721440",
+      "password": "01075721440",
+      "email": "parksh@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "김생수",
+      "phone": "010-2409-2850",
+      "username": "01024092850",
+      "password": "01024092850",
+      "email": "kimss@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "김석출",
+      "phone": "010-9311-3007",
+      "username": "01093113007",
+      "password": "01093113007",
+      "email": "kimsc@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "김시윤",
+      "phone": "010-8973-1811",
+      "username": "01089731811",
+      "password": "01089731811",
+      "email": "kimsy@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "김지은",
+      "phone": "010-5005-3551",
+      "username": "01050053551",
+      "password": "01050053551",
+      "email": "kimje@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "김혜영",
+      "phone": "010-8926-4523",
+      "username": "01089264523",
+      "password": "01089264523",
+      "email": "kimhy@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "이금안",
+      "phone": "010-5535-3962",
+      "username": "01055353962",
+      "password": "01055353962",
+      "email": "leega@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "이금자",
+      "phone": "010-8978-3682",
+      "username": "01089783682",
+      "password": "01089783682",
+      "email": "leegj@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "이월선",
+      "phone": "010-9105-8433",
+      "username": "01091058433",
+      "password": "01091058433",
+      "email": "leews@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "정영희",
+      "phone": "010-8321-4479",
+      "username": "01083214479",
+      "password": "01083214479",
+      "email": "jungyh@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "조원님",
+      "phone": "010-3387-6126",
+      "username": "01033876126",
+      "password": "01033876126",
+      "email": "chown@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "차혜영",
+      "phone": "010-8942-6802",
+      "username": "01089426802",
+      "password": "01089426802",
+      "email": "chahy@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "최명자",
+      "phone": "010-5043-5251",
+      "username": "01050435251",
+      "password": "01050435251",
+      "email": "choimj@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "김선기",
+      "phone": "010-6738-8942",
+      "username": "01067388942",
+      "password": "01067388942",
+      "email": "kimsg@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "김창숙",
+      "phone": "010-4207-0230",
+      "username": "01042070230",
+      "password": "01042070230",
+      "email": "kimcs@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "김해나",
+      "phone": "010-3758-1440",
+      "username": "01037581440",
+      "password": "01037581440",
+      "email": "kimhn@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "강문형",
+      "phone": "010-3317-4102",
+      "username": "01033174102",
+      "password": "01033174102",
+      "email": "kangmh@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "김경순",
+      "phone": "010-9040-4140",
+      "username": "01090404140",
+      "password": "01090404140",
+      "email": "kimgs@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "이인준",
+      "phone": "010-4702-6063",
+      "username": "01047026063",
+      "password": "01047026063",
+      "email": "leeij@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "이정석",
+      "phone": "010-4708-6286",
+      "username": "01047086286",
+      "password": "01047086286",
+      "email": "leejs@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "최영숙",
+      "phone": "010-8822-2352",
+      "username": "01088222352",
+      "password": "01088222352",
+      "email": "choiys@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "최지우",
+      "phone": "010-8599-7190",
+      "username": "01085997190",
+      "password": "01085997190",
+      "email": "choiju@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "홍종임",
+      "phone": "010-9757-0447",
+      "username": "01097570447",
+      "password": "01097570447",
+      "email": "hongji@gmail.com"
+    },
+    {
+      "churchName": "부천",
+      "fullname": "고검단",
+      "phone": "010-4500-9714",
+      "username": "01045009714",
+      "password": "01045009714",
+      "email": "kogd@gmail.com"
+    },
+    {
+      "churchName": "부천",
+      "fullname": "김복자",
+      "phone": "010-7422-1244",
+      "username": "01074221244",
+      "password": "01074221244",
+      "email": "kimbj@gmail.com"
+    },
+    {
+      "churchName": "부천",
+      "fullname": "박영숙",
+      "phone": "010-9894-2994",
+      "username": "01098942994",
+      "password": "01098942994",
+      "email": "parkys@gmail.com"
+    },
+    {
+      "churchName": "부천",
+      "fullname": "김명임",
+      "phone": "010-2510-7497",
+      "username": "01025107497",
+      "password": "01025107497",
+      "email": "kimmi@gmail.com"
+    },
+    {
+      "churchName": "부천",
+      "fullname": "전인수",
+      "phone": "010-4948-1441",
+      "username": "01049481441",
+      "password": "01049481441",
+      "email": "jeonis@gmail.com"
+    },
+    {
+      "churchName": "부천",
+      "fullname": "조영신",
+      "phone": "010-3976-0447",
+      "username": "01039760447",
+      "password": "01039760447",
+      "email": "choys@gmail.com"
+    },
+    {
+      "churchName": "부천",
+      "fullname": "김은심",
+      "phone": "010-2255-1875",
+      "username": "01022551875",
+      "password": "01022551875",
+      "email": "kimes@gmail.com"
+    },
+    {
+      "churchName": "진주",
+      "fullname": "허소영",
+      "phone": "011-9751-6743",
+      "username": "01197516743",
+      "password": "01197516743",
+      "email": "huhsy@gmail.com"
+    },
+    {
+      "churchName": "부평",
+      "fullname": "이한복",
+      "phone": "010-2715-8508",
+      "username": "01027158508",
+      "password": "01027158508",
+      "email": "leehb@gmail.com"
+    },
+    {
+      "churchName": "부평",
+      "fullname": "임효순",
+      "phone": "010-9857-8697",
+      "username": "01098578697",
+      "password": "01098578697",
+      "email": "limhs@gmail.com"
+    },
+    {
+      "churchName": "부평",
+      "fullname": "전서인",
+      "phone": "010-9162-2510",
+      "username": "01091622510",
+      "password": "01091622510",
+      "email": "jeonsi@gmail.com"
+    },
+    {
+      "churchName": "부평",
+      "fullname": "천신향",
+      "phone": "010-9002-8041",
+      "username": "01090028041",
+      "password": "01090028041",
+      "email": "cheonsh@gmail.com"
+    },
+    {
+      "churchName": "부평",
+      "fullname": "김소현",
+      "phone": "010-7188-4484",
+      "username": "01071884484",
+      "password": "01071884484",
+      "email": "kimsh@gmail.com"
+    },
+    {
+      "churchName": "부평",
+      "fullname": "음정옥",
+      "phone": "010-7675-4497",
+      "username": "01076754497",
+      "password": "01076754497",
+      "email": "userjo@gmail.com"
+    },
+    {
+      "churchName": "소사동",
+      "fullname": "송정남",
+      "phone": "010-3708-9243",
+      "username": "01037089243",
+      "password": "01037089243",
+      "email": "songjn@gmail.com"
+    },
+    {
+      "churchName": "소사동",
+      "fullname": "유영실",
+      "phone": "010-8990-6475",
+      "username": "01089906475",
+      "password": "01089906475",
+      "email": "yooys@gmail.com"
+    },
+    {
+      "churchName": "소사동",
+      "fullname": "김경순",
+      "phone": "010-2383-4552",
+      "username": "01023834552",
+      "password": "01023834552",
+      "email": "kimgs@gmail.com"
+    },
+    {
+      "churchName": "소사동",
+      "fullname": "유근희",
+      "phone": "010-6311-4030",
+      "username": "01063114030",
+      "password": "01063114030",
+      "email": "yoogh@gmail.com"
+    },
+    {
+      "churchName": "소사동",
+      "fullname": "한영자",
+      "phone": "010-2240-2729",
+      "username": "01022402729",
+      "password": "01022402729",
+      "email": "hanyj@gmail.com"
+    },
+    {
+      "churchName": "수원",
+      "fullname": "김순심",
+      "phone": "010-3163-1440",
+      "username": "01031631440",
+      "password": "01031631440",
+      "email": "kimss@gmail.com"
+    },
+    {
+      "churchName": "수원",
+      "fullname": "백성희",
+      "phone": "010-3144-1440",
+      "username": "01031441440",
+      "password": "01031441440",
+      "email": "baeksh@gmail.com"
+    },
+    {
+      "churchName": "수원",
+      "fullname": "송정선",
+      "phone": "010-5329-3747",
+      "username": "01053293747",
+      "password": "01053293747",
+      "email": "songjs@gmail.com"
+    },
+    {
+      "churchName": "수원",
+      "fullname": "안금덕",
+      "phone": "010-8209-6089",
+      "username": "01082096089",
+      "password": "01082096089",
+      "email": "ahngd@gmail.com"
+    },
+    {
+      "churchName": "수원",
+      "fullname": "오명균",
+      "phone": "010-6214-2980",
+      "username": "01062142980",
+      "password": "01062142980",
+      "email": "ohmg@gmail.com"
+    },
+    {
+      "churchName": "수원",
+      "fullname": "이지원",
+      "phone": "010-6355-0259",
+      "username": "01063550259",
+      "password": "01063550259",
+      "email": "leejw@gmail.com"
+    },
+    {
+      "churchName": "수원",
+      "fullname": "조영임",
+      "phone": "010-9128-5163",
+      "username": "01091285163",
+      "password": "01091285163",
+      "email": "choyi@gmail.com"
+    },
+    {
+      "churchName": "수원",
+      "fullname": "백옥순",
+      "phone": "010-2911-2423",
+      "username": "01029112423",
+      "password": "01029112423",
+      "email": "baekos@gmail.com"
+    },
+    {
+      "churchName": "수원",
+      "fullname": "김일",
+      "phone": "010-5388-3851",
+      "username": "01053883851",
+      "password": "01053883851",
+      "email": "kimi@gmail.com"
+    },
+    {
+      "churchName": "수원",
+      "fullname": "안지윤",
+      "phone": "010-9247-5459",
+      "username": "01092475459",
+      "password": "01092475459",
+      "email": "ahnjy@gmail.com"
+    },
+    {
+      "churchName": "수원",
+      "fullname": "오정례",
+      "phone": "010-9918-9671",
+      "username": "01099189671",
+      "password": "01099189671",
+      "email": "ohjr@gmail.com"
+    },
+    {
+      "churchName": "수원",
+      "fullname": "정순애",
+      "phone": "010-2779-7767",
+      "username": "01027797767",
+      "password": "01027797767",
+      "email": "jungsa@gmail.com"
+    },
+    {
+      "churchName": "수원",
+      "fullname": "최채례",
+      "phone": "010-4266-8554",
+      "username": "01042668554",
+      "password": "01042668554",
+      "email": "choicr@gmail.com"
+    },
+    {
+      "churchName": "안양",
+      "fullname": "정유진",
+      "phone": "010-4393-3246",
+      "username": "01043933246",
+      "password": "01043933246",
+      "email": "jungyj@gmail.com"
+    },
+    {
+      "churchName": "안양",
+      "fullname": "강영희",
+      "phone": "010-8272-6241",
+      "username": "01082726241",
+      "password": "01082726241",
+      "email": "kangyh@gmail.com"
+    },
+    {
+      "churchName": "성남",
+      "fullname": "고성열",
+      "phone": "010-7514-3370",
+      "username": "01075143370",
+      "password": "01075143370",
+      "email": "kosy@gmail.com"
+    },
+    {
+      "churchName": "성남",
+      "fullname": "김옥순",
+      "phone": "010-4718-2327",
+      "username": "01047182327",
+      "password": "01047182327",
+      "email": "kimos@gmail.com"
+    },
+    {
+      "churchName": "성남",
+      "fullname": "장명옥",
+      "phone": "010-2344-0382",
+      "username": "01023440382",
+      "password": "01023440382",
+      "email": "jangmo@gmail.com"
+    },
+    {
+      "churchName": "성남",
+      "fullname": "황금연",
+      "phone": "010-8934-3789",
+      "username": "01089343789",
+      "password": "01089343789",
+      "email": "hwanggy@gmail.com"
+    },
+    {
+      "churchName": "성남",
+      "fullname": "이영자",
+      "phone": "010-2213-2679",
+      "username": "01022132679",
+      "password": "01022132679",
+      "email": "leeyj@gmail.com"
+    },
+    {
+      "churchName": "성남",
+      "fullname": "장원숙",
+      "phone": "010-2703-3789",
+      "username": "01027033789",
+      "password": "01027033789",
+      "email": "jangws@gmail.com"
+    },
+    {
+      "churchName": "성남",
+      "fullname": "장원애",
+      "phone": "010-8261-7441",
+      "username": "01082617441",
+      "password": "01082617441",
+      "email": "jangwa@gmail.com"
+    },
+    {
+      "churchName": "송탄",
+      "fullname": "박병숙",
+      "phone": "010-3280-5540",
+      "username": "01032805540",
+      "password": "01032805540",
+      "email": "parkbs@gmail.com"
+    },
+    {
+      "churchName": "송탄",
+      "fullname": "황정분",
+      "phone": "010-2793-1440",
+      "username": "01027931440",
+      "password": "01027931440",
+      "email": "hwangjb@gmail.com"
+    },
+    {
+      "churchName": "안성",
+      "fullname": "서경자",
+      "phone": "010-6265-1857",
+      "username": "01062651857",
+      "password": "01062651857",
+      "email": "seogj@gmail.com"
+    },
+    {
+      "churchName": "대전",
+      "fullname": "김복순",
+      "phone": "010-6418-8235",
+      "username": "01064188235",
+      "password": "01064188235",
+      "email": "kimbs@gmail.com"
+    },
+    {
+      "churchName": "대전",
+      "fullname": "남궁연옥",
+      "phone": "010-7637-3496",
+      "username": "01076373496",
+      "password": "01076373496",
+      "email": "namgoongyo@gmail.com"
+    },
+    {
+      "churchName": "대전",
+      "fullname": "전화영",
+      "phone": "010-6403-9343",
+      "username": "01064039343",
+      "password": "01064039343",
+      "email": "jeonhy@gmail.com"
+    },
+    {
+      "churchName": "대전",
+      "fullname": "정명옥",
+      "phone": "010-5542-9343",
+      "username": "01055429343",
+      "password": "01055429343",
+      "email": "jungmo@gmail.com"
+    },
+    {
+      "churchName": "대전",
+      "fullname": "정지숙",
+      "phone": "010-8822-2434",
+      "username": "01088222434",
+      "password": "01088222434",
+      "email": "jungjs@gmail.com"
+    },
+    {
+      "churchName": "대전",
+      "fullname": "김분출",
+      "phone": "010-6767-1087",
+      "username": "01067671087",
+      "password": "01067671087",
+      "email": "kimbc@gmail.com"
+    },
+    {
+      "churchName": "대전",
+      "fullname": "이용숙",
+      "phone": "010-4310-7420",
+      "username": "01043107420",
+      "password": "01043107420",
+      "email": "leeys@gmail.com"
+    },
+    {
+      "churchName": "대전",
+      "fullname": "장진선",
+      "phone": "010-6577-5958",
+      "username": "01065775958",
+      "password": "01065775958",
+      "email": "jangjs@gmail.com"
+    },
+    {
+      "churchName": "대전",
+      "fullname": "소초순",
+      "phone": "010-9414-5607",
+      "username": "01094145607",
+      "password": "01094145607",
+      "email": "socs@gmail.com"
+    },
+    {
+      "churchName": "대전",
+      "fullname": "김청자A",
+      "phone": "010-7395-2441",
+      "username": "01073952441",
+      "password": "01073952441",
+      "email": "kimcja@gmail.com"
+    },
+    {
+      "churchName": "대전",
+      "fullname": "김청자B",
+      "phone": "010-3577-9749",
+      "username": "01035779749",
+      "password": "01035779749",
+      "email": "kimcjb@gmail.com"
+    },
+    {
+      "churchName": "대전",
+      "fullname": "박명식",
+      "phone": "010-9345-6436",
+      "username": "01093456436",
+      "password": "01093456436",
+      "email": "parkms@gmail.com"
+    },
+    {
+      "churchName": "대전",
+      "fullname": "최정화",
+      "phone": "010-6663-6533",
+      "username": "01066636533",
+      "password": "01066636533",
+      "email": "choijh@gmail.com"
+    },
+    {
+      "churchName": "대전",
+      "fullname": "박의순",
+      "phone": "010-2585-6261",
+      "username": "01025856261",
+      "password": "01025856261",
+      "email": "parkes@gmail.com"
+    },
+    {
+      "churchName": "천안",
+      "fullname": "조은자",
+      "phone": "010-4119-3922",
+      "username": "01041193922",
+      "password": "01041193922",
+      "email": "choej@gmail.com"
+    },
+    {
+      "churchName": "천안",
+      "fullname": "최재열",
+      "phone": "010-4606-4081",
+      "username": "01046064081",
+      "password": "01046064081",
+      "email": "choijy@gmail.com"
+    },
+    {
+      "churchName": "천안",
+      "fullname": "임현정",
+      "phone": "010-9448-3759",
+      "username": "01094483759",
+      "password": "01094483759",
+      "email": "limhj@gmail.com"
+    },
+    {
+      "churchName": "서산",
+      "fullname": "김춘옥",
+      "phone": "010-2212-0144",
+      "username": "01022120144",
+      "password": "01022120144",
+      "email": "kimco@gmail.com"
+    },
+    {
+      "churchName": "서산",
+      "fullname": "인정희",
+      "phone": "010-2610-3418",
+      "username": "01026103418",
+      "password": "01026103418",
+      "email": "injh@gmail.com"
+    },
+    {
+      "churchName": "서산",
+      "fullname": "한양자",
+      "phone": "010-2430-1674",
+      "username": "01024301674",
+      "password": "01024301674",
+      "email": "hanyj@gmail.com"
+    },
+    {
+      "churchName": "서천",
+      "fullname": "김석단",
+      "phone": "010-5454-5777",
+      "username": "01054545777",
+      "password": "01054545777",
+      "email": "kimsd@gmail.com"
+    },
+    {
+      "churchName": "서천",
+      "fullname": "이현옥",
+      "phone": "010-6488-3644",
+      "username": "01064883644",
+      "password": "01064883644",
+      "email": "leeho@gmail.com"
+    },
+    {
+      "churchName": "논산",
+      "fullname": "조행덕",
+      "phone": "010-8024-1440",
+      "username": "01080241440",
+      "password": "01080241440",
+      "email": "chohd@gmail.com"
+    },
+    {
+      "churchName": "논산",
+      "fullname": "강명자",
+      "phone": "010-2486-3171",
+      "username": "01024863171",
+      "password": "01024863171",
+      "email": "kangmj@gmail.com"
+    },
+    {
+      "churchName": "소사",
+      "fullname": "김희자",
+      "phone": "010-5318-1366",
+      "username": "01053181366",
+      "password": "01053181366",
+      "email": "kimhj@gmail.com"
+    },
+    {
+      "churchName": "소사",
+      "fullname": "박옥순",
+      "phone": "010-3367-3104",
+      "username": "01033673104",
+      "password": "01033673104",
+      "email": "parkos@gmail.com"
+    },
+    {
+      "churchName": "소사",
+      "fullname": "우정자",
+      "phone": "010-5638-9587",
+      "username": "01056389587",
+      "password": "01056389587",
+      "email": "userjj@gmail.com"
+    },
+    {
+      "churchName": "소사",
+      "fullname": "윤정애",
+      "phone": "010-8639-3350",
+      "username": "01086393350",
+      "password": "01086393350",
+      "email": "yoonja@gmail.com"
+    },
+    {
+      "churchName": "소사",
+      "fullname": "윤주원",
+      "phone": "010-8329-4530",
+      "username": "01083294530",
+      "password": "01083294530",
+      "email": "yoonjw@gmail.com"
+    },
+    {
+      "churchName": "소사",
+      "fullname": "이연옥(이재진개명)",
+      "phone": "010-7597-1147",
+      "username": "01075971147",
+      "password": "01075971147",
+      "email": "leeyo@gmail.com"
+    },
+    {
+      "churchName": "소사",
+      "fullname": "임봉자",
+      "phone": "010-9023-8870",
+      "username": "01090238870",
+      "password": "01090238870",
+      "email": "limbj@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "정복선",
+      "phone": "010-8685-7300",
+      "username": "01086857300",
+      "password": "01086857300",
+      "email": "jungbs@gmail.com"
+    },
+    {
+      "churchName": "소사",
+      "fullname": "정송락",
+      "phone": "010-7104-4069",
+      "username": "01071044069",
+      "password": "01071044069",
+      "email": "jungsr@gmail.com"
+    },
+    {
+      "churchName": "소사",
+      "fullname": "한재선",
+      "phone": "010-7187-4487",
+      "username": "01071874487",
+      "password": "01071874487",
+      "email": "hanjs@gmail.com"
+    },
+    {
+      "churchName": "소사",
+      "fullname": "강복희",
+      "phone": "010-6214-7720",
+      "username": "01062147720",
+      "password": "01062147720",
+      "email": "kangbh@gmail.com"
+    },
+    {
+      "churchName": "소사",
+      "fullname": "김영순",
+      "phone": "010-9923-7451",
+      "username": "01099237451",
+      "password": "01099237451",
+      "email": "kimys@gmail.com"
+    },
+    {
+      "churchName": "소사",
+      "fullname": "박영옥",
+      "phone": "010-4451-0441",
+      "username": "01044510441",
+      "password": "01044510441",
+      "email": "parkyo@gmail.com"
+    },
+    {
+      "churchName": "소사",
+      "fullname": "봉찬아",
+      "phone": "010-4519-7431",
+      "username": "01045197431",
+      "password": "01045197431",
+      "email": "bongca@gmail.com"
+    },
+    {
+      "churchName": "소사",
+      "fullname": "윤혜성",
+      "phone": "010-5878-1440",
+      "username": "01058781440",
+      "password": "01058781440",
+      "email": "yoonhs@gmail.com"
+    },
+    {
+      "churchName": "소사",
+      "fullname": "이은실",
+      "phone": "010-8844-5449",
+      "username": "01088445449",
+      "password": "01088445449",
+      "email": "leees@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "이순희",
+      "phone": "010-5044-3410",
+      "username": "01050443410",
+      "password": "01050443410",
+      "email": "leesh@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "주희영",
+      "phone": "010-8448-2747",
+      "username": "01084482747",
+      "password": "01084482747",
+      "email": "joohy@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "정지영",
+      "phone": "051-723-1448",
+      "username": "0517231448",
+      "password": "0517231448",
+      "email": "jungjy@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "박현자",
+      "phone": "010-3025-7505",
+      "username": "01030257505",
+      "password": "01030257505",
+      "email": "parkhj@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "강서정",
+      "phone": "010-4519-1440",
+      "username": "01045191440",
+      "password": "01045191440",
+      "email": "kangsj@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "김희숙",
+      "phone": "010-8001-7517",
+      "username": "01080017517",
+      "password": "01080017517",
+      "email": "kimhs@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "박영희",
+      "phone": "010-6591-1440",
+      "username": "01065911440",
+      "password": "01065911440",
+      "email": "parkyh@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "소귀동",
+      "phone": "010-3657-2820",
+      "username": "01036572820",
+      "password": "01036572820",
+      "email": "sogd@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "이수미",
+      "phone": "010-5635-1440",
+      "username": "01056351440",
+      "password": "01056351440",
+      "email": "leesm@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "지성숙",
+      "phone": "010-3847-1440",
+      "username": "01038471440",
+      "password": "01038471440",
+      "email": "userss@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "강승지",
+      "phone": "010-8549-0587",
+      "username": "01085490587",
+      "password": "01085490587",
+      "email": "kangsj@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "김명희",
+      "phone": "010-3643-2740",
+      "username": "01036432740",
+      "password": "01036432740",
+      "email": "kimmh@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "김보성",
+      "phone": "010-6527-7913",
+      "username": "01065277913",
+      "password": "01065277913",
+      "email": "kimbs@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "김성희",
+      "phone": "010-9196-1440",
+      "username": "01091961440",
+      "password": "01091961440",
+      "email": "kimsh@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "김순여",
+      "phone": "010-8539-2669",
+      "username": "01085392669",
+      "password": "01085392669",
+      "email": "kimsy@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "김순자",
+      "phone": "010-3352-3146",
+      "username": "01033523146",
+      "password": "01033523146",
+      "email": "kimsj@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "김영순",
+      "phone": "010-6309-2995",
+      "username": "01063092995",
+      "password": "01063092995",
+      "email": "kimys@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "김옥자",
+      "phone": "010-6511-6585",
+      "username": "01065116585",
+      "password": "01065116585",
+      "email": "kimoj@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "김은자",
+      "phone": "010-9901-9096",
+      "username": "01099019096",
+      "password": "01099019096",
+      "email": "kimej@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "김재순",
+      "phone": "010-7464-9434",
+      "username": "01074649434",
+      "password": "01074649434",
+      "email": "kimjs@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "김춘자",
+      "phone": "010-9485-1440",
+      "username": "01094851440",
+      "password": "01094851440",
+      "email": "kimcj@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "박경자",
+      "phone": "010-8720-8266",
+      "username": "01087208266",
+      "password": "01087208266",
+      "email": "parkgj@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "박금희",
+      "phone": "010-6707-3727",
+      "username": "01067073727",
+      "password": "01067073727",
+      "email": "parkgh@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "박복임",
+      "phone": "010-8618-3602",
+      "username": "01086183602",
+      "password": "01086183602",
+      "email": "parkbi@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "박순자",
+      "phone": "010-5016-1440",
+      "username": "01050161440",
+      "password": "01050161440",
+      "email": "parksj@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "박옥진",
+      "phone": "010-9416-3952",
+      "username": "01094163952",
+      "password": "01094163952",
+      "email": "parkoj@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "박운희",
+      "phone": "010-5544-1268",
+      "username": "01055441268",
+      "password": "01055441268",
+      "email": "parkuh@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "박필자",
+      "phone": "010-2939-7083",
+      "username": "01029397083",
+      "password": "01029397083",
+      "email": "parkpj@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "박혜옥",
+      "phone": "010-2426-0985",
+      "username": "01024260985",
+      "password": "01024260985",
+      "email": "parkho@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "서태순",
+      "phone": "010-6483-0498",
+      "username": "01064830498",
+      "password": "01064830498",
+      "email": "seots@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "성부자",
+      "phone": "010-2351-2440",
+      "username": "01023512440",
+      "password": "01023512440",
+      "email": "sungbj@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "신양자",
+      "phone": "010-8327-1440",
+      "username": "01083271440",
+      "password": "01083271440",
+      "email": "shinyj@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "엄경숙",
+      "phone": "010-2222-9754",
+      "username": "01022229754",
+      "password": "01022229754",
+      "email": "usergs@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "오순택",
+      "phone": "010-2994-1440",
+      "username": "01029941440",
+      "password": "01029941440",
+      "email": "ohst@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "오점순",
+      "phone": "010-3582-3017",
+      "username": "01035823017",
+      "password": "01035823017",
+      "email": "ohjs@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "이경길",
+      "phone": "010-8007-4143",
+      "username": "01080074143",
+      "password": "01080074143",
+      "email": "leegg@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "이계자",
+      "phone": "010-2778-7448",
+      "username": "01027787448",
+      "password": "01027787448",
+      "email": "leegj@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "이영희",
+      "phone": "010-3949-1440",
+      "username": "01039491440",
+      "password": "01039491440",
+      "email": "leeyh@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "이정연",
+      "phone": "010-8334-1448",
+      "username": "01083341448",
+      "password": "01083341448",
+      "email": "leejy@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "임수자",
+      "phone": "010-4399-1440",
+      "username": "01043991440",
+      "password": "01043991440",
+      "email": "limsj@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "정순임",
+      "phone": "010-9206-7451",
+      "username": "01092067451",
+      "password": "01092067451",
+      "email": "jungsi@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "제권상",
+      "phone": "010-6599-0683",
+      "username": "01065990683",
+      "password": "01065990683",
+      "email": "jegs@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "조순복",
+      "phone": "010-3023-3737",
+      "username": "01030233737",
+      "password": "01030233737",
+      "email": "chosb@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "조영희",
+      "phone": "010-2125-2134",
+      "username": "01021252134",
+      "password": "01021252134",
+      "email": "choyh@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "최유진",
+      "phone": "010-7514-3253",
+      "username": "01075143253",
+      "password": "01075143253",
+      "email": "choiyj@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "최윤실",
+      "phone": "010-4159-4401",
+      "username": "01041594401",
+      "password": "01041594401",
+      "email": "choiys@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "최윤희",
+      "phone": "010-4547-1721",
+      "username": "01045471721",
+      "password": "01045471721",
+      "email": "choiyh@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "하귀례",
+      "phone": "010-9046-7498",
+      "username": "01090467498",
+      "password": "01090467498",
+      "email": "hagr@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "홍순남",
+      "phone": "010-8861-2060",
+      "username": "01088612060",
+      "password": "01088612060",
+      "email": "hongsn@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "최경아",
+      "phone": "010-4862-2039",
+      "username": "01048622039",
+      "password": "01048622039",
+      "email": "choiga@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "최현아",
+      "phone": "010-2448-7087",
+      "username": "01024487087",
+      "password": "01024487087",
+      "email": "choiha@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "오성애",
+      "phone": "010-6421-5440",
+      "username": "01064215440",
+      "password": "01064215440",
+      "email": "ohsa@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "남금성",
+      "phone": "010-2075-1440",
+      "username": "01020751440",
+      "password": "01020751440",
+      "email": "namgs@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "박갑남",
+      "phone": "010-8705-5487",
+      "username": "01087055487",
+      "password": "01087055487",
+      "email": "parkgn@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "이소현",
+      "phone": "010-3559-4004",
+      "username": "01035594004",
+      "password": "01035594004",
+      "email": "leesh@gmail.com"
+    },
+    {
+      "churchName": "부산1",
+      "fullname": "장광선",
+      "phone": "010-9599-8145",
+      "username": "01095998145",
+      "password": "01095998145",
+      "email": "janggs@gmail.com"
+    },
+    {
+      "churchName": "부산1",
+      "fullname": "김선숙",
+      "phone": "010-7159-9554",
+      "username": "01071599554",
+      "password": "01071599554",
+      "email": "kimss@gmail.com"
+    },
+    {
+      "churchName": "부산1",
+      "fullname": "이경자",
+      "phone": "010-9304-5408",
+      "username": "01093045408",
+      "password": "01093045408",
+      "email": "leegj@gmail.com"
+    },
+    {
+      "churchName": "부산1",
+      "fullname": "서석조",
+      "phone": "010-3754-8412",
+      "username": "01037548412",
+      "password": "01037548412",
+      "email": "seosj@gmail.com"
+    },
+    {
+      "churchName": "부산1",
+      "fullname": "엄순예",
+      "phone": "010-3838-3305",
+      "username": "01038383305",
+      "password": "01038383305",
+      "email": "usersy@gmail.com"
+    },
+    {
+      "churchName": "부산1",
+      "fullname": "지숙현",
+      "phone": "010-2439-9092",
+      "username": "01024399092",
+      "password": "01024399092",
+      "email": "usersh@gmail.com"
+    },
+    {
+      "churchName": "부산1",
+      "fullname": "최복덕",
+      "phone": "010-3959-9756",
+      "username": "01039599756",
+      "password": "01039599756",
+      "email": "choibd@gmail.com"
+    },
+    {
+      "churchName": "부산1",
+      "fullname": "홍춘희",
+      "phone": "010-3481-8826",
+      "username": "01034818826",
+      "password": "01034818826",
+      "email": "hongch@gmail.com"
+    },
+    {
+      "churchName": "부산1",
+      "fullname": "김정호",
+      "phone": "010-9818-8919",
+      "username": "01098188919",
+      "password": "01098188919",
+      "email": "kimjh@gmail.com"
+    },
+    {
+      "churchName": "부산1",
+      "fullname": "김정희",
+      "phone": "010-9319-5095",
+      "username": "01093195095",
+      "password": "01093195095",
+      "email": "kimjh@gmail.com"
+    },
+    {
+      "churchName": "부산1",
+      "fullname": "도등자",
+      "phone": "010-5832-1440",
+      "username": "01058321440",
+      "password": "01058321440",
+      "email": "dodj@gmail.com"
+    },
+    {
+      "churchName": "부산1",
+      "fullname": "박옥수",
+      "phone": "010-7676-5594",
+      "username": "01076765594",
+      "password": "01076765594",
+      "email": "parkos@gmail.com"
+    },
+    {
+      "churchName": "부산1",
+      "fullname": "장숙자",
+      "phone": "010-8620-4288",
+      "username": "01086204288",
+      "password": "01086204288",
+      "email": "jangsj@gmail.com"
+    },
+    {
+      "churchName": "부산1",
+      "fullname": "조미선",
+      "phone": "010-4567-3551",
+      "username": "01045673551",
+      "password": "01045673551",
+      "email": "choms@gmail.com"
+    },
+    {
+      "churchName": "부산2",
+      "fullname": "권선영",
+      "phone": "010-6246-9296",
+      "username": "01062469296",
+      "password": "01062469296",
+      "email": "kwonsy@gmail.com"
+    },
+    {
+      "churchName": "부산2",
+      "fullname": "허선",
+      "phone": "010-3241-7913",
+      "username": "01032417913",
+      "password": "01032417913",
+      "email": "huhs@gmail.com"
+    },
+    {
+      "churchName": "부산2",
+      "fullname": "김부자",
+      "phone": "010-3241-7913",
+      "username": "01032417913",
+      "password": "01032417913",
+      "email": "kimbj@gmail.com"
+    },
+    {
+      "churchName": "부산2",
+      "fullname": "박미경",
+      "phone": "010-9134-0601",
+      "username": "01091340601",
+      "password": "01091340601",
+      "email": "parkmg@gmail.com"
+    },
+    {
+      "churchName": "부산3",
+      "fullname": "김미성",
+      "phone": "010-3707-0067",
+      "username": "01037070067",
+      "password": "01037070067",
+      "email": "kimms@gmail.com"
+    },
+    {
+      "churchName": "부산3",
+      "fullname": "송성복",
+      "phone": "010-9851-1444",
+      "username": "01098511444",
+      "password": "01098511444",
+      "email": "songsb@gmail.com"
+    },
+    {
+      "churchName": "부산3",
+      "fullname": "송성복",
+      "phone": "010-9851-1444",
+      "username": "01098511444",
+      "password": "01098511444",
+      "email": "songsb@gmail.com"
+    },
+    {
+      "churchName": "부산3",
+      "fullname": "임영자",
+      "phone": "010-4847-9545",
+      "username": "01048479545",
+      "password": "01048479545",
+      "email": "limyj@gmail.com"
+    },
+    {
+      "churchName": "부산3",
+      "fullname": "이춘자",
+      "phone": "010-3052-3013",
+      "username": "01030523013",
+      "password": "01030523013",
+      "email": "leecj@gmail.com"
+    },
+    {
+      "churchName": "부산5",
+      "fullname": "류인순",
+      "phone": "010-9959-9715",
+      "username": "01099599715",
+      "password": "01099599715",
+      "email": "ryuis@gmail.com"
+    },
+    {
+      "churchName": "부산5",
+      "fullname": "이양순",
+      "phone": "010-8478-1440",
+      "username": "01084781440",
+      "password": "01084781440",
+      "email": "leeys@gmail.com"
+    },
+    {
+      "churchName": "부산5",
+      "fullname": "박미선",
+      "phone": "010-8407-2001",
+      "username": "01084072001",
+      "password": "01084072001",
+      "email": "parkms@gmail.com"
+    },
+    {
+      "churchName": "부산5",
+      "fullname": "유선임",
+      "phone": "010-4232-0447",
+      "username": "01042320447",
+      "password": "01042320447",
+      "email": "yoosi@gmail.com"
+    },
+    {
+      "churchName": "부산8",
+      "fullname": "조수연",
+      "phone": "010-2807-2186",
+      "username": "01028072186",
+      "password": "01028072186",
+      "email": "chosy@gmail.com"
+    },
+    {
+      "churchName": "부산8",
+      "fullname": "김옥순",
+      "phone": "010-2518-0775",
+      "username": "01025180775",
+      "password": "01025180775",
+      "email": "kimos@gmail.com"
+    },
+    {
+      "churchName": "죽성",
+      "fullname": "이순희",
+      "phone": "010-2670-3428",
+      "username": "01026703428",
+      "password": "01026703428",
+      "email": "leesh@gmail.com"
+    },
+    {
+      "churchName": "죽성",
+      "fullname": "임말교",
+      "phone": "010-5577-8822",
+      "username": "01055778822",
+      "password": "01055778822",
+      "email": "limmg@gmail.com"
+    },
+    {
+      "churchName": "죽성",
+      "fullname": "정효영",
+      "phone": "010-7799-9315",
+      "username": "01077999315",
+      "password": "01077999315",
+      "email": "junghy@gmail.com"
+    },
+    {
+      "churchName": "죽성",
+      "fullname": "최혜자",
+      "phone": "010-6590-1202",
+      "username": "01065901202",
+      "password": "01065901202",
+      "email": "choihj@gmail.com"
+    },
+    {
+      "churchName": "죽성",
+      "fullname": "김남준",
+      "phone": "010-5603-8499",
+      "username": "01056038499",
+      "password": "01056038499",
+      "email": "kimnj@gmail.com"
+    },
+    {
+      "churchName": "죽성",
+      "fullname": "김미정",
+      "phone": "010-7135-1441",
+      "username": "01071351441",
+      "password": "01071351441",
+      "email": "kimmj@gmail.com"
+    },
+    {
+      "churchName": "죽성",
+      "fullname": "김옥숙",
+      "phone": "010-7548-3747",
+      "username": "01075483747",
+      "password": "01075483747",
+      "email": "kimos@gmail.com"
+    },
+    {
+      "churchName": "죽성",
+      "fullname": "이영숙",
+      "phone": "010-4556-3874",
+      "username": "01045563874",
+      "password": "01045563874",
+      "email": "leeys@gmail.com"
+    },
+    {
+      "churchName": "죽성",
+      "fullname": "이인숙",
+      "phone": "010-2852-0581",
+      "username": "01028520581",
+      "password": "01028520581",
+      "email": "leeis@gmail.com"
+    },
+    {
+      "churchName": "죽성",
+      "fullname": "장혜숙",
+      "phone": "010-6316-6750",
+      "username": "01063166750",
+      "password": "01063166750",
+      "email": "janghs@gmail.com"
+    },
+    {
+      "churchName": "죽성",
+      "fullname": "정윤조",
+      "phone": "010-9848-3571",
+      "username": "01098483571",
+      "password": "01098483571",
+      "email": "jungyj@gmail.com"
+    },
+    {
+      "churchName": "죽성",
+      "fullname": "김순조",
+      "phone": "010-7480-9947",
+      "username": "01074809947",
+      "password": "01074809947",
+      "email": "kimsj@gmail.com"
+    },
+    {
+      "churchName": "죽성",
+      "fullname": "박성실",
+      "phone": "010-8547-0473",
+      "username": "01085470473",
+      "password": "01085470473",
+      "email": "parkss@gmail.com"
+    },
+    {
+      "churchName": "죽성",
+      "fullname": "최정숙",
+      "phone": "010-7553-4125",
+      "username": "01075534125",
+      "password": "01075534125",
+      "email": "choijs@gmail.com"
+    },
+    {
+      "churchName": "진해",
+      "fullname": "김남희",
+      "phone": "010-9660-1240",
+      "username": "01096601240",
+      "password": "01096601240",
+      "email": "kimnh@gmail.com"
+    },
+    {
+      "churchName": "진해",
+      "fullname": "김세희",
+      "phone": "010-2328-3296",
+      "username": "01023283296",
+      "password": "01023283296",
+      "email": "kimsh@gmail.com"
+    },
+    {
+      "churchName": "진해",
+      "fullname": "오세영",
+      "phone": "010-4550-7289",
+      "username": "01045507289",
+      "password": "01045507289",
+      "email": "ohsy@gmail.com"
+    },
+    {
+      "churchName": "진해",
+      "fullname": "이영순",
+      "phone": "010-9567-7814",
+      "username": "01095677814",
+      "password": "01095677814",
+      "email": "leeys@gmail.com"
+    },
+    {
+      "churchName": "진해",
+      "fullname": "노소영",
+      "phone": "010-2830-1320",
+      "username": "01028301320",
+      "password": "01028301320",
+      "email": "nohsy@gmail.com"
+    },
+    {
+      "churchName": "마산",
+      "fullname": "주순심",
+      "phone": "010-4496-2002",
+      "username": "01044962002",
+      "password": "01044962002",
+      "email": "jooss@gmail.com"
+    },
+    {
+      "churchName": "마산",
+      "fullname": "한민경",
+      "phone": "010-2000-3557",
+      "username": "01020003557",
+      "password": "01020003557",
+      "email": "hanmg@gmail.com"
+    },
+    {
+      "churchName": "마산",
+      "fullname": "신정자",
+      "phone": "010-8483-3480",
+      "username": "01084833480",
+      "password": "01084833480",
+      "email": "shinjj@gmail.com"
+    },
+    {
+      "churchName": "마산",
+      "fullname": "하달연",
+      "phone": "010-5553-1440",
+      "username": "01055531440",
+      "password": "01055531440",
+      "email": "hady@gmail.com"
+    },
+    {
+      "churchName": "마산",
+      "fullname": "한은정",
+      "phone": "010-9422-4175",
+      "username": "01094224175",
+      "password": "01094224175",
+      "email": "hanej@gmail.com"
+    },
+    {
+      "churchName": "진주",
+      "fullname": "박명하",
+      "phone": "010-5511-3859",
+      "username": "01055113859",
+      "password": "01055113859",
+      "email": "parkmh@gmail.com"
+    },
+    {
+      "churchName": "진주",
+      "fullname": "홍은자",
+      "phone": "010-3507-6159",
+      "username": "01035076159",
+      "password": "01035076159",
+      "email": "hongej@gmail.com"
+    },
+    {
+      "churchName": "통영",
+      "fullname": "이용점",
+      "phone": "010-3389-0787",
+      "username": "01033890787",
+      "password": "01033890787",
+      "email": "leeyj@gmail.com"
+    },
+    {
+      "churchName": "삼천포",
+      "fullname": "박정례",
+      "phone": "010-4592-0100",
+      "username": "01045920100",
+      "password": "01045920100",
+      "email": "parkjr@gmail.com"
+    },
+    {
+      "churchName": "울산",
+      "fullname": "김두연",
+      "phone": "010-4578-8256",
+      "username": "01045788256",
+      "password": "01045788256",
+      "email": "kimdy@gmail.com"
+    },
+    {
+      "churchName": "울산",
+      "fullname": "박진규",
+      "phone": "010-6572-2777",
+      "username": "01065722777",
+      "password": "01065722777",
+      "email": "parkjg@gmail.com"
+    },
+    {
+      "churchName": "울산",
+      "fullname": "박태순",
+      "phone": "010-6780-8541",
+      "username": "01067808541",
+      "password": "01067808541",
+      "email": "parkts@gmail.com"
+    },
+    {
+      "churchName": "울산",
+      "fullname": "이선영",
+      "phone": "010-5660-1440",
+      "username": "01056601440",
+      "password": "01056601440",
+      "email": "leesy@gmail.com"
+    },
+    {
+      "churchName": "울산",
+      "fullname": "이윤경",
+      "phone": "010-2555-1697",
+      "username": "01025551697",
+      "password": "01025551697",
+      "email": "leeyg@gmail.com"
+    },
+    {
+      "churchName": "울산",
+      "fullname": "이향란",
+      "phone": "010-9747-6699",
+      "username": "01097476699",
+      "password": "01097476699",
+      "email": "leehr@gmail.com"
+    },
+    {
+      "churchName": "울산",
+      "fullname": "전태순",
+      "phone": "010-3597-4709",
+      "username": "01035974709",
+      "password": "01035974709",
+      "email": "jeonts@gmail.com"
+    },
+    {
+      "churchName": "울산",
+      "fullname": "채향숙",
+      "phone": "010-4453-0887",
+      "username": "01044530887",
+      "password": "01044530887",
+      "email": "userhs@gmail.com"
+    },
+    {
+      "churchName": "울산",
+      "fullname": "엄명순",
+      "phone": "010-7537-1440",
+      "username": "01075371440",
+      "password": "01075371440",
+      "email": "userms@gmail.com"
+    },
+    {
+      "churchName": "울산",
+      "fullname": "황영희",
+      "phone": "010-7164-1841",
+      "username": "01071641841",
+      "password": "01071641841",
+      "email": "hwangyh@gmail.com"
+    },
+    {
+      "churchName": "울산",
+      "fullname": "김수자",
+      "phone": "010-8829-1528",
+      "username": "01088291528",
+      "password": "01088291528",
+      "email": "kimsj@gmail.com"
+    },
+    {
+      "churchName": "울산",
+      "fullname": "백령휘",
+      "phone": "010-2793-6214",
+      "username": "01027936214",
+      "password": "01027936214",
+      "email": "baekrh@gmail.com"
+    },
+    {
+      "churchName": "울산",
+      "fullname": "서성희",
+      "phone": "010-3861-2204",
+      "username": "01038612204",
+      "password": "01038612204",
+      "email": "seosh@gmail.com"
+    },
+    {
+      "churchName": "울산",
+      "fullname": "이형례",
+      "phone": "010-8139-2939",
+      "username": "01081392939",
+      "password": "01081392939",
+      "email": "leehr@gmail.com"
+    },
+    {
+      "churchName": "방어진",
+      "fullname": "한옥분",
+      "phone": "010-3564-3918",
+      "username": "01035643918",
+      "password": "01035643918",
+      "email": "hanob@gmail.com"
+    },
+    {
+      "churchName": "방어진",
+      "fullname": "모안심",
+      "phone": "010-6800-4243",
+      "username": "01068004243",
+      "password": "01068004243",
+      "email": "moas@gmail.com"
+    },
+    {
+      "churchName": "밀양",
+      "fullname": "박숙자",
+      "phone": "010-8855-3487",
+      "username": "01088553487",
+      "password": "01088553487",
+      "email": "parksj@gmail.com"
+    },
+    {
+      "churchName": "대구",
+      "fullname": "곽미옥",
+      "phone": "010-3513-7188",
+      "username": "01035137188",
+      "password": "01035137188",
+      "email": "kwakmo@gmail.com"
+    },
+    {
+      "churchName": "대구",
+      "fullname": "노형님",
+      "phone": "010-6588-6041",
+      "username": "01065886041",
+      "password": "01065886041",
+      "email": "nohhn@gmail.com"
+    },
+    {
+      "churchName": "대구",
+      "fullname": "김정자",
+      "phone": "010-9776-8048",
+      "username": "01097768048",
+      "password": "01097768048",
+      "email": "kimjj@gmail.com"
+    },
+    {
+      "churchName": "대구",
+      "fullname": "손명득",
+      "phone": "010-5525-2423",
+      "username": "01055252423",
+      "password": "01055252423",
+      "email": "sohnmd@gmail.com"
+    },
+    {
+      "churchName": "대구",
+      "fullname": "오현숙",
+      "phone": "010-3653-8002",
+      "username": "01036538002",
+      "password": "01036538002",
+      "email": "ohhs@gmail.com"
+    },
+    {
+      "churchName": "대구",
+      "fullname": "유분옥",
+      "phone": "010-9229-0207",
+      "username": "01092290207",
+      "password": "01092290207",
+      "email": "yoobo@gmail.com"
+    },
+    {
+      "churchName": "대구",
+      "fullname": "이남선",
+      "phone": "010-2509-7010",
+      "username": "01025097010",
+      "password": "01025097010",
+      "email": "leens@gmail.com"
+    },
+    {
+      "churchName": "대구",
+      "fullname": "이순연",
+      "phone": "010-3529-4962",
+      "username": "01035294962",
+      "password": "01035294962",
+      "email": "leesy@gmail.com"
+    },
+    {
+      "churchName": "대구",
+      "fullname": "권분생",
+      "phone": "010-3547-7834",
+      "username": "01035477834",
+      "password": "01035477834",
+      "email": "kwonbs@gmail.com"
+    },
+    {
+      "churchName": "대구",
+      "fullname": "이성숙",
+      "phone": "010-3450-2762",
+      "username": "01034502762",
+      "password": "01034502762",
+      "email": "leess@gmail.com"
+    },
+    {
+      "churchName": "대구",
+      "fullname": "천영자",
+      "phone": "010-3844-5553",
+      "username": "01038445553",
+      "password": "01038445553",
+      "email": "cheonyj@gmail.com"
+    },
+    {
+      "churchName": "안동",
+      "fullname": "이순복",
+      "phone": "010-6554-8082",
+      "username": "01065548082",
+      "password": "01065548082",
+      "email": "leesb@gmail.com"
+    },
+    {
+      "churchName": "안동",
+      "fullname": "이정길",
+      "phone": "010-4399-2061",
+      "username": "01043992061",
+      "password": "01043992061",
+      "email": "leejg@gmail.com"
+    },
+    {
+      "churchName": "김천",
+      "fullname": "양지은",
+      "phone": "010-9354-8330",
+      "username": "01093548330",
+      "password": "01093548330",
+      "email": "yangje@gmail.com"
+    },
+    {
+      "churchName": "김천",
+      "fullname": "이순희",
+      "phone": "010-2853-2108",
+      "username": "01028532108",
+      "password": "01028532108",
+      "email": "leesh@gmail.com"
+    },
+    {
+      "churchName": "김천",
+      "fullname": "박동희",
+      "phone": "010-2400-7426",
+      "username": "01024007426",
+      "password": "01024007426",
+      "email": "parkdh@gmail.com"
+    },
+    {
+      "churchName": "영주",
+      "fullname": "박혜자",
+      "phone": "010-8350-8043",
+      "username": "01083508043",
+      "password": "01083508043",
+      "email": "parkhj@gmail.com"
+    },
+    {
+      "churchName": "포항",
+      "fullname": "방명란",
+      "phone": "010-2879-5737",
+      "username": "01028795737",
+      "password": "01028795737",
+      "email": "bangmr@gmail.com"
+    },
+    {
+      "churchName": "포항",
+      "fullname": "이범순",
+      "phone": "010-2031-5529",
+      "username": "01020315529",
+      "password": "01020315529",
+      "email": "leebs@gmail.com"
+    },
+    {
+      "churchName": "경주",
+      "fullname": "노경숙",
+      "phone": "010-4723-1449",
+      "username": "01047231449",
+      "password": "01047231449",
+      "email": "nohgs@gmail.com"
+    },
+    {
+      "churchName": "예천",
+      "fullname": "도연화",
+      "phone": "010-4533-5943",
+      "username": "01045335943",
+      "password": "01045335943",
+      "email": "doyh@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "김길여",
+      "phone": "010-5856-9729",
+      "username": "01058569729",
+      "password": "01058569729",
+      "email": "kimgy@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "양수영",
+      "phone": "010-3171-9972",
+      "username": "01031719972",
+      "password": "01031719972",
+      "email": "yangsy@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "장옥엽",
+      "phone": "010-4814-1440",
+      "username": "01048141440",
+      "password": "01048141440",
+      "email": "jangoy@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "조계순",
+      "phone": "010-7175-1440",
+      "username": "01071751440",
+      "password": "01071751440",
+      "email": "chogs@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "조순자",
+      "phone": "010-9622-1440",
+      "username": "01096221440",
+      "password": "01096221440",
+      "email": "chosj@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "조영님",
+      "phone": "010-9291-8928",
+      "username": "01092918928",
+      "password": "01092918928",
+      "email": "choyn@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "주미자",
+      "phone": "010-3602-2327",
+      "username": "01036022327",
+      "password": "01036022327",
+      "email": "joomj@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "지향임",
+      "phone": "010-9014-1754",
+      "username": "01090141754",
+      "password": "01090141754",
+      "email": "userhi@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "김은화",
+      "phone": "010-7556-9510",
+      "username": "01075569510",
+      "password": "01075569510",
+      "email": "kimeh@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "이재순",
+      "phone": "010-8422-1440",
+      "username": "01084221440",
+      "password": "01084221440",
+      "email": "leejs@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "최민선",
+      "phone": "010-3480-4688",
+      "username": "01034804688",
+      "password": "01034804688",
+      "email": "choims@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "최복실",
+      "phone": "010-3858-1440",
+      "username": "01038581440",
+      "password": "01038581440",
+      "email": "choibs@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "서송자",
+      "phone": "010-6524-4833",
+      "username": "01065244833",
+      "password": "01065244833",
+      "email": "seosj@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "김향숙",
+      "phone": "010-3620-2445",
+      "username": "01036202445",
+      "password": "01036202445",
+      "email": "kimhs@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "조원자",
+      "phone": "010-4614-1440",
+      "username": "01046141440",
+      "password": "01046141440",
+      "email": "chowj@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "김금남",
+      "phone": "010-7274-7887",
+      "username": "01072747887",
+      "password": "01072747887",
+      "email": "kimgn@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "조계임",
+      "phone": "010-9904-1440",
+      "username": "01099041440",
+      "password": "01099041440",
+      "email": "chogi@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "김명식",
+      "phone": "010-4114-0147",
+      "username": "01041140147",
+      "password": "01041140147",
+      "email": "kimms@gmail.com"
+    },
+    {
+      "churchName": "광주2",
+      "fullname": "김경화",
+      "phone": "010-5239-4869",
+      "username": "01052394869",
+      "password": "01052394869",
+      "email": "kimgh@gmail.com"
+    },
+    {
+      "churchName": "광주2",
+      "fullname": "박순덕",
+      "phone": "010-3614-5955",
+      "username": "01036145955",
+      "password": "01036145955",
+      "email": "parksd@gmail.com"
+    },
+    {
+      "churchName": "광주2",
+      "fullname": "송정희",
+      "phone": "010-2862-5853",
+      "username": "01028625853",
+      "password": "01028625853",
+      "email": "songjh@gmail.com"
+    },
+    {
+      "churchName": "광주2",
+      "fullname": "양송자",
+      "phone": "010-8625-1145",
+      "username": "01086251145",
+      "password": "01086251145",
+      "email": "yangsj@gmail.com"
+    },
+    {
+      "churchName": "광주3",
+      "fullname": "장금자",
+      "phone": "010-2603-4434",
+      "username": "01026034434",
+      "password": "01026034434",
+      "email": "janggj@gmail.com"
+    },
+    {
+      "churchName": "광주3",
+      "fullname": "강야모",
+      "phone": "010-6676-3570",
+      "username": "01066763570",
+      "password": "01066763570",
+      "email": "kangym@gmail.com"
+    },
+    {
+      "churchName": "나주",
+      "fullname": "기종례",
+      "phone": "010-5633-3485",
+      "username": "01056333485",
+      "password": "01056333485",
+      "email": "kijr@gmail.com"
+    },
+    {
+      "churchName": "나주",
+      "fullname": "이정자",
+      "phone": "010-2004-8749",
+      "username": "01020048749",
+      "password": "01020048749",
+      "email": "leejj@gmail.com"
+    },
+    {
+      "churchName": "제주",
+      "fullname": "박윤희",
+      "phone": "010-4895-7190",
+      "username": "01048957190",
+      "password": "01048957190",
+      "email": "parkyh@gmail.com"
+    },
+    {
+      "churchName": "순천",
+      "fullname": "하금순",
+      "phone": "010-9977-6409",
+      "username": "01099776409",
+      "password": "01099776409",
+      "email": "hags@gmail.com"
+    },
+    {
+      "churchName": "순천",
+      "fullname": "우양자",
+      "phone": "010-4662-3150",
+      "username": "01046623150",
+      "password": "01046623150",
+      "email": "useryj@gmail.com"
+    },
+    {
+      "churchName": "목포",
+      "fullname": "최금순",
+      "phone": "010-8619-3433",
+      "username": "01086193433",
+      "password": "01086193433",
+      "email": "choigs@gmail.com"
+    },
+    {
+      "churchName": "여수",
+      "fullname": "서경자",
+      "phone": "010-9525-7115",
+      "username": "01095257115",
+      "password": "01095257115",
+      "email": "seogj@gmail.com"
+    },
+    {
+      "churchName": "여수",
+      "fullname": "김은정",
+      "phone": "010-7797-4713",
+      "username": "01077974713",
+      "password": "01077974713",
+      "email": "kimej@gmail.com"
+    },
+    {
+      "churchName": "해남",
+      "fullname": "윤은자",
+      "phone": "010-7266-1050",
+      "username": "01072661050",
+      "password": "01072661050",
+      "email": "yoonej@gmail.com"
+    },
+    {
+      "churchName": "보성",
+      "fullname": "박을순",
+      "phone": "010-8535-0051",
+      "username": "01085350051",
+      "password": "01085350051",
+      "email": "parkes@gmail.com"
+    },
+    {
+      "churchName": "보성",
+      "fullname": "이성은",
+      "phone": "010-3085-2338",
+      "username": "01030852338",
+      "password": "01030852338",
+      "email": "leese@gmail.com"
+    },
+    {
+      "churchName": "고흥",
+      "fullname": "손영숙",
+      "phone": "010-8330-2458",
+      "username": "01083302458",
+      "password": "01083302458",
+      "email": "sohnys@gmail.com"
+    },
+    {
+      "churchName": "전주",
+      "fullname": "구선님",
+      "phone": "010-5206-2896",
+      "username": "01052062896",
+      "password": "01052062896",
+      "email": "koosn@gmail.com"
+    },
+    {
+      "churchName": "전주",
+      "fullname": "이순희",
+      "phone": "010-9285-6452",
+      "username": "01092856452",
+      "password": "01092856452",
+      "email": "leesh@gmail.com"
+    },
+    {
+      "churchName": "전주",
+      "fullname": "지봉순",
+      "phone": "010-3684-1942",
+      "username": "01036841942",
+      "password": "01036841942",
+      "email": "userbs@gmail.com"
+    },
+    {
+      "churchName": "전주",
+      "fullname": "최은정",
+      "phone": "010-9456-8846",
+      "username": "01094568846",
+      "password": "01094568846",
+      "email": "choiej@gmail.com"
+    },
+    {
+      "churchName": "전주",
+      "fullname": "이순애",
+      "phone": "010-3999-1426",
+      "username": "01039991426",
+      "password": "01039991426",
+      "email": "leesa@gmail.com"
+    },
+    {
+      "churchName": "전주",
+      "fullname": "노애순",
+      "phone": "010-5501-4977",
+      "username": "01055014977",
+      "password": "01055014977",
+      "email": "nohas@gmail.com"
+    },
+    {
+      "churchName": "전주",
+      "fullname": "김주혜",
+      "phone": "010-5623-8640",
+      "username": "01056238640",
+      "password": "01056238640",
+      "email": "kimjh@gmail.com"
+    },
+    {
+      "churchName": "익산",
+      "fullname": "박명자",
+      "phone": "010-7541-1891",
+      "username": "01075411891",
+      "password": "01075411891",
+      "email": "parkmj@gmail.com"
+    },
+    {
+      "churchName": "익산",
+      "fullname": "박숙자",
+      "phone": "010-8072-0015",
+      "username": "01080720015",
+      "password": "01080720015",
+      "email": "parksj@gmail.com"
+    },
+    {
+      "churchName": "익산",
+      "fullname": "강숙양",
+      "phone": "010-3352-9707",
+      "username": "01033529707",
+      "password": "01033529707",
+      "email": "kangsy@gmail.com"
+    },
+    {
+      "churchName": "익산",
+      "fullname": "김금숙",
+      "phone": "010-9559-5850",
+      "username": "01095595850",
+      "password": "01095595850",
+      "email": "kimgs@gmail.com"
+    },
+    {
+      "churchName": "익산",
+      "fullname": "김수남",
+      "phone": "010-3351-7974",
+      "username": "01033517974",
+      "password": "01033517974",
+      "email": "kimsn@gmail.com"
+    },
+    {
+      "churchName": "익산",
+      "fullname": "진경숙",
+      "phone": "010-5660-2643",
+      "username": "01056602643",
+      "password": "01056602643",
+      "email": "jings@gmail.com"
+    },
+    {
+      "churchName": "익산",
+      "fullname": "김분례",
+      "phone": "010-7109-6181",
+      "username": "01071096181",
+      "password": "01071096181",
+      "email": "kimbr@gmail.com"
+    },
+    {
+      "churchName": "익산",
+      "fullname": "김영임",
+      "phone": "010-6474-5942",
+      "username": "01064745942",
+      "password": "01064745942",
+      "email": "kimyi@gmail.com"
+    },
+    {
+      "churchName": "군산",
+      "fullname": "김월순",
+      "phone": "010-8457-1181",
+      "username": "01084571181",
+      "password": "01084571181",
+      "email": "kimws@gmail.com"
+    },
+    {
+      "churchName": "정읍",
+      "fullname": "장양순",
+      "phone": "010-8644-2841",
+      "username": "01086442841",
+      "password": "01086442841",
+      "email": "jangys@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "강경임",
+      "phone": "010-4127-1440",
+      "username": "01041271440",
+      "password": "01041271440",
+      "email": "kanggi@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "강은미",
+      "phone": "010-4031-3945",
+      "username": "01040313945",
+      "password": "01040313945",
+      "email": "kangem@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "고용해",
+      "phone": "010-3054-3423",
+      "username": "01030543423",
+      "password": "01030543423",
+      "email": "koyh@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "권정희",
+      "phone": "010-4852-4745",
+      "username": "01048524745",
+      "password": "01048524745",
+      "email": "kwonjh@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "권혁녀",
+      "phone": "010-9339-2837",
+      "username": "01093392837",
+      "password": "01093392837",
+      "email": "kwonhn@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "김복희",
+      "phone": "010-4856-1443",
+      "username": "01048561443",
+      "password": "01048561443",
+      "email": "kimbh@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "김순덕",
+      "phone": "010-9677-5223",
+      "username": "01096775223",
+      "password": "01096775223",
+      "email": "kimsd@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "김순옥",
+      "phone": "010-9774-1809",
+      "username": "01097741809",
+      "password": "01097741809",
+      "email": "kimso@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "김연정",
+      "phone": "010-7229-1417",
+      "username": "01072291417",
+      "password": "01072291417",
+      "email": "kimyj@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "김원희",
+      "phone": "010-9890-7258",
+      "username": "01098907258",
+      "password": "01098907258",
+      "email": "kimwh@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "김윤자",
+      "phone": "010-7321-3042",
+      "username": "01073213042",
+      "password": "01073213042",
+      "email": "kimyj@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "김장예",
+      "phone": "010-8904-7460",
+      "username": "01089047460",
+      "password": "01089047460",
+      "email": "kimjy@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "박명숙",
+      "phone": "010-9325-4450",
+      "username": "01093254450",
+      "password": "01093254450",
+      "email": "parkms@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "박옥주",
+      "phone": "010-8702-3674",
+      "username": "01087023674",
+      "password": "01087023674",
+      "email": "parkoj@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "박종미",
+      "phone": "010-9314-1440",
+      "username": "01093141440",
+      "password": "01093141440",
+      "email": "parkjm@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "박헌옥",
+      "phone": "010-6425-1216",
+      "username": "01064251216",
+      "password": "01064251216",
+      "email": "parkho@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "석돈례",
+      "phone": "010-8848-2742",
+      "username": "01088482742",
+      "password": "01088482742",
+      "email": "userdr@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "손인환",
+      "phone": "010-6277-3628",
+      "username": "01062773628",
+      "password": "01062773628",
+      "email": "sohnih@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "양정남",
+      "phone": "010-5580-9597",
+      "username": "01055809597",
+      "password": "01055809597",
+      "email": "yangjn@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "오서윤",
+      "phone": "010-2628-7529",
+      "username": "01026287529",
+      "password": "01026287529",
+      "email": "ohsy@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "오정민",
+      "phone": "010-7963-0870",
+      "username": "01079630870",
+      "password": "01079630870",
+      "email": "ohjm@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "유영순",
+      "phone": "010-4548-0257",
+      "username": "01045480257",
+      "password": "01045480257",
+      "email": "yooys@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "유춘숙",
+      "phone": "010-7164-9988",
+      "username": "01071649988",
+      "password": "01071649988",
+      "email": "yoocs@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "윤혜자",
+      "phone": "010-2201-3503",
+      "username": "01022013503",
+      "password": "01022013503",
+      "email": "yoonhj@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "이금선",
+      "phone": "010-4597-4437",
+      "username": "01045974437",
+      "password": "01045974437",
+      "email": "leegs@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "이미경",
+      "phone": "010-8544-3307",
+      "username": "01085443307",
+      "password": "01085443307",
+      "email": "leemg@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "이성실",
+      "phone": "010-2260-3337",
+      "username": "01022603337",
+      "password": "01022603337",
+      "email": "leess@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "이연자",
+      "phone": "010-2707-4188",
+      "username": "01027074188",
+      "password": "01027074188",
+      "email": "leeyj@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "이영선A",
+      "phone": "010-2829-2440",
+      "username": "01028292440",
+      "password": "01028292440",
+      "email": "leeysa@gmail.com"
+    },
+    {
+      "churchName": "죽성",
+      "fullname": "이영선B",
+      "phone": "010-2600-9699",
+      "username": "01026009699",
+      "password": "01026009699",
+      "email": "leeysb@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "이영심",
+      "phone": "010-4580-1440",
+      "username": "01045801440",
+      "password": "01045801440",
+      "email": "leeys@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "이윤숙",
+      "phone": "010-9610-5882",
+      "username": "01096105882",
+      "password": "01096105882",
+      "email": "leeys@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "이중순",
+      "phone": "010-4858-4470",
+      "username": "01048584470",
+      "password": "01048584470",
+      "email": "leejs@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "이현랑",
+      "phone": "010-2562-0851",
+      "username": "01025620851",
+      "password": "01025620851",
+      "email": "leehr@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "임성혜",
+      "phone": "010-2842-1620",
+      "username": "01028421620",
+      "password": "01028421620",
+      "email": "limsh@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "장월애",
+      "phone": "010-4597-6443",
+      "username": "01045976443",
+      "password": "01045976443",
+      "email": "jangwa@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "정명자",
+      "phone": "010-4577-0267",
+      "username": "01045770267",
+      "password": "01045770267",
+      "email": "jungmj@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "정해순",
+      "phone": "010-9304-0194",
+      "username": "01093040194",
+      "password": "01093040194",
+      "email": "junghs@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "정향숙",
+      "phone": "010-9042-3440",
+      "username": "01090423440",
+      "password": "01090423440",
+      "email": "junghs@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "조영숙",
+      "phone": "010-4878-5647",
+      "username": "01048785647",
+      "password": "01048785647",
+      "email": "choys@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "조장은",
+      "phone": "010-9488-0760",
+      "username": "01094880760",
+      "password": "01094880760",
+      "email": "choje@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "조춘자",
+      "phone": "010-8515-1730",
+      "username": "01085151730",
+      "password": "01085151730",
+      "email": "chocj@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "최규자",
+      "phone": "010-4595-2707",
+      "username": "01045952707",
+      "password": "01045952707",
+      "email": "choigj@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "최순옥",
+      "phone": "010-2492-8587",
+      "username": "01024928587",
+      "password": "01024928587",
+      "email": "choiso@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "최진원",
+      "phone": "010-4108-5297",
+      "username": "01041085297",
+      "password": "01041085297",
+      "email": "choijw@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "표미혜",
+      "phone": "010-5500-1649",
+      "username": "01055001649",
+      "password": "01055001649",
+      "email": "pyomh@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "한홍자",
+      "phone": "010-2562-0095",
+      "username": "01025620095",
+      "password": "01025620095",
+      "email": "hanhj@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "강화연",
+      "phone": "010-5544-1440",
+      "username": "01055441440",
+      "password": "01055441440",
+      "email": "kanghy@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "권은미",
+      "phone": "010-4014-4743",
+      "username": "01040144743",
+      "password": "01040144743",
+      "email": "kwonem@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "김정윤",
+      "phone": "010-8012-0148",
+      "username": "01080120148",
+      "password": "01080120148",
+      "email": "kimjy@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "김혜성",
+      "phone": "010-7732-1721",
+      "username": "01077321721",
+      "password": "01077321721",
+      "email": "kimhs@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "박경희",
+      "phone": "010-6761-0915",
+      "username": "01067610915",
+      "password": "01067610915",
+      "email": "parkgh@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "박정자",
+      "phone": "010-5573-9624",
+      "username": "01055739624",
+      "password": "01055739624",
+      "email": "parkjj@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "박정희",
+      "phone": "010-3785-3486",
+      "username": "01037853486",
+      "password": "01037853486",
+      "email": "parkjh@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "송유숙",
+      "phone": "010-2850-3492",
+      "username": "01028503492",
+      "password": "01028503492",
+      "email": "songys@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "안경자",
+      "phone": "010-8339-1730",
+      "username": "01083391730",
+      "password": "01083391730",
+      "email": "ahngj@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "염은실",
+      "phone": "010-6503-2525",
+      "username": "01065032525",
+      "password": "01065032525",
+      "email": "yeomes@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "우애록",
+      "phone": "010-4117-2008",
+      "username": "01041172008",
+      "password": "01041172008",
+      "email": "userar@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "우혜경",
+      "phone": "010-6404-4497",
+      "username": "01064044497",
+      "password": "01064044497",
+      "email": "userhg@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "이내석",
+      "phone": "010-7195-2975",
+      "username": "01071952975",
+      "password": "01071952975",
+      "email": "leens@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "이순덕",
+      "phone": "010-8267-9443",
+      "username": "01082679443",
+      "password": "01082679443",
+      "email": "leesd@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "장지현",
+      "phone": "010-2882-6041",
+      "username": "01028826041",
+      "password": "01028826041",
+      "email": "jangjh@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "한국자",
+      "phone": "010-2557-6070",
+      "username": "01025576070",
+      "password": "01025576070",
+      "email": "hangj@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "한숙녀",
+      "phone": "010-4844-7324",
+      "username": "01048447324",
+      "password": "01048447324",
+      "email": "hansn@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "허동선",
+      "phone": "010-3070-1440",
+      "username": "01030701440",
+      "password": "01030701440",
+      "email": "huhds@gmail.com"
+    },
+    {
+      "churchName": "서울5",
+      "fullname": "이영심(총)",
+      "phone": "010-2420-1404",
+      "username": "01024201404",
+      "password": "01024201404",
+      "email": "leeys@gmail.com"
+    },
+    {
+      "churchName": "서울17",
+      "fullname": "이향미",
+      "phone": "010-3032-1440",
+      "username": "01030321440",
+      "password": "01030321440",
+      "email": "leehm@gmail.com"
+    },
+    {
+      "churchName": "서울23",
+      "fullname": "이은희",
+      "phone": "010-8893-0737",
+      "username": "01088930737",
+      "password": "01088930737",
+      "email": "leeeh@gmail.com"
+    },
+    {
+      "churchName": "서울30",
+      "fullname": "장현실",
+      "phone": "010-2777-9380",
+      "username": "01027779380",
+      "password": "01027779380",
+      "email": "janghs@gmail.com"
+    },
+    {
+      "churchName": "서울48",
+      "fullname": "방성희",
+      "phone": "010-4567-7901",
+      "username": "01045677901",
+      "password": "01045677901",
+      "email": "bangsh@gmail.com"
+    },
+    {
+      "churchName": "서울13",
+      "fullname": "하지현",
+      "phone": "010-8586-8514",
+      "username": "01085868514",
+      "password": "01085868514",
+      "email": "hajh@gmail.com"
+    },
+    {
+      "churchName": "서울1",
+      "fullname": "백성현",
+      "phone": "010-8796-1440",
+      "username": "01087961440",
+      "password": "01087961440",
+      "email": "baeksh@gmail.com"
+    },
+    {
+      "churchName": "서울21",
+      "fullname": "김은혜",
+      "phone": "010-4042-1443",
+      "username": "01040421443",
+      "password": "01040421443",
+      "email": "kimeh@gmail.com"
+    },
+    {
+      "churchName": "서울27",
+      "fullname": "김선희",
+      "phone": "010-2631-1440",
+      "username": "01026311440",
+      "password": "01026311440",
+      "email": "kimsh@gmail.com"
+    },
+    {
+      "churchName": "원주",
+      "fullname": "김복덕",
+      "phone": "010-2329-1440",
+      "username": "01023291440",
+      "password": "01023291440",
+      "email": "kimbd@gmail.com"
+    },
+    {
+      "churchName": "춘천",
+      "fullname": "주선영",
+      "phone": "010-9326-1440",
+      "username": "01093261440",
+      "password": "01093261440",
+      "email": "joosy@gmail.com"
+    },
+    {
+      "churchName": "강릉",
+      "fullname": "정미옥",
+      "phone": "010-8440-3947",
+      "username": "01084403947",
+      "password": "01084403947",
+      "email": "jungmo@gmail.com"
+    },
+    {
+      "churchName": "태백",
+      "fullname": "강수정",
+      "phone": "010-3997-1440",
+      "username": "01039971440",
+      "password": "01039971440",
+      "email": "kangsj@gmail.com"
+    },
+    {
+      "churchName": "속초",
+      "fullname": "정태현",
+      "phone": "010-3755-1444",
+      "username": "01037551444",
+      "password": "01037551444",
+      "email": "jungth@gmail.com"
+    },
+    {
+      "churchName": "영월",
+      "fullname": "김명선",
+      "phone": "010-8550-1440",
+      "username": "01085501440",
+      "password": "01085501440",
+      "email": "kimms@gmail.com"
+    },
+    {
+      "churchName": "의정부",
+      "fullname": "이주은",
+      "phone": "010-7540-1449",
+      "username": "01075401449",
+      "password": "01075401449",
+      "email": "leeje@gmail.com"
+    },
+    {
+      "churchName": "동두천",
+      "fullname": "김춘선",
+      "phone": "010-6437-8440",
+      "username": "01064378440",
+      "password": "01064378440",
+      "email": "kimcs@gmail.com"
+    },
+    {
+      "churchName": "청평",
+      "fullname": "김옥희",
+      "phone": "010-9265-3440",
+      "username": "01092653440",
+      "password": "01092653440",
+      "email": "kimoh@gmail.com"
+    },
+    {
+      "churchName": "양평",
+      "fullname": "이지영",
+      "phone": "010-8806-4752",
+      "username": "01088064752",
+      "password": "01088064752",
+      "email": "leejy@gmail.com"
+    },
+    {
+      "churchName": "이천",
+      "fullname": "서순화",
+      "phone": "010-4737-2121",
+      "username": "01047372121",
+      "password": "01047372121",
+      "email": "seosh@gmail.com"
+    },
+    {
+      "churchName": "청주",
+      "fullname": "이혜림",
+      "phone": "010-8701-6159",
+      "username": "01087016159",
+      "password": "01087016159",
+      "email": "leehr@gmail.com"
+    },
+    {
+      "churchName": "충주",
+      "fullname": "지성미",
+      "phone": "010-6578-1192",
+      "username": "01065781192",
+      "password": "01065781192",
+      "email": "usersm@gmail.com"
+    },
+    {
+      "churchName": "제천",
+      "fullname": "김영남",
+      "phone": "010-4634-0515",
+      "username": "01046340515",
+      "password": "01046340515",
+      "email": "kimyn@gmail.com"
+    },
+    {
+      "churchName": "보은",
+      "fullname": "이재금",
+      "phone": "010-5213-4327",
+      "username": "01052134327",
+      "password": "01052134327",
+      "email": "leejg@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "김동이",
+      "phone": "010-9397-7757",
+      "username": "01093977757",
+      "password": "01093977757",
+      "email": "kimdi@gmail.com"
+    },
+    {
+      "churchName": "덕소",
+      "fullname": "이도경",
+      "phone": "010-9355-1440",
+      "username": "01093551440",
+      "password": "01093551440",
+      "email": "leedg@gmail.com"
+    },
+    {
+      "churchName": "소사",
+      "fullname": "최성례",
+      "phone": "010-5451-1443",
+      "username": "01054511443",
+      "password": "01054511443",
+      "email": "choisr@gmail.com"
+    },
+    {
+      "churchName": "서울32",
+      "fullname": "서영숙",
+      "phone": "010-8260-0913",
+      "username": "01082600913",
+      "password": "01082600913",
+      "email": "seoys@gmail.com"
+    },
+    {
+      "churchName": "서울15",
+      "fullname": "전미선",
+      "phone": "010-4140-9199",
+      "username": "01041409199",
+      "password": "01041409199",
+      "email": "jeonms@gmail.com"
+    },
+    {
+      "churchName": "서울22",
+      "fullname": "권민송",
+      "phone": "010-6349-0590",
+      "username": "01063490590",
+      "password": "01063490590",
+      "email": "kwonms@gmail.com"
+    },
+    {
+      "churchName": "서울31",
+      "fullname": "송수경",
+      "phone": "010-5115-1464",
+      "username": "01051151464",
+      "password": "01051151464",
+      "email": "songsg@gmail.com"
+    },
+    {
+      "churchName": "서울38",
+      "fullname": "백귀옥",
+      "phone": "010-3678-1440",
+      "username": "01036781440",
+      "password": "01036781440",
+      "email": "baekgo@gmail.com"
+    },
+    {
+      "churchName": "서울40",
+      "fullname": "최정자",
+      "phone": "010-9845-7330",
+      "username": "01098457330",
+      "password": "01098457330",
+      "email": "choijj@gmail.com"
+    },
+    {
+      "churchName": "서울8",
+      "fullname": "김혜경",
+      "phone": "010-8727-0015",
+      "username": "01087270015",
+      "password": "01087270015",
+      "email": "kimhg@gmail.com"
+    },
+    {
+      "churchName": "서울12",
+      "fullname": "김은희",
+      "phone": "010-3364-1857",
+      "username": "01033641857",
+      "password": "01033641857",
+      "email": "kimeh@gmail.com"
+    },
+    {
+      "churchName": "서울25",
+      "fullname": "이은정",
+      "phone": "010-5710-1440",
+      "username": "01057101440",
+      "password": "01057101440",
+      "email": "leeej@gmail.com"
+    },
+    {
+      "churchName": "서울41",
+      "fullname": "이명옥",
+      "phone": "010-7307-1440",
+      "username": "01073071440",
+      "password": "01073071440",
+      "email": "leemo@gmail.com"
+    },
+    {
+      "churchName": "서울43",
+      "fullname": "이경민",
+      "phone": "010-7532-1449",
+      "username": "01075321449",
+      "password": "01075321449",
+      "email": "leegm@gmail.com"
+    },
+    {
+      "churchName": "인천",
+      "fullname": "서유실",
+      "phone": "010-9872-1440",
+      "username": "01098721440",
+      "password": "01098721440",
+      "email": "seoys@gmail.com"
+    },
+    {
+      "churchName": "부천",
+      "fullname": "강경민",
+      "phone": "010-3249-1440",
+      "username": "01032491440",
+      "password": "01032491440",
+      "email": "kanggm@gmail.com"
+    },
+    {
+      "churchName": "부평",
+      "fullname": "민혜원",
+      "phone": "010-2993-8710",
+      "username": "01029938710",
+      "password": "01029938710",
+      "email": "minhw@gmail.com"
+    },
+    {
+      "churchName": "소사동",
+      "fullname": "서용숙",
+      "phone": "010-8244-6523",
+      "username": "01082446523",
+      "password": "01082446523",
+      "email": "seoys@gmail.com"
+    },
+    {
+      "churchName": "수원",
+      "fullname": "김영수",
+      "phone": "010-7258-7258",
+      "username": "01072587258",
+      "password": "01072587258",
+      "email": "kimys@gmail.com"
+    },
+    {
+      "churchName": "안양",
+      "fullname": "나은실",
+      "phone": "010-8778-1294",
+      "username": "01087781294",
+      "password": "01087781294",
+      "email": "naes@gmail.com"
+    },
+    {
+      "churchName": "성남",
+      "fullname": "김미숙",
+      "phone": "010-3595-1474",
+      "username": "01035951474",
+      "password": "01035951474",
+      "email": "kimms@gmail.com"
+    },
+    {
+      "churchName": "송탄",
+      "fullname": "김현수",
+      "phone": "010-2587-9590",
+      "username": "01025879590",
+      "password": "01025879590",
+      "email": "kimhs@gmail.com"
+    },
+    {
+      "churchName": "안성",
+      "fullname": "임경운",
+      "phone": "010-8899-4601",
+      "username": "01088994601",
+      "password": "01088994601",
+      "email": "limgu@gmail.com"
+    },
+    {
+      "churchName": "대전",
+      "fullname": "홍윤옥",
+      "phone": "010-7258-3255",
+      "username": "01072583255",
+      "password": "01072583255",
+      "email": "hongyo@gmail.com"
+    },
+    {
+      "churchName": "천안",
+      "fullname": "윤신애",
+      "phone": "010-5578-0831",
+      "username": "01055780831",
+      "password": "01055780831",
+      "email": "yoonsa@gmail.com"
+    },
+    {
+      "churchName": "서산",
+      "fullname": "김주희",
+      "phone": "010-7600-9705",
+      "username": "01076009705",
+      "password": "01076009705",
+      "email": "kimjh@gmail.com"
+    },
+    {
+      "churchName": "서천",
+      "fullname": "이정호",
+      "phone": "010-4631-1440",
+      "username": "01046311440",
+      "password": "01046311440",
+      "email": "leejh@gmail.com"
+    },
+    {
+      "churchName": "논산",
+      "fullname": "양경희",
+      "phone": "010-4425-1440",
+      "username": "01044251440",
+      "password": "01044251440",
+      "email": "yanggh@gmail.com"
+    },
+    {
+      "churchName": "기소",
+      "fullname": "이영선",
+      "phone": "010-2829-2440",
+      "username": "01028292440",
+      "password": "01028292440",
+      "email": "leeys@gmail.com"
+    },
+    {
+      "churchName": "기장",
+      "fullname": "한인숙",
+      "phone": "010-3450-1407",
+      "username": "01034501407",
+      "password": "01034501407",
+      "email": "hanis@gmail.com"
+    },
+    {
+      "churchName": "부산1",
+      "fullname": "윤복자",
+      "phone": "010-8207-7009",
+      "username": "01082077009",
+      "password": "01082077009",
+      "email": "yoonbj@gmail.com"
+    },
+    {
+      "churchName": "부산2",
+      "fullname": "정은영",
+      "phone": "010-2299-9973",
+      "username": "01022999973",
+      "password": "01022999973",
+      "email": "jungey@gmail.com"
+    },
+    {
+      "churchName": "부산3",
+      "fullname": "박희정",
+      "phone": "010-9913-9823",
+      "username": "01099139823",
+      "password": "01099139823",
+      "email": "parkhj@gmail.com"
+    },
+    {
+      "churchName": "부산5",
+      "fullname": "강수향",
+      "phone": "010-8780-2310",
+      "username": "01087802310",
+      "password": "01087802310",
+      "email": "kangsh@gmail.com"
+    },
+    {
+      "churchName": "부산8",
+      "fullname": "김양자",
+      "phone": "010-6352-1440",
+      "username": "01063521440",
+      "password": "01063521440",
+      "email": "kimyj@gmail.com"
+    },
+    {
+      "churchName": "죽성",
+      "fullname": "김정애",
+      "phone": "010-3543-9786",
+      "username": "01035439786",
+      "password": "01035439786",
+      "email": "kimja@gmail.com"
+    },
+    {
+      "churchName": "진해",
+      "fullname": "권명주",
+      "phone": "010-8702-9725",
+      "username": "01087029725",
+      "password": "01087029725",
+      "email": "kwonmj@gmail.com"
+    },
+    {
+      "churchName": "마산",
+      "fullname": "서회경",
+      "phone": "010-8862-1002",
+      "username": "01088621002",
+      "password": "01088621002",
+      "email": "seohg@gmail.com"
+    },
+    {
+      "churchName": "진주",
+      "fullname": "유덕자",
+      "phone": "010-3369-1440",
+      "username": "01033691440",
+      "password": "01033691440",
+      "email": "yoodj@gmail.com"
+    },
+    {
+      "churchName": "통영",
+      "fullname": "한인자",
+      "phone": "010-2240-3503",
+      "username": "01022403503",
+      "password": "01022403503",
+      "email": "hanij@gmail.com"
+    },
+    {
+      "churchName": "삼천포",
+      "fullname": "황순례",
+      "phone": "010-4454-1440",
+      "username": "01044541440",
+      "password": "01044541440",
+      "email": "hwangsr@gmail.com"
+    },
+    {
+      "churchName": "거창",
+      "fullname": "김현숙B",
+      "phone": "010-5429-0910",
+      "username": "01054290910",
+      "password": "01054290910",
+      "email": "kimhsb@gmail.com"
+    },
+    {
+      "churchName": "울산",
+      "fullname": "김영애",
+      "phone": "010-5898-1440",
+      "username": "01058981440",
+      "password": "01058981440",
+      "email": "kimya@gmail.com"
+    },
+    {
+      "churchName": "방어진",
+      "fullname": "김용자",
+      "phone": "010-5220-9642",
+      "username": "01052209642",
+      "password": "01052209642",
+      "email": "kimyj@gmail.com"
+    },
+    {
+      "churchName": "김해",
+      "fullname": "최종희",
+      "phone": "010-5680-1440",
+      "username": "01056801440",
+      "password": "01056801440",
+      "email": "choijh@gmail.com"
+    },
+    {
+      "churchName": "밀양",
+      "fullname": "김숙희",
+      "phone": "010-4642-6804",
+      "username": "01046426804",
+      "password": "01046426804",
+      "email": "kimsh@gmail.com"
+    },
+    {
+      "churchName": "대구",
+      "fullname": "신정미",
+      "phone": "010-8830-0333",
+      "username": "01088300333",
+      "password": "01088300333",
+      "email": "shinjm@gmail.com"
+    },
+    {
+      "churchName": "안동",
+      "fullname": "김은정",
+      "phone": "010-8020-5440",
+      "username": "01080205440",
+      "password": "01080205440",
+      "email": "kimej@gmail.com"
+    },
+    {
+      "churchName": "김천",
+      "fullname": "박태영",
+      "phone": "010-4788-1444",
+      "username": "01047881444",
+      "password": "01047881444",
+      "email": "parkty@gmail.com"
+    },
+    {
+      "churchName": "영주",
+      "fullname": "장금숙",
+      "phone": "010-4535-6426",
+      "username": "01045356426",
+      "password": "01045356426",
+      "email": "janggs@gmail.com"
+    },
+    {
+      "churchName": "영천",
+      "fullname": "성선희",
+      "phone": "010-9319-2448",
+      "username": "01093192448",
+      "password": "01093192448",
+      "email": "sungsh@gmail.com"
+    },
+    {
+      "churchName": "포항",
+      "fullname": "황지우",
+      "phone": "010-3463-1440",
+      "username": "01034631440",
+      "password": "01034631440",
+      "email": "hwangju@gmail.com"
+    },
+    {
+      "churchName": "경주",
+      "fullname": "임명옥",
+      "phone": "010-4308-2948",
+      "username": "01043082948",
+      "password": "01043082948",
+      "email": "limmo@gmail.com"
+    },
+    {
+      "churchName": "예천",
+      "fullname": "김민서A",
+      "phone": "010-2692-0447",
+      "username": "01026920447",
+      "password": "01026920447",
+      "email": "kimmsa@gmail.com"
+    },
+    {
+      "churchName": "영덕",
+      "fullname": "양정희",
+      "phone": "010-7292-1440",
+      "username": "01072921440",
+      "password": "01072921440",
+      "email": "yangjh@gmail.com"
+    },
+    {
+      "churchName": "광주1",
+      "fullname": "박혜영",
+      "phone": "010-5543-1440",
+      "username": "01055431440",
+      "password": "01055431440",
+      "email": "parkhy@gmail.com"
+    },
+    {
+      "churchName": "광주2",
+      "fullname": "이재동",
+      "phone": "010-4930-1444",
+      "username": "01049301444",
+      "password": "01049301444",
+      "email": "leejd@gmail.com"
+    },
+    {
+      "churchName": "광주3",
+      "fullname": "김정희",
+      "phone": "010-3190-7131",
+      "username": "01031907131",
+      "password": "01031907131",
+      "email": "kimjh@gmail.com"
+    },
+    {
+      "churchName": "나주",
+      "fullname": "정은겸",
+      "phone": "010-2387-4373",
+      "username": "01023874373",
+      "password": "01023874373",
+      "email": "jungeg@gmail.com"
+    },
+    {
+      "churchName": "제주",
+      "fullname": "이경순",
+      "phone": "010-4368-1440",
+      "username": "01043681440",
+      "password": "01043681440",
+      "email": "leegs@gmail.com"
+    },
+    {
+      "churchName": "서귀포",
+      "fullname": "송경자",
+      "phone": "010-2623-1440",
+      "username": "01026231440",
+      "password": "01026231440",
+      "email": "songgj@gmail.com"
+    },
+    {
+      "churchName": "순천",
+      "fullname": "한창우",
+      "phone": "010-9957-4801",
+      "username": "01099574801",
+      "password": "01099574801",
+      "email": "hancu@gmail.com"
+    },
+    {
+      "churchName": "목포",
+      "fullname": "박유숙",
+      "phone": "010-4753-1440",
+      "username": "01047531440",
+      "password": "01047531440",
+      "email": "parkys@gmail.com"
+    },
+    {
+      "churchName": "여수",
+      "fullname": "성경숙",
+      "phone": "010-2495-1440",
+      "username": "01024951440",
+      "password": "01024951440",
+      "email": "sunggs@gmail.com"
+    },
+    {
+      "churchName": "해남",
+      "fullname": "송선아",
+      "phone": "010-9797-5133",
+      "username": "01097975133",
+      "password": "01097975133",
+      "email": "songsa@gmail.com"
+    },
+    {
+      "churchName": "보성",
+      "fullname": "장혜경",
+      "phone": "010-3881-9154",
+      "username": "01038819154",
+      "password": "01038819154",
+      "email": "janghg@gmail.com"
+    },
+    {
+      "churchName": "고흥",
+      "fullname": "김지숙",
+      "phone": "010-2967-1444",
+      "username": "01029671444",
+      "password": "01029671444",
+      "email": "kimjs@gmail.com"
+    },
+    {
+      "churchName": "전주",
+      "fullname": "성지윤",
+      "phone": "010-4581-1440",
+      "username": "01045811440",
+      "password": "01045811440",
+      "email": "sungjy@gmail.com"
+    },
+    {
+      "churchName": "익산",
+      "fullname": "김덕자",
+      "phone": "010-5404-1440",
+      "username": "01054041440",
+      "password": "01054041440",
+      "email": "kimdj@gmail.com"
+    },
+    {
+      "churchName": "군산",
+      "fullname": "김태선",
+      "phone": "010-3123-7148",
+      "username": "01031237148",
+      "password": "01031237148",
+      "email": "kimts@gmail.com"
+    },
+    {
+      "churchName": "순창",
+      "fullname": "반영금",
+      "phone": "010-6814-1440",
+      "username": "01068141440",
+      "password": "01068141440",
+      "email": "banyg@gmail.com"
+    },
+    {
+      "churchName": "정읍",
+      "fullname": "성선자",
+      "phone": "010-4175-1440",
+      "username": "01041751440",
+      "password": "01041751440",
+      "email": "sungsj@gmail.com"
+    },
+    {
+      "churchName": "김제",
+      "fullname": "이계주",
+      "phone": "010-2316-1440",
+      "username": "01023161440",
+      "password": "01023161440",
+      "email": "leegj@gmail.com"
+    },
+    {
+      "churchName": "여성협회",
+      "fullname": "김현숙A",
+      "phone": "010-4383-1440",
+      "username": "01043831440",
+      "password": "01043831440",
+      "email": "kimhsa@gmail.com"
+    },
+    {
+      "churchName": "여성협회",
+      "fullname": "김영서",
+      "phone": "010-9010-5123",
+      "username": "01090105123",
+      "password": "01090105123",
+      "email": "kimys@gmail.com"
+    },
+    {
+      "churchName": "여성협회",
+      "fullname": "박혜선",
+      "phone": "010-9540-1635",
+      "username": "01095401635",
+      "password": "01095401635",
+      "email": "parkhs@gmail.com"
+    },
+    {
+      "churchName": "여성협회",
+      "fullname": "박다혜",
+      "phone": "010-5620-3649",
+      "username": "01056203649",
+      "password": "01056203649",
+      "email": "parkdh@gmail.com"
+    },
+    {
+      "churchName": "여성협회",
+      "fullname": "황수남",
+      "phone": "010-9471-3209",
+      "username": "01094713209",
+      "password": "01094713209",
+      "email": "hwangsn@gmail.com"
+    },
+    {
+      "churchName": "여성협회",
+      "fullname": "송미애",
+      "phone": "010-6378-7982",
+      "username": "01063787982",
+      "password": "01063787982",
+      "email": "songma@gmail.com"
+    },
+    {
+      "churchName": "여성협회",
+      "fullname": "이상미",
+      "phone": "010-4213-5789",
+      "username": "01042135789",
+      "password": "01042135789",
+      "email": "leesm@gmail.com"
+    },
+    {
+      "churchName": "여성협회",
+      "fullname": "윤성은",
+      "phone": "010-9325-2412",
+      "username": "01093252412",
+      "password": "01093252412",
+      "email": "yoonse@gmail.com"
+    },
+    {
+      "churchName": "여성협회",
+      "fullname": "김경미",
+      "phone": "010-9304-2447",
+      "username": "01093042447",
+      "password": "01093042447",
+      "email": "kimgm@gmail.com"
+    },
+    {
+      "churchName": "본사",
+      "fullname": "오지선",
+      "phone": "010-4185-1447",
+      "username": "01041851447",
+      "password": "01041851447",
+      "email": "ohjs@gmail.com"
+    },
+    {
+      "churchName": "본사",
+      "fullname": "류시정",
+      "phone": "010-3906-7436",
+      "username": "01039067436",
+      "password": "01039067436",
+      "email": "ryusj@gmail.com"
+    },
+    {
+      "churchName": "본사",
+      "fullname": "이   원",
+      "phone": "010-2021-5795",
+      "username": "01020215795",
+      "password": "01020215795",
+      "email": "leew@gmail.com"
+    },
+    {
+      "churchName": "본사",
       "fullname": "최지원",
       "phone": "010-2964-7088",
       "username": "01029647088",
@@ -19,15 +5931,15 @@
       "email": "choijw@gmail.com"
     },
     {
-      "churchName": "기장",
+      "churchName": "본사",
       "fullname": "이지은",
       "phone": "010-4082-4401",
       "username": "01040824401",
       "password": "01040824401",
-      "email": "lejieun@gmail.com"
+      "email": "leeje@gmail.com"
     },
     {
-      "churchName": "기장",
+      "churchName": "본사",
       "fullname": "최윤원",
       "phone": "010-2926-7319",
       "username": "01029267319",
@@ -40,34 +5952,42 @@
       "phone": "010-2278-3230",
       "username": "01022783230",
       "password": "01022783230",
-      "email": "leehyey@gmail.com"
+      "email": "leehy@gmail.com"
     },
     {
-      "churchName": "기장",
+      "churchName": "본사",
       "fullname": "오수영",
       "phone": "010-8120-1440",
       "username": "01081201440",
       "password": "01081201440",
-      "email": "ohsooy@gmail.com"
+      "email": "ohsy@gmail.com"
     },
     {
-      "churchName": "기장",
+      "churchName": "본사",
       "fullname": "곽혜신",
       "phone": "010-7375-2783",
       "username": "01073752783",
       "password": "01073752783",
-      "email": "gokhyes@gmail.com"
+      "email": "kwakhs@gmail.com"
     },
     {
-      "churchName": "기장",
+      "churchName": "본사",
+      "fullname": "김정은B",
+      "phone": "010-8640-0274",
+      "username": "01086400274",
+      "password": "01086400274",
+      "email": "kimjeb@gmail.com"
+    },
+    {
+      "churchName": "본사",
       "fullname": "박선영",
       "phone": "010-5177-1440",
       "username": "01051771440",
       "password": "01051771440",
-      "email": "baeksy@gmail.com"
+      "email": "parksy@gmail.com"
     },
     {
-      "churchName": "기장",
+      "churchName": "본사",
       "fullname": "최지예",
       "phone": "010-4224-0742",
       "username": "01042240742",
@@ -75,44 +5995,44 @@
       "email": "choijy@gmail.com"
     },
     {
-      "churchName": "기장",
+      "churchName": "본사",
       "fullname": "임   찬",
       "phone": "010-4403-7706",
       "username": "01044037706",
       "password": "01044037706",
-      "email": "limchan@gmail.com"
+      "email": "limc@gmail.com"
     },
     {
-      "churchName": "기장",
+      "churchName": "본사",
       "fullname": "김은실",
       "phone": "010-2330-1449",
       "username": "01023301449",
       "password": "01023301449",
-      "email": "kimeunsil@gmail.com"
+      "email": "kimes@gmail.com"
     },
     {
-      "churchName": "기장",
+      "churchName": "본사",
       "fullname": "이연희",
       "phone": "010-3227-1132",
       "username": "01032271132",
       "password": "01032271132",
-      "email": "leyeonhee@gmail.com"
+      "email": "leeyh@gmail.com"
     },
     {
-      "churchName": "기장",
+      "churchName": "본사",
       "fullname": "김표정",
       "phone": "010-2935-7416",
       "username": "01029357416",
       "password": "01029357416",
-      "email": "kimpyeong@gmail.com"
+      "email": "kimpj@gmail.com"
     },
     {
-      "churchName": "기장",
+      "churchName": "본사",
       "fullname": "김지혜",
       "phone": "010-3138-7320",
       "username": "01031387320",
       "password": "01031387320",
-      "email": "kimjihye@gmail.com"
+      "email": "kimjh@gmail.com"
     },
     {
       "churchName": "의정부",
@@ -120,15 +6040,351 @@
       "phone": "010-7564-1576",
       "username": "01075641576",
       "password": "01075641576",
-      "email": "jungyoungjo@gmail.com"
+      "email": "jungyj@gmail.com"
     },
     {
-      "churchName": "기장",
+      "churchName": "본사",
       "fullname": "김도은",
       "phone": "010-9891-7210",
       "username": "01098917210",
       "password": "01098917210",
-      "email": "kimdoeun@gmail.com"
+      "email": "kimde@gmail.com"
+    },
+    {
+      "churchName": "서대문남",
+      "fullname": "김종일",
+      "phone": "010-5540-1440",
+      "username": "01055401440",
+      "password": "01055401440",
+      "email": "kimji@gmail.com"
+    },
+    {
+      "churchName": "서대문남",
+      "fullname": "선태영",
+      "phone": "010-4463-1440",
+      "username": "01044631440",
+      "password": "01044631440",
+      "email": "sunty@gmail.com"
+    },
+    {
+      "churchName": "소사남",
+      "fullname": "정태영",
+      "phone": "010-2051-4130",
+      "username": "01020514130",
+      "password": "01020514130",
+      "email": "jungty@gmail.com"
+    },
+    {
+      "churchName": "덕소남",
+      "fullname": "김정호",
+      "phone": "010-6891-1440",
+      "username": "01068911440",
+      "password": "01068911440",
+      "email": "kimjh@gmail.com"
+    },
+    {
+      "churchName": "인천남",
+      "fullname": "강병수",
+      "phone": "010-9449-6862",
+      "username": "01094496862",
+      "password": "01094496862",
+      "email": "kangbs@gmail.com"
+    },
+    {
+      "churchName": "수원남",
+      "fullname": "강희봉",
+      "phone": "010-5275-1440",
+      "username": "01052751440",
+      "password": "01052751440",
+      "email": "kanghb@gmail.com"
+    },
+    {
+      "churchName": "구리남",
+      "fullname": "박재덕",
+      "phone": "010-6357-1440",
+      "username": "01063571440",
+      "password": "01063571440",
+      "email": "parkjd@gmail.com"
+    },
+    {
+      "churchName": "춘천남",
+      "fullname": "박철규",
+      "phone": "010-3828-6798",
+      "username": "01038286798",
+      "password": "01038286798",
+      "email": "parkcg@gmail.com"
+    },
+    {
+      "churchName": "청주남",
+      "fullname": "양성철",
+      "phone": "010-3752-1440",
+      "username": "01037521440",
+      "password": "01037521440",
+      "email": "yangsc@gmail.com"
+    },
+    {
+      "churchName": "대전남",
+      "fullname": "최다솔",
+      "phone": "010-7247-1440",
+      "username": "01072471440",
+      "password": "01072471440",
+      "email": "choids@gmail.com"
+    },
+    {
+      "churchName": "홍성남",
+      "fullname": "오재철",
+      "phone": "010-2876-2185",
+      "username": "01028762185",
+      "password": "01028762185",
+      "email": "ohjc@gmail.com"
+    },
+    {
+      "churchName": "전주남",
+      "fullname": "김용환",
+      "phone": "010-8203-1447",
+      "username": "01082031447",
+      "password": "01082031447",
+      "email": "kimyh@gmail.com"
+    },
+    {
+      "churchName": "광주남",
+      "fullname": "이성근",
+      "phone": "010-8583-1288",
+      "username": "01085831288",
+      "password": "01085831288",
+      "email": "leesg@gmail.com"
+    },
+    {
+      "churchName": "목포남",
+      "fullname": "신원근",
+      "phone": "010-4071-1440",
+      "username": "01040711440",
+      "password": "01040711440",
+      "email": "shinwg@gmail.com"
+    },
+    {
+      "churchName": "광양남",
+      "fullname": "이관희",
+      "phone": "010-9313-1443",
+      "username": "01093131443",
+      "password": "01093131443",
+      "email": "leegh@gmail.com"
+    },
+    {
+      "churchName": "여수남",
+      "fullname": "김상문",
+      "phone": "010-3624-2882",
+      "username": "01036242882",
+      "password": "01036242882",
+      "email": "kimsm@gmail.com"
+    },
+    {
+      "churchName": "대구남",
+      "fullname": "이시온",
+      "phone": "010-2655-2584",
+      "username": "01026552584",
+      "password": "01026552584",
+      "email": "leeso@gmail.com"
+    },
+    {
+      "churchName": "마산남",
+      "fullname": "김동규",
+      "phone": "010-7217-8331",
+      "username": "01072178331",
+      "password": "01072178331",
+      "email": "kimdg@gmail.com"
+    },
+    {
+      "churchName": "울산남",
+      "fullname": "윤종철",
+      "phone": "010-3269-1518",
+      "username": "01032691518",
+      "password": "01032691518",
+      "email": "yoonjc@gmail.com"
+    },
+    {
+      "churchName": "일광남",
+      "fullname": "최대규",
+      "phone": "010-4502-1288",
+      "username": "01045021288",
+      "password": "01045021288",
+      "email": "choidg@gmail.com"
+    },
+    {
+      "churchName": "부산남",
+      "fullname": "정주현",
+      "phone": "010-4900-3635",
+      "username": "01049003635",
+      "password": "01049003635",
+      "email": "jungjh@gmail.com"
+    },
+    {
+      "churchName": "부산남",
+      "fullname": "이성천",
+      "phone": "010-5511-6529",
+      "username": "01055116529",
+      "password": "01055116529",
+      "email": "leesc@gmail.com"
+    },
+    {
+      "churchName": "제주남",
+      "fullname": "남삼호",
+      "phone": "010-6764-1440",
+      "username": "01067641440",
+      "password": "01067641440",
+      "email": "namsh@gmail.com"
+    },
+    {
+      "churchName": "남성협회",
+      "fullname": "심광수",
+      "phone": "010-3209-1440",
+      "username": "01032091440",
+      "password": "01032091440",
+      "email": "shimgs@gmail.com"
+    },
+    {
+      "churchName": "남성협회",
+      "fullname": "최기만",
+      "phone": "010-3728-9115",
+      "username": "01037289115",
+      "password": "01037289115",
+      "email": "choigm@gmail.com"
+    },
+    {
+      "churchName": "남성협회",
+      "fullname": "임대호",
+      "phone": "010-5744-1571",
+      "username": "01057441571",
+      "password": "01057441571",
+      "email": "limdh@gmail.com"
+    },
+    {
+      "churchName": "남성협회",
+      "fullname": "정현철",
+      "phone": "010-2417-2418",
+      "username": "01024172418",
+      "password": "01024172418",
+      "email": "junghc@gmail.com"
+    },
+    {
+      "churchName": "남성협회",
+      "fullname": "남은성",
+      "phone": "010-7367-9070",
+      "username": "01073679070",
+      "password": "01073679070",
+      "email": "names@gmail.com"
+    },
+    {
+      "churchName": "남성협회",
+      "fullname": "윤휘영",
+      "phone": "010-5855-8152",
+      "username": "01058558152",
+      "password": "01058558152",
+      "email": "yoonhy@gmail.com"
+    },
+    {
+      "churchName": "부산남",
+      "fullname": "김봉호",
+      "phone": "010-3870-7791",
+      "username": "01038707791",
+      "password": "01038707791",
+      "email": "kimbh@gmail.com"
+    },
+    {
+      "churchName": "기장남",
+      "fullname": "변세환",
+      "phone": "010-5092-9498",
+      "username": "01050929498",
+      "password": "01050929498",
+      "email": "byunsh@gmail.com"
+    },
+    {
+      "churchName": "대구남",
+      "fullname": "김영린",
+      "phone": "010-4730-1440",
+      "username": "01047301440",
+      "password": "01047301440",
+      "email": "kimyr@gmail.com"
+    },
+    {
+      "churchName": "대구남",
+      "fullname": "조찬선",
+      "phone": "010-2275-7753",
+      "username": "01022757753",
+      "password": "01022757753",
+      "email": "chocs@gmail.com"
+    },
+    {
+      "churchName": "덕소남",
+      "fullname": "이경수",
+      "phone": "010-5201-0033",
+      "username": "01052010033",
+      "password": "01052010033",
+      "email": "leegs@gmail.com"
+    },
+    {
+      "churchName": "마산남",
+      "fullname": "이재오",
+      "phone": "010-9698-5477",
+      "username": "01096985477",
+      "password": "01096985477",
+      "email": "leejo@gmail.com"
+    },
+    {
+      "churchName": "목포남",
+      "fullname": "양시종",
+      "phone": "010-6601-9039",
+      "username": "01066019039",
+      "password": "01066019039",
+      "email": "yangsj@gmail.com"
+    },
+    {
+      "churchName": "서대문",
+      "fullname": "이용식",
+      "phone": "010-2778-1400",
+      "username": "01027781400",
+      "password": "01027781400",
+      "email": "leeys@gmail.com"
+    },
+    {
+      "churchName": "인천남",
+      "fullname": "허창영",
+      "phone": "010-3785-3486",
+      "username": "01037853486",
+      "password": "01037853486",
+      "email": "huhcy@gmail.com"
+    },
+    {
+      "churchName": "일광남",
+      "fullname": "김영수",
+      "phone": "010-4447-2925",
+      "username": "01044472925",
+      "password": "01044472925",
+      "email": "kimys@gmail.com"
+    },
+    {
+      "churchName": "일광남",
+      "fullname": "추통일",
+      "phone": "010-8225-1440",
+      "username": "01082251440",
+      "password": "01082251440",
+      "email": "chooti@gmail.com"
+    },
+    {
+      "churchName": "전주남",
+      "fullname": "김춘근",
+      "phone": "010-9908-5441",
+      "username": "01099085441",
+      "password": "01099085441",
+      "email": "kimcg@gmail.com"
+    },
+    {
+      "churchName": "홍성남",
+      "fullname": "박종하",
+      "phone": "010-5454-3644",
+      "username": "01054543644",
+      "password": "01054543644",
+      "email": "parkjh@gmail.com"
     }
   ]
 }
