@@ -10,6 +10,8 @@
 
 No JWT is required for bulk-import (same as single signup).
 
+Backend JSON body limit is **10MB** (see `main.ts`). If you still get **413**, split `members` into chunks of ~300–500 and call bulk-import multiple times.
+
 ## Excel → JSON workflow
 
 1. Export your Excel sheet as **CSV (UTF-8)**
