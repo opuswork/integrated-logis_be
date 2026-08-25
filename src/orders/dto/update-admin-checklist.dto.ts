@@ -4,6 +4,7 @@ import { IsBoolean, IsIn, IsOptional, IsString } from 'class-validator';
 export const CHECKLIST_ACTIONS = [
   'confirm',
   'worker',
+  'workerClear',
   'payment',
   'greeting',
   'slip',
@@ -15,7 +16,7 @@ export class UpdateAdminChecklistDto {
   @ApiProperty({
     enum: CHECKLIST_ACTIONS,
     description:
-      'confirm | worker | payment | greeting | slip',
+      'confirm | worker | workerClear | payment | greeting | slip',
   })
   @IsIn(CHECKLIST_ACTIONS)
   action!: ChecklistAction;
