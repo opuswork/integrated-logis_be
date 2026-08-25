@@ -657,6 +657,54 @@ export class OrdersService {
       data.slipAuthor = actorName;
       activityAction = AdminActivityAction.SLIP_SAVE;
       summarySuffix = `기표지완료 확인 (${actorName})`;
+    } else if (dto.action === 'setDeliveryRequestDate') {
+      if (!dto.deliveryDate) {
+        throw new BadRequestException('납품요청일을 선택해 주세요.');
+      }
+      const deliveryDate = this.parseDateOnly(dto.deliveryDate, '납품요청일');
+      const nextNotes = this.upsertDeliveryRequestDateInNotes(
+        order.notes,
+        dto.deliveryDate,
+        this.isParcelOrder(order),
+      );
+      data.notes = nextNotes;
+
+      const maxShip = this.addCalendarDays(deliveryDate, -1);
+      if (
+        order.requestedShipDate &&
+        this.startOfLocalDay(order.requestedShipDate) > maxShip
+      ) {
+        data.requestedShipDate = null;
+      }
+
+      activityAction = AdminActivityAction.SHIP_DATE_SAVE;
+      summarySuffix = `납품요청일 ${dto.deliveryDate} 저장`;
+    } else if (dto.action === 'setRequestedShipDate') {
+      if (!dto.shipDate) {
+        throw new BadRequestException('출고요청일을 선택해 주세요.');
+      }
+      const shipDate = this.parseDateOnly(dto.shipDate, '출고요청일');
+      const deliveryIso = this.deliveryRequestDateFromNotes(order.notes);
+      if (!deliveryIso) {
+        throw new BadRequestException(
+          '납품요청일을 먼저 저장해 주세요.',
+        );
+      }
+      const deliveryDate = this.parseDateOnly(deliveryIso, '납품요청일');
+      const maxShip = this.addCalendarDays(deliveryDate, -1);
+      if (shipDate > maxShip) {
+        throw new BadRequestException(
+          '출고요청일은 납품요청일 하루 전까지만 선택할 수 있습니다.',
+        );
+      }
+      if (shipDate < this.startOfTodayLocal()) {
+        throw new BadRequestException(
+          '출고요청일은 오늘 이후만 선택할 수 있습니다.',
+        );
+      }
+      data.requestedShipDate = shipDate;
+      activityAction = AdminActivityAction.SHIP_DATE_SAVE;
+      summarySuffix = `출고요청일 ${dto.shipDate} 저장`;
     } else {
       throw new BadRequestException('지원하지 않는 액션입니다.');
     }
@@ -699,6 +747,19 @@ export class OrdersService {
     return d;
   }
 
+  private startOfLocalDay(value: Date) {
+    const d = new Date(value);
+    d.setHours(0, 0, 0, 0);
+    return d;
+  }
+
+  private addCalendarDays(value: Date, days: number) {
+    const d = new Date(value);
+    d.setDate(d.getDate() + days);
+    d.setHours(0, 0, 0, 0);
+    return d;
+  }
+
   private parseDateOnly(value: string, label: string) {
     const trimmed = value?.trim();
     if (!trimmed || !/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
@@ -709,6 +770,53 @@ export class OrdersService {
       throw new BadRequestException(`${label} 형식이 올바르지 않습니다.`);
     }
     return date;
+  }
+
+  private parseNoteField(notes: string | null | undefined, field: string) {
+    if (!notes) return '';
+    const match = new RegExp(`${field}:([^/]+)`).exec(notes);
+    return match?.[1]?.trim() ?? '';
+  }
+
+  /** 납품요청일: 배달일 우선, 없으면 택배발송일 (YYYY-MM-DD). */
+  private deliveryRequestDateFromNotes(notes: string | null | undefined) {
+    const delivery = this.parseNoteField(notes, '배달일');
+    if (delivery) return delivery.slice(0, 10);
+    const parcelShip = this.parseNoteField(notes, '택배발송일');
+    if (parcelShip) return parcelShip.slice(0, 10);
+    return '';
+  }
+
+  private upsertNoteField(
+    notes: string | null | undefined,
+    field: string,
+    value: string,
+  ) {
+    const current = notes?.trim() ?? '';
+    const pattern = new RegExp(`${field}:([^/]*)`);
+    if (pattern.test(current)) {
+      return current.replace(pattern, `${field}:${value}`);
+    }
+    return current ? `${current} / ${field}:${value}` : `${field}:${value}`;
+  }
+
+  private upsertDeliveryRequestDateInNotes(
+    notes: string | null | undefined,
+    dateIso: string,
+    preferParcelField: boolean,
+  ) {
+    const deliveryRaw = this.parseNoteField(notes, '배달일');
+    const parcelRaw = this.parseNoteField(notes, '택배발송일');
+
+    if (deliveryRaw) {
+      const timeSuffix = deliveryRaw.slice(10).trim();
+      const next = timeSuffix ? `${dateIso} ${timeSuffix}` : dateIso;
+      return this.upsertNoteField(notes, '배달일', next);
+    }
+    if (parcelRaw || preferParcelField) {
+      return this.upsertNoteField(notes, '택배발송일', dateIso);
+    }
+    return this.upsertNoteField(notes, '배달일', dateIso);
   }
 
   private isParcelOrder(order: {
