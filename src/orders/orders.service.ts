@@ -484,6 +484,32 @@ export class OrdersService {
     );
   }
 
+  /** 매장 작업자 최종확인: 공장/최고관리자 + 관할 지역 매장관리자 */
+  private assertCanFinalConfirmStoreOrder(
+    actor: AuthUserPayload,
+    order: { storeRegion: AdminRegion | null },
+    canApproveGreeting: boolean,
+  ) {
+    if (canApproveGreeting) {
+      throw new ForbiddenException(
+        'Factory-G는 인사장완료만 처리할 수 있습니다.',
+      );
+    }
+    if (actor.role === 'factory') {
+      return;
+    }
+    if (actor.role === 'admin' && actor.isSuperAdmin) {
+      return;
+    }
+    if (actor.role === 'admin') {
+      this.assertCanMutateOrderRegion(order, actor);
+      return;
+    }
+    throw new ForbiddenException(
+      '매장 작업자 최종확인 권한이 없습니다.',
+    );
+  }
+
   private computeReadyForShipment(order: {
     packagingWorker: PackagingWorker | null;
     orderConfirmedAt: Date | null;
@@ -855,7 +881,14 @@ export class OrdersService {
     let summarySuffix: string;
     const parcel = this.isParcelOrder(order);
 
-    this.assertCanWriteShipmentOps(actor, canApproveGreeting);
+    const isStoreFinalConfirm =
+      dto.action === 'finalConfirm' &&
+      order.packagingWorker === PackagingWorker.STORE;
+    if (isStoreFinalConfirm) {
+      this.assertCanFinalConfirmStoreOrder(actor, order, canApproveGreeting);
+    } else {
+      this.assertCanWriteShipmentOps(actor, canApproveGreeting);
+    }
 
     if (dto.action === 'setShipDate') {
       if (!dto.shipDate) {
