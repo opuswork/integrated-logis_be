@@ -616,6 +616,18 @@ export class OrdersService {
       data.packagingWorker = dto.packagingWorker;
       activityAction = AdminActivityAction.WORKER_SAVE;
       summarySuffix = `작업자 ${dto.packagingWorker === 'STORE' ? '매장' : '공장'} 저장`;
+    } else if (dto.action === 'workerClear') {
+      if (order.readyForShipment) {
+        throw new BadRequestException(
+          '배송관리 이관 후에는 작업자를 초기화할 수 없습니다.',
+        );
+      }
+      if (!order.packagingWorker) {
+        throw new BadRequestException('초기화할 작업자가 없습니다.');
+      }
+      data.packagingWorker = null;
+      activityAction = AdminActivityAction.WORKER_SAVE;
+      summarySuffix = '작업자 초기화';
     } else if (dto.action === 'payment') {
       if (order.paymentDone) {
         throw new BadRequestException('이미 결제완료가 확인되었습니다.');
