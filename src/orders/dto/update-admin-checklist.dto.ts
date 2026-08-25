@@ -8,6 +8,8 @@ export const CHECKLIST_ACTIONS = [
   'payment',
   'greeting',
   'slip',
+  'setDeliveryRequestDate',
+  'setRequestedShipDate',
 ] as const;
 
 export type ChecklistAction = (typeof CHECKLIST_ACTIONS)[number];
@@ -16,7 +18,7 @@ export class UpdateAdminChecklistDto {
   @ApiProperty({
     enum: CHECKLIST_ACTIONS,
     description:
-      'confirm | worker | workerClear | payment | greeting | slip',
+      'confirm | worker | workerClear | payment | greeting | slip | setDeliveryRequestDate | setRequestedShipDate',
   })
   @IsIn(CHECKLIST_ACTIONS)
   action!: ChecklistAction;
@@ -42,4 +44,19 @@ export class UpdateAdminChecklistDto {
   @IsOptional()
   @IsString()
   author?: string;
+
+  @ApiPropertyOptional({
+    description: 'action=setDeliveryRequestDate — 납품요청일 YYYY-MM-DD',
+  })
+  @IsOptional()
+  @IsString()
+  deliveryDate?: string;
+
+  @ApiPropertyOptional({
+    description:
+      'action=setRequestedShipDate — 출고요청일 YYYY-MM-DD (납품요청일 하루 전 이하)',
+  })
+  @IsOptional()
+  @IsString()
+  shipDate?: string;
 }
