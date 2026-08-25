@@ -871,6 +871,11 @@ export class OrdersService {
       activityAction = AdminActivityAction.SHIP_DATE_SAVE;
       summarySuffix = `출고요청일 ${dto.shipDate} 저장`;
     } else if (dto.action === 'setPackDept') {
+      if (order.packagingWorker === PackagingWorker.STORE) {
+        throw new BadRequestException(
+          '매장 작업자 주문은 포장관리 대상이 아닙니다.',
+        );
+      }
       if (!dto.packDept) {
         throw new BadRequestException('포장구분을 선택해 주세요.');
       }
@@ -886,6 +891,11 @@ export class OrdersService {
       activityAction = AdminActivityAction.PACK_DEPT_SAVE;
       summarySuffix = `포장구분 ${dto.packDept === 'SOCK_PACK' ? '양말부포장' : '공장포장'} 저장`;
     } else if (dto.action === 'completePack') {
+      if (order.packagingWorker === PackagingWorker.STORE) {
+        throw new BadRequestException(
+          '매장 작업자 주문은 포장관리 대상이 아닙니다.',
+        );
+      }
       if (!order.packDept) {
         throw new BadRequestException('포장구분을 먼저 저장해 주세요.');
       }
@@ -910,6 +920,11 @@ export class OrdersService {
       activityAction = AdminActivityAction.PACK_COMPLETE;
       summarySuffix = `포장완료 PT=${pt} / ${dto.packDate}`;
     } else if (dto.action === 'completeRelease') {
+      if (order.packagingWorker === PackagingWorker.STORE) {
+        throw new BadRequestException(
+          '매장 작업자 주문은 출고관리 대상이 아닙니다.',
+        );
+      }
       if (!order.packDone) {
         throw new BadRequestException(
           '포장이 완료되지 않아 출고완료할 수 없습니다.',
@@ -935,6 +950,11 @@ export class OrdersService {
         ? '출고완료 → 발송대기'
         : '출고완료 (상차)';
     } else if (dto.action === 'finalComplete') {
+      if (order.packagingWorker === PackagingWorker.STORE) {
+        throw new BadRequestException(
+          '매장 작업자는 최종확인만 가능합니다.',
+        );
+      }
       if (!order.releaseDone) {
         throw new BadRequestException(
           '출고완료 후에만 최종완료할 수 있습니다.',
@@ -963,7 +983,8 @@ export class OrdersService {
       activityAction = AdminActivityAction.FINAL_COMPLETE;
       summarySuffix = '최종완료 → 배송중';
     } else if (dto.action === 'finalConfirm') {
-      if (!order.finalCompleteDone) {
+      const isStoreWorker = order.packagingWorker === PackagingWorker.STORE;
+      if (!isStoreWorker && !order.finalCompleteDone) {
         throw new BadRequestException(
           '배송관리 최종완료 후에만 최종확인할 수 있습니다.',
         );
@@ -989,6 +1010,9 @@ export class OrdersService {
         throw new BadRequestException('이미 최종확인된 주문입니다.');
       }
       data.finalConfirmDone = true;
+      if (isStoreWorker) {
+        data.finalCompleteDone = true;
+      }
       data.status = OrderStatus.RECEIVED;
       data.shipment = order.shipment
         ? {
