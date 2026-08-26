@@ -484,8 +484,8 @@ export class OrdersService {
     );
   }
 
-  /** 매장 작업자 최종확인: 공장/최고관리자 + 관할 지역 매장관리자 */
-  private assertCanFinalConfirmStoreOrder(
+  /** 배송관리 최종완료·최종확인: 관할 매장관리자 + 최고관리자 (공장 불가) */
+  private assertCanPressShipmentFinalActions(
     actor: AuthUserPayload,
     order: { storeRegion: AdminRegion | null },
     canApproveGreeting: boolean,
@@ -496,7 +496,9 @@ export class OrdersService {
       );
     }
     if (actor.role === 'factory') {
-      return;
+      throw new ForbiddenException(
+        '최종완료·최종확인은 매장관리자만 처리할 수 있습니다.',
+      );
     }
     if (actor.role === 'admin' && actor.isSuperAdmin) {
       return;
@@ -506,7 +508,7 @@ export class OrdersService {
       return;
     }
     throw new ForbiddenException(
-      '매장 작업자 최종확인 권한이 없습니다.',
+      '최종완료·최종확인 권한이 없습니다.',
     );
   }
 
@@ -881,11 +883,14 @@ export class OrdersService {
     let summarySuffix: string;
     const parcel = this.isParcelOrder(order);
 
-    const isStoreFinalConfirm =
-      dto.action === 'finalConfirm' &&
-      order.packagingWorker === PackagingWorker.STORE;
-    if (isStoreFinalConfirm) {
-      this.assertCanFinalConfirmStoreOrder(actor, order, canApproveGreeting);
+    const isFinalAction =
+      dto.action === 'finalComplete' || dto.action === 'finalConfirm';
+    if (isFinalAction) {
+      this.assertCanPressShipmentFinalActions(
+        actor,
+        order,
+        canApproveGreeting,
+      );
     } else {
       this.assertCanWriteShipmentOps(actor, canApproveGreeting);
     }
