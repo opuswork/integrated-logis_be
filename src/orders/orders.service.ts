@@ -122,6 +122,28 @@ function regionLabel(region: AdminRegion | null | undefined) {
   return '최고';
 }
 
+/** 접수완료(주문확인 + PLACED|WAITING) 이고 포장구분 미선택일 때만 작업자·주문매장 변경 */
+function assertAssignmentEditable(order: {
+  orderConfirmedAt: Date | null;
+  status: OrderStatus;
+  packDept: PackDept | null;
+}) {
+  if (order.packDept) {
+    throw new BadRequestException(
+      '포장구분 선택 후에는 작업자·주문매장을 변경할 수 없습니다.',
+    );
+  }
+  const receiptComplete =
+    Boolean(order.orderConfirmedAt) &&
+    (order.status === OrderStatus.PLACED ||
+      order.status === OrderStatus.WAITING_FOR_SHIPMENT);
+  if (!receiptComplete) {
+    throw new BadRequestException(
+      '접수완료 상태에서만 작업자·주문매장을 변경할 수 있습니다.',
+    );
+  }
+}
+
 function formatActivityTimestamp(date: Date) {
   return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${String(date.getHours()).padStart(2, '0')}시 ${String(date.getMinutes()).padStart(2, '0')}분 ${String(date.getSeconds()).padStart(2, '0')}초`;
 }
@@ -641,11 +663,7 @@ export class OrdersService {
       activityAction = AdminActivityAction.ORDER_CONFIRM;
       summarySuffix = '주문확인 클릭';
     } else if (dto.action === 'worker') {
-      if (order.packDept) {
-        throw new BadRequestException(
-          '포장구분 선택 후에는 작업자를 변경할 수 없습니다.',
-        );
-      }
+      assertAssignmentEditable(order);
       if (!dto.packagingWorker) {
         throw new BadRequestException('작업자(매장/공장)를 선택해 주세요.');
       }
@@ -654,11 +672,7 @@ export class OrdersService {
       activityAction = AdminActivityAction.WORKER_SAVE;
       summarySuffix = `작업자 ${dto.packagingWorker === 'STORE' ? '매장' : '공장'} 저장`;
     } else if (dto.action === 'workerClear') {
-      if (order.packDept) {
-        throw new BadRequestException(
-          '포장구분 선택 후에는 작업자를 초기화할 수 없습니다.',
-        );
-      }
+      assertAssignmentEditable(order);
       if (!order.packagingWorker) {
         throw new BadRequestException('초기화할 작업자가 없습니다.');
       }
@@ -666,12 +680,16 @@ export class OrdersService {
       data.factoryAlert = ASSIGNMENT_CHANGE_ALERT;
       activityAction = AdminActivityAction.WORKER_SAVE;
       summarySuffix = '작업자 초기화';
-    } else if (dto.action === 'setStoreRegion') {
-      if (order.packDept) {
-        throw new BadRequestException(
-          '포장구분 선택 후에는 주문매장을 변경할 수 없습니다.',
-        );
+    } else if (dto.action === 'assignmentReset') {
+      assertAssignmentEditable(order);
+      if (order.packagingWorker) {
+        data.packagingWorker = null;
       }
+      data.factoryAlert = ASSIGNMENT_CHANGE_ALERT;
+      activityAction = AdminActivityAction.WORKER_SAVE;
+      summarySuffix = '작업자·주문매장 재편집';
+    } else if (dto.action === 'setStoreRegion') {
+      assertAssignmentEditable(order);
       if (!dto.storeRegion) {
         throw new BadRequestException('주문매장(남부/중부/서부)을 선택해 주세요.');
       }
