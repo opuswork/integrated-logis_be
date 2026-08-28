@@ -42,9 +42,18 @@ import {
 } from './order-bulk-import';
 import { UpdateOrderDto } from './dto/update-order.dto';
 
-/** 주문관리에서 작업자·주문매장 변경 시 포장/출고/배송에 표시 */
+/** 레거시 통합 메시지 (heal/클리어 호환) */
 export const ASSIGNMENT_CHANGE_ALERT = '작업자·주문매장 변경';
+/** 작업자 초기화 경고 */
+export const WORKER_CHANGE_ALERT = "'작업자'변경 경고입니다.";
+/** 주문매장 초기화 경고 */
+export const STORE_REGION_CHANGE_ALERT = "'주문매장'변경 경고입니다.:";
 
+const ASSIGNMENT_ALERT_MESSAGES = [
+  ASSIGNMENT_CHANGE_ALERT,
+  WORKER_CHANGE_ALERT,
+  STORE_REGION_CHANGE_ALERT,
+] as const;
 const orderInclude = {
   items: true,
   shipment: true,
@@ -342,23 +351,13 @@ export class OrdersService {
   }
 
   /**
-   * 배정 ○수정 잔존분 정리.
-   * - 프로세스당 1회: 과거 초기화 버그로 남은 '작업자·주문매장 변경' 전부 제거
-   * - 이후: 포장구분 있음 / 작업자 없음 건만 지속 정리
+   * 배정 ○수정 잔존분: 포장구분 있음 / 작업자 없음 건만 정리
+   * (기동 시 전체 삭제는 새 경고를 지워 제거함)
    */
-  private static didClearLegacyAssignmentAlerts = false;
-
   private async healStaleAssignmentAlerts() {
-    if (!OrdersService.didClearLegacyAssignmentAlerts) {
-      await this.prisma.order.updateMany({
-        where: { factoryAlert: ASSIGNMENT_CHANGE_ALERT },
-        data: { factoryAlert: null },
-      });
-      OrdersService.didClearLegacyAssignmentAlerts = true;
-    }
     await this.prisma.order.updateMany({
       where: {
-        factoryAlert: ASSIGNMENT_CHANGE_ALERT,
+        factoryAlert: { in: [...ASSIGNMENT_ALERT_MESSAGES] },
         OR: [{ packDept: { not: null } }, { packagingWorker: null }],
       },
       data: { factoryAlert: null },
@@ -694,7 +693,7 @@ export class OrdersService {
         throw new BadRequestException('작업자(매장/공장)를 선택해 주세요.');
       }
       data.packagingWorker = dto.packagingWorker;
-      data.factoryAlert = ASSIGNMENT_CHANGE_ALERT;
+      data.factoryAlert = WORKER_CHANGE_ALERT;
       activityAction = AdminActivityAction.WORKER_SAVE;
       summarySuffix = `작업자 ${dto.packagingWorker === 'STORE' ? '매장' : '공장'} 저장`;
     } else if (dto.action === 'workerClear') {
@@ -703,13 +702,13 @@ export class OrdersService {
         throw new BadRequestException('초기화할 작업자가 없습니다.');
       }
       data.packagingWorker = null;
-      data.factoryAlert = ASSIGNMENT_CHANGE_ALERT;
+      data.factoryAlert = WORKER_CHANGE_ALERT;
       activityAction = AdminActivityAction.WORKER_SAVE;
       summarySuffix = '작업자 초기화';
     } else if (dto.action === 'assignmentReset') {
       // 서버 배정값 유지 — readyForShipment 유지 + ○수정만 점등
       assertAssignmentEditable(order);
-      data.factoryAlert = ASSIGNMENT_CHANGE_ALERT;
+      data.factoryAlert = WORKER_CHANGE_ALERT;
       activityAction = AdminActivityAction.WORKER_SAVE;
       summarySuffix = '작업자·주문매장 재편집 알림';
     } else if (dto.action === 'setStoreRegion') {
@@ -723,7 +722,7 @@ export class OrdersService {
           : dto.storeRegion === 'JUNGBU'
             ? AdminRegion.JUNGBU
             : AdminRegion.SEOBU;
-      data.factoryAlert = ASSIGNMENT_CHANGE_ALERT;
+      data.factoryAlert = STORE_REGION_CHANGE_ALERT;
       activityAction = AdminActivityAction.WORKER_SAVE;
       summarySuffix = `주문매장 ${regionLabel(
         dto.storeRegion === 'NAMBU'
@@ -1002,7 +1001,12 @@ export class OrdersService {
           : PackDept.FACTORY_PACK;
       data.storagePlace =
         dto.packDept === 'SOCK_PACK' ? '양말' : '공장';
-      if (order.factoryAlert === ASSIGNMENT_CHANGE_ALERT) {
+      if (
+        order.factoryAlert &&
+        (ASSIGNMENT_ALERT_MESSAGES as readonly string[]).includes(
+          order.factoryAlert,
+        )
+      ) {
         data.factoryAlert = null;
       }
       activityAction = AdminActivityAction.PACK_DEPT_SAVE;
@@ -1212,9 +1216,9 @@ export class OrdersService {
   async clearFactoryAlert(
     id: number,
     actor: AuthUserPayload,
-    dto?: { set?: 'assignment' },
+    dto?: { set?: 'assignment' | 'worker' | 'storeRegion' },
   ) {
-    if (dto?.set === 'assignment') {
+    if (dto?.set === 'assignment' || dto?.set === 'worker' || dto?.set === 'storeRegion') {
       if (actor.role !== 'admin') {
         throw new ForbiddenException(
           '작업자·주문매장 변경 경고는 매장 관리자만 설정할 수 있습니다.',
@@ -1223,9 +1227,13 @@ export class OrdersService {
       const order = await this.findOne(id);
       this.assertCanMutateOrderRegion(order, actor);
       assertAssignmentEditable(order);
+      const message =
+        dto.set === 'storeRegion'
+          ? STORE_REGION_CHANGE_ALERT
+          : WORKER_CHANGE_ALERT;
       return this.prisma.order.update({
         where: { id },
-        data: { factoryAlert: ASSIGNMENT_CHANGE_ALERT },
+        data: { factoryAlert: message },
         include: orderInclude,
       });
     }
