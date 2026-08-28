@@ -1026,25 +1026,34 @@ export class OrdersService {
       if (order.finalCompleteDone) {
         throw new BadRequestException('이미 최종완료된 주문입니다.');
       }
-      // 택배·상차 공통: 최종완료 → 배송중, 최종확인은 별도 단계
       data.finalCompleteDone = true;
-      data.status = OrderStatus.SHIPPING;
-      data.shipment = order.shipment
-        ? {
-            update: {
-              shippedAt: order.shipment.shippedAt ?? now,
-            },
-          }
-        : {
-            create: {
-              fulfillmentType: parcel
-                ? FulfillmentType.PARCEL
-                : FulfillmentType.PICKUP,
-              shippedAt: now,
-            },
-          };
-      activityAction = AdminActivityAction.FINAL_COMPLETE;
-      summarySuffix = '최종완료 → 배송중';
+      const isFactorySangcha =
+        !parcel && order.packagingWorker === PackagingWorker.FACTORY;
+      if (isFactorySangcha) {
+        // 공장+상차 수령확인 → 발송대기 (배송완료는 수령완료/finalConfirm)
+        data.status = OrderStatus.PREPARED;
+        activityAction = AdminActivityAction.FINAL_COMPLETE;
+        summarySuffix = '수령확인 → 발송대기';
+      } else {
+        // 그 외: 최종완료 → 배송중, 최종확인은 별도 단계
+        data.status = OrderStatus.SHIPPING;
+        data.shipment = order.shipment
+          ? {
+              update: {
+                shippedAt: order.shipment.shippedAt ?? now,
+              },
+            }
+          : {
+              create: {
+                fulfillmentType: parcel
+                  ? FulfillmentType.PARCEL
+                  : FulfillmentType.PICKUP,
+                shippedAt: now,
+              },
+            };
+        activityAction = AdminActivityAction.FINAL_COMPLETE;
+        summarySuffix = '최종완료 → 배송중';
+      }
     } else if (dto.action === 'finalConfirm') {
       const isStoreWorker = order.packagingWorker === PackagingWorker.STORE;
       if (!isStoreWorker && !order.finalCompleteDone) {
