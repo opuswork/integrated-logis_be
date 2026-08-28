@@ -1183,7 +1183,27 @@ export class OrdersService {
     return updated;
   }
 
-  async clearFactoryAlert(id: number, actor: AuthUserPayload) {
+  async clearFactoryAlert(
+    id: number,
+    actor: AuthUserPayload,
+    dto?: { set?: 'assignment' },
+  ) {
+    if (dto?.set === 'assignment') {
+      if (actor.role !== 'admin') {
+        throw new ForbiddenException(
+          '작업자·주문매장 변경 경고는 매장 관리자만 설정할 수 있습니다.',
+        );
+      }
+      const order = await this.findOne(id);
+      this.assertCanMutateOrderRegion(order, actor);
+      assertAssignmentEditable(order);
+      return this.prisma.order.update({
+        where: { id },
+        data: { factoryAlert: ASSIGNMENT_CHANGE_ALERT },
+        include: orderInclude,
+      });
+    }
+
     if (actor.role !== 'factory' && actor.role !== 'admin') {
       throw new ForbiddenException(
         '관리자(매장·공장)만 처리할 수 있습니다.',

@@ -31,6 +31,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { DeliveryActionDto } from './dto/delivery-action.dto';
 import { UpdateAdminChecklistDto } from './dto/update-admin-checklist.dto';
+import { UpdateFactoryAlertDto } from './dto/update-factory-alert.dto';
 import { UpdateShipmentOpsDto } from './dto/update-shipment-ops.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { OrdersService } from './orders.service';
@@ -198,15 +199,17 @@ export class OrdersController {
 
   @Patch(':id/factory-alert')
   @ApiOperation({
-    summary: '공장 알림 확인(클리어)',
-    description: 'factoryAlert를 null로 지웁니다. 공장/관리자만 가능.',
+    summary: '공장 알림 설정/확인(클리어)',
+    description:
+      'body.set=assignment → 작업자·주문매장 변경 경고등. body 없음 → factoryAlert 클리어.',
   })
   @ApiOkResponse({ description: '갱신된 주문' })
   clearFactoryAlert(
     @Param('id', ParseIntPipe) id: number,
     @CurrentUser() user: AuthUserPayload,
+    @Body() body?: UpdateFactoryAlertDto,
   ) {
-    return this.ordersService.clearFactoryAlert(id, user);
+    return this.ordersService.clearFactoryAlert(id, user, body);
   }
 
   @Patch(':id')
