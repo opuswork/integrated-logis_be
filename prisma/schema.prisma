@@ -52,6 +52,8 @@ model User {
   adminRegion  AdminRegion?  // ADMIN일 때만 사용. null이면 Super admin
   /** Factory-G: 인사장완료 승인 가능 (username 01029647088) */
   canApproveGreeting Boolean @default(false)
+  /** Incremented on each login; JWT `sv` must match or session is rejected. */
+  sessionVersion Int @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   orders    Order[]  // One-to-many relationship: A user can place many orders

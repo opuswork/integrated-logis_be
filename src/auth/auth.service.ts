@@ -222,6 +222,12 @@ export class AuthService {
         );
       }
 
+      const bumped = await this.prisma.user.update({
+        where: { id: user.id },
+        data: { sessionVersion: { increment: 1 } },
+        select: { sessionVersion: true },
+      });
+
       const role = toAppRole(user.role);
       const adminRegion = toAdminRegion(user.adminRegion);
       const payload: JwtPayload = {
@@ -229,6 +235,7 @@ export class AuthService {
         username: user.username,
         role,
         adminRegion,
+        sv: bumped.sessionVersion,
       };
 
       return {

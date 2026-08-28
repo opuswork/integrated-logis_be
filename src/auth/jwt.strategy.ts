@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+
+import { PrismaService } from '../prisma/prisma.service';
 
 export type AppRole = 'admin' | 'member' | 'factory';
 export type AdminRegionCode = 'JUNGBU' | 'NAMBU' | 'SEOBU';
@@ -11,6 +13,8 @@ export type JwtPayload = {
   username: string;
   role: AppRole;
   adminRegion?: AdminRegionCode | null;
+  /** Session version; must match User.sessionVersion */
+  sv?: number;
 };
 
 export type AuthUserPayload = {
@@ -48,9 +52,14 @@ export function isSuperAdminUser(params: {
   return role === 'admin' && !params.adminRegion;
 }
 
+const DUPLICATE_LOGIN_MESSAGE = '중복 로그인을 허용하지 않습니다';
+
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(configService: ConfigService) {
+  constructor(
+    configService: ConfigService,
+    private readonly prisma: PrismaService,
+  ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
@@ -59,7 +68,17 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  validate(payload: JwtPayload): AuthUserPayload {
+  async validate(payload: JwtPayload): Promise<AuthUserPayload> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: payload.sub },
+      select: { id: true, sessionVersion: true },
+    });
+
+    const tokenSv = typeof payload.sv === 'number' ? payload.sv : null;
+    if (!user || tokenSv === null || user.sessionVersion !== tokenSv) {
+      throw new UnauthorizedException(DUPLICATE_LOGIN_MESSAGE);
+    }
+
     const adminRegion = toAdminRegion(payload.adminRegion);
     const role = payload.role;
     return {
