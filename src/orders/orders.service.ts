@@ -191,6 +191,7 @@ export class OrdersService {
           totalAmount: createOrderDto.totalAmount,
           notes: createOrderDto.notes,
           storeRegion: parseStoreRegionFromNotes(createOrderDto.notes),
+          packagingWorker: PackagingWorker.STORE,
           items: createOrderDto.items?.length
             ? {
                 create: createOrderDto.items.map((item) => ({
