@@ -111,6 +111,14 @@ export class CreateOrderDto {
   @IsString()
   notes?: string;
 
+  @ApiPropertyOptional({
+    example: '아이스박스 동봉',
+    description: '제품주문서 특이사항 (출고·포장관리 표시)',
+  })
+  @IsOptional()
+  @IsString()
+  extraNote?: string;
+
   @ApiPropertyOptional({ type: [CreateOrderItemDto] })
   @IsOptional()
   @IsArray()

@@ -44,6 +44,7 @@ export type OrderMinAggregateOutputType = {
   status: $Enums.OrderStatus | null
   totalAmount: number | null
   notes: string | null
+  extraNote: string | null
   factoryAlert: string | null
   storeRegion: $Enums.AdminRegion | null
   packagingWorker: $Enums.PackagingWorker | null
@@ -76,6 +77,7 @@ export type OrderMaxAggregateOutputType = {
   status: $Enums.OrderStatus | null
   totalAmount: number | null
   notes: string | null
+  extraNote: string | null
   factoryAlert: string | null
   storeRegion: $Enums.AdminRegion | null
   packagingWorker: $Enums.PackagingWorker | null
@@ -108,6 +110,7 @@ export type OrderCountAggregateOutputType = {
   status: number
   totalAmount: number
   notes: number
+  extraNote: number
   factoryAlert: number
   storeRegion: number
   packagingWorker: number
@@ -154,6 +157,7 @@ export type OrderMinAggregateInputType = {
   status?: true
   totalAmount?: true
   notes?: true
+  extraNote?: true
   factoryAlert?: true
   storeRegion?: true
   packagingWorker?: true
@@ -186,6 +190,7 @@ export type OrderMaxAggregateInputType = {
   status?: true
   totalAmount?: true
   notes?: true
+  extraNote?: true
   factoryAlert?: true
   storeRegion?: true
   packagingWorker?: true
@@ -218,6 +223,7 @@ export type OrderCountAggregateInputType = {
   status?: true
   totalAmount?: true
   notes?: true
+  extraNote?: true
   factoryAlert?: true
   storeRegion?: true
   packagingWorker?: true
@@ -337,6 +343,7 @@ export type OrderGroupByOutputType = {
   status: $Enums.OrderStatus
   totalAmount: number
   notes: string | null
+  extraNote: string | null
   factoryAlert: string | null
   storeRegion: $Enums.AdminRegion | null
   packagingWorker: $Enums.PackagingWorker | null
@@ -392,6 +399,7 @@ export type OrderWhereInput = {
   status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFilter<"Order"> | number
   notes?: Prisma.StringNullableFilter<"Order"> | string | null
+  extraNote?: Prisma.StringNullableFilter<"Order"> | string | null
   factoryAlert?: Prisma.StringNullableFilter<"Order"> | string | null
   storeRegion?: Prisma.EnumAdminRegionNullableFilter<"Order"> | $Enums.AdminRegion | null
   packagingWorker?: Prisma.EnumPackagingWorkerNullableFilter<"Order"> | $Enums.PackagingWorker | null
@@ -428,6 +436,7 @@ export type OrderOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  extraNote?: Prisma.SortOrderInput | Prisma.SortOrder
   factoryAlert?: Prisma.SortOrderInput | Prisma.SortOrder
   storeRegion?: Prisma.SortOrderInput | Prisma.SortOrder
   packagingWorker?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -467,6 +476,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFilter<"Order"> | number
   notes?: Prisma.StringNullableFilter<"Order"> | string | null
+  extraNote?: Prisma.StringNullableFilter<"Order"> | string | null
   factoryAlert?: Prisma.StringNullableFilter<"Order"> | string | null
   storeRegion?: Prisma.EnumAdminRegionNullableFilter<"Order"> | $Enums.AdminRegion | null
   packagingWorker?: Prisma.EnumPackagingWorkerNullableFilter<"Order"> | $Enums.PackagingWorker | null
@@ -503,6 +513,7 @@ export type OrderOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  extraNote?: Prisma.SortOrderInput | Prisma.SortOrder
   factoryAlert?: Prisma.SortOrderInput | Prisma.SortOrder
   storeRegion?: Prisma.SortOrderInput | Prisma.SortOrder
   packagingWorker?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -543,6 +554,7 @@ export type OrderScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumOrderStatusWithAggregatesFilter<"Order"> | $Enums.OrderStatus
   totalAmount?: Prisma.FloatWithAggregatesFilter<"Order"> | number
   notes?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  extraNote?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   factoryAlert?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   storeRegion?: Prisma.EnumAdminRegionNullableWithAggregatesFilter<"Order"> | $Enums.AdminRegion | null
   packagingWorker?: Prisma.EnumPackagingWorkerNullableWithAggregatesFilter<"Order"> | $Enums.PackagingWorker | null
@@ -574,6 +586,7 @@ export type OrderCreateInput = {
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
+  extraNote?: string | null
   factoryAlert?: string | null
   storeRegion?: $Enums.AdminRegion | null
   packagingWorker?: $Enums.PackagingWorker | null
@@ -609,6 +622,7 @@ export type OrderUncheckedCreateInput = {
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
+  extraNote?: string | null
   factoryAlert?: string | null
   storeRegion?: $Enums.AdminRegion | null
   packagingWorker?: $Enums.PackagingWorker | null
@@ -643,6 +657,7 @@ export type OrderUpdateInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extraNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
@@ -678,6 +693,7 @@ export type OrderUncheckedUpdateInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extraNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
@@ -713,6 +729,7 @@ export type OrderCreateManyInput = {
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
+  extraNote?: string | null
   factoryAlert?: string | null
   storeRegion?: $Enums.AdminRegion | null
   packagingWorker?: $Enums.PackagingWorker | null
@@ -744,6 +761,7 @@ export type OrderUpdateManyMutationInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extraNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
@@ -775,6 +793,7 @@ export type OrderUncheckedUpdateManyInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extraNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
@@ -817,6 +836,7 @@ export type OrderCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  extraNote?: Prisma.SortOrder
   factoryAlert?: Prisma.SortOrder
   storeRegion?: Prisma.SortOrder
   packagingWorker?: Prisma.SortOrder
@@ -855,6 +875,7 @@ export type OrderMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  extraNote?: Prisma.SortOrder
   factoryAlert?: Prisma.SortOrder
   storeRegion?: Prisma.SortOrder
   packagingWorker?: Prisma.SortOrder
@@ -887,6 +908,7 @@ export type OrderMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  extraNote?: Prisma.SortOrder
   factoryAlert?: Prisma.SortOrder
   storeRegion?: Prisma.SortOrder
   packagingWorker?: Prisma.SortOrder
@@ -1044,6 +1066,7 @@ export type OrderCreateWithoutUserInput = {
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
+  extraNote?: string | null
   factoryAlert?: string | null
   storeRegion?: $Enums.AdminRegion | null
   packagingWorker?: $Enums.PackagingWorker | null
@@ -1078,6 +1101,7 @@ export type OrderUncheckedCreateWithoutUserInput = {
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
+  extraNote?: string | null
   factoryAlert?: string | null
   storeRegion?: $Enums.AdminRegion | null
   packagingWorker?: $Enums.PackagingWorker | null
@@ -1141,6 +1165,7 @@ export type OrderScalarWhereInput = {
   status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFilter<"Order"> | number
   notes?: Prisma.StringNullableFilter<"Order"> | string | null
+  extraNote?: Prisma.StringNullableFilter<"Order"> | string | null
   factoryAlert?: Prisma.StringNullableFilter<"Order"> | string | null
   storeRegion?: Prisma.EnumAdminRegionNullableFilter<"Order"> | $Enums.AdminRegion | null
   packagingWorker?: Prisma.EnumPackagingWorkerNullableFilter<"Order"> | $Enums.PackagingWorker | null
@@ -1172,6 +1197,7 @@ export type OrderCreateWithoutShipmentInput = {
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
+  extraNote?: string | null
   factoryAlert?: string | null
   storeRegion?: $Enums.AdminRegion | null
   packagingWorker?: $Enums.PackagingWorker | null
@@ -1206,6 +1232,7 @@ export type OrderUncheckedCreateWithoutShipmentInput = {
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
+  extraNote?: string | null
   factoryAlert?: string | null
   storeRegion?: $Enums.AdminRegion | null
   packagingWorker?: $Enums.PackagingWorker | null
@@ -1255,6 +1282,7 @@ export type OrderUpdateWithoutShipmentInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extraNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
@@ -1289,6 +1317,7 @@ export type OrderUncheckedUpdateWithoutShipmentInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extraNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
@@ -1322,6 +1351,7 @@ export type OrderCreateWithoutItemsInput = {
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
+  extraNote?: string | null
   factoryAlert?: string | null
   storeRegion?: $Enums.AdminRegion | null
   packagingWorker?: $Enums.PackagingWorker | null
@@ -1356,6 +1386,7 @@ export type OrderUncheckedCreateWithoutItemsInput = {
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
+  extraNote?: string | null
   factoryAlert?: string | null
   storeRegion?: $Enums.AdminRegion | null
   packagingWorker?: $Enums.PackagingWorker | null
@@ -1405,6 +1436,7 @@ export type OrderUpdateWithoutItemsInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extraNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
@@ -1439,6 +1471,7 @@ export type OrderUncheckedUpdateWithoutItemsInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extraNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
@@ -1472,6 +1505,7 @@ export type OrderCreateWithoutGreetingFormsInput = {
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
+  extraNote?: string | null
   factoryAlert?: string | null
   storeRegion?: $Enums.AdminRegion | null
   packagingWorker?: $Enums.PackagingWorker | null
@@ -1506,6 +1540,7 @@ export type OrderUncheckedCreateWithoutGreetingFormsInput = {
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
+  extraNote?: string | null
   factoryAlert?: string | null
   storeRegion?: $Enums.AdminRegion | null
   packagingWorker?: $Enums.PackagingWorker | null
@@ -1555,6 +1590,7 @@ export type OrderUpdateWithoutGreetingFormsInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extraNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
@@ -1589,6 +1625,7 @@ export type OrderUncheckedUpdateWithoutGreetingFormsInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extraNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
@@ -1623,6 +1660,7 @@ export type OrderCreateManyUserInput = {
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
+  extraNote?: string | null
   factoryAlert?: string | null
   storeRegion?: $Enums.AdminRegion | null
   packagingWorker?: $Enums.PackagingWorker | null
@@ -1653,6 +1691,7 @@ export type OrderUpdateWithoutUserInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extraNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
@@ -1687,6 +1726,7 @@ export type OrderUncheckedUpdateWithoutUserInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extraNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
@@ -1721,6 +1761,7 @@ export type OrderUncheckedUpdateManyWithoutUserInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extraNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
@@ -1792,6 +1833,7 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   status?: boolean
   totalAmount?: boolean
   notes?: boolean
+  extraNote?: boolean
   factoryAlert?: boolean
   storeRegion?: boolean
   packagingWorker?: boolean
@@ -1829,6 +1871,7 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   status?: boolean
   totalAmount?: boolean
   notes?: boolean
+  extraNote?: boolean
   factoryAlert?: boolean
   storeRegion?: boolean
   packagingWorker?: boolean
@@ -1862,6 +1905,7 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   status?: boolean
   totalAmount?: boolean
   notes?: boolean
+  extraNote?: boolean
   factoryAlert?: boolean
   storeRegion?: boolean
   packagingWorker?: boolean
@@ -1895,6 +1939,7 @@ export type OrderSelectScalar = {
   status?: boolean
   totalAmount?: boolean
   notes?: boolean
+  extraNote?: boolean
   factoryAlert?: boolean
   storeRegion?: boolean
   packagingWorker?: boolean
@@ -1921,7 +1966,7 @@ export type OrderSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "status" | "totalAmount" | "notes" | "factoryAlert" | "storeRegion" | "packagingWorker" | "orderConfirmedAt" | "orderConfirmedBy" | "paymentDone" | "paymentAuthor" | "greetingDone" | "slipDone" | "slipAuthor" | "readyForShipment" | "requestedShipDate" | "packDept" | "packDate" | "packPt" | "storagePlace" | "packDone" | "releaseDone" | "releaseDoneAt" | "finalCompleteDone" | "finalConfirmDone" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "status" | "totalAmount" | "notes" | "extraNote" | "factoryAlert" | "storeRegion" | "packagingWorker" | "orderConfirmedAt" | "orderConfirmedBy" | "paymentDone" | "paymentAuthor" | "greetingDone" | "slipDone" | "slipAuthor" | "readyForShipment" | "requestedShipDate" | "packDept" | "packDate" | "packPt" | "storagePlace" | "packDone" | "releaseDone" | "releaseDoneAt" | "finalCompleteDone" | "finalConfirmDone" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   items?: boolean | Prisma.Order$itemsArgs<ExtArgs>
@@ -1950,6 +1995,10 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     status: $Enums.OrderStatus
     totalAmount: number
     notes: string | null
+    /**
+     * * 제품주문서 특이사항 (출고·포장관리 표시)
+     */
+    extraNote: string | null
     /**
      * * 공장 화면 알림 (예: 주문서 변경요청발생!). 확인 후 null
      */
@@ -2430,6 +2479,7 @@ export interface OrderFieldRefs {
   readonly status: Prisma.FieldRef<"Order", 'OrderStatus'>
   readonly totalAmount: Prisma.FieldRef<"Order", 'Float'>
   readonly notes: Prisma.FieldRef<"Order", 'String'>
+  readonly extraNote: Prisma.FieldRef<"Order", 'String'>
   readonly factoryAlert: Prisma.FieldRef<"Order", 'String'>
   readonly storeRegion: Prisma.FieldRef<"Order", 'AdminRegion'>
   readonly packagingWorker: Prisma.FieldRef<"Order", 'PackagingWorker'>
