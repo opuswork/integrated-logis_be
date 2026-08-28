@@ -9,6 +9,7 @@ import { GreetingFormModule } from './greeting-form/greeting-form.module';
 import { MembersModule } from './members/members.module';
 import { OrderItemsModule } from './order-items/order-items.module';
 import { OrdersModule } from './orders/orders.module';
+import { PartnersModule } from './partners/partners.module';
 import { PostOfficeModule } from './post-office/post-office.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ShipmentsModule } from './shipments/shipments.module';
@@ -27,6 +28,7 @@ import { StockInventoryModule } from './stock-inventory/stock-inventory.module';
     ChurchesModule,
     AuthModule,
     PostOfficeModule,
+    PartnersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

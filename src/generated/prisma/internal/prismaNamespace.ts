@@ -398,6 +398,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
+  Partner: 'Partner',
   Church: 'Church',
   Order: 'Order',
   AdminActivity: 'AdminActivity',
@@ -421,7 +422,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "church" | "order" | "adminActivity" | "shipment" | "orderItem" | "stockInventory" | "stockInventoryLedger" | "greetingForm"
+    modelProps: "user" | "partner" | "church" | "order" | "adminActivity" | "shipment" | "orderItem" | "stockInventory" | "stockInventoryLedger" | "greetingForm"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -496,6 +497,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+        }
+      }
+    }
+    Partner: {
+      payload: Prisma.$PartnerPayload<ExtArgs>
+      fields: Prisma.PartnerFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PartnerFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PartnerPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PartnerFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PartnerPayload>
+        }
+        findFirst: {
+          args: Prisma.PartnerFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PartnerPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PartnerFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PartnerPayload>
+        }
+        findMany: {
+          args: Prisma.PartnerFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PartnerPayload>[]
+        }
+        create: {
+          args: Prisma.PartnerCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PartnerPayload>
+        }
+        createMany: {
+          args: Prisma.PartnerCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PartnerCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PartnerPayload>[]
+        }
+        delete: {
+          args: Prisma.PartnerDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PartnerPayload>
+        }
+        update: {
+          args: Prisma.PartnerUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PartnerPayload>
+        }
+        deleteMany: {
+          args: Prisma.PartnerDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PartnerUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PartnerUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PartnerPayload>[]
+        }
+        upsert: {
+          args: Prisma.PartnerUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PartnerPayload>
+        }
+        aggregate: {
+          args: Prisma.PartnerAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePartner>
+        }
+        groupBy: {
+          args: Prisma.PartnerGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PartnerGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PartnerCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PartnerCountAggregateOutputType> | number
         }
       }
     }
@@ -1149,6 +1224,21 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+export const PartnerScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  contactName: 'contactName',
+  phone: 'phone',
+  address: 'address',
+  email: 'email',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PartnerScalarFieldEnum = (typeof PartnerScalarFieldEnum)[keyof typeof PartnerScalarFieldEnum]
+
+
 export const ChurchScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -1666,6 +1756,7 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
+  partner?: Prisma.PartnerOmit
   church?: Prisma.ChurchOmit
   order?: Prisma.OrderOmit
   adminActivity?: Prisma.AdminActivityOmit

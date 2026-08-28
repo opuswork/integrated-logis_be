@@ -45,6 +45,11 @@ export { Prisma }
  */
 export type User = Prisma.UserModel
 /**
+ * Model Partner
+ * 
+ */
+export type Partner = Prisma.PartnerModel
+/**
  * Model Church
  * 
  */
