@@ -188,6 +188,7 @@ export class OrdersService {
           status: createOrderDto.status,
           totalAmount: createOrderDto.totalAmount,
           notes: createOrderDto.notes,
+          extraNote: createOrderDto.extraNote?.trim() || null,
           storeRegion: parseStoreRegionFromNotes(createOrderDto.notes),
           items: createOrderDto.items?.length
             ? {
@@ -419,6 +420,7 @@ export class OrdersService {
       status,
       totalAmount,
       notes,
+      extraNote,
       items,
       shipment,
     } = updateOrderDto;
@@ -471,6 +473,9 @@ export class OrdersService {
                 notes,
                 storeRegion: parseStoreRegionFromNotes(notes),
               }
+            : {}),
+          ...(extraNote !== undefined
+            ? { extraNote: extraNote.trim() || null }
             : {}),
           ...(notifyFactory
             ? { factoryAlert: '주문서 변경요청발생!' }

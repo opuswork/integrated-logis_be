@@ -101,6 +101,8 @@ model Order {
   status          OrderStatus  @default(PLACED)
   totalAmount     Float        @default(0.0)
   notes           String?
+  /** 제품주문서 특이사항 (출고·포장관리 표시) */
+  extraNote       String?      @map("extra_note")
   /** 공장 화면 알림 (예: 주문서 변경요청발생!). 확인 후 null */
   factoryAlert    String?
 

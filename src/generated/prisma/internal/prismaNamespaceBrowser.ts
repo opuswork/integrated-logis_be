@@ -132,6 +132,7 @@ export const OrderScalarFieldEnum = {
   status: 'status',
   totalAmount: 'totalAmount',
   notes: 'notes',
+  extraNote: 'extraNote',
   factoryAlert: 'factoryAlert',
   storeRegion: 'storeRegion',
   packagingWorker: 'packagingWorker',
