@@ -5,6 +5,7 @@ export const CHECKLIST_ACTIONS = [
   'confirm',
   'worker',
   'workerClear',
+  'assignmentReset',
   'payment',
   'greeting',
   'slip',
@@ -19,7 +20,7 @@ export class UpdateAdminChecklistDto {
   @ApiProperty({
     enum: CHECKLIST_ACTIONS,
     description:
-      'confirm | worker | workerClear | payment | greeting | slip | setDeliveryRequestDate | setRequestedShipDate | setStoreRegion',
+      'confirm | worker | workerClear | assignmentReset | payment | greeting | slip | setDeliveryRequestDate | setRequestedShipDate | setStoreRegion',
   })
   @IsIn(CHECKLIST_ACTIONS)
   action!: ChecklistAction;
