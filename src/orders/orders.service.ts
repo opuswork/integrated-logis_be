@@ -681,13 +681,11 @@ export class OrdersService {
       activityAction = AdminActivityAction.WORKER_SAVE;
       summarySuffix = '작업자 초기화';
     } else if (dto.action === 'assignmentReset') {
+      // 서버 배정값 유지 — readyForShipment 유지 + ○수정만 점등
       assertAssignmentEditable(order);
-      if (order.packagingWorker) {
-        data.packagingWorker = null;
-      }
       data.factoryAlert = ASSIGNMENT_CHANGE_ALERT;
       activityAction = AdminActivityAction.WORKER_SAVE;
-      summarySuffix = '작업자·주문매장 재편집';
+      summarySuffix = '작업자·주문매장 재편집 알림';
     } else if (dto.action === 'setStoreRegion') {
       assertAssignmentEditable(order);
       if (!dto.storeRegion) {
