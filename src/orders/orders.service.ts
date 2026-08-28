@@ -314,18 +314,20 @@ export class OrdersService {
   }
 
   findAll(userId?: number, opts?: { readyForShipment?: boolean }) {
-    return this.healFinalConfirmedShippingOrders().then(() =>
-      this.prisma.order.findMany({
-        where: {
-          ...(userId !== undefined ? { userId } : {}),
-          ...(opts?.readyForShipment === true
-            ? { readyForShipment: true }
-            : {}),
-        },
-        include: orderInclude,
-        orderBy: { createdAt: 'desc' },
-      }),
-    );
+    return this.healFinalConfirmedShippingOrders()
+      .then(() => this.healStaleAssignmentAlerts())
+      .then(() =>
+        this.prisma.order.findMany({
+          where: {
+            ...(userId !== undefined ? { userId } : {}),
+            ...(opts?.readyForShipment === true
+              ? { readyForShipment: true }
+              : {}),
+          },
+          include: orderInclude,
+          orderBy: { createdAt: 'desc' },
+        }),
+      );
   }
 
   /** 최종확인만 되고 status가 SHIPPING에 남은 건을 배송완료로 보정 */
@@ -336,6 +338,30 @@ export class OrdersService {
         status: OrderStatus.SHIPPING,
       },
       data: { status: OrderStatus.RECEIVED },
+    });
+  }
+
+  /**
+   * 배정 ○수정 잔존분 정리.
+   * - 프로세스당 1회: 과거 초기화 버그로 남은 '작업자·주문매장 변경' 전부 제거
+   * - 이후: 포장구분 있음 / 작업자 없음 건만 지속 정리
+   */
+  private static didClearLegacyAssignmentAlerts = false;
+
+  private async healStaleAssignmentAlerts() {
+    if (!OrdersService.didClearLegacyAssignmentAlerts) {
+      await this.prisma.order.updateMany({
+        where: { factoryAlert: ASSIGNMENT_CHANGE_ALERT },
+        data: { factoryAlert: null },
+      });
+      OrdersService.didClearLegacyAssignmentAlerts = true;
+    }
+    await this.prisma.order.updateMany({
+      where: {
+        factoryAlert: ASSIGNMENT_CHANGE_ALERT,
+        OR: [{ packDept: { not: null } }, { packagingWorker: null }],
+      },
+      data: { factoryAlert: null },
     });
   }
 
