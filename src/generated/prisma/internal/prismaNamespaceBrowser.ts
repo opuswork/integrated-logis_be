@@ -88,6 +88,7 @@ export const UserScalarFieldEnum = {
   role: 'role',
   adminRegion: 'adminRegion',
   canApproveGreeting: 'canApproveGreeting',
+  sessionVersion: 'sessionVersion',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   churchId: 'churchId'
