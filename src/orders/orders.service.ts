@@ -131,9 +131,8 @@ function regionLabel(region: AdminRegion | null | undefined) {
   return '최고';
 }
 
-/** 접수완료(주문확인 + PLACED|WAITING) 이고 포장구분 미선택일 때만 작업자·주문매장 변경 */
+/** 접수/대기(PLACED|WAITING) 이고 포장구분 미선택일 때만 작업자·주문매장 변경 */
 function assertAssignmentEditable(order: {
-  orderConfirmedAt: Date | null;
   status: OrderStatus;
   packDept: PackDept | null;
 }) {
@@ -142,13 +141,12 @@ function assertAssignmentEditable(order: {
       '포장구분 선택 후에는 작업자·주문매장을 변경할 수 없습니다.',
     );
   }
-  const receiptComplete =
-    Boolean(order.orderConfirmedAt) &&
-    (order.status === OrderStatus.PLACED ||
-      order.status === OrderStatus.WAITING_FOR_SHIPMENT);
-  if (!receiptComplete) {
+  const editableStatus =
+    order.status === OrderStatus.PLACED ||
+    order.status === OrderStatus.WAITING_FOR_SHIPMENT;
+  if (!editableStatus) {
     throw new BadRequestException(
-      '접수완료 상태에서만 작업자·주문매장을 변경할 수 있습니다.',
+      '접수 또는 접수완료 상태에서만 작업자·주문매장을 변경할 수 있습니다.',
     );
   }
 }
