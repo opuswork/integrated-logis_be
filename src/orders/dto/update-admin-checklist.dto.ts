@@ -10,6 +10,7 @@ export const CHECKLIST_ACTIONS = [
   'slip',
   'setDeliveryRequestDate',
   'setRequestedShipDate',
+  'setStoreRegion',
 ] as const;
 
 export type ChecklistAction = (typeof CHECKLIST_ACTIONS)[number];
@@ -18,7 +19,7 @@ export class UpdateAdminChecklistDto {
   @ApiProperty({
     enum: CHECKLIST_ACTIONS,
     description:
-      'confirm | worker | workerClear | payment | greeting | slip | setDeliveryRequestDate | setRequestedShipDate',
+      'confirm | worker | workerClear | payment | greeting | slip | setDeliveryRequestDate | setRequestedShipDate | setStoreRegion',
   })
   @IsIn(CHECKLIST_ACTIONS)
   action!: ChecklistAction;
@@ -30,6 +31,14 @@ export class UpdateAdminChecklistDto {
   @IsOptional()
   @IsIn(['STORE', 'FACTORY'])
   packagingWorker?: 'STORE' | 'FACTORY';
+
+  @ApiPropertyOptional({
+    enum: ['NAMBU', 'JUNGBU', 'SEOBU'],
+    description: 'action=setStoreRegion 일 때 필수',
+  })
+  @IsOptional()
+  @IsIn(['NAMBU', 'JUNGBU', 'SEOBU'])
+  storeRegion?: 'NAMBU' | 'JUNGBU' | 'SEOBU';
 
   @ApiPropertyOptional({
     description: 'payment/greeting/slip: (레거시) true=Y — confirm 액션은 done 없이 확정',
