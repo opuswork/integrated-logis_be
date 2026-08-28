@@ -59,10 +59,27 @@ model User {
   orders    Order[]  // One-to-many relationship: A user can place many orders
   greetingForms GreetingForm[]
   adminActivities AdminActivity[]
+  partners Partner[]
 
   // Relation to the Church model (Moved inside the block)
   churchId  Int?
   church    Church?  @relation(fields: [churchId], references: [id])
+}
+
+model Partner {
+  id          Int      @id @default(autoincrement())
+  name        String   // 거래처명
+  contactName String   // 담당자명
+  phone       String   // 연락처
+  address     String   // 주소
+  email       String?  // 이메일 (optional)
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([userId, name])
 }
 
 model Church {
