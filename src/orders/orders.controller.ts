@@ -201,7 +201,7 @@ export class OrdersController {
   @ApiOperation({
     summary: '공장 알림 설정/확인(클리어)',
     description:
-      'body.set=assignment → 작업자·주문매장 변경 경고등. body 없음 → factoryAlert 클리어.',
+      'body.set=worker|storeRegion|assignment → 배정 변경 경고등. body 없음 → factoryAlert 클리어.',
   })
   @ApiOkResponse({ description: '갱신된 주문' })
   clearFactoryAlert(
