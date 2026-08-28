@@ -42,6 +42,9 @@ import {
 } from './order-bulk-import';
 import { UpdateOrderDto } from './dto/update-order.dto';
 
+/** 주문관리에서 작업자·주문매장 변경 시 포장/출고/배송에 표시 */
+export const ASSIGNMENT_CHANGE_ALERT = '작업자·주문매장 변경';
+
 const orderInclude = {
   items: true,
   shipment: true,
@@ -638,24 +641,55 @@ export class OrdersService {
       activityAction = AdminActivityAction.ORDER_CONFIRM;
       summarySuffix = '주문확인 클릭';
     } else if (dto.action === 'worker') {
+      if (order.packDept) {
+        throw new BadRequestException(
+          '포장구분 선택 후에는 작업자를 변경할 수 없습니다.',
+        );
+      }
       if (!dto.packagingWorker) {
         throw new BadRequestException('작업자(매장/공장)를 선택해 주세요.');
       }
       data.packagingWorker = dto.packagingWorker;
+      data.factoryAlert = ASSIGNMENT_CHANGE_ALERT;
       activityAction = AdminActivityAction.WORKER_SAVE;
       summarySuffix = `작업자 ${dto.packagingWorker === 'STORE' ? '매장' : '공장'} 저장`;
     } else if (dto.action === 'workerClear') {
-      if (order.readyForShipment) {
+      if (order.packDept) {
         throw new BadRequestException(
-          '배송관리 이관 후에는 작업자를 초기화할 수 없습니다.',
+          '포장구분 선택 후에는 작업자를 초기화할 수 없습니다.',
         );
       }
       if (!order.packagingWorker) {
         throw new BadRequestException('초기화할 작업자가 없습니다.');
       }
       data.packagingWorker = null;
+      data.factoryAlert = ASSIGNMENT_CHANGE_ALERT;
       activityAction = AdminActivityAction.WORKER_SAVE;
       summarySuffix = '작업자 초기화';
+    } else if (dto.action === 'setStoreRegion') {
+      if (order.packDept) {
+        throw new BadRequestException(
+          '포장구분 선택 후에는 주문매장을 변경할 수 없습니다.',
+        );
+      }
+      if (!dto.storeRegion) {
+        throw new BadRequestException('주문매장(남부/중부/서부)을 선택해 주세요.');
+      }
+      data.storeRegion =
+        dto.storeRegion === 'NAMBU'
+          ? AdminRegion.NAMBU
+          : dto.storeRegion === 'JUNGBU'
+            ? AdminRegion.JUNGBU
+            : AdminRegion.SEOBU;
+      data.factoryAlert = ASSIGNMENT_CHANGE_ALERT;
+      activityAction = AdminActivityAction.WORKER_SAVE;
+      summarySuffix = `주문매장 ${regionLabel(
+        dto.storeRegion === 'NAMBU'
+          ? AdminRegion.NAMBU
+          : dto.storeRegion === 'JUNGBU'
+            ? AdminRegion.JUNGBU
+            : AdminRegion.SEOBU,
+      )} 저장`;
     } else if (dto.action === 'payment') {
       if (order.paymentDone) {
         throw new BadRequestException('이미 결제완료가 확인되었습니다.');
@@ -926,6 +960,9 @@ export class OrdersService {
           : PackDept.FACTORY_PACK;
       data.storagePlace =
         dto.packDept === 'SOCK_PACK' ? '양말' : '공장';
+      if (order.factoryAlert === ASSIGNMENT_CHANGE_ALERT) {
+        data.factoryAlert = null;
+      }
       activityAction = AdminActivityAction.PACK_DEPT_SAVE;
       summarySuffix = `포장구분 ${dto.packDept === 'SOCK_PACK' ? '양말부포장' : '공장포장'} 저장`;
     } else if (dto.action === 'completePack') {
