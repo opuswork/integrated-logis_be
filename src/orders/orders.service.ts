@@ -681,13 +681,11 @@ export class OrdersService {
       activityAction = AdminActivityAction.WORKER_SAVE;
       summarySuffix = '작업자 초기화';
     } else if (dto.action === 'assignmentReset') {
+      // 서버 배정값 유지 — readyForShipment 유지 + ○수정만 점등
       assertAssignmentEditable(order);
-      if (order.packagingWorker) {
-        data.packagingWorker = null;
-      }
       data.factoryAlert = ASSIGNMENT_CHANGE_ALERT;
       activityAction = AdminActivityAction.WORKER_SAVE;
-      summarySuffix = '작업자·주문매장 재편집';
+      summarySuffix = '작업자·주문매장 재편집 알림';
     } else if (dto.action === 'setStoreRegion') {
       assertAssignmentEditable(order);
       if (!dto.storeRegion) {
@@ -1185,7 +1183,27 @@ export class OrdersService {
     return updated;
   }
 
-  async clearFactoryAlert(id: number, actor: AuthUserPayload) {
+  async clearFactoryAlert(
+    id: number,
+    actor: AuthUserPayload,
+    dto?: { set?: 'assignment' },
+  ) {
+    if (dto?.set === 'assignment') {
+      if (actor.role !== 'admin') {
+        throw new ForbiddenException(
+          '작업자·주문매장 변경 경고는 매장 관리자만 설정할 수 있습니다.',
+        );
+      }
+      const order = await this.findOne(id);
+      this.assertCanMutateOrderRegion(order, actor);
+      assertAssignmentEditable(order);
+      return this.prisma.order.update({
+        where: { id },
+        data: { factoryAlert: ASSIGNMENT_CHANGE_ALERT },
+        include: orderInclude,
+      });
+    }
+
     if (actor.role !== 'factory' && actor.role !== 'admin') {
       throw new ForbiddenException(
         '관리자(매장·공장)만 처리할 수 있습니다.',
