@@ -14,6 +14,7 @@ import * as nodemailer from 'nodemailer';
 import type { Transporter } from 'nodemailer';
 import { MessageNotReceivedError, SolapiMessageService } from 'solapi';
 
+import { announceLogin } from '../chat/chat-presence';
 import {
   normalizeEmail,
   normalizePhone,
@@ -237,6 +238,16 @@ export class AuthService {
         adminRegion,
         sv: bumped.sessionVersion,
       };
+
+      // 관리자 라이브 채팅 접속 알림 (실패해도 로그인은 계속)
+      await announceLogin(this.prisma, {
+        id: user.id,
+        username: user.username,
+        fullname: user.fullname,
+        role: user.role,
+        adminRegion: user.adminRegion,
+        canApproveGreeting: user.canApproveGreeting === true,
+      });
 
       return {
         message: '로그인되었습니다.',

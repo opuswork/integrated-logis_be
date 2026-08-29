@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  ChatMessage: 'ChatMessage',
   Partner: 'Partner',
   Church: 'Church',
   Order: 'Order',
@@ -97,6 +98,19 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const ChatMessageScalarFieldEnum = {
+  id: 'id',
+  kind: 'kind',
+  body: 'body',
+  senderName: 'senderName',
+  senderLabel: 'senderLabel',
+  senderId: 'senderId',
+  createdAt: 'createdAt'
+} as const
+
+export type ChatMessageScalarFieldEnum = (typeof ChatMessageScalarFieldEnum)[keyof typeof ChatMessageScalarFieldEnum]
 
 
 export const PartnerScalarFieldEnum = {
