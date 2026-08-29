@@ -23,6 +23,14 @@ export function normalizePhone(phone: string) {
   return phone.replace(/[^\d]/g, '');
 }
 
+/**
+ * 관리자가 대리 생성한 계정의 초기 비밀번호. 아이디(연락처 숫자)와 같습니다.
+ * 휴대폰 인증 로그인이 붙기 전까지 쓰는 임시 규칙입니다.
+ */
+export function initialPasswordFromPhone(phone: string) {
+  return normalizePhone(phone);
+}
+
 export function normalizeEmail(email: string) {
   return email.trim().toLowerCase();
 }
