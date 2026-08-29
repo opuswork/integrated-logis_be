@@ -14,6 +14,7 @@ import {
   initialPasswordFromPhone,
   normalizePhone,
   normalizeUsername,
+  verifyPassword,
 } from '../common/member-auth';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateMemberDto } from './dto/create-member.dto';
@@ -294,6 +295,33 @@ export class MembersService {
         '회원가입에 실패했습니다. 잠시 후 다시 시도해 주세요.',
       );
     }
+  }
+
+  /**
+   * 비밀번호가 아직 초기값(연락처 숫자)인지 확인합니다.
+   * 초기값이면 이미 로그인 가능한 상태라 초기화가 필요 없습니다.
+   */
+  async getPasswordState(id: number, actor: AuthUserPayload) {
+    this.assertAdmin(actor);
+
+    const member = await this.prisma.user.findUnique({
+      where: { id },
+      select: { id: true, phone: true, role: true, password: true },
+    });
+
+    if (!member) {
+      throw new NotFoundException('회원 정보를 찾을 수 없습니다.');
+    }
+
+    const initialPassword = initialPasswordFromPhone(member.phone);
+    const resettable =
+      member.role === 'MEMBER' && /^01[016789]\d{8}$/.test(initialPassword);
+
+    return {
+      resettable,
+      isInitial:
+        resettable && (await verifyPassword(initialPassword, member.password)),
+    };
   }
 
   /** 비밀번호를 초기값(연락처 숫자)으로 되돌립니다. 대리 생성 계정 구제용. */
