@@ -5,12 +5,11 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { randomUUID } from 'node:crypto';
-
 import type { AuthUserPayload } from '../auth/jwt.strategy';
 import {
   formatPhone,
   hashPassword,
+  initialPasswordFromPhone,
   normalizePhone,
 } from '../common/member-auth';
 import { GreetingImageStorageService } from '../greeting-form/greeting-image-storage.service';
@@ -279,7 +278,8 @@ export class OrdersService {
       phone: formatPhone(digits),
       phoneDigits: digits,
       churchId: profile?.churchId ?? null,
-      passwordHash: await hashPassword(randomUUID()),
+      // 휴대폰 인증 전까지 쓰는 초기 비밀번호 = 아이디와 같은 연락처 숫자
+      passwordHash: await hashPassword(initialPasswordFromPhone(digits)),
     };
   }
 
