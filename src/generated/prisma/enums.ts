@@ -50,6 +50,14 @@ export const OrderStatus = {
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
 
 
+export const ChatMessageKind = {
+  MESSAGE: 'MESSAGE',
+  SYSTEM: 'SYSTEM'
+} as const
+
+export type ChatMessageKind = (typeof ChatMessageKind)[keyof typeof ChatMessageKind]
+
+
 export const StockLedgerType = {
   INITIAL: 'INITIAL',
   ADDITION: 'ADDITION',

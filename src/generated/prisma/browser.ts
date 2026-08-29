@@ -23,6 +23,11 @@ export * from './enums.js';
  */
 export type User = Prisma.UserModel
 /**
+ * Model ChatMessage
+ * * 매장·공장 관리자 공용 라이브 채팅
+ */
+export type ChatMessage = Prisma.ChatMessageModel
+/**
  * Model Partner
  * 
  */

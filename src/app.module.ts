@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { ChatModule } from './chat/chat.module';
 import { ChurchesModule } from './churches/churches.module';
 import { GreetingFormModule } from './greeting-form/greeting-form.module';
 import { MembersModule } from './members/members.module';
@@ -29,6 +30,7 @@ import { StockInventoryModule } from './stock-inventory/stock-inventory.module';
     AuthModule,
     PostOfficeModule,
     PartnersModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],

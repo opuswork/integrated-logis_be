@@ -69,10 +69,33 @@ model User {
   greetingForms GreetingForm[]
   adminActivities AdminActivity[]
   partners Partner[]
+  chatMessages ChatMessage[]
 
   // Relation to the Church model (Moved inside the block)
   churchId  Int?
   church    Church?  @relation(fields: [churchId], references: [id])
+}
+
+/** 관리자 라이브 채팅 메시지 종류 */
+enum ChatMessageKind {
+  MESSAGE // 관리자가 입력한 대화
+  SYSTEM  // 접속 알림 등 자동 메시지
+}
+
+/** 매장·공장 관리자 공용 라이브 채팅 */
+model ChatMessage {
+  id        Int             @id @default(autoincrement())
+  kind      ChatMessageKind @default(MESSAGE)
+  body      String
+  /** 표시용 스냅샷 (회원 정보가 바뀌어도 과거 대화는 그대로) */
+  senderName  String @map("sender_name")
+  /** 예: 남부매장 관리자, 공장관리자 */
+  senderLabel String @map("sender_label")
+  senderId    Int?   @map("sender_id")
+  sender      User?  @relation(fields: [senderId], references: [id], onDelete: SetNull)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
 }
 
 model Partner {
