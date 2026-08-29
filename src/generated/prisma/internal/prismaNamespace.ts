@@ -1216,6 +1216,7 @@ export const UserScalarFieldEnum = {
   adminRegion: 'adminRegion',
   canApproveGreeting: 'canApproveGreeting',
   sessionVersion: 'sessionVersion',
+  accountSource: 'accountSource',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   churchId: 'churchId'
@@ -1491,6 +1492,20 @@ export type ListEnumAdminRegionFieldRefInput<$PrismaModel> = FieldRefInputType<$
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'AccountSource'
+ */
+export type EnumAccountSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountSource'>
+    
+
+
+/**
+ * Reference to a field of type 'AccountSource[]'
+ */
+export type ListEnumAccountSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountSource[]'>
     
 
 

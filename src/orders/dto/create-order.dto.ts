@@ -84,6 +84,22 @@ export class CreateShipmentDto {
   deliveredAt?: string;
 }
 
+export class OrdererProfileDto {
+  @ApiProperty({ example: '홍길동' })
+  @IsString()
+  fullname!: string;
+
+  @ApiProperty({ example: '010-1234-5678' })
+  @IsString()
+  phone!: string;
+
+  @ApiPropertyOptional({ example: 12 })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  churchId?: number;
+}
+
 export class CreateOrderDto {
   @ApiProperty({ example: 'ORD-2026-000001' })
   @IsString()
@@ -118,6 +134,16 @@ export class CreateOrderDto {
   @IsOptional()
   @IsString()
   extraNote?: string;
+
+  @ApiPropertyOptional({
+    type: OrdererProfileDto,
+    description:
+      '관리자 대리작성 시 주문자 정보. 연락처로 기존 회원을 찾고 없으면 계정을 생성해 주문 소유자로 연결합니다.',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => OrdererProfileDto)
+  ordererProfile?: OrdererProfileDto;
 
   @ApiPropertyOptional({ type: [CreateOrderItemDto] })
   @IsOptional()

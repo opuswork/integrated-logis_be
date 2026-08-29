@@ -18,6 +18,15 @@ export const Role = {
 export type Role = (typeof Role)[keyof typeof Role]
 
 
+export const AccountSource = {
+  SELF_SIGNUP: 'SELF_SIGNUP',
+  ADMIN_ORDER: 'ADMIN_ORDER',
+  BULK_IMPORT: 'BULK_IMPORT'
+} as const
+
+export type AccountSource = (typeof AccountSource)[keyof typeof AccountSource]
+
+
 export const AdminRegion = {
   JUNGBU: 'JUNGBU',
   NAMBU: 'NAMBU',

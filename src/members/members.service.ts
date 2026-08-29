@@ -27,6 +27,7 @@ const userPublicSelect = {
   email: true,
   role: true,
   adminRegion: true,
+  accountSource: true,
   churchId: true,
   church: {
     select: {
@@ -148,6 +149,50 @@ export class MembersService {
     }
   }
 
+  /** 주문서 주문자 자동완성: 이름 부분일치 회원 (관리자 전용) */
+  async searchByName(qRaw: string, actor: AuthUserPayload) {
+    this.assertAdmin(actor);
+
+    const q = qRaw.trim();
+    if (!q) {
+      return [];
+    }
+
+    try {
+      const users = await this.prisma.user.findMany({
+        where: {
+          role: 'MEMBER',
+          fullname: { contains: q, mode: 'insensitive' },
+        },
+        select: {
+          id: true,
+          fullname: true,
+          phone: true,
+          churchId: true,
+          church: { select: { name: true } },
+        },
+        orderBy: { fullname: 'asc' },
+        take: 10,
+      });
+
+      return users.map((user) => ({
+        id: user.id,
+        fullname: user.fullname,
+        phone: user.phone,
+        churchId: user.churchId,
+        churchName: user.church?.name ?? '',
+      }));
+    } catch (error) {
+      if (error instanceof ForbiddenException) {
+        throw error;
+      }
+      console.error('member search failed:', error);
+      throw new InternalServerErrorException(
+        '회원 검색에 실패했습니다. 잠시 후 다시 시도해 주세요.',
+      );
+    }
+  }
+
   async findByUsername(usernameRaw: string, actor: AuthUserPayload) {
     this.assertAdmin(actor);
 
@@ -226,6 +271,7 @@ export class MembersService {
           email: values.email,
           password: await hashPassword(values.password),
           role: 'MEMBER',
+          accountSource: 'SELF_SIGNUP',
           churchId: dto.churchId ?? null,
         },
         select: userPublicSelect,
@@ -622,6 +668,7 @@ export class MembersService {
             email: values.email,
             password: await hashPassword(values.password),
             role: 'MEMBER',
+            accountSource: 'BULK_IMPORT',
             churchId,
           },
           select: { id: true, username: true },
