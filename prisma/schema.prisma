@@ -20,6 +20,13 @@ enum Role {
   FACTORY
 }
 
+/** 계정 생성 경로. SELF_SIGNUP 이외는 본인확인 전 계정 (추후 휴대폰 인증 대상) */
+enum AccountSource {
+  SELF_SIGNUP // /members/signup 직접 가입
+  ADMIN_ORDER // 관리자가 주문서 작성 중 대리 생성
+  BULK_IMPORT // 엑셀 일괄 등록
+}
+
 /** 지역 서브 관리자. ADMIN + null = Super admin */
 enum AdminRegion {
   JUNGBU // 중부(덕소)
@@ -54,6 +61,8 @@ model User {
   canApproveGreeting Boolean @default(false)
   /** Incremented on each login; JWT `sv` must match or session is rejected. */
   sessionVersion Int @default(0)
+  /** 계정 생성 경로 (직접가입 / 주문서 대리생성 / 일괄등록) */
+  accountSource AccountSource @default(SELF_SIGNUP) @map("account_source")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   orders    Order[]  // One-to-many relationship: A user can place many orders

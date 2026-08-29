@@ -49,8 +49,11 @@ export class OrdersController {
     description: 'Order, OrderItem[], Shipment를 한 번에 생성할 수 있습니다.',
   })
   @ApiCreatedResponse({ description: '생성된 주문 (items, shipment 포함)' })
-  create(@Body() createOrderDto: CreateOrderDto) {
-    return this.ordersService.create(createOrderDto);
+  create(
+    @Body() createOrderDto: CreateOrderDto,
+    @CurrentUser() user: AuthUserPayload,
+  ) {
+    return this.ordersService.create(createOrderDto, user);
   }
 
   @Post('bulk-import')

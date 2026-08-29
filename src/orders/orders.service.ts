@@ -5,9 +5,17 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
+import { randomUUID } from 'node:crypto';
+
 import type { AuthUserPayload } from '../auth/jwt.strategy';
+import {
+  formatPhone,
+  hashPassword,
+  normalizePhone,
+} from '../common/member-auth';
 import { GreetingImageStorageService } from '../greeting-form/greeting-image-storage.service';
 import {
+  AccountSource,
   AdminActivityAction,
   AdminRegion,
   FulfillmentType,
@@ -15,6 +23,7 @@ import {
   PackDept,
   PackagingWorker,
   Prisma,
+  Role,
   StockLedgerType,
 } from '../generated/prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
@@ -155,6 +164,19 @@ function formatActivityTimestamp(date: Date) {
   return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${String(date.getHours()).padStart(2, '0')}시 ${String(date.getMinutes()).padStart(2, '0')}분 ${String(date.getSeconds()).padStart(2, '0')}초`;
 }
 
+/** 주문 소유자 결정 결과. orderer는 접수 시점에 회원 조회/생성이 필요한 경우 */
+type OrderOwnerPlan =
+  | { kind: 'fixed'; userId: number }
+  | {
+      kind: 'orderer';
+      fallbackUserId: number;
+      fullname: string;
+      phone: string;
+      phoneDigits: string;
+      churchId: number | null;
+      passwordHash: string;
+    };
+
 function mapShipmentInput(shipment: CreateShipmentDto) {
   return {
     fulfillmentType: shipment.fulfillmentType,
@@ -177,14 +199,18 @@ export class OrdersService {
     private readonly greetingImages: GreetingImageStorageService,
   ) {}
 
-  create(createOrderDto: CreateOrderDto) {
+  async create(createOrderDto: CreateOrderDto, actor?: AuthUserPayload) {
+    const ownerPlan = await this.planOrderOwner(createOrderDto, actor);
+
     return this.prisma.$transaction(async (tx) => {
+      const userId = await this.resolveOrderOwner(tx, ownerPlan);
+
       await this.deductStockForItems(tx, createOrderDto.items ?? []);
 
       return tx.order.create({
         data: {
           orderNumber: createOrderDto.orderNumber,
-          userId: createOrderDto.userId,
+          userId,
           status: createOrderDto.status,
           totalAmount: createOrderDto.totalAmount,
           notes: createOrderDto.notes,
@@ -206,6 +232,123 @@ export class OrdersService {
         include: orderInclude,
       });
     });
+  }
+
+  /**
+   * 주문 소유자를 정합니다. 관리자 대리작성이면 주문자 연락처로 기존 회원을 찾고,
+   * 없으면 계정을 새로 만들어(ADMIN_ORDER) 그 회원 소유로 접수합니다.
+   * 비밀번호 해시는 트랜잭션 밖에서 미리 계산합니다.
+   */
+  private async planOrderOwner(
+    dto: CreateOrderDto,
+    actor?: AuthUserPayload,
+  ): Promise<OrderOwnerPlan> {
+    if (!actor) {
+      return { kind: 'fixed', userId: dto.userId };
+    }
+
+    if (actor.role !== 'admin') {
+      return { kind: 'fixed', userId: actor.id };
+    }
+
+    if (dto.userId && dto.userId !== actor.id) {
+      const target = await this.prisma.user.findUnique({
+        where: { id: dto.userId },
+        select: { id: true },
+      });
+      if (!target) {
+        throw new BadRequestException('주문자 회원 정보를 찾을 수 없습니다.');
+      }
+      return { kind: 'fixed', userId: target.id };
+    }
+
+    const fallbackUserId = dto.userId ?? actor.id;
+    const profile = dto.ordererProfile;
+    const fullname = profile?.fullname?.trim() ?? '';
+    const digits = normalizePhone(profile?.phone ?? '');
+
+    // 연락처가 휴대폰 형식이 아니면 계정을 만들지 않고 접수만 진행합니다.
+    if (fullname.length < 2 || !/^01[016789]\d{8}$/.test(digits)) {
+      return { kind: 'fixed', userId: fallbackUserId };
+    }
+
+    return {
+      kind: 'orderer',
+      fallbackUserId,
+      fullname,
+      phone: formatPhone(digits),
+      phoneDigits: digits,
+      churchId: profile?.churchId ?? null,
+      passwordHash: await hashPassword(randomUUID()),
+    };
+  }
+
+  private async resolveOrderOwner(
+    tx: Prisma.TransactionClient,
+    plan: OrderOwnerPlan,
+  ) {
+    if (plan.kind === 'fixed') {
+      return plan.userId;
+    }
+
+    const matches = await tx.user.findMany({
+      where: { phone: { in: [plan.phone, plan.phoneDigits] } },
+      select: { id: true, role: true },
+      orderBy: { id: 'asc' },
+      take: 5,
+    });
+    const existing =
+      matches.find((user) => user.role === Role.MEMBER) ?? matches[0];
+    if (existing) {
+      return existing.id;
+    }
+
+    const username = await this.allocateOrdererUsername(tx, plan.phoneDigits);
+    if (!username) {
+      return plan.fallbackUserId;
+    }
+
+    const church =
+      plan.churchId != null
+        ? await tx.church.findUnique({
+            where: { id: plan.churchId },
+            select: { id: true },
+          })
+        : null;
+
+    const created = await tx.user.create({
+      data: {
+        fullname: plan.fullname,
+        username,
+        phone: plan.phone,
+        password: plan.passwordHash,
+        role: Role.MEMBER,
+        accountSource: AccountSource.ADMIN_ORDER,
+        churchId: church?.id ?? null,
+      },
+      select: { id: true },
+    });
+
+    return created.id;
+  }
+
+  /** 아이디는 연락처 숫자. 이미 쓰이고 있으면 숫자 접미사를 붙입니다. */
+  private async allocateOrdererUsername(
+    tx: Prisma.TransactionClient,
+    phoneDigits: string,
+  ) {
+    for (let attempt = 0; attempt < 20; attempt += 1) {
+      const candidate =
+        attempt === 0 ? phoneDigits : `${phoneDigits}${attempt + 1}`;
+      const taken = await tx.user.findUnique({
+        where: { username: candidate },
+        select: { id: true },
+      });
+      if (!taken) {
+        return candidate;
+      }
+    }
+    return null;
   }
 
   /**

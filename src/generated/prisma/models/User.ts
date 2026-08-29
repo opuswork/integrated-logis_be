@@ -49,6 +49,7 @@ export type UserMinAggregateOutputType = {
   adminRegion: $Enums.AdminRegion | null
   canApproveGreeting: boolean | null
   sessionVersion: number | null
+  accountSource: $Enums.AccountSource | null
   createdAt: Date | null
   updatedAt: Date | null
   churchId: number | null
@@ -65,6 +66,7 @@ export type UserMaxAggregateOutputType = {
   adminRegion: $Enums.AdminRegion | null
   canApproveGreeting: boolean | null
   sessionVersion: number | null
+  accountSource: $Enums.AccountSource | null
   createdAt: Date | null
   updatedAt: Date | null
   churchId: number | null
@@ -81,6 +83,7 @@ export type UserCountAggregateOutputType = {
   adminRegion: number
   canApproveGreeting: number
   sessionVersion: number
+  accountSource: number
   createdAt: number
   updatedAt: number
   churchId: number
@@ -111,6 +114,7 @@ export type UserMinAggregateInputType = {
   adminRegion?: true
   canApproveGreeting?: true
   sessionVersion?: true
+  accountSource?: true
   createdAt?: true
   updatedAt?: true
   churchId?: true
@@ -127,6 +131,7 @@ export type UserMaxAggregateInputType = {
   adminRegion?: true
   canApproveGreeting?: true
   sessionVersion?: true
+  accountSource?: true
   createdAt?: true
   updatedAt?: true
   churchId?: true
@@ -143,6 +148,7 @@ export type UserCountAggregateInputType = {
   adminRegion?: true
   canApproveGreeting?: true
   sessionVersion?: true
+  accountSource?: true
   createdAt?: true
   updatedAt?: true
   churchId?: true
@@ -246,6 +252,7 @@ export type UserGroupByOutputType = {
   adminRegion: $Enums.AdminRegion | null
   canApproveGreeting: boolean
   sessionVersion: number
+  accountSource: $Enums.AccountSource
   createdAt: Date
   updatedAt: Date
   churchId: number | null
@@ -285,6 +292,7 @@ export type UserWhereInput = {
   adminRegion?: Prisma.EnumAdminRegionNullableFilter<"User"> | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFilter<"User"> | boolean
   sessionVersion?: Prisma.IntFilter<"User"> | number
+  accountSource?: Prisma.EnumAccountSourceFilter<"User"> | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   churchId?: Prisma.IntNullableFilter<"User"> | number | null
@@ -306,6 +314,7 @@ export type UserOrderByWithRelationInput = {
   adminRegion?: Prisma.SortOrderInput | Prisma.SortOrder
   canApproveGreeting?: Prisma.SortOrder
   sessionVersion?: Prisma.SortOrder
+  accountSource?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   churchId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -330,6 +339,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   adminRegion?: Prisma.EnumAdminRegionNullableFilter<"User"> | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFilter<"User"> | boolean
   sessionVersion?: Prisma.IntFilter<"User"> | number
+  accountSource?: Prisma.EnumAccountSourceFilter<"User"> | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   churchId?: Prisma.IntNullableFilter<"User"> | number | null
@@ -351,6 +361,7 @@ export type UserOrderByWithAggregationInput = {
   adminRegion?: Prisma.SortOrderInput | Prisma.SortOrder
   canApproveGreeting?: Prisma.SortOrder
   sessionVersion?: Prisma.SortOrder
+  accountSource?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   churchId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -375,6 +386,7 @@ export type UserScalarWhereWithAggregatesInput = {
   adminRegion?: Prisma.EnumAdminRegionNullableWithAggregatesFilter<"User"> | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   sessionVersion?: Prisma.IntWithAggregatesFilter<"User"> | number
+  accountSource?: Prisma.EnumAccountSourceWithAggregatesFilter<"User"> | $Enums.AccountSource
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   churchId?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
@@ -390,6 +402,7 @@ export type UserCreateInput = {
   adminRegion?: $Enums.AdminRegion | null
   canApproveGreeting?: boolean
   sessionVersion?: number
+  accountSource?: $Enums.AccountSource
   createdAt?: Date | string
   updatedAt?: Date | string
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -410,6 +423,7 @@ export type UserUncheckedCreateInput = {
   adminRegion?: $Enums.AdminRegion | null
   canApproveGreeting?: boolean
   sessionVersion?: number
+  accountSource?: $Enums.AccountSource
   createdAt?: Date | string
   updatedAt?: Date | string
   churchId?: number | null
@@ -429,6 +443,7 @@ export type UserUpdateInput = {
   adminRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sessionVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  accountSource?: Prisma.EnumAccountSourceFieldUpdateOperationsInput | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -449,6 +464,7 @@ export type UserUncheckedUpdateInput = {
   adminRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sessionVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  accountSource?: Prisma.EnumAccountSourceFieldUpdateOperationsInput | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   churchId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -469,6 +485,7 @@ export type UserCreateManyInput = {
   adminRegion?: $Enums.AdminRegion | null
   canApproveGreeting?: boolean
   sessionVersion?: number
+  accountSource?: $Enums.AccountSource
   createdAt?: Date | string
   updatedAt?: Date | string
   churchId?: number | null
@@ -484,6 +501,7 @@ export type UserUpdateManyMutationInput = {
   adminRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sessionVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  accountSource?: Prisma.EnumAccountSourceFieldUpdateOperationsInput | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -499,6 +517,7 @@ export type UserUncheckedUpdateManyInput = {
   adminRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sessionVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  accountSource?: Prisma.EnumAccountSourceFieldUpdateOperationsInput | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   churchId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -515,6 +534,7 @@ export type UserCountOrderByAggregateInput = {
   adminRegion?: Prisma.SortOrder
   canApproveGreeting?: Prisma.SortOrder
   sessionVersion?: Prisma.SortOrder
+  accountSource?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   churchId?: Prisma.SortOrder
@@ -537,6 +557,7 @@ export type UserMaxOrderByAggregateInput = {
   adminRegion?: Prisma.SortOrder
   canApproveGreeting?: Prisma.SortOrder
   sessionVersion?: Prisma.SortOrder
+  accountSource?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   churchId?: Prisma.SortOrder
@@ -553,6 +574,7 @@ export type UserMinOrderByAggregateInput = {
   adminRegion?: Prisma.SortOrder
   canApproveGreeting?: Prisma.SortOrder
   sessionVersion?: Prisma.SortOrder
+  accountSource?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   churchId?: Prisma.SortOrder
@@ -610,6 +632,10 @@ export type IntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type EnumAccountSourceFieldUpdateOperationsInput = {
+  set?: $Enums.AccountSource
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -736,6 +762,7 @@ export type UserCreateWithoutPartnersInput = {
   adminRegion?: $Enums.AdminRegion | null
   canApproveGreeting?: boolean
   sessionVersion?: number
+  accountSource?: $Enums.AccountSource
   createdAt?: Date | string
   updatedAt?: Date | string
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -755,6 +782,7 @@ export type UserUncheckedCreateWithoutPartnersInput = {
   adminRegion?: $Enums.AdminRegion | null
   canApproveGreeting?: boolean
   sessionVersion?: number
+  accountSource?: $Enums.AccountSource
   createdAt?: Date | string
   updatedAt?: Date | string
   churchId?: number | null
@@ -789,6 +817,7 @@ export type UserUpdateWithoutPartnersInput = {
   adminRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sessionVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  accountSource?: Prisma.EnumAccountSourceFieldUpdateOperationsInput | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -808,6 +837,7 @@ export type UserUncheckedUpdateWithoutPartnersInput = {
   adminRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sessionVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  accountSource?: Prisma.EnumAccountSourceFieldUpdateOperationsInput | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   churchId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -826,6 +856,7 @@ export type UserCreateWithoutChurchInput = {
   adminRegion?: $Enums.AdminRegion | null
   canApproveGreeting?: boolean
   sessionVersion?: number
+  accountSource?: $Enums.AccountSource
   createdAt?: Date | string
   updatedAt?: Date | string
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -845,6 +876,7 @@ export type UserUncheckedCreateWithoutChurchInput = {
   adminRegion?: $Enums.AdminRegion | null
   canApproveGreeting?: boolean
   sessionVersion?: number
+  accountSource?: $Enums.AccountSource
   createdAt?: Date | string
   updatedAt?: Date | string
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -893,6 +925,7 @@ export type UserScalarWhereInput = {
   adminRegion?: Prisma.EnumAdminRegionNullableFilter<"User"> | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFilter<"User"> | boolean
   sessionVersion?: Prisma.IntFilter<"User"> | number
+  accountSource?: Prisma.EnumAccountSourceFilter<"User"> | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   churchId?: Prisma.IntNullableFilter<"User"> | number | null
@@ -908,6 +941,7 @@ export type UserCreateWithoutOrdersInput = {
   adminRegion?: $Enums.AdminRegion | null
   canApproveGreeting?: boolean
   sessionVersion?: number
+  accountSource?: $Enums.AccountSource
   createdAt?: Date | string
   updatedAt?: Date | string
   greetingForms?: Prisma.GreetingFormCreateNestedManyWithoutUserInput
@@ -927,6 +961,7 @@ export type UserUncheckedCreateWithoutOrdersInput = {
   adminRegion?: $Enums.AdminRegion | null
   canApproveGreeting?: boolean
   sessionVersion?: number
+  accountSource?: $Enums.AccountSource
   createdAt?: Date | string
   updatedAt?: Date | string
   churchId?: number | null
@@ -961,6 +996,7 @@ export type UserUpdateWithoutOrdersInput = {
   adminRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sessionVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  accountSource?: Prisma.EnumAccountSourceFieldUpdateOperationsInput | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   greetingForms?: Prisma.GreetingFormUpdateManyWithoutUserNestedInput
@@ -980,6 +1016,7 @@ export type UserUncheckedUpdateWithoutOrdersInput = {
   adminRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sessionVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  accountSource?: Prisma.EnumAccountSourceFieldUpdateOperationsInput | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   churchId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -998,6 +1035,7 @@ export type UserCreateWithoutAdminActivitiesInput = {
   adminRegion?: $Enums.AdminRegion | null
   canApproveGreeting?: boolean
   sessionVersion?: number
+  accountSource?: $Enums.AccountSource
   createdAt?: Date | string
   updatedAt?: Date | string
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -1017,6 +1055,7 @@ export type UserUncheckedCreateWithoutAdminActivitiesInput = {
   adminRegion?: $Enums.AdminRegion | null
   canApproveGreeting?: boolean
   sessionVersion?: number
+  accountSource?: $Enums.AccountSource
   createdAt?: Date | string
   updatedAt?: Date | string
   churchId?: number | null
@@ -1051,6 +1090,7 @@ export type UserUpdateWithoutAdminActivitiesInput = {
   adminRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sessionVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  accountSource?: Prisma.EnumAccountSourceFieldUpdateOperationsInput | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -1070,6 +1110,7 @@ export type UserUncheckedUpdateWithoutAdminActivitiesInput = {
   adminRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sessionVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  accountSource?: Prisma.EnumAccountSourceFieldUpdateOperationsInput | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   churchId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1088,6 +1129,7 @@ export type UserCreateWithoutGreetingFormsInput = {
   adminRegion?: $Enums.AdminRegion | null
   canApproveGreeting?: boolean
   sessionVersion?: number
+  accountSource?: $Enums.AccountSource
   createdAt?: Date | string
   updatedAt?: Date | string
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -1107,6 +1149,7 @@ export type UserUncheckedCreateWithoutGreetingFormsInput = {
   adminRegion?: $Enums.AdminRegion | null
   canApproveGreeting?: boolean
   sessionVersion?: number
+  accountSource?: $Enums.AccountSource
   createdAt?: Date | string
   updatedAt?: Date | string
   churchId?: number | null
@@ -1141,6 +1184,7 @@ export type UserUpdateWithoutGreetingFormsInput = {
   adminRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sessionVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  accountSource?: Prisma.EnumAccountSourceFieldUpdateOperationsInput | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -1160,6 +1204,7 @@ export type UserUncheckedUpdateWithoutGreetingFormsInput = {
   adminRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sessionVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  accountSource?: Prisma.EnumAccountSourceFieldUpdateOperationsInput | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   churchId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1179,6 +1224,7 @@ export type UserCreateManyChurchInput = {
   adminRegion?: $Enums.AdminRegion | null
   canApproveGreeting?: boolean
   sessionVersion?: number
+  accountSource?: $Enums.AccountSource
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1193,6 +1239,7 @@ export type UserUpdateWithoutChurchInput = {
   adminRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sessionVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  accountSource?: Prisma.EnumAccountSourceFieldUpdateOperationsInput | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -1212,6 +1259,7 @@ export type UserUncheckedUpdateWithoutChurchInput = {
   adminRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sessionVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  accountSource?: Prisma.EnumAccountSourceFieldUpdateOperationsInput | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -1231,6 +1279,7 @@ export type UserUncheckedUpdateManyWithoutChurchInput = {
   adminRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
   canApproveGreeting?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sessionVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  accountSource?: Prisma.EnumAccountSourceFieldUpdateOperationsInput | $Enums.AccountSource
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1304,6 +1353,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   adminRegion?: boolean
   canApproveGreeting?: boolean
   sessionVersion?: boolean
+  accountSource?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   churchId?: boolean
@@ -1326,6 +1376,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   adminRegion?: boolean
   canApproveGreeting?: boolean
   sessionVersion?: boolean
+  accountSource?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   churchId?: boolean
@@ -1343,6 +1394,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   adminRegion?: boolean
   canApproveGreeting?: boolean
   sessionVersion?: boolean
+  accountSource?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   churchId?: boolean
@@ -1360,12 +1412,13 @@ export type UserSelectScalar = {
   adminRegion?: boolean
   canApproveGreeting?: boolean
   sessionVersion?: boolean
+  accountSource?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   churchId?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "password" | "fullname" | "phone" | "email" | "role" | "adminRegion" | "canApproveGreeting" | "sessionVersion" | "createdAt" | "updatedAt" | "churchId", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "password" | "fullname" | "phone" | "email" | "role" | "adminRegion" | "canApproveGreeting" | "sessionVersion" | "accountSource" | "createdAt" | "updatedAt" | "churchId", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   orders?: boolean | Prisma.User$ordersArgs<ExtArgs>
   greetingForms?: boolean | Prisma.User$greetingFormsArgs<ExtArgs>
@@ -1407,6 +1460,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
      * * Incremented on each login; JWT `sv` must match or session is rejected.
      */
     sessionVersion: number
+    /**
+     * * 계정 생성 경로 (직접가입 / 주문서 대리생성 / 일괄등록)
+     */
+    accountSource: $Enums.AccountSource
     createdAt: Date
     updatedAt: Date
     churchId: number | null
@@ -1848,6 +1905,7 @@ export interface UserFieldRefs {
   readonly adminRegion: Prisma.FieldRef<"User", 'AdminRegion'>
   readonly canApproveGreeting: Prisma.FieldRef<"User", 'Boolean'>
   readonly sessionVersion: Prisma.FieldRef<"User", 'Int'>
+  readonly accountSource: Prisma.FieldRef<"User", 'AccountSource'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly churchId: Prisma.FieldRef<"User", 'Int'>
