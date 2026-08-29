@@ -85,6 +85,21 @@ export class MembersController {
     return this.membersService.searchByName(q ?? '', user);
   }
 
+  @Get(':id/password-state')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: '비밀번호 초기값 여부 확인 (관리자 JWT)',
+    description:
+      '현재 비밀번호가 초기값(연락처 숫자)인지 반환합니다. 초기값이면 초기화가 필요 없습니다.',
+  })
+  passwordState(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() user: AuthUserPayload,
+  ) {
+    return this.membersService.getPasswordState(id, user);
+  }
+
   @Get(':username')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
