@@ -25,9 +25,25 @@ export class GreetingFormService {
       );
     }
 
-    const businessCard = dto.businessCard?.trim() || '선택하세요';
-    if (businessCard !== '동봉' && businessCard !== '미동봉') {
-      throw new BadRequestException('명함 동봉 여부를 선택해 주세요.');
+    const businessCardRaw = dto.businessCard?.trim() || '';
+    const businessCard =
+      businessCardRaw === '동봉'
+        ? '동봉'
+        : businessCardRaw === '미동봉'
+          ? '미동봉'
+          : '미동봉';
+    const greetingNumber = dto.greetingNumber?.trim() ?? '';
+    const hasCatalog = ['1', '2', '3', '4'].includes(greetingNumber);
+    const includeSelf = dto.includeSelf === true;
+    const includeCard = businessCard === '동봉';
+
+    if (!hasCatalog && !includeSelf && !includeCard) {
+      throw new BadRequestException(
+        '인사장번호, 자체, 명함 중 하나 이상을 선택해 주세요.',
+      );
+    }
+    if (hasCatalog && !dto.content?.trim()) {
+      throw new BadRequestException('인사장내용을 입력해 주세요.');
     }
 
     const catalogImageByNumber: Record<string, string> = {
@@ -46,25 +62,25 @@ export class GreetingFormService {
       imageUrl = stored.imageUrl;
       imageStoredName = stored.imageStoredName;
       imageOriginalName = stored.imageOriginalName;
-    } else {
-      const catalogUrl = catalogImageByNumber[dto.greetingNumber];
-      if (!catalogUrl) {
-        throw new BadRequestException('인사장 번호를 선택해 주세요.');
-      }
-      // 카탈로그 미리보기 이미지를 저장 경로로 사용 (별도 첨부 없음)
+    } else if (hasCatalog) {
+      const catalogUrl = catalogImageByNumber[greetingNumber];
       imageUrl = catalogUrl;
-      imageStoredName = `catalog-greeting-${dto.greetingNumber}.jpg`;
-      imageOriginalName = `인사장${dto.greetingNumber}번.jpg`;
+      imageStoredName = `catalog-greeting-${greetingNumber}.jpg`;
+      imageOriginalName = `인사장${greetingNumber}번.jpg`;
+    } else {
+      imageUrl = '';
+      imageStoredName = '';
+      imageOriginalName = '';
     }
 
     return this.prisma.greetingForm.create({
       data: {
-        greetingNumber: dto.greetingNumber,
-        includeSelf: dto.includeSelf,
+        greetingNumber: hasCatalog ? greetingNumber : '',
+        includeSelf,
         imageUrl,
         imageStoredName,
         imageOriginalName,
-        content: dto.content.trim(),
+        content: dto.content?.trim() ?? '',
         quantity: dto.quantity,
         size: dto.size,
         productName: dto.linkedToOrder ? dto.productName?.trim() || null : null,

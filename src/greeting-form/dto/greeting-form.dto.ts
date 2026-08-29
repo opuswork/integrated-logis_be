@@ -26,17 +26,17 @@ function toInt(value: unknown): number {
 }
 
 export class CreateGreetingFormDto {
+  @IsOptional()
   @IsString()
-  @MinLength(1)
-  greetingNumber!: string;
+  greetingNumber?: string;
 
   @Transform(({ value }) => toBoolean(value))
   @IsBoolean()
   includeSelf!: boolean;
 
+  @IsOptional()
   @IsString()
-  @MinLength(1)
-  content!: string;
+  content?: string;
 
   @Transform(({ value }) => toInt(value))
   @IsInt()
