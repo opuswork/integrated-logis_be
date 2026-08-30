@@ -143,7 +143,17 @@ function regionLabel(region: AdminRegion | null | undefined) {
 function assertAssignmentEditable(order: {
   status: OrderStatus;
   packDept: PackDept | null;
+  packagingWorker?: PackagingWorker | null;
 }) {
+  if (
+    order.packagingWorker === PackagingWorker.FACTORY &&
+    (order.packDept === PackDept.FACTORY_PACK ||
+      order.packDept === PackDept.SOCK_PACK)
+  ) {
+    throw new BadRequestException(
+      '공장 작업 주문은 공장포장/양말부포장 지정 후 작업자·주문매장을 변경할 수 없습니다.',
+    );
+  }
   if (order.packDept) {
     throw new BadRequestException(
       '포장구분 선택 후에는 작업자·주문매장을 변경할 수 없습니다.',
