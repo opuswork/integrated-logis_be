@@ -477,6 +477,7 @@ export class OrdersService {
   findAll(userId?: number, opts?: { readyForShipment?: boolean }) {
     return this.healFinalConfirmedShippingOrders()
       .then(() => this.healStaleAssignmentAlerts())
+      .then(() => this.healReadyForShipmentFlags())
       .then(() =>
         this.prisma.order.findMany({
           where: {
@@ -500,6 +501,54 @@ export class OrdersService {
       },
       data: { status: OrderStatus.RECEIVED },
     });
+  }
+
+  /**
+   * readyForShipment를 5항목 계산과 맞춤.
+   * 공장+접수완료만으로 true가 켜진 건을 내리고, 5항목이 된 건은 올립니다.
+   */
+  private async healReadyForShipmentFlags() {
+    const candidates = await this.prisma.order.findMany({
+      where: {
+        status: { not: OrderStatus.CANCELLED },
+        packagingWorker: PackagingWorker.FACTORY,
+      },
+      select: {
+        id: true,
+        readyForShipment: true,
+        packagingWorker: true,
+        orderConfirmedAt: true,
+        paymentDone: true,
+        paymentAuthor: true,
+        greetingDone: true,
+        slipDone: true,
+        slipAuthor: true,
+        greetingForms: { select: { id: true } },
+        shipment: { select: { fulfillmentType: true } },
+      },
+    });
+    const turnOn: number[] = [];
+    const turnOff: number[] = [];
+    for (const order of candidates) {
+      const ready = this.computeReadyForShipment(order);
+      if (ready && !order.readyForShipment) {
+        turnOn.push(order.id);
+      } else if (!ready && order.readyForShipment) {
+        turnOff.push(order.id);
+      }
+    }
+    if (turnOn.length > 0) {
+      await this.prisma.order.updateMany({
+        where: { id: { in: turnOn } },
+        data: { readyForShipment: true },
+      });
+    }
+    if (turnOff.length > 0) {
+      await this.prisma.order.updateMany({
+        where: { id: { in: turnOff } },
+        data: { readyForShipment: false },
+      });
+    }
   }
 
   /**
