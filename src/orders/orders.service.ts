@@ -898,7 +898,6 @@ export class OrdersService {
         throw new BadRequestException('작업자(매장/공장)를 선택해 주세요.');
       }
       data.packagingWorker = dto.packagingWorker;
-      data.factoryAlert = WORKER_CHANGE_ALERT;
       activityAction = AdminActivityAction.WORKER_SAVE;
       summarySuffix = `작업자 ${dto.packagingWorker === 'STORE' ? '매장' : '공장'} 저장`;
     } else if (dto.action === 'workerClear') {
@@ -927,7 +926,6 @@ export class OrdersService {
           : dto.storeRegion === 'JUNGBU'
             ? AdminRegion.JUNGBU
             : AdminRegion.SEOBU;
-      data.factoryAlert = STORE_REGION_CHANGE_ALERT;
       activityAction = AdminActivityAction.WORKER_SAVE;
       summarySuffix = `주문매장 ${regionLabel(
         dto.storeRegion === 'NAMBU'
