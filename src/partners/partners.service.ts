@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
+import type { AuthUserPayload } from '../auth/jwt.strategy';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreatePartnerDto } from './dto/create-partner.dto';
 import { UpdatePartnerDto } from './dto/update-partner.dto';
@@ -13,15 +14,17 @@ import { UpdatePartnerDto } from './dto/update-partner.dto';
 export class PartnersService {
   constructor(private readonly prisma: PrismaService) {}
 
-  findAll(userId: number, q?: string) {
+  findAll(user: AuthUserPayload, q?: string) {
     const query = q?.trim();
+    const listAll = user.role === 'admin' || Boolean(query);
     return this.prisma.partner.findMany({
       where: {
-        userId,
+        ...(listAll ? {} : { userId: user.id }),
         ...(query
-          ? { name: { contains: query, mode: 'insensitive' } }
+          ? { name: { contains: query, mode: 'insensitive' as const } }
           : {}),
       },
+      take: query ? 30 : undefined,
       orderBy: [{ name: 'asc' }, { id: 'desc' }],
     });
   }
@@ -49,8 +52,8 @@ export class PartnersService {
     });
   }
 
-  async update(userId: number, id: number, dto: UpdatePartnerDto) {
-    await this.assertOwned(userId, id);
+  async update(user: AuthUserPayload, id: number, dto: UpdatePartnerDto) {
+    await this.assertCanMutate(user, id);
 
     const data: {
       name?: string;
@@ -92,13 +95,13 @@ export class PartnersService {
     });
   }
 
-  async remove(userId: number, id: number) {
-    await this.assertOwned(userId, id);
+  async remove(user: AuthUserPayload, id: number) {
+    await this.assertCanMutate(user, id);
     await this.prisma.partner.delete({ where: { id } });
     return { message: '거래처가 삭제되었습니다.' };
   }
 
-  private async assertOwned(userId: number, id: number) {
+  private async assertCanMutate(user: AuthUserPayload, id: number) {
     const partner = await this.prisma.partner.findUnique({
       where: { id },
       select: { id: true, userId: true },
@@ -106,7 +109,7 @@ export class PartnersService {
     if (!partner) {
       throw new NotFoundException('거래처를 찾을 수 없습니다.');
     }
-    if (partner.userId !== userId) {
+    if (user.role !== 'admin' && partner.userId !== user.id) {
       throw new ForbiddenException('본인 거래처만 수정·삭제할 수 있습니다.');
     }
     return partner;
