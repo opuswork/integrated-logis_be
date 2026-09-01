@@ -33,12 +33,14 @@ export class PartnersController {
   constructor(private readonly partnersService: PartnersService) {}
 
   @Get()
-  @ApiOperation({ summary: '내 거래처 목록 / 거래처명 검색' })
+  @ApiOperation({
+    summary: '거래처 목록 / 거래처명 검색 (q 있으면 전체 공유 검색)',
+  })
   findAll(
     @CurrentUser() user: AuthUserPayload,
     @Query('q') q?: string,
   ) {
-    return this.partnersService.findAll(user.id, q);
+    return this.partnersService.findAll(user, q);
   }
 
   @Post()
@@ -58,7 +60,7 @@ export class PartnersController {
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: UpdatePartnerDto,
   ) {
-    return this.partnersService.update(user.id, id, dto);
+    return this.partnersService.update(user, id, dto);
   }
 
   @Delete(':id')
@@ -67,6 +69,6 @@ export class PartnersController {
     @CurrentUser() user: AuthUserPayload,
     @Param('id', ParseIntPipe) id: number,
   ) {
-    return this.partnersService.remove(user.id, id);
+    return this.partnersService.remove(user, id);
   }
 }
