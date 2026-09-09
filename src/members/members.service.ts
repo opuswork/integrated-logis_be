@@ -355,7 +355,6 @@ export class MembersService {
         where: { id },
         data: {
           password: await hashPassword(initialPassword),
-          // 기존 로그인 세션 무효화
           sessionVersion: { increment: 1 },
         },
       });

@@ -13,8 +13,6 @@ export type JwtPayload = {
   username: string;
   role: AppRole;
   adminRegion?: AdminRegionCode | null;
-  /** Session version; must match User.sessionVersion */
-  sv?: number;
 };
 
 export type AuthUserPayload = {
@@ -52,7 +50,7 @@ export function isSuperAdminUser(params: {
   return role === 'admin' && !params.adminRegion;
 }
 
-const DUPLICATE_LOGIN_MESSAGE = '중복 로그인을 허용하지 않습니다';
+const SESSION_INVALID_MESSAGE = '로그인이 만료되었습니다. 다시 로그인해 주세요.';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -71,12 +69,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(payload: JwtPayload): Promise<AuthUserPayload> {
     const user = await this.prisma.user.findUnique({
       where: { id: payload.sub },
-      select: { id: true, sessionVersion: true },
+      select: { id: true },
     });
 
-    const tokenSv = typeof payload.sv === 'number' ? payload.sv : null;
-    if (!user || tokenSv === null || user.sessionVersion !== tokenSv) {
-      throw new UnauthorizedException(DUPLICATE_LOGIN_MESSAGE);
+    if (!user) {
+      throw new UnauthorizedException(SESSION_INVALID_MESSAGE);
     }
 
     const adminRegion = toAdminRegion(payload.adminRegion);
