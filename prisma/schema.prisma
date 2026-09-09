@@ -59,7 +59,7 @@ model User {
   adminRegion  AdminRegion?  // ADMIN일 때만 사용. null이면 Super admin
   /** Factory-G: 인사장완료 승인 가능 (username 01029647088) */
   canApproveGreeting Boolean @default(false)
-  /** Bumped on password reset so existing JWTs stop matching. */
+  /** 중복로그인 방지용. 현재 검증은 주석 처리되어 사용하지 않음. */
   sessionVersion Int @default(0)
   /** 계정 생성 경로 (직접가입 / 주문서 대리생성 / 일괄등록) */
   accountSource AccountSource @default(SELF_SIGNUP) @map("account_source")

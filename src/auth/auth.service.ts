@@ -230,7 +230,16 @@ export class AuthService {
         username: user.username,
         role,
         adminRegion,
+        // 중복로그인 방지 (비활성)
+        // sv: bumped.sessionVersion,
       };
+
+      // 중복로그인 방지 (비활성): 로그인할 때마다 sessionVersion을 올려 기존 JWT를 끊음
+      // const bumped = await this.prisma.user.update({
+      //   where: { id: user.id },
+      //   data: { sessionVersion: { increment: 1 } },
+      //   select: { sessionVersion: true },
+      // });
 
       // 관리자 라이브 채팅 접속 알림 (실패해도 로그인은 계속)
       await announceLogin(this.prisma, {

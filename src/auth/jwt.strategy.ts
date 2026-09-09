@@ -13,6 +13,8 @@ export type JwtPayload = {
   username: string;
   role: AppRole;
   adminRegion?: AdminRegionCode | null;
+  // 중복로그인 방지 (비활성)
+  // sv?: number;
 };
 
 export type AuthUserPayload = {
@@ -51,6 +53,8 @@ export function isSuperAdminUser(params: {
 }
 
 const SESSION_INVALID_MESSAGE = '로그인이 만료되었습니다. 다시 로그인해 주세요.';
+// 중복로그인 방지 (비활성)
+// const DUPLICATE_LOGIN_MESSAGE = '중복 로그인을 허용하지 않습니다';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -70,7 +74,15 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     const user = await this.prisma.user.findUnique({
       where: { id: payload.sub },
       select: { id: true },
+      // 중복로그인 방지 (비활성)
+      // select: { id: true, sessionVersion: true },
     });
+
+    // 중복로그인 방지 (비활성): JWT sv와 DB sessionVersion이 다르면 기존 세션 거부
+    // const tokenSv = typeof payload.sv === 'number' ? payload.sv : null;
+    // if (!user || tokenSv === null || user.sessionVersion !== tokenSv) {
+    //   throw new UnauthorizedException(DUPLICATE_LOGIN_MESSAGE);
+    // }
 
     if (!user) {
       throw new UnauthorizedException(SESSION_INVALID_MESSAGE);

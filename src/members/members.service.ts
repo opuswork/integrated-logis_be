@@ -355,7 +355,8 @@ export class MembersService {
         where: { id },
         data: {
           password: await hashPassword(initialPassword),
-          sessionVersion: { increment: 1 },
+          // 중복로그인/세션 무효화 (비활성): 기존 JWT를 끊기 위해 sessionVersion 증가
+          // sessionVersion: { increment: 1 },
         },
       });
 
