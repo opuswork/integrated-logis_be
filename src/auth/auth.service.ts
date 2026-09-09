@@ -211,7 +211,6 @@ export class AuthService {
           role: true,
           adminRegion: true,
           canApproveGreeting: true,
-          sessionVersion: true,
         },
       });
 
@@ -231,7 +230,6 @@ export class AuthService {
         username: user.username,
         role,
         adminRegion,
-        sv: user.sessionVersion,
       };
 
       // 관리자 라이브 채팅 접속 알림 (실패해도 로그인은 계속)

@@ -13,8 +13,6 @@ export type JwtPayload = {
   username: string;
   role: AppRole;
   adminRegion?: AdminRegionCode | null;
-  /** Session version; password reset bumps User.sessionVersion */
-  sv?: number;
 };
 
 export type AuthUserPayload = {
@@ -71,14 +69,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(payload: JwtPayload): Promise<AuthUserPayload> {
     const user = await this.prisma.user.findUnique({
       where: { id: payload.sub },
-      select: { id: true, sessionVersion: true },
+      select: { id: true },
     });
 
-    const tokenSv = typeof payload.sv === 'number' ? payload.sv : null;
     if (!user) {
-      throw new UnauthorizedException(SESSION_INVALID_MESSAGE);
-    }
-    if (tokenSv !== null && user.sessionVersion !== tokenSv) {
       throw new UnauthorizedException(SESSION_INVALID_MESSAGE);
     }
 
