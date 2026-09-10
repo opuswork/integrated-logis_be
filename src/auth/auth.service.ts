@@ -293,6 +293,7 @@ export class AuthService {
           adminRegion: true,
           canApproveGreeting: true,
           churchId: true,
+          memberType: true,
           church: {
             select: {
               id: true,
@@ -324,6 +325,7 @@ export class AuthService {
           isSuperAdmin: isSuperAdminUser({ role, adminRegion }),
           canApproveGreeting: user.canApproveGreeting === true,
           churchId: user.churchId,
+          memberType: user.memberType,
           church: user.church,
         },
       };
