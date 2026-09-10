@@ -172,6 +172,7 @@ export class MembersService {
           id: true,
           fullname: true,
           phone: true,
+          memberType: true,
           churchId: true,
           church: { select: { name: true } },
         },
@@ -183,6 +184,7 @@ export class MembersService {
         id: user.id,
         fullname: user.fullname,
         phone: user.phone,
+        memberType: user.memberType,
         churchId: user.churchId,
         churchName: user.church?.name ?? '',
       }));
@@ -653,6 +655,10 @@ export class MembersService {
     };
   }
 
+  private stripChongmuSuffix(name: string) {
+    return name.replace(/\s*\(총무\)/g, '').trim();
+  }
+
   async bulkImport(dto: BulkImportMembersDto) {
     const createMissingChurches = dto.createMissingChurches ?? true;
     const skipExisting = dto.skipExisting ?? true;
@@ -711,7 +717,7 @@ export class MembersService {
       }
 
       const signupDto: CreateMemberDto = {
-        fullname: row.fullname,
+        fullname: this.stripChongmuSuffix(row.fullname),
         username: row.username,
         phone: row.phone,
         password: row.password,

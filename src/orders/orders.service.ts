@@ -90,6 +90,7 @@ const orderInclude = {
       username: true,
       fullname: true,
       phone: true,
+      memberType: true,
       churchId: true,
       church: {
         select: {
