@@ -92,6 +92,7 @@ export const UserScalarFieldEnum = {
   canApproveGreeting: 'canApproveGreeting',
   sessionVersion: 'sessionVersion',
   accountSource: 'accountSource',
+  memberType: 'memberType',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   churchId: 'churchId'

@@ -1292,6 +1292,7 @@ export const UserScalarFieldEnum = {
   canApproveGreeting: 'canApproveGreeting',
   sessionVersion: 'sessionVersion',
   accountSource: 'accountSource',
+  memberType: 'memberType',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   churchId: 'churchId'
@@ -1594,6 +1595,20 @@ export type EnumAccountSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
  * Reference to a field of type 'AccountSource[]'
  */
 export type ListEnumAccountSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountSource[]'>
+    
+
+
+/**
+ * Reference to a field of type 'MemberType'
+ */
+export type EnumMemberTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MemberType'>
+    
+
+
+/**
+ * Reference to a field of type 'MemberType[]'
+ */
+export type ListEnumMemberTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MemberType[]'>
     
 
 

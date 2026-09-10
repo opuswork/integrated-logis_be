@@ -33,6 +33,12 @@ export class MemberPublicDto {
   @ApiPropertyOptional({ example: 'hong@example.com', nullable: true })
   email!: string | null;
 
+  @ApiProperty({
+    example: '관장',
+    enum: ['관장', '일반', '총무', '사장', '부사장', '상무'],
+  })
+  memberType!: string;
+
   @ApiProperty({ example: 'MEMBER', enum: ['MEMBER', 'ADMIN', 'FACTORY'] })
   role!: string;
 
