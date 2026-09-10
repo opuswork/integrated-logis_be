@@ -50,6 +50,21 @@ export class UpdateMemberDto {
   churchId?: number | null;
 
   @ApiPropertyOptional({
+    enum: ['GWANJANG', 'GENERAL', 'CHONGMU', 'SAJANG', 'BUSAJANG', 'SANGMU'],
+    description: '회원 직분. GWANJANG(관장) | GENERAL(일반) | CHONGMU(총무) | SAJANG(사장) | BUSAJANG(부사장) | SANGMU(상무)',
+  })
+  @IsOptional()
+  @IsString()
+  @IsIn(['GWANJANG', 'GENERAL', 'CHONGMU', 'SAJANG', 'BUSAJANG', 'SANGMU'])
+  memberType?:
+    | 'GWANJANG'
+    | 'GENERAL'
+    | 'CHONGMU'
+    | 'SAJANG'
+    | 'BUSAJANG'
+    | 'SANGMU';
+
+  @ApiPropertyOptional({
     enum: ['MEMBER', 'ADMIN', 'FACTORY'],
     description: '관리자만 변경 가능. MEMBER | ADMIN | FACTORY',
   })
