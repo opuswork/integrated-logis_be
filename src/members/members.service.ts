@@ -16,6 +16,7 @@ import {
   normalizeUsername,
   verifyPassword,
 } from '../common/member-auth';
+import { MemberType } from '../generated/prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { BulkImportMembersDto } from './dto/bulk-import.dto';
@@ -435,7 +436,8 @@ export class MembersService {
       dto.password === undefined &&
       dto.churchId === undefined &&
       dto.role === undefined &&
-      dto.adminRegion === undefined
+      dto.adminRegion === undefined &&
+      dto.memberType === undefined
     ) {
       throw new BadRequestException('수정할 항목이 없습니다.');
     }
@@ -457,6 +459,7 @@ export class MembersService {
       churchId?: number | null;
       role?: 'MEMBER' | 'ADMIN' | 'FACTORY';
       adminRegion?: 'JUNGBU' | 'NAMBU' | 'SEOBU' | null;
+      memberType?: MemberType;
     } = {};
 
     if (dto.role !== undefined || dto.adminRegion !== undefined) {
@@ -551,6 +554,10 @@ export class MembersService {
         }
         data.churchId = dto.churchId;
       }
+    }
+
+    if (dto.memberType !== undefined) {
+      data.memberType = dto.memberType;
     }
 
     try {
