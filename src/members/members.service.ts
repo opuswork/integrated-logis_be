@@ -163,8 +163,8 @@ export class MembersService {
     try {
       const users = await this.prisma.user.findMany({
         where: {
-          role: 'MEMBER',
           fullname: { contains: q, mode: 'insensitive' },
+          NOT: { role: 'ADMIN', adminRegion: null },
         },
         select: {
           id: true,
