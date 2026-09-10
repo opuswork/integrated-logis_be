@@ -79,7 +79,7 @@ export class MembersController {
   @ApiOperation({
     summary: '회원 이름 부분검색 (관리자 JWT)',
     description:
-      '주문서 주문자 자동완성용. 이름 부분일치 회원을 최대 10명 반환합니다.',
+      '주문서 주문자 자동완성용. 이름 부분일치 계정(최고관리자 제외)을 최대 10명 반환합니다.',
   })
   search(@Query('q') q: string, @CurrentUser() user: AuthUserPayload) {
     return this.membersService.searchByName(q ?? '', user);
