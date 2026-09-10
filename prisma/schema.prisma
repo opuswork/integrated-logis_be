@@ -27,6 +27,16 @@ enum AccountSource {
   BULK_IMPORT // 엑셀 일괄 등록
 }
 
+/** 회원 직분 */
+enum MemberType {
+  GWANJANG @map("관장")
+  GENERAL  @map("일반")
+  CHONGMU  @map("총무")
+  SAJANG   @map("사장")
+  BUSAJANG @map("부사장")
+  SANGMU   @map("상무")
+}
+
 /** 지역 서브 관리자. ADMIN + null = Super admin */
 enum AdminRegion {
   JUNGBU // 중부(덕소)
@@ -63,6 +73,8 @@ model User {
   sessionVersion Int @default(0)
   /** 계정 생성 경로 (직접가입 / 주문서 대리생성 / 일괄등록) */
   accountSource AccountSource @default(SELF_SIGNUP) @map("account_source")
+  /** 직분: 관장 / 일반 / 총무 / 사장 / 부사장 / 상무 */
+  memberType MemberType @default(GWANJANG) @map("member_type")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   orders    Order[]  // One-to-many relationship: A user can place many orders

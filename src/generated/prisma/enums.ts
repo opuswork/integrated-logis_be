@@ -27,6 +27,18 @@ export const AccountSource = {
 export type AccountSource = (typeof AccountSource)[keyof typeof AccountSource]
 
 
+export const MemberType = {
+  GWANJANG: 'GWANJANG',
+  GENERAL: 'GENERAL',
+  CHONGMU: 'CHONGMU',
+  SAJANG: 'SAJANG',
+  BUSAJANG: 'BUSAJANG',
+  SANGMU: 'SANGMU'
+} as const
+
+export type MemberType = (typeof MemberType)[keyof typeof MemberType]
+
+
 export const AdminRegion = {
   JUNGBU: 'JUNGBU',
   NAMBU: 'NAMBU',

@@ -30,6 +30,7 @@ const userPublicSelect = {
   role: true,
   adminRegion: true,
   accountSource: true,
+  memberType: true,
   churchId: true,
   church: {
     select: {
