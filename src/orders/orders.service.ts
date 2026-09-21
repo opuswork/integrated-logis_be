@@ -1679,7 +1679,31 @@ export class OrdersService {
     }
   }
 
-  remove(id: number) {
+  async remove(id: number, actor: AuthUserPayload) {
+    if (!actor.isSuperAdmin) {
+      throw new ForbiddenException(
+        '최고관리자만 주문서를 삭제할 수 있습니다.',
+      );
+    }
+
+    const order = await this.prisma.order.findUnique({
+      where: { id },
+      select: { id: true, status: true, orderConfirmedAt: true },
+    });
+
+    if (!order) {
+      throw new NotFoundException({ error: 'Not found' });
+    }
+
+    if (
+      order.status !== OrderStatus.PLACED ||
+      order.orderConfirmedAt != null
+    ) {
+      throw new BadRequestException(
+        '접수 상태의 주문서만 삭제할 수 있습니다.',
+      );
+    }
+
     return this.prisma.order.delete({ where: { id } });
   }
 
