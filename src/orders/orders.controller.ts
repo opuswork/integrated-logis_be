@@ -226,8 +226,15 @@ export class OrdersController {
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: '주문 삭제' })
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.ordersService.remove(id);
+  @ApiOperation({
+    summary: '주문 삭제',
+    description:
+      '최고관리자만, 접수(PLACED·주문확인 전) 상태 주문을 영구 삭제합니다.',
+  })
+  remove(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() user: AuthUserPayload,
+  ) {
+    return this.ordersService.remove(id, user);
   }
 }
