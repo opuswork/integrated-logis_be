@@ -18,6 +18,7 @@ import {
   LOW_STOCK_THRESHOLD,
   recordAdminStockChange,
 } from './stock-ledger';
+import { resolveStockChange } from './stock-quantity';
 
 type ParsedRow = {
   code: string;
@@ -34,20 +35,6 @@ type ParsedRow = {
   associatePrice: number;
   category: string;
 };
-
-/** When stock is set and capacity is missing, capacity = initial stock (e.g. 3 → 3/3). */
-function resolveStockMax(
-  stock: number | null | undefined,
-  stockMax: number | null | undefined,
-) {
-  if (stock === null || stock === undefined) {
-    return stockMax ?? null;
-  }
-  if (stockMax === null || stockMax === undefined) {
-    return stock;
-  }
-  return stockMax;
-}
 
 function normalizeHeader(value: unknown) {
   return String(value ?? '')
@@ -269,7 +256,13 @@ export class StockInventoryService {
     }
 
     const image = await this.resolveImageFields(file, dto.imageUrl);
-    const nextStock = dto.stock ?? null;
+    const nextStock = resolveStockChange({
+      previousStock: null,
+      previousStockMax: null,
+      stock: dto.stock ?? null,
+      stockMax: dto.stockMax,
+      stockIn: dto.stockIn,
+    });
 
     const created = await this.prisma.stockInventory.create({
       data: {
@@ -280,8 +273,8 @@ export class StockInventoryService {
         productName: dto.productName.trim(),
         spec: dto.spec?.trim() || null,
         unit: dto.unit,
-        stock: nextStock,
-        stockMax: resolveStockMax(nextStock, dto.stockMax ?? null),
+        stock: nextStock.stock,
+        stockMax: nextStock.stockMax,
         effectiveDate: new Date(dto.effectiveDate),
         priceOver500man: dto.priceOver500man,
         priceOver100man: dto.priceOver100man,
@@ -478,7 +471,13 @@ export class StockInventoryService {
             imageOriginalName: current.imageOriginalName,
           };
 
-    const nextStock = dto.stock ?? null;
+    const nextStock = resolveStockChange({
+      previousStock: current.stock,
+      previousStockMax: current.stockMax,
+      stock: dto.stock,
+      stockMax: dto.stockMax,
+      stockIn: dto.stockIn,
+    });
     const updated = await this.prisma.stockInventory.update({
       where: { id },
       data: {
@@ -489,8 +488,8 @@ export class StockInventoryService {
         productName: dto.productName.trim(),
         spec: dto.spec?.trim() || null,
         unit: dto.unit,
-        stock: nextStock,
-        stockMax: resolveStockMax(nextStock, dto.stockMax ?? null),
+        stock: nextStock.stock,
+        stockMax: nextStock.stockMax,
         effectiveDate: new Date(dto.effectiveDate),
         priceOver500man: dto.priceOver500man,
         priceOver100man: dto.priceOver100man,
@@ -538,6 +537,20 @@ export class StockInventoryService {
       }
     }
 
+    const touchesStock =
+      dto.stock !== undefined ||
+      dto.stockMax !== undefined ||
+      dto.stockIn !== undefined;
+    const nextStock = touchesStock
+      ? resolveStockChange({
+          previousStock: current.stock,
+          previousStockMax: current.stockMax,
+          stock: dto.stock,
+          stockMax: dto.stockMax,
+          stockIn: dto.stockIn,
+        })
+      : null;
+
     const updated = await this.prisma.stockInventory.update({
       where: { id },
       data: {
@@ -556,14 +569,8 @@ export class StockInventoryService {
           ? { spec: dto.spec?.trim() || null }
           : {}),
         ...(dto.unit !== undefined ? { unit: dto.unit } : {}),
-        ...(dto.stock !== undefined || dto.stockMax !== undefined
-          ? {
-              ...(dto.stock !== undefined ? { stock: dto.stock } : {}),
-              stockMax: resolveStockMax(
-                dto.stock !== undefined ? dto.stock : current.stock,
-                dto.stockMax !== undefined ? dto.stockMax : current.stockMax,
-              ),
-            }
+        ...(nextStock
+          ? { stock: nextStock.stock, stockMax: nextStock.stockMax }
           : {}),
         ...(dto.effectiveDate !== undefined
           ? { effectiveDate: new Date(dto.effectiveDate) }
@@ -587,7 +594,7 @@ export class StockInventoryService {
       },
     });
 
-    if (dto.stock !== undefined) {
+    if (touchesStock) {
       await recordAdminStockChange(this.prisma, {
         productId: updated.id,
         productName: updated.productName,
@@ -664,6 +671,14 @@ export class StockInventoryService {
           const before = await this.prisma.stockInventory.findUnique({
             where: { code: parsed.code },
           });
+          // 엑셀에 재고 칸이 비어 있으면 기존 재고를 건드리지 않는다
+          // (가격표만 다시 올릴 때 창고 수량이 날아가는 것을 막는다).
+          const nextStock = resolveStockChange({
+            previousStock: before?.stock,
+            previousStockMax: before?.stockMax,
+            stock: parsed.stock ?? undefined,
+            stockMax: parsed.stockMax ?? undefined,
+          });
           const updated = await this.prisma.stockInventory.update({
             where: { code: parsed.code },
             data: {
@@ -671,11 +686,8 @@ export class StockInventoryService {
               productName: parsed.productName,
               spec: parsed.spec,
               unit: parsed.unit,
-              stock: parsed.stock,
-              stockMax: resolveStockMax(
-                parsed.stock ?? null,
-                parsed.stockMax ?? null,
-              ),
+              stock: nextStock.stock,
+              stockMax: nextStock.stockMax,
               effectiveDate: parsed.effectiveDate,
               priceOver500man: parsed.priceOver500man,
               priceOver100man: parsed.priceOver100man,
@@ -705,10 +717,12 @@ export class StockInventoryService {
             spec: parsed.spec,
             unit: parsed.unit,
             stock: parsed.stock,
-            stockMax: resolveStockMax(
-              parsed.stock ?? null,
-              parsed.stockMax ?? null,
-            ),
+            stockMax: resolveStockChange({
+              previousStock: null,
+              previousStockMax: null,
+              stock: parsed.stock ?? null,
+              stockMax: parsed.stockMax ?? undefined,
+            }).stockMax,
             effectiveDate: parsed.effectiveDate,
             priceOver500man: parsed.priceOver500man,
             priceOver100man: parsed.priceOver100man,

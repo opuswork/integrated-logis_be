@@ -77,10 +77,15 @@ export class StockInventoryController {
           nullable: true,
           description: '창고 재고 (비우면 무제한)',
         },
+        stockIn: {
+          type: 'integer',
+          nullable: true,
+          description: '추가 입고 수량 (현재 재고와 누적 총 입고량에 가산)',
+        },
         stockMax: {
           type: 'integer',
           nullable: true,
-          description: '기준/최대 재고 (UI 현재/최대 표시)',
+          description: '누적 총 입고량 (UI "남은수량/총입고" 분모)',
         },
         effectiveDate: { type: 'string' },
         priceOver500man: { type: 'number' },
