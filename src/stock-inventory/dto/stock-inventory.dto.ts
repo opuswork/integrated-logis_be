@@ -106,9 +106,23 @@ export class CreateStockInventoryDto {
   stock?: number | null;
 
   @ApiPropertyOptional({
+    example: 50,
+    nullable: true,
+    description:
+      '추가 입고 수량. 현재 재고와 누적 총 입고량에 함께 더해집니다 (2/3 상품에 10 입고 → 12/13).',
+  })
+  @Transform(({ value }) => toOptionalStock(value))
+  @IsOptional()
+  @ValidateIf((_, value) => value !== null && value !== undefined)
+  @IsInt()
+  @Min(0)
+  stockIn?: number | null;
+
+  @ApiPropertyOptional({
     example: 30000,
     nullable: true,
-    description: '기준/최대 재고 (UI에서 현재/최대로 표시, 비우면 현재수량만)',
+    description:
+      '누적 총 입고량 (UI에서 "남은수량/총입고"의 분모). 보통 자동 계산되며 일괄등록에서만 직접 지정합니다.',
   })
   @Transform(({ value }) => toOptionalStock(value))
   @IsOptional()
