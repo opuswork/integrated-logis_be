@@ -15,203 +15,51 @@ import {
 } from './dto/stock-inventory.dto';
 import { ProductImageStorageService } from './product-image-storage.service';
 import {
-  LOW_STOCK_THRESHOLD,
-  recordAdminStockChange,
-} from './stock-ledger';
+  mapExcelRow,
+  pickCode,
+  pickField,
+  toDisplayString,
+} from './stock-import-row';
+import { LOW_STOCK_THRESHOLD, recordAdminStockChange } from './stock-ledger';
 import { resolveStockChange } from './stock-quantity';
 
-type ParsedRow = {
+/** 한 번에 처리할 수 있는 최대 행 수 (업로드 타임아웃 방지) */
+const MAX_IMPORT_ROWS = 1000;
+
+/** 미리보기 / 일괄등록에서 기존 상품 기본값으로 쓰는 필드 */
+const IMPORT_DEFAULT_SELECT = {
+  id: true,
+  code: true,
+  productName: true,
+  spec: true,
+  unit: true,
+  stock: true,
+  stockMax: true,
+  effectiveDate: true,
+  priceOver500man: true,
+  priceOver100man: true,
+  wholesalePrice: true,
+  associatePrice: true,
+  category: true,
+} as const;
+
+export type StockImportPreviewRow = {
+  /** 엑셀 행 번호 (헤더가 1행이므로 첫 데이터 행은 2) */
+  rowNumber: number;
+  status: 'CREATE' | 'UPDATE' | 'INVALID';
   code: string;
-  imageUrl?: string | null;
   productName: string;
-  spec?: string | null;
-  unit: number;
-  stock?: number | null;
-  stockMax?: number | null;
-  effectiveDate: Date;
-  priceOver500man: number;
-  priceOver100man: number;
-  wholesalePrice: number;
-  associatePrice: number;
+  spec: string | null;
+  unit: number | null;
   category: string;
+  stock: number | null;
+  stockIn: number | null;
+  currentStock: number | null;
+  nextStock: number | null;
+  effectiveDate: string | null;
+  wholesalePrice: number | null;
+  error?: string;
 };
-
-function normalizeHeader(value: unknown) {
-  return String(value ?? '')
-    .replace(/\s+/g, '')
-    .replace(/\n/g, '')
-    .trim()
-    .toLowerCase();
-}
-
-function parsePrice(value: unknown): number {
-  if (typeof value === 'number' && Number.isFinite(value)) {
-    return value;
-  }
-  const cleaned = String(value ?? '')
-    .replace(/,/g, '')
-    .replace(/₩/g, '')
-    .replace(/원/g, '')
-    .trim();
-  const n = Number(cleaned);
-  if (!Number.isFinite(n)) {
-    throw new Error(`가격을 파싱할 수 없습니다: ${String(value)}`);
-  }
-  return n;
-}
-
-function parseOptionalStock(value: unknown): number | null {
-  if (value === undefined || value === null) {
-    return null;
-  }
-  const raw = String(value).trim();
-  if (raw === '' || raw.toLowerCase() === 'null' || raw === '-') {
-    return null;
-  }
-  const n = Number(raw.replace(/,/g, ''));
-  if (!Number.isFinite(n) || n < 0) {
-    throw new Error(`재고 수량을 파싱할 수 없습니다: ${String(value)}`);
-  }
-  return Math.trunc(n);
-}
-
-function parseUnit(value: unknown): number {
-  if (typeof value === 'number' && Number.isFinite(value)) {
-    return Math.max(1, Math.trunc(value));
-  }
-  const n = Number(String(value ?? '').replace(/,/g, '').trim());
-  if (!Number.isFinite(n) || n < 1) {
-    throw new Error(`단위를 파싱할 수 없습니다: ${String(value)}`);
-  }
-  return Math.trunc(n);
-}
-
-function parseEffectiveDate(value: unknown): Date {
-  if (value instanceof Date && !Number.isNaN(value.getTime())) {
-    return value;
-  }
-  if (typeof value === 'number' && Number.isFinite(value)) {
-    // Excel serial date
-    const parsed = XLSX.SSF.parse_date_code(value);
-    if (parsed) {
-      return new Date(Date.UTC(parsed.y, parsed.m - 1, parsed.d));
-    }
-  }
-
-  const raw = String(value ?? '').trim();
-  if (/^\d{8}$/.test(raw)) {
-    const y = Number(raw.slice(0, 4));
-    const m = Number(raw.slice(4, 6));
-    const d = Number(raw.slice(6, 8));
-    return new Date(Date.UTC(y, m - 1, d));
-  }
-  if (/^\d{4}-\d{2}-\d{2}/.test(raw)) {
-    const date = new Date(raw);
-    if (!Number.isNaN(date.getTime())) {
-      return date;
-    }
-  }
-
-  throw new Error(`적용일자를 파싱할 수 없습니다: ${String(value)}`);
-}
-
-function pickField(
-  row: Record<string, unknown>,
-  aliases: string[],
-): unknown {
-  const entries = Object.entries(row);
-  for (const alias of aliases) {
-    const target = normalizeHeader(alias);
-    const hit = entries.find(([key]) => normalizeHeader(key) === target);
-    if (hit && hit[1] != null && String(hit[1]).trim() !== '') {
-      return hit[1];
-    }
-  }
-  // Fuzzy contains match (Excel headers can be long)
-  for (const alias of aliases) {
-    const target = normalizeHeader(alias);
-    const hit = entries.find(([key]) =>
-      normalizeHeader(key).includes(target),
-    );
-    if (hit && hit[1] != null && String(hit[1]).trim() !== '') {
-      return hit[1];
-    }
-  }
-  return undefined;
-}
-
-function mapExcelRow(row: Record<string, unknown>): ParsedRow {
-  const code = String(pickField(row, ['코드', 'code']) ?? '').trim();
-  const productName = String(
-    pickField(row, ['품명', 'productName', '상품명']) ?? '',
-  ).trim();
-  const category = String(
-    pickField(row, ['구분', 'category']) ?? '',
-  ).trim();
-
-  if (!code) {
-    throw new Error('코드가 없습니다.');
-  }
-  if (!productName) {
-    throw new Error('품명이 없습니다.');
-  }
-  if (!category) {
-    throw new Error('구분이 없습니다.');
-  }
-
-  const imageRaw = pickField(row, ['사진', 'imageUrl', '이미지']);
-  const specRaw = pickField(row, ['규격', 'spec']);
-
-  return {
-    code,
-    imageUrl:
-      imageRaw != null && String(imageRaw).trim() !== ''
-        ? String(imageRaw).trim()
-        : null,
-    productName,
-    spec:
-      specRaw != null && String(specRaw).trim() !== ''
-        ? String(specRaw).trim()
-        : null,
-    unit: parseUnit(pickField(row, ['단위', 'unit'])),
-    stock: parseOptionalStock(pickField(row, ['재고', 'stock', '재고수량'])),
-    stockMax: parseOptionalStock(
-      pickField(row, ['최대재고', '기준재고', 'stockMax', '재고최대']),
-    ),
-    effectiveDate: parseEffectiveDate(
-      pickField(row, ['적용일자', 'effectiveDate']),
-    ),
-    priceOver500man: parsePrice(
-      pickField(row, [
-        '전체500만원이상주문시할인가격',
-        '500만원이상',
-        'priceOver500man',
-        'price_500',
-      ]),
-    ),
-    priceOver100man: parsePrice(
-      pickField(row, [
-        '전체100만원이상주문시할인가격',
-        '100만원이상',
-        'priceOver100man',
-        'price_100',
-      ]),
-    ),
-    wholesalePrice: parsePrice(
-      pickField(row, [
-        '도매(기본적용가격)',
-        '도매',
-        '기본적용가격',
-        'wholesalePrice',
-        'price',
-      ]),
-    ),
-    associatePrice: parsePrice(
-      pickField(row, ['준회원', 'associatePrice']),
-    ),
-    category,
-  };
-}
 
 @Injectable()
 export class StockInventoryService {
@@ -242,10 +90,7 @@ export class StockInventoryService {
     };
   }
 
-  async create(
-    dto: CreateStockInventoryDto,
-    file?: Express.Multer.File,
-  ) {
+  async create(dto: CreateStockInventoryDto, file?: Express.Multer.File) {
     const code = dto.code.trim();
     const existing = await this.prisma.stockInventory.findUnique({
       where: { code },
@@ -300,9 +145,7 @@ export class StockInventoryService {
     return this.prisma.stockInventory.findMany({
       where: {
         ...(openOnly ? { openStock: true } : undefined),
-        ...(category?.trim()
-          ? { category: category.trim() }
-          : undefined),
+        ...(category?.trim() ? { category: category.trim() } : undefined),
         ...(normalizedKeyword
           ? {
               OR: [
@@ -380,10 +223,7 @@ export class StockInventoryService {
         monthAdditionEvents += 1;
       }
 
-      if (
-        entry.type === StockLedgerType.ORDER_DEDUCT &&
-        entry.delta < 0
-      ) {
+      if (entry.type === StockLedgerType.ORDER_DEDUCT && entry.delta < 0) {
         orderDeductQty += -entry.delta;
       }
     }
@@ -530,9 +370,7 @@ export class StockInventoryService {
           select: { id: true },
         });
         if (conflict) {
-          throw new ConflictException(
-            `이미 등록된 코드입니다: ${nextCode}`,
-          );
+          throw new ConflictException(`이미 등록된 코드입니다: ${nextCode}`);
         }
       }
     }
@@ -565,9 +403,7 @@ export class StockInventoryService {
         ...(dto.productName !== undefined
           ? { productName: dto.productName.trim() }
           : {}),
-        ...(dto.spec !== undefined
-          ? { spec: dto.spec?.trim() || null }
-          : {}),
+        ...(dto.spec !== undefined ? { spec: dto.spec?.trim() || null } : {}),
         ...(dto.unit !== undefined ? { unit: dto.unit } : {}),
         ...(nextStock
           ? { stock: nextStock.stock, stockMax: nextStock.stockMax }
@@ -611,10 +447,10 @@ export class StockInventoryService {
     return this.prisma.stockInventory.delete({ where: { id } });
   }
 
-  async bulkImportFromFile(
+  /** 업로드된 Excel/CSV 첫 시트를 행 객체 배열로 읽는다. */
+  private readSheetRows(
     file: Express.Multer.File | undefined,
-    skipExisting = true,
-  ) {
+  ): Record<string, unknown>[] {
     if (!file?.buffer?.length) {
       throw new BadRequestException({
         message: 'Excel/CSV 파일을 업로드해 주세요.',
@@ -643,41 +479,144 @@ export class StockInventoryService {
         message: '가져올 상품 행이 없습니다.',
       });
     }
+    if (rows.length > MAX_IMPORT_ROWS) {
+      throw new BadRequestException({
+        message: `한 번에 올릴 수 있는 행은 최대 ${MAX_IMPORT_ROWS}행입니다. (현재 ${rows.length}행)`,
+      });
+    }
+
+    return rows;
+  }
+
+  /**
+   * 저장하지 않고 업로드 파일을 파싱해 행별 결과만 돌려준다 (미리보기).
+   * 실제 저장과 같은 `mapExcelRow` / `resolveStockChange` 를 쓰기 때문에
+   * 미리보기 숫자와 저장 결과가 어긋나지 않는다.
+   */
+  async previewImportFromFile(file: Express.Multer.File | undefined) {
+    const rows = this.readSheetRows(file);
+    const summary = { total: rows.length, create: 0, update: 0, invalid: 0 };
+    const preview: StockImportPreviewRow[] = [];
+
+    // 미리보기는 쓰기가 없으므로 기존 상품을 한 번에 조회해 둔다 (행마다 쿼리 X).
+    const codes = [...new Set(rows.map(pickCode).filter(Boolean))];
+    const existingByCode = new Map(
+      (
+        await this.prisma.stockInventory.findMany({
+          where: { code: { in: codes } },
+          select: IMPORT_DEFAULT_SELECT,
+        })
+      ).map((product) => [product.code, product]),
+    );
+
+    for (const [index, row] of rows.entries()) {
+      const rowNumber = index + 2;
+      const code = pickCode(row);
+      const existing = existingByCode.get(code) ?? null;
+
+      try {
+        const parsed = mapExcelRow(row, existing);
+        const next = resolveStockChange({
+          previousStock: existing?.stock ?? null,
+          previousStockMax: existing?.stockMax ?? null,
+          stock: parsed.stock ?? undefined,
+          stockMax: parsed.stockMax ?? undefined,
+          stockIn: parsed.stockIn ?? undefined,
+        });
+
+        summary[existing ? 'update' : 'create'] += 1;
+        preview.push({
+          rowNumber,
+          status: existing ? 'UPDATE' : 'CREATE',
+          code: parsed.code,
+          productName: parsed.productName,
+          spec: parsed.spec ?? null,
+          unit: parsed.unit,
+          category: parsed.category,
+          stock: parsed.stock ?? null,
+          stockIn: parsed.stockIn ?? null,
+          currentStock: existing?.stock ?? null,
+          nextStock: next.stock,
+          effectiveDate: parsed.effectiveDate.toISOString(),
+          wholesalePrice: parsed.wholesalePrice,
+        });
+      } catch (error) {
+        summary.invalid += 1;
+        preview.push({
+          rowNumber,
+          status: 'INVALID',
+          code,
+          productName: toDisplayString(
+            pickField(row, ['품명', 'productName', '상품명']),
+          ),
+          spec: null,
+          unit: null,
+          category: toDisplayString(pickField(row, ['구분', 'category'])),
+          stock: null,
+          stockIn: null,
+          currentStock: existing?.stock ?? null,
+          nextStock: null,
+          effectiveDate: null,
+          wholesalePrice: null,
+          error:
+            error instanceof Error
+              ? error.message
+              : '알 수 없는 오류로 행을 읽지 못했습니다.',
+        });
+      }
+    }
+
+    return { summary, rows: preview };
+  }
+
+  async bulkImportFromFile(
+    file: Express.Multer.File | undefined,
+    skipExisting = true,
+  ) {
+    const rows = this.readSheetRows(file);
 
     const summary = {
       requested: rows.length,
       created: 0,
+      updated: 0,
       skipped: 0,
       failed: 0,
     };
     const createdCodes: string[] = [];
+    const updatedCodes: string[] = [];
     const skippedCodes: string[] = [];
-    const failed: Array<{ code?: string; reason: string }> = [];
+    const failed: Array<{ row?: number; code?: string; reason: string }> = [];
 
-    for (const row of rows) {
+    for (const [index, row] of rows.entries()) {
+      const rowNumber = index + 2;
+      const code = pickCode(row);
       try {
-        const parsed = mapExcelRow(row);
-        const existing = await this.prisma.stockInventory.findUnique({
-          where: { code: parsed.code },
-          select: { id: true },
-        });
+        // 기존 상품을 먼저 찾아 비어 있는 칸의 기본값으로 쓴다
+        // (재고만 올릴 때 단위/적용일자/가격을 다시 채우지 않아도 되게 한다).
+        const before = code
+          ? await this.prisma.stockInventory.findUnique({
+              where: { code },
+              select: IMPORT_DEFAULT_SELECT,
+            })
+          : null;
 
-        if (existing) {
-          if (skipExisting) {
-            summary.skipped += 1;
-            skippedCodes.push(parsed.code);
-            continue;
-          }
-          const before = await this.prisma.stockInventory.findUnique({
-            where: { code: parsed.code },
-          });
+        if (before && skipExisting) {
+          summary.skipped += 1;
+          skippedCodes.push(code);
+          continue;
+        }
+
+        const parsed = mapExcelRow(row, before);
+
+        if (before) {
           // 엑셀에 재고 칸이 비어 있으면 기존 재고를 건드리지 않는다
           // (가격표만 다시 올릴 때 창고 수량이 날아가는 것을 막는다).
           const nextStock = resolveStockChange({
-            previousStock: before?.stock,
-            previousStockMax: before?.stockMax,
+            previousStock: before.stock,
+            previousStockMax: before.stockMax,
             stock: parsed.stock ?? undefined,
             stockMax: parsed.stockMax ?? undefined,
+            stockIn: parsed.stockIn ?? undefined,
           });
           const updated = await this.prisma.stockInventory.update({
             where: { code: parsed.code },
@@ -696,19 +635,19 @@ export class StockInventoryService {
               category: parsed.category,
             },
           });
-          if (before) {
-            await recordAdminStockChange(this.prisma, {
-              productId: updated.id,
-              productName: updated.productName,
-              previousStock: before.stock,
-              nextStock: updated.stock,
-            });
-          }
-          summary.created += 1;
-          createdCodes.push(parsed.code);
+          await recordAdminStockChange(this.prisma, {
+            productId: updated.id,
+            productName: updated.productName,
+            previousStock: before.stock,
+            nextStock: updated.stock,
+          });
+          summary.updated += 1;
+          updatedCodes.push(parsed.code);
           continue;
         }
 
+        // 신규 등록: 재고 칸이 비어 있으면 입고수량을 초기 재고로 본다.
+        const initialStock = parsed.stock ?? parsed.stockIn ?? null;
         const created = await this.prisma.stockInventory.create({
           data: {
             code: parsed.code,
@@ -716,11 +655,11 @@ export class StockInventoryService {
             productName: parsed.productName,
             spec: parsed.spec,
             unit: parsed.unit,
-            stock: parsed.stock,
+            stock: initialStock,
             stockMax: resolveStockChange({
               previousStock: null,
               previousStockMax: null,
-              stock: parsed.stock ?? null,
+              stock: initialStock,
               stockMax: parsed.stockMax ?? undefined,
             }).stockMax,
             effectiveDate: parsed.effectiveDate,
@@ -742,7 +681,8 @@ export class StockInventoryService {
       } catch (error) {
         summary.failed += 1;
         failed.push({
-          code: String(pickField(row, ['코드', 'code']) ?? '') || undefined,
+          row: rowNumber,
+          code: code || undefined,
           reason:
             error instanceof Error
               ? error.message
@@ -755,6 +695,7 @@ export class StockInventoryService {
       message: '재고/상품 일괄 등록이 완료되었습니다.',
       summary,
       createdCodes,
+      updatedCodes,
       skippedCodes,
       failed,
     };

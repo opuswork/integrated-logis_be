@@ -44,9 +44,7 @@ const imageUploadInterceptor = FileInterceptor('image', {
 @UseGuards(JwtAuthGuard)
 @Controller('stock-inventory')
 export class StockInventoryController {
-  constructor(
-    private readonly stockInventoryService: StockInventoryService,
-  ) {}
+  constructor(private readonly stockInventoryService: StockInventoryService) {}
 
   @Post()
   @ApiOperation({ summary: '재고/상품 단건 등록 (이미지 선택)' })
@@ -113,7 +111,7 @@ export class StockInventoryController {
   @ApiOperation({
     summary: '재고/상품 Excel 일괄 등록',
     description:
-      '.xlsx / .csv 파일을 업로드합니다. 헤더: 코드, 사진(선택), 품명, 규격, 단위, 적용일자, 500만원이상 할인가, 100만원이상 할인가, 도매, 준회원, 구분',
+      '.xlsx / .csv 파일을 업로드합니다. 헤더: 코드, 사진(선택), 품명, 규격, 단위, 재고(선택), 입고수량(선택), 적용일자, 500만원이상 할인가, 100만원이상 할인가, 도매, 준회원, 구분. 이미 등록된 코드는 비어 있는 칸에 기존 값을 그대로 쓰며, 입고수량은 현재 재고에 가산됩니다.',
   })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -152,6 +150,37 @@ export class StockInventoryController {
           skipExisting === '1';
 
     return this.stockInventoryService.bulkImportFromFile(file, skip);
+  }
+
+  @Post('bulk-import/preview')
+  @ApiOperation({
+    summary: '재고/상품 Excel 업로드 미리보기 (저장하지 않음)',
+    description:
+      '업로드 파일을 실제 등록과 동일한 규칙으로 파싱해 행별 신규/수정/오류 판정과 적용 후 재고를 돌려줍니다. DB는 변경하지 않습니다.',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      required: ['file'],
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+          description: 'Excel/CSV 파일',
+        },
+      },
+    },
+  })
+  @ApiOkResponse({ description: '행별 미리보기 결과' })
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: memoryStorage(),
+      limits: { fileSize: 10 * 1024 * 1024 },
+    }),
+  )
+  previewImport(@UploadedFile() file: Express.Multer.File) {
+    return this.stockInventoryService.previewImportFromFile(file);
   }
 
   // Must be registered before :id so "status" is not captured by ParseIntPipe
