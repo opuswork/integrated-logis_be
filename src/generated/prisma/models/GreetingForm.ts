@@ -59,6 +59,8 @@ export type GreetingFormMinAggregateOutputType = {
   phone: string | null
   linkedToOrder: boolean | null
   submitted: boolean | null
+  completedAt: Date | null
+  completedBy: string | null
   orderId: number | null
   userId: number | null
   createdAt: Date | null
@@ -84,6 +86,8 @@ export type GreetingFormMaxAggregateOutputType = {
   phone: string | null
   linkedToOrder: boolean | null
   submitted: boolean | null
+  completedAt: Date | null
+  completedBy: string | null
   orderId: number | null
   userId: number | null
   createdAt: Date | null
@@ -109,6 +113,8 @@ export type GreetingFormCountAggregateOutputType = {
   phone: number
   linkedToOrder: number
   submitted: number
+  completedAt: number
+  completedBy: number
   orderId: number
   userId: number
   createdAt: number
@@ -150,6 +156,8 @@ export type GreetingFormMinAggregateInputType = {
   phone?: true
   linkedToOrder?: true
   submitted?: true
+  completedAt?: true
+  completedBy?: true
   orderId?: true
   userId?: true
   createdAt?: true
@@ -175,6 +183,8 @@ export type GreetingFormMaxAggregateInputType = {
   phone?: true
   linkedToOrder?: true
   submitted?: true
+  completedAt?: true
+  completedBy?: true
   orderId?: true
   userId?: true
   createdAt?: true
@@ -200,6 +210,8 @@ export type GreetingFormCountAggregateInputType = {
   phone?: true
   linkedToOrder?: true
   submitted?: true
+  completedAt?: true
+  completedBy?: true
   orderId?: true
   userId?: true
   createdAt?: true
@@ -312,6 +324,8 @@ export type GreetingFormGroupByOutputType = {
   phone: string | null
   linkedToOrder: boolean
   submitted: boolean
+  completedAt: Date | null
+  completedBy: string | null
   orderId: number | null
   userId: number | null
   createdAt: Date
@@ -360,6 +374,8 @@ export type GreetingFormWhereInput = {
   phone?: Prisma.StringNullableFilter<"GreetingForm"> | string | null
   linkedToOrder?: Prisma.BoolFilter<"GreetingForm"> | boolean
   submitted?: Prisma.BoolFilter<"GreetingForm"> | boolean
+  completedAt?: Prisma.DateTimeNullableFilter<"GreetingForm"> | Date | string | null
+  completedBy?: Prisma.StringNullableFilter<"GreetingForm"> | string | null
   orderId?: Prisma.IntNullableFilter<"GreetingForm"> | number | null
   userId?: Prisma.IntNullableFilter<"GreetingForm"> | number | null
   createdAt?: Prisma.DateTimeFilter<"GreetingForm"> | Date | string
@@ -387,6 +403,8 @@ export type GreetingFormOrderByWithRelationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   linkedToOrder?: Prisma.SortOrder
   submitted?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  completedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   orderId?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -417,6 +435,8 @@ export type GreetingFormWhereUniqueInput = Prisma.AtLeast<{
   phone?: Prisma.StringNullableFilter<"GreetingForm"> | string | null
   linkedToOrder?: Prisma.BoolFilter<"GreetingForm"> | boolean
   submitted?: Prisma.BoolFilter<"GreetingForm"> | boolean
+  completedAt?: Prisma.DateTimeNullableFilter<"GreetingForm"> | Date | string | null
+  completedBy?: Prisma.StringNullableFilter<"GreetingForm"> | string | null
   orderId?: Prisma.IntNullableFilter<"GreetingForm"> | number | null
   userId?: Prisma.IntNullableFilter<"GreetingForm"> | number | null
   createdAt?: Prisma.DateTimeFilter<"GreetingForm"> | Date | string
@@ -444,6 +464,8 @@ export type GreetingFormOrderByWithAggregationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   linkedToOrder?: Prisma.SortOrder
   submitted?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  completedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   orderId?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -477,6 +499,8 @@ export type GreetingFormScalarWhereWithAggregatesInput = {
   phone?: Prisma.StringNullableWithAggregatesFilter<"GreetingForm"> | string | null
   linkedToOrder?: Prisma.BoolWithAggregatesFilter<"GreetingForm"> | boolean
   submitted?: Prisma.BoolWithAggregatesFilter<"GreetingForm"> | boolean
+  completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"GreetingForm"> | Date | string | null
+  completedBy?: Prisma.StringNullableWithAggregatesFilter<"GreetingForm"> | string | null
   orderId?: Prisma.IntNullableWithAggregatesFilter<"GreetingForm"> | number | null
   userId?: Prisma.IntNullableWithAggregatesFilter<"GreetingForm"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"GreetingForm"> | Date | string
@@ -501,6 +525,8 @@ export type GreetingFormCreateInput = {
   phone?: string | null
   linkedToOrder: boolean
   submitted?: boolean
+  completedAt?: Date | string | null
+  completedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   order?: Prisma.OrderCreateNestedOneWithoutGreetingFormsInput
@@ -526,6 +552,8 @@ export type GreetingFormUncheckedCreateInput = {
   phone?: string | null
   linkedToOrder: boolean
   submitted?: boolean
+  completedAt?: Date | string | null
+  completedBy?: string | null
   orderId?: number | null
   userId?: number | null
   createdAt?: Date | string
@@ -550,6 +578,8 @@ export type GreetingFormUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedToOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   submitted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   order?: Prisma.OrderUpdateOneWithoutGreetingFormsNestedInput
@@ -575,6 +605,8 @@ export type GreetingFormUncheckedUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedToOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   submitted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -600,6 +632,8 @@ export type GreetingFormCreateManyInput = {
   phone?: string | null
   linkedToOrder: boolean
   submitted?: boolean
+  completedAt?: Date | string | null
+  completedBy?: string | null
   orderId?: number | null
   userId?: number | null
   createdAt?: Date | string
@@ -624,6 +658,8 @@ export type GreetingFormUpdateManyMutationInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedToOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   submitted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -647,6 +683,8 @@ export type GreetingFormUncheckedUpdateManyInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedToOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   submitted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -682,6 +720,8 @@ export type GreetingFormCountOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   linkedToOrder?: Prisma.SortOrder
   submitted?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrder
+  completedBy?: Prisma.SortOrder
   orderId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -714,6 +754,8 @@ export type GreetingFormMaxOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   linkedToOrder?: Prisma.SortOrder
   submitted?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrder
+  completedBy?: Prisma.SortOrder
   orderId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -739,6 +781,8 @@ export type GreetingFormMinOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   linkedToOrder?: Prisma.SortOrder
   submitted?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrder
+  completedBy?: Prisma.SortOrder
   orderId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -854,6 +898,8 @@ export type GreetingFormCreateWithoutUserInput = {
   phone?: string | null
   linkedToOrder: boolean
   submitted?: boolean
+  completedAt?: Date | string | null
+  completedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   order?: Prisma.OrderCreateNestedOneWithoutGreetingFormsInput
@@ -878,6 +924,8 @@ export type GreetingFormUncheckedCreateWithoutUserInput = {
   phone?: string | null
   linkedToOrder: boolean
   submitted?: boolean
+  completedAt?: Date | string | null
+  completedBy?: string | null
   orderId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -931,6 +979,8 @@ export type GreetingFormScalarWhereInput = {
   phone?: Prisma.StringNullableFilter<"GreetingForm"> | string | null
   linkedToOrder?: Prisma.BoolFilter<"GreetingForm"> | boolean
   submitted?: Prisma.BoolFilter<"GreetingForm"> | boolean
+  completedAt?: Prisma.DateTimeNullableFilter<"GreetingForm"> | Date | string | null
+  completedBy?: Prisma.StringNullableFilter<"GreetingForm"> | string | null
   orderId?: Prisma.IntNullableFilter<"GreetingForm"> | number | null
   userId?: Prisma.IntNullableFilter<"GreetingForm"> | number | null
   createdAt?: Prisma.DateTimeFilter<"GreetingForm"> | Date | string
@@ -955,6 +1005,8 @@ export type GreetingFormCreateWithoutOrderInput = {
   phone?: string | null
   linkedToOrder: boolean
   submitted?: boolean
+  completedAt?: Date | string | null
+  completedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user?: Prisma.UserCreateNestedOneWithoutGreetingFormsInput
@@ -979,6 +1031,8 @@ export type GreetingFormUncheckedCreateWithoutOrderInput = {
   phone?: string | null
   linkedToOrder: boolean
   submitted?: boolean
+  completedAt?: Date | string | null
+  completedBy?: string | null
   userId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1029,6 +1083,8 @@ export type GreetingFormCreateManyUserInput = {
   phone?: string | null
   linkedToOrder: boolean
   submitted?: boolean
+  completedAt?: Date | string | null
+  completedBy?: string | null
   orderId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1052,6 +1108,8 @@ export type GreetingFormUpdateWithoutUserInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedToOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   submitted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   order?: Prisma.OrderUpdateOneWithoutGreetingFormsNestedInput
@@ -1076,6 +1134,8 @@ export type GreetingFormUncheckedUpdateWithoutUserInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedToOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   submitted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1100,6 +1160,8 @@ export type GreetingFormUncheckedUpdateManyWithoutUserInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedToOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   submitted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1124,6 +1186,8 @@ export type GreetingFormCreateManyOrderInput = {
   phone?: string | null
   linkedToOrder: boolean
   submitted?: boolean
+  completedAt?: Date | string | null
+  completedBy?: string | null
   userId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1147,6 +1211,8 @@ export type GreetingFormUpdateWithoutOrderInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedToOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   submitted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneWithoutGreetingFormsNestedInput
@@ -1171,6 +1237,8 @@ export type GreetingFormUncheckedUpdateWithoutOrderInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedToOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   submitted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1195,6 +1263,8 @@ export type GreetingFormUncheckedUpdateManyWithoutOrderInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedToOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   submitted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1221,6 +1291,8 @@ export type GreetingFormSelect<ExtArgs extends runtime.Types.Extensions.Internal
   phone?: boolean
   linkedToOrder?: boolean
   submitted?: boolean
+  completedAt?: boolean
+  completedBy?: boolean
   orderId?: boolean
   userId?: boolean
   createdAt?: boolean
@@ -1248,6 +1320,8 @@ export type GreetingFormSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   phone?: boolean
   linkedToOrder?: boolean
   submitted?: boolean
+  completedAt?: boolean
+  completedBy?: boolean
   orderId?: boolean
   userId?: boolean
   createdAt?: boolean
@@ -1275,6 +1349,8 @@ export type GreetingFormSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   phone?: boolean
   linkedToOrder?: boolean
   submitted?: boolean
+  completedAt?: boolean
+  completedBy?: boolean
   orderId?: boolean
   userId?: boolean
   createdAt?: boolean
@@ -1302,13 +1378,15 @@ export type GreetingFormSelectScalar = {
   phone?: boolean
   linkedToOrder?: boolean
   submitted?: boolean
+  completedAt?: boolean
+  completedBy?: boolean
   orderId?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type GreetingFormOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "greetingNumber" | "includeSelf" | "imageUrl" | "imageStoredName" | "imageOriginalName" | "content" | "quantity" | "size" | "productName" | "receivePlace" | "specialNote" | "businessCard" | "ordererName" | "churchName" | "phone" | "linkedToOrder" | "submitted" | "orderId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["greetingForm"]>
+export type GreetingFormOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "greetingNumber" | "includeSelf" | "imageUrl" | "imageStoredName" | "imageOriginalName" | "content" | "quantity" | "size" | "productName" | "receivePlace" | "specialNote" | "businessCard" | "ordererName" | "churchName" | "phone" | "linkedToOrder" | "submitted" | "completedAt" | "completedBy" | "orderId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["greetingForm"]>
 export type GreetingFormInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   order?: boolean | Prisma.GreetingForm$orderArgs<ExtArgs>
   user?: boolean | Prisma.GreetingForm$userArgs<ExtArgs>
@@ -1347,6 +1425,8 @@ export type $GreetingFormPayload<ExtArgs extends runtime.Types.Extensions.Intern
     phone: string | null
     linkedToOrder: boolean
     submitted: boolean
+    completedAt: Date | null
+    completedBy: string | null
     orderId: number | null
     userId: number | null
     createdAt: Date
@@ -1794,6 +1874,8 @@ export interface GreetingFormFieldRefs {
   readonly phone: Prisma.FieldRef<"GreetingForm", 'String'>
   readonly linkedToOrder: Prisma.FieldRef<"GreetingForm", 'Boolean'>
   readonly submitted: Prisma.FieldRef<"GreetingForm", 'Boolean'>
+  readonly completedAt: Prisma.FieldRef<"GreetingForm", 'DateTime'>
+  readonly completedBy: Prisma.FieldRef<"GreetingForm", 'String'>
   readonly orderId: Prisma.FieldRef<"GreetingForm", 'Int'>
   readonly userId: Prisma.FieldRef<"GreetingForm", 'Int'>
   readonly createdAt: Prisma.FieldRef<"GreetingForm", 'DateTime'>

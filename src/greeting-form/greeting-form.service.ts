@@ -1,15 +1,23 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 
+import type { AuthUserPayload } from '../auth/jwt.strategy';
+import { AdminActivityAction } from '../generated/prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import {
   CreateGreetingFormDto,
   LinkGreetingToOrderDto,
 } from './dto/greeting-form.dto';
 import { GreetingImageStorageService } from './greeting-image-storage.service';
+
+/** orders.service의 관리자 활동 로그와 같은 시각 표기 */
+function formatActivityTimestamp(date: Date) {
+  return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${String(date.getHours()).padStart(2, '0')}시 ${String(date.getMinutes()).padStart(2, '0')}분 ${String(date.getSeconds()).padStart(2, '0')}초`;
+}
 
 @Injectable()
 export class GreetingFormService {
@@ -136,5 +144,76 @@ export class GreetingFormService {
         submitted: true,
       },
     });
+  }
+
+  /**
+   * 인사장관리 "완료": 공장 계정(인사장 승인 + 공장관리자)만.
+   * 제품주문 연계 건이면 해당 주문의 인사장완료(greetingDone)도 함께 Y.
+   * readyForShipment는 주문 목록 조회 시 healReadyForShipmentFlags가 보정한다.
+   */
+  async complete(id: number, actor: AuthUserPayload) {
+    if (actor.role !== 'factory') {
+      throw new ForbiddenException(
+        '인사장 완료는 공장 계정만 처리할 수 있습니다.',
+      );
+    }
+    const form = await this.prisma.greetingForm.findUnique({
+      where: { id },
+      include: {
+        order: {
+          select: { id: true, orderNumber: true, greetingDone: true },
+        },
+      },
+    });
+    if (!form) {
+      throw new NotFoundException('인사장을 찾을 수 없습니다.');
+    }
+    if (form.completedAt) {
+      return form;
+    }
+
+    const user = await this.prisma.user.findUnique({
+      where: { id: actor.id },
+      select: { fullname: true, username: true },
+    });
+    const actorName =
+      user?.fullname?.trim() || user?.username || actor.username;
+    const now = new Date();
+    const linkedOrder =
+      form.linkedToOrder && form.order && !form.order.greetingDone
+        ? form.order
+        : null;
+
+    const [updated] = await this.prisma.$transaction([
+      this.prisma.greetingForm.update({
+        where: { id },
+        data: { completedAt: now, completedBy: actorName },
+        include: {
+          order: {
+            select: { id: true, orderNumber: true, greetingDone: true },
+          },
+        },
+      }),
+      ...(linkedOrder
+        ? [
+            this.prisma.order.update({
+              where: { id: linkedOrder.id },
+              data: { greetingDone: true },
+            }),
+            this.prisma.adminActivity.create({
+              data: {
+                actorUserId: actor.id,
+                actorName,
+                actorRegion: actor.adminRegion,
+                action: AdminActivityAction.GREETING_SAVE,
+                orderId: linkedOrder.id,
+                orderNumber: linkedOrder.orderNumber,
+                summary: `공장 ${actorName}님: 인사장관리/${linkedOrder.orderNumber}-인사장완료 확인 (인사장 #${id} 완료) [${formatActivityTimestamp(now)}]`,
+              },
+            }),
+          ]
+        : []),
+    ]);
+    return updated;
   }
 }
