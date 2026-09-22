@@ -134,4 +134,16 @@ export class GreetingFormController {
   ) {
     return this.greetingFormService.linkToOrder(id, dto);
   }
+
+  @Patch(':id/complete')
+  @ApiOperation({
+    summary: '인사장 완료 처리 (공장 계정). 연계 주문의 인사장완료도 Y',
+  })
+  @ApiOkResponse({ description: '완료 처리된 인사장' })
+  complete(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() user: AuthUserPayload,
+  ) {
+    return this.greetingFormService.complete(id, user);
+  }
 }

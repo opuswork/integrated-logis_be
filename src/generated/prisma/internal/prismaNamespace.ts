@@ -1482,6 +1482,8 @@ export const GreetingFormScalarFieldEnum = {
   phone: 'phone',
   linkedToOrder: 'linkedToOrder',
   submitted: 'submitted',
+  completedAt: 'completedAt',
+  completedBy: 'completedBy',
   orderId: 'orderId',
   userId: 'userId',
   createdAt: 'createdAt',
