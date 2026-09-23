@@ -1,6 +1,8 @@
 import {
   mapExcelRow,
+  parseImageCell,
   pickCode,
+  pickRowNumber,
   type StockImportDefaults,
 } from './stock-import-row';
 
@@ -121,5 +123,44 @@ describe('mapExcelRow (재고/상품 엑셀 일괄 업로드 행 파싱)', () =>
     expect(pickCode({ ' 코드 ': ' A-001 ' })).toBe('A-001');
     expect(pickCode({ code: 'B-002' })).toBe('B-002');
     expect(pickCode({ 품명: '감사1호' })).toBe('');
+  });
+});
+
+describe('parseImageCell (사진 칸 3상태)', () => {
+  it('빈 칸은 undefined — 기존 사진을 유지한다', () => {
+    expect(parseImageCell('')).toBeUndefined();
+    expect(parseImageCell(null)).toBeUndefined();
+    expect(parseImageCell('   ')).toBeUndefined();
+  });
+
+  it("'-' / '삭제' 는 null — 사진을 지운다", () => {
+    expect(parseImageCell('-')).toBeNull();
+    expect(parseImageCell('삭제')).toBeNull();
+  });
+
+  it('URL 문자열은 그대로 쓴다', () => {
+    expect(parseImageCell('https://x.test/a.png')).toBe('https://x.test/a.png');
+  });
+
+  it("'셀에 배치' 사진이 남기는 #VALUE! 를 URL 로 오해하지 않는다", () => {
+    expect(parseImageCell('#VALUE!')).toBeUndefined();
+    expect(parseImageCell('#REF!')).toBeUndefined();
+  });
+});
+
+describe('pickRowNumber', () => {
+  it('__rowNum__ 이 있으면 실제 엑셀 행 번호를 쓴다', () => {
+    expect(pickRowNumber({ __rowNum__: 3 }, 99)).toBe(4);
+    expect(pickRowNumber({ __rowNum__: 0 }, 99)).toBe(1);
+  });
+
+  it('없으면 폴백 값을 쓴다', () => {
+    expect(pickRowNumber({}, 7)).toBe(7);
+  });
+
+  it('__rowNum__ 을 열로 착각하지 않는다', () => {
+    const parsed = mapExcelRow({ __rowNum__: 5, 코드: 'A-001' }, EXISTING);
+    expect(parsed.code).toBe('A-001');
+    expect(parsed.productName).toBe('감사1호');
   });
 });

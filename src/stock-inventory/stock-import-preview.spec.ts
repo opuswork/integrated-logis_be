@@ -1,3 +1,5 @@
+import { createHash } from 'crypto';
+import ExcelJS from 'exceljs';
 import * as XLSX from 'xlsx';
 
 import { StockInventoryService } from './stock-inventory.service';
@@ -16,6 +18,7 @@ type ExistingProduct = {
   wholesalePrice: number;
   associatePrice: number;
   category: string;
+  imageHash?: string | null;
 };
 
 const EXISTING: ExistingProduct[] = [
@@ -37,11 +40,12 @@ const EXISTING: ExistingProduct[] = [
 ];
 
 /** previewImportFromFile 는 stockInventory.findMany 만 쓴다. */
-function buildService() {
+function buildService(overrides: Partial<ExistingProduct> = {}) {
+  const products = EXISTING.map((p) => ({ ...p, ...overrides }));
   const prisma = {
     stockInventory: {
       findMany: ({ where }: { where: { code: { in: string[] } } }) =>
-        Promise.resolve(EXISTING.filter((p) => where.code.in.includes(p.code))),
+        Promise.resolve(products.filter((p) => where.code.in.includes(p.code))),
     },
   };
   return new StockInventoryService(prisma as never, {} as never);
@@ -100,6 +104,7 @@ describe('previewImportFromFile (재고 엑셀업로드 미리보기)', () => {
       create: 1,
       update: 1,
       invalid: 1,
+      imageChanged: 0,
     });
 
     const [created, updated, invalid] = result.rows;
@@ -167,10 +172,123 @@ describe('previewImportFromFile (재고 엑셀업로드 미리보기)', () => {
     });
   });
 
+  it('중간에 빈 행이 있어도 엑셀 실제 행 번호를 쓴다', async () => {
+    const service = buildService();
+    const file = toXlsxFile([
+      HEADER,
+      ['A-002', '', '', '', '', 100, '', '', ''],
+      [], // 빈 행 — SheetJS 는 건너뛴다
+      ['A-002', '', '', '', '', 200, '', '', ''],
+    ]);
+
+    const result = await service.previewImportFromFile(file);
+    // index+2 로 계산하면 2,3 이 되지만 실제로는 2,4 다
+    expect(result.rows.map((r) => r.rowNumber)).toEqual([2, 4]);
+  });
+
   it('빈 파일은 400으로 거절한다', async () => {
     const service = buildService();
     await expect(service.previewImportFromFile(undefined)).rejects.toThrow(
       /파일을 업로드/,
     );
+  });
+});
+
+/** 1x1 PNG 두 장 (서로 다른 해시) */
+const PNG_A = Buffer.from(
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
+  'base64',
+);
+const PNG_B = Buffer.from(
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==',
+  'base64',
+);
+const PNG_A_SHA = createHash('sha256').update(PNG_A).digest('hex');
+
+/** 사진 열(B)에 이미지를 앵커한 xlsx 를 만든다. */
+async function toXlsxFileWithPhotos(
+  dataRows: unknown[][],
+  photos: Array<{ row: number; buffer: Buffer }>,
+): Promise<Express.Multer.File> {
+  const wb = new ExcelJS.Workbook();
+  const ws = wb.addWorksheet('재고업로드');
+  ws.addRow(['코드', '사진', '품명', '단위', '적용일자', '구분']);
+  dataRows.forEach((r) => ws.addRow(r));
+
+  for (const photo of photos) {
+    const id = wb.addImage({
+      buffer: photo.buffer as unknown as ExcelJS.Buffer,
+      extension: 'png',
+    });
+    ws.addImage(id, {
+      tl: { col: 1, row: photo.row - 1 }, // B열(0-based 1)
+      br: { col: 2, row: photo.row },
+    } as unknown as Parameters<typeof ws.addImage>[1]);
+  }
+
+  return {
+    buffer: Buffer.from(await wb.xlsx.writeBuffer()),
+  } as Express.Multer.File;
+}
+
+describe('previewImportFromFile — 셀에 넣은 사진', () => {
+  it('기존 상품에 해시가 다른 사진이면 CHANGED 로 표시한다', async () => {
+    const service = buildService({ imageHash: 'old-hash-value' });
+    const file = await toXlsxFileWithPhotos(
+      [['A-002', '', '', '', '', '']],
+      [{ row: 2, buffer: PNG_A }],
+    );
+
+    const result = await service.previewImportFromFile(file);
+    expect(result.rows[0].imageStatus).toBe('CHANGED');
+    expect(result.summary.imageChanged).toBe(1);
+    expect(result.rows[0].imageThumbnail).toMatch(/^data:image\/png;base64,/);
+  });
+
+  it('해시가 같으면 SAME 이고 변경 건수에 넣지 않는다', async () => {
+    const service = buildService({ imageHash: PNG_A_SHA });
+    const file = await toXlsxFileWithPhotos(
+      [['A-002', '', '', '', '', '']],
+      [{ row: 2, buffer: PNG_A }],
+    );
+
+    const result = await service.previewImportFromFile(file);
+    expect(result.rows[0].imageStatus).toBe('SAME');
+    expect(result.summary.imageChanged).toBe(0);
+  });
+
+  it('신규 상품의 사진은 NEW 로 표시한다', async () => {
+    const service = buildService();
+    const file = await toXlsxFileWithPhotos(
+      [['ZZ-NEW', '', '새상품', 1, '2026-01-01', '일반품']],
+      [{ row: 2, buffer: PNG_B }],
+    );
+
+    const result = await service.previewImportFromFile(file);
+    expect(result.rows[0].status).toBe('CREATE');
+    expect(result.rows[0].imageStatus).toBe('NEW');
+  });
+
+  it('사진 칸이 비면 NONE (기존 사진 유지)', async () => {
+    const service = buildService({ imageHash: PNG_A_SHA });
+    const file = await toXlsxFileWithPhotos(
+      [['A-002', '', '', '', '', '']],
+      [],
+    );
+
+    const result = await service.previewImportFromFile(file);
+    expect(result.rows[0].imageStatus).toBe('NONE');
+    expect(result.rows[0].imageThumbnail).toBeNull();
+  });
+
+  it("사진 칸에 '-' 를 쓰면 REMOVE", async () => {
+    const service = buildService({ imageHash: PNG_A_SHA });
+    const file = await toXlsxFileWithPhotos(
+      [['A-002', '-', '', '', '', '']],
+      [],
+    );
+
+    const result = await service.previewImportFromFile(file);
+    expect(result.rows[0].imageStatus).toBe('REMOVE');
   });
 });

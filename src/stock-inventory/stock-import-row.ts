@@ -27,6 +27,10 @@ export type StockImportDefaults = {
 
 export type ParsedRow = {
   code: string;
+  /**
+   * 사진 칸. `undefined` = 빈 칸이라 기존 사진 유지, `null` = 사진 삭제,
+   * 문자열 = 이미지 URL. 셀에 직접 넣은 사진은 여기 오지 않는다.
+   */
   imageUrl?: string | null;
   productName: string;
   spec?: string | null;
@@ -139,7 +143,10 @@ export function pickEntry(
   aliases: string[],
   skipKeys: ReadonlySet<string> = new Set(),
 ): { key: string; value: unknown } | undefined {
-  const entries = Object.entries(row).filter(([key]) => !skipKeys.has(key));
+  const entries = Object.entries(row).filter(
+    // __rowNum__ 은 SheetJS 가 붙인 메타 키라 열로 취급하면 안 된다
+    ([key]) => key !== '__rowNum__' && !skipKeys.has(key),
+  );
   const hasValue = (entry: [string, unknown]) =>
     entry[1] != null && toDisplayString(entry[1]) !== '';
 
@@ -183,6 +190,44 @@ export function toDisplayString(value: unknown): string {
 /** 행에서 코드만 먼저 뽑는다 (기존 상품을 조회해 기본값으로 쓰기 위해). */
 export function pickCode(row: Record<string, unknown>): string {
   return toDisplayString(pickField(row, ['코드', 'code']));
+}
+
+/**
+ * 시트의 실제 엑셀 행 번호(1-based).
+ *
+ * SheetJS 는 빈 행을 건너뛰므로 배열 인덱스로 계산하면 어긋난다.
+ * sheet_to_json 이 붙여주는 __rowNum__(0-based)을 쓴다. 셀에 넣은 사진을
+ * 올바른 행에 연결하려면 이 값이 정확해야 한다.
+ */
+export function pickRowNumber(
+  row: Record<string, unknown>,
+  fallback: number,
+): number {
+  const raw = row['__rowNum__'];
+  return typeof raw === 'number' && Number.isInteger(raw) ? raw + 1 : fallback;
+}
+
+/** 엑셀 오류값(#VALUE! 등). '셀에 배치' 사진 셀이 이렇게 읽힌다. */
+const EXCEL_ERROR = /^#(VALUE|REF|NAME|DIV\/0|N\/A|NULL|NUM)[!?]?$/i;
+
+/** 사진을 지우라는 표시 */
+const IMAGE_CLEAR_TOKENS = new Set(['-', '삭제', 'x', 'X', '없음']);
+
+/**
+ * 사진 칸을 세 상태로 읽는다.
+ * - `undefined` : 빈 칸 → 기존 사진을 그대로 둔다
+ * - `null`      : '-' / '삭제' → 사진을 지운다
+ * - 문자열      : 이미지 URL
+ *
+ * 셀에 직접 넣은 사진은 여기서 값이 잡히지 않는다(오류값 또는 빈 칸으로 읽힘).
+ * 그건 stock-import-images 가 따로 꺼낸다.
+ */
+export function parseImageCell(value: unknown): string | null | undefined {
+  const raw = toDisplayString(value);
+  if (raw === '') return undefined;
+  if (EXCEL_ERROR.test(raw)) return undefined;
+  if (IMAGE_CLEAR_TOKENS.has(raw)) return null;
+  return raw;
 }
 
 export function mapExcelRow(
@@ -251,7 +296,7 @@ export function mapExcelRow(
 
   return {
     code,
-    imageUrl: toDisplayString(imageRaw) || null,
+    imageUrl: parseImageCell(imageRaw),
     productName,
     spec: toDisplayString(specRaw) || (existing?.spec ?? null),
     unit: withFallback(

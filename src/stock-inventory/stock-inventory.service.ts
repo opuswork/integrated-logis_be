@@ -15,9 +15,15 @@ import {
 } from './dto/stock-inventory.dto';
 import { ProductImageStorageService } from './product-image-storage.service';
 import {
+  extractStockRowImages,
+  type ExtractedImage,
+} from './stock-import-images';
+import {
   mapExcelRow,
+  normalizeHeader,
   pickCode,
   pickField,
+  pickRowNumber,
   toDisplayString,
 } from './stock-import-row';
 import { LOW_STOCK_THRESHOLD, recordAdminStockChange } from './stock-ledger';
@@ -41,7 +47,26 @@ const IMPORT_DEFAULT_SELECT = {
   wholesalePrice: true,
   associatePrice: true,
   category: true,
+  imageUrl: true,
+  imageHash: true,
 } as const;
+
+/** 사진 열을 찾을 때 쓰는 헤더 별칭 */
+const PHOTO_HEADER_ALIASES = ['사진', '이미지', 'imageurl', 'image'];
+/** 사진 열을 못 찾았을 때 기본값 (양식 기준 코드 다음 B열) */
+const DEFAULT_PHOTO_COLUMN = 2;
+
+/** 미리보기 응답이 비대해지지 않도록 썸네일을 인라인할 상한 */
+const THUMBNAIL_MAX_ROWS = 30;
+const THUMBNAIL_MAX_BYTES = 200 * 1024;
+
+/**
+ * 사진 처리 결과.
+ * NONE=사진 칸 비어 기존 유지, NEW=새 사진, CHANGED=해시 다름, SAME=해시 같아 생략,
+ * REMOVE='-' 입력으로 삭제, URL=주소 문자열 입력
+ */
+export type StockImageStatus =
+  'NONE' | 'NEW' | 'CHANGED' | 'SAME' | 'REMOVE' | 'URL';
 
 export type StockImportPreviewRow = {
   /** 엑셀 행 번호 (헤더가 1행이므로 첫 데이터 행은 2) */
@@ -58,6 +83,9 @@ export type StockImportPreviewRow = {
   nextStock: number | null;
   effectiveDate: string | null;
   wholesalePrice: number | null;
+  imageStatus: StockImageStatus;
+  /** data URI. 응답 크기를 위해 앞쪽 행·작은 이미지만 채운다 */
+  imageThumbnail: string | null;
   error?: string;
 };
 
@@ -448,9 +476,10 @@ export class StockInventoryService {
   }
 
   /** 업로드된 Excel/CSV 첫 시트를 행 객체 배열로 읽는다. */
-  private readSheetRows(
-    file: Express.Multer.File | undefined,
-  ): Record<string, unknown>[] {
+  private readSheetRows(file: Express.Multer.File | undefined): {
+    rows: Record<string, unknown>[];
+    photoColumn: number;
+  } {
     if (!file?.buffer?.length) {
       throw new BadRequestException({
         message: 'Excel/CSV 파일을 업로드해 주세요.',
@@ -485,7 +514,123 @@ export class StockInventoryService {
       });
     }
 
-    return rows;
+    return {
+      rows,
+      photoColumn: this.findPhotoColumn(sheet),
+    };
+  }
+
+  /**
+   * 헤더 행에서 '사진' 열이 몇 번째인지 찾는다 (1-based).
+   * 셀에 넣은 사진을 다른 열의 장식 이미지와 구분하려면 이 값이 필요하다.
+   */
+  private findPhotoColumn(sheet: XLSX.WorkSheet): number {
+    const header = XLSX.utils.sheet_to_json<unknown[]>(sheet, {
+      header: 1,
+      range: 0,
+      defval: '',
+      raw: true,
+    })[0];
+
+    if (Array.isArray(header)) {
+      const index = header.findIndex((cell) => {
+        const name = normalizeHeader(toDisplayString(cell));
+        return name !== '' && PHOTO_HEADER_ALIASES.some((a) => name === a);
+      });
+      if (index >= 0) return index + 1;
+    }
+    return DEFAULT_PHOTO_COLUMN;
+  }
+
+  /**
+   * 이 행의 사진을 어떻게 처리할지 정한다.
+   * 미리보기와 실제 저장이 같은 판단을 쓰도록 한 곳에 모아 둔다.
+   */
+  private resolveImageStatus(
+    image: ExtractedImage | null,
+    imageCell: string | null | undefined,
+    existing: { imageHash?: string | null } | null,
+  ): StockImageStatus {
+    if (image) {
+      if (!existing) return 'NEW';
+      if (existing.imageHash && existing.imageHash === image.sha256) {
+        return 'SAME';
+      }
+      return existing.imageHash ? 'CHANGED' : 'NEW';
+    }
+    if (imageCell === null) return 'REMOVE';
+    if (typeof imageCell === 'string' && imageCell !== '') return 'URL';
+    return 'NONE';
+  }
+
+  /**
+   * 저장 시 이미지 필드를 어떻게 쓸지 정한다.
+   *
+   * 핵심: **사진 칸이 비어 있으면 이미지 필드를 아예 건드리지 않는다.**
+   * 재고만 올리는 엑셀 때문에 기존 상품 사진이 지워지면 안 된다.
+   */
+  private async resolveImportImage(
+    image: ExtractedImage | null,
+    imageCell: string | null | undefined,
+    existing: { imageHash?: string | null } | null,
+  ): Promise<{
+    data: {
+      imageUrl?: string | null;
+      imageStoredName?: string | null;
+      imageOriginalName?: string | null;
+      imageHash?: string | null;
+    };
+    uploaded: boolean;
+  }> {
+    // 셀에 넣은 사진이 있다 → 바뀐 경우에만 업로드한다
+    if (image) {
+      if (existing?.imageHash && existing.imageHash === image.sha256) {
+        return { data: {}, uploaded: false }; // 같은 사진이라 건너뛴다
+      }
+      const stored = await this.imageStorage.storeBuffer(
+        image.buffer,
+        image.originalName,
+        image.mimetype,
+      );
+      return {
+        data: {
+          imageUrl: stored.imageUrl,
+          imageStoredName: stored.imageStoredName,
+          imageOriginalName: stored.imageOriginalName,
+          imageHash: image.sha256,
+        },
+        uploaded: true,
+      };
+    }
+
+    // '-' / '삭제' → 사진 제거
+    if (imageCell === null) {
+      return {
+        data: {
+          imageUrl: null,
+          imageStoredName: null,
+          imageOriginalName: null,
+          imageHash: null,
+        },
+        uploaded: false,
+      };
+    }
+
+    // URL 문자열 입력 (기존 방식)
+    if (typeof imageCell === 'string' && imageCell !== '') {
+      return {
+        data: {
+          imageUrl: imageCell,
+          imageStoredName: null,
+          imageOriginalName: null,
+          imageHash: null,
+        },
+        uploaded: false,
+      };
+    }
+
+    // 빈 칸 → 기존 사진 유지
+    return { data: {}, uploaded: false };
   }
 
   /**
@@ -494,12 +639,20 @@ export class StockInventoryService {
    * 미리보기 숫자와 저장 결과가 어긋나지 않는다.
    */
   async previewImportFromFile(file: Express.Multer.File | undefined) {
-    const rows = this.readSheetRows(file);
-    const summary = { total: rows.length, create: 0, update: 0, invalid: 0 };
+    const { rows, photoColumn } = this.readSheetRows(file);
+    const summary = {
+      total: rows.length,
+      create: 0,
+      update: 0,
+      invalid: 0,
+      imageChanged: 0,
+    };
     const preview: StockImportPreviewRow[] = [];
 
     // 미리보기는 쓰기가 없으므로 기존 상품을 한 번에 조회해 둔다 (행마다 쿼리 X).
-    const codes = [...new Set(rows.map(pickCode).filter(Boolean))];
+    const codes = [
+      ...new Set(rows.map((row) => pickCode(row)).filter(Boolean)),
+    ];
     const existingByCode = new Map(
       (
         await this.prisma.stockInventory.findMany({
@@ -509,10 +662,14 @@ export class StockInventoryService {
       ).map((product) => [product.code, product]),
     );
 
+    const imagesByRow = await extractStockRowImages(file!.buffer, photoColumn);
+    let thumbnailsUsed = 0;
+
     for (const [index, row] of rows.entries()) {
-      const rowNumber = index + 2;
+      const rowNumber = pickRowNumber(row, index + 2);
       const code = pickCode(row);
       const existing = existingByCode.get(code) ?? null;
+      const image = imagesByRow.get(rowNumber) ?? null;
 
       try {
         const parsed = mapExcelRow(row, existing);
@@ -523,6 +680,25 @@ export class StockInventoryService {
           stockMax: parsed.stockMax ?? undefined,
           stockIn: parsed.stockIn ?? undefined,
         });
+
+        const imageStatus = this.resolveImageStatus(
+          image,
+          parsed.imageUrl,
+          existing,
+        );
+        if (imageStatus === 'NEW' || imageStatus === 'CHANGED') {
+          summary.imageChanged += 1;
+        }
+
+        let imageThumbnail: string | null = null;
+        if (
+          image &&
+          thumbnailsUsed < THUMBNAIL_MAX_ROWS &&
+          image.buffer.length <= THUMBNAIL_MAX_BYTES
+        ) {
+          imageThumbnail = `data:${image.mimetype};base64,${image.buffer.toString('base64')}`;
+          thumbnailsUsed += 1;
+        }
 
         summary[existing ? 'update' : 'create'] += 1;
         preview.push({
@@ -539,6 +715,8 @@ export class StockInventoryService {
           nextStock: next.stock,
           effectiveDate: parsed.effectiveDate.toISOString(),
           wholesalePrice: parsed.wholesalePrice,
+          imageStatus,
+          imageThumbnail,
         });
       } catch (error) {
         summary.invalid += 1;
@@ -558,6 +736,8 @@ export class StockInventoryService {
           nextStock: null,
           effectiveDate: null,
           wholesalePrice: null,
+          imageStatus: 'NONE',
+          imageThumbnail: null,
           error:
             error instanceof Error
               ? error.message
@@ -573,7 +753,7 @@ export class StockInventoryService {
     file: Express.Multer.File | undefined,
     skipExisting = true,
   ) {
-    const rows = this.readSheetRows(file);
+    const { rows, photoColumn } = this.readSheetRows(file);
 
     const summary = {
       requested: rows.length,
@@ -581,15 +761,19 @@ export class StockInventoryService {
       updated: 0,
       skipped: 0,
       failed: 0,
+      imageUpdated: 0,
     };
     const createdCodes: string[] = [];
     const updatedCodes: string[] = [];
     const skippedCodes: string[] = [];
     const failed: Array<{ row?: number; code?: string; reason: string }> = [];
 
+    const imagesByRow = await extractStockRowImages(file!.buffer, photoColumn);
+
     for (const [index, row] of rows.entries()) {
-      const rowNumber = index + 2;
+      const rowNumber = pickRowNumber(row, index + 2);
       const code = pickCode(row);
+      const rowImage = imagesByRow.get(rowNumber) ?? null;
       try {
         // 기존 상품을 먼저 찾아 비어 있는 칸의 기본값으로 쓴다
         // (재고만 올릴 때 단위/적용일자/가격을 다시 채우지 않아도 되게 한다).
@@ -618,10 +802,19 @@ export class StockInventoryService {
             stockMax: parsed.stockMax ?? undefined,
             stockIn: parsed.stockIn ?? undefined,
           });
+          const imagePatch = await this.resolveImportImage(
+            rowImage,
+            parsed.imageUrl,
+            before,
+          );
+          if (imagePatch.uploaded) {
+            summary.imageUpdated += 1;
+          }
+
           const updated = await this.prisma.stockInventory.update({
             where: { code: parsed.code },
             data: {
-              imageUrl: parsed.imageUrl,
+              ...imagePatch.data,
               productName: parsed.productName,
               spec: parsed.spec,
               unit: parsed.unit,
@@ -648,10 +841,19 @@ export class StockInventoryService {
 
         // 신규 등록: 재고 칸이 비어 있으면 입고수량을 초기 재고로 본다.
         const initialStock = parsed.stock ?? parsed.stockIn ?? null;
+        const newImage = await this.resolveImportImage(
+          rowImage,
+          parsed.imageUrl,
+          null,
+        );
+        if (newImage.uploaded) {
+          summary.imageUpdated += 1;
+        }
+
         const created = await this.prisma.stockInventory.create({
           data: {
             code: parsed.code,
-            imageUrl: parsed.imageUrl,
+            ...newImage.data,
             productName: parsed.productName,
             spec: parsed.spec,
             unit: parsed.unit,

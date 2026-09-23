@@ -42,40 +42,46 @@ export class ProductImageStorageService {
     );
   }
 
-  async store(file: Express.Multer.File): Promise<{
+  async store(file: Express.Multer.File) {
+    return this.storeBuffer(file.buffer, file.originalname, file.mimetype);
+  }
+
+  /**
+   * 업로드 파일이 아닌 곳(예: 엑셀 셀에서 꺼낸 이미지)에서도 쓸 수 있는 저장 경로.
+   */
+  async storeBuffer(
+    buffer: Buffer,
+    originalName: string,
+    mimetype: string,
+  ): Promise<{
     imageUrl: string;
     imageStoredName: string;
     imageOriginalName: string;
   }> {
-    const imageStoredName = this.buildStoredName(file.originalname);
-    const imageOriginalName = file.originalname;
+    const imageStoredName = this.buildStoredName(originalName);
 
     if (process.env.BLOB_READ_WRITE_TOKEN) {
-      const blob = await put(
-        `${BLOB_PREFIX}/${imageStoredName}`,
-        file.buffer,
-        {
-          access: 'public',
-          token: process.env.BLOB_READ_WRITE_TOKEN,
-          contentType: file.mimetype,
-        },
-      );
+      const blob = await put(`${BLOB_PREFIX}/${imageStoredName}`, buffer, {
+        access: 'public',
+        token: process.env.BLOB_READ_WRITE_TOKEN,
+        contentType: mimetype,
+      });
       return {
         imageUrl: blob.url,
         imageStoredName,
-        imageOriginalName,
+        imageOriginalName: originalName,
       };
     }
 
     const dir = this.localUploadDir();
     await fs.mkdir(dir, { recursive: true });
-    await fs.writeFile(path.join(dir, imageStoredName), file.buffer);
+    await fs.writeFile(path.join(dir, imageStoredName), buffer);
     this.logger.log(`Saved product image locally: ${imageStoredName}`);
 
     return {
       imageUrl: `${LOCAL_PUBLIC_PREFIX}/${imageStoredName}`,
       imageStoredName,
-      imageOriginalName,
+      imageOriginalName: originalName,
     };
   }
 }

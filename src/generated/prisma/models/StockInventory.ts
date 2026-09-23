@@ -56,6 +56,7 @@ export type StockInventoryMinAggregateOutputType = {
   imageUrl: string | null
   imageStoredName: string | null
   imageOriginalName: string | null
+  imageHash: string | null
   productName: string | null
   spec: string | null
   unit: number | null
@@ -80,6 +81,7 @@ export type StockInventoryMaxAggregateOutputType = {
   imageUrl: string | null
   imageStoredName: string | null
   imageOriginalName: string | null
+  imageHash: string | null
   productName: string | null
   spec: string | null
   unit: number | null
@@ -104,6 +106,7 @@ export type StockInventoryCountAggregateOutputType = {
   imageUrl: number
   imageStoredName: number
   imageOriginalName: number
+  imageHash: number
   productName: number
   spec: number
   unit: number
@@ -154,6 +157,7 @@ export type StockInventoryMinAggregateInputType = {
   imageUrl?: true
   imageStoredName?: true
   imageOriginalName?: true
+  imageHash?: true
   productName?: true
   spec?: true
   unit?: true
@@ -178,6 +182,7 @@ export type StockInventoryMaxAggregateInputType = {
   imageUrl?: true
   imageStoredName?: true
   imageOriginalName?: true
+  imageHash?: true
   productName?: true
   spec?: true
   unit?: true
@@ -202,6 +207,7 @@ export type StockInventoryCountAggregateInputType = {
   imageUrl?: true
   imageStoredName?: true
   imageOriginalName?: true
+  imageHash?: true
   productName?: true
   spec?: true
   unit?: true
@@ -313,6 +319,7 @@ export type StockInventoryGroupByOutputType = {
   imageUrl: string | null
   imageStoredName: string | null
   imageOriginalName: string | null
+  imageHash: string | null
   productName: string
   spec: string | null
   unit: number
@@ -360,6 +367,7 @@ export type StockInventoryWhereInput = {
   imageUrl?: Prisma.StringNullableFilter<"StockInventory"> | string | null
   imageStoredName?: Prisma.StringNullableFilter<"StockInventory"> | string | null
   imageOriginalName?: Prisma.StringNullableFilter<"StockInventory"> | string | null
+  imageHash?: Prisma.StringNullableFilter<"StockInventory"> | string | null
   productName?: Prisma.StringFilter<"StockInventory"> | string
   spec?: Prisma.StringNullableFilter<"StockInventory"> | string | null
   unit?: Prisma.IntFilter<"StockInventory"> | number
@@ -385,6 +393,7 @@ export type StockInventoryOrderByWithRelationInput = {
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   imageStoredName?: Prisma.SortOrderInput | Prisma.SortOrder
   imageOriginalName?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageHash?: Prisma.SortOrderInput | Prisma.SortOrder
   productName?: Prisma.SortOrder
   spec?: Prisma.SortOrderInput | Prisma.SortOrder
   unit?: Prisma.SortOrder
@@ -413,6 +422,7 @@ export type StockInventoryWhereUniqueInput = Prisma.AtLeast<{
   imageUrl?: Prisma.StringNullableFilter<"StockInventory"> | string | null
   imageStoredName?: Prisma.StringNullableFilter<"StockInventory"> | string | null
   imageOriginalName?: Prisma.StringNullableFilter<"StockInventory"> | string | null
+  imageHash?: Prisma.StringNullableFilter<"StockInventory"> | string | null
   productName?: Prisma.StringFilter<"StockInventory"> | string
   spec?: Prisma.StringNullableFilter<"StockInventory"> | string | null
   unit?: Prisma.IntFilter<"StockInventory"> | number
@@ -438,6 +448,7 @@ export type StockInventoryOrderByWithAggregationInput = {
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   imageStoredName?: Prisma.SortOrderInput | Prisma.SortOrder
   imageOriginalName?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageHash?: Prisma.SortOrderInput | Prisma.SortOrder
   productName?: Prisma.SortOrder
   spec?: Prisma.SortOrderInput | Prisma.SortOrder
   unit?: Prisma.SortOrder
@@ -470,6 +481,7 @@ export type StockInventoryScalarWhereWithAggregatesInput = {
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"StockInventory"> | string | null
   imageStoredName?: Prisma.StringNullableWithAggregatesFilter<"StockInventory"> | string | null
   imageOriginalName?: Prisma.StringNullableWithAggregatesFilter<"StockInventory"> | string | null
+  imageHash?: Prisma.StringNullableWithAggregatesFilter<"StockInventory"> | string | null
   productName?: Prisma.StringWithAggregatesFilter<"StockInventory"> | string
   spec?: Prisma.StringNullableWithAggregatesFilter<"StockInventory"> | string | null
   unit?: Prisma.IntWithAggregatesFilter<"StockInventory"> | number
@@ -493,6 +505,7 @@ export type StockInventoryCreateInput = {
   imageUrl?: string | null
   imageStoredName?: string | null
   imageOriginalName?: string | null
+  imageHash?: string | null
   productName: string
   spec?: string | null
   unit: number
@@ -518,6 +531,7 @@ export type StockInventoryUncheckedCreateInput = {
   imageUrl?: string | null
   imageStoredName?: string | null
   imageOriginalName?: string | null
+  imageHash?: string | null
   productName: string
   spec?: string | null
   unit: number
@@ -542,6 +556,7 @@ export type StockInventoryUpdateInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageStoredName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageOriginalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productName?: Prisma.StringFieldUpdateOperationsInput | string
   spec?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unit?: Prisma.IntFieldUpdateOperationsInput | number
@@ -567,6 +582,7 @@ export type StockInventoryUncheckedUpdateInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageStoredName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageOriginalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productName?: Prisma.StringFieldUpdateOperationsInput | string
   spec?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unit?: Prisma.IntFieldUpdateOperationsInput | number
@@ -592,6 +608,7 @@ export type StockInventoryCreateManyInput = {
   imageUrl?: string | null
   imageStoredName?: string | null
   imageOriginalName?: string | null
+  imageHash?: string | null
   productName: string
   spec?: string | null
   unit: number
@@ -615,6 +632,7 @@ export type StockInventoryUpdateManyMutationInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageStoredName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageOriginalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productName?: Prisma.StringFieldUpdateOperationsInput | string
   spec?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unit?: Prisma.IntFieldUpdateOperationsInput | number
@@ -639,6 +657,7 @@ export type StockInventoryUncheckedUpdateManyInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageStoredName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageOriginalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productName?: Prisma.StringFieldUpdateOperationsInput | string
   spec?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unit?: Prisma.IntFieldUpdateOperationsInput | number
@@ -663,6 +682,7 @@ export type StockInventoryCountOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   imageStoredName?: Prisma.SortOrder
   imageOriginalName?: Prisma.SortOrder
+  imageHash?: Prisma.SortOrder
   productName?: Prisma.SortOrder
   spec?: Prisma.SortOrder
   unit?: Prisma.SortOrder
@@ -699,6 +719,7 @@ export type StockInventoryMaxOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   imageStoredName?: Prisma.SortOrder
   imageOriginalName?: Prisma.SortOrder
+  imageHash?: Prisma.SortOrder
   productName?: Prisma.SortOrder
   spec?: Prisma.SortOrder
   unit?: Prisma.SortOrder
@@ -723,6 +744,7 @@ export type StockInventoryMinOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   imageStoredName?: Prisma.SortOrder
   imageOriginalName?: Prisma.SortOrder
+  imageHash?: Prisma.SortOrder
   productName?: Prisma.SortOrder
   spec?: Prisma.SortOrder
   unit?: Prisma.SortOrder
@@ -777,6 +799,7 @@ export type StockInventoryCreateWithoutLedgersInput = {
   imageUrl?: string | null
   imageStoredName?: string | null
   imageOriginalName?: string | null
+  imageHash?: string | null
   productName: string
   spec?: string | null
   unit: number
@@ -801,6 +824,7 @@ export type StockInventoryUncheckedCreateWithoutLedgersInput = {
   imageUrl?: string | null
   imageStoredName?: string | null
   imageOriginalName?: string | null
+  imageHash?: string | null
   productName: string
   spec?: string | null
   unit: number
@@ -840,6 +864,7 @@ export type StockInventoryUpdateWithoutLedgersInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageStoredName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageOriginalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productName?: Prisma.StringFieldUpdateOperationsInput | string
   spec?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unit?: Prisma.IntFieldUpdateOperationsInput | number
@@ -864,6 +889,7 @@ export type StockInventoryUncheckedUpdateWithoutLedgersInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageStoredName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageOriginalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productName?: Prisma.StringFieldUpdateOperationsInput | string
   spec?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unit?: Prisma.IntFieldUpdateOperationsInput | number
@@ -919,6 +945,7 @@ export type StockInventorySelect<ExtArgs extends runtime.Types.Extensions.Intern
   imageUrl?: boolean
   imageStoredName?: boolean
   imageOriginalName?: boolean
+  imageHash?: boolean
   productName?: boolean
   spec?: boolean
   unit?: boolean
@@ -945,6 +972,7 @@ export type StockInventorySelectCreateManyAndReturn<ExtArgs extends runtime.Type
   imageUrl?: boolean
   imageStoredName?: boolean
   imageOriginalName?: boolean
+  imageHash?: boolean
   productName?: boolean
   spec?: boolean
   unit?: boolean
@@ -969,6 +997,7 @@ export type StockInventorySelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   imageUrl?: boolean
   imageStoredName?: boolean
   imageOriginalName?: boolean
+  imageHash?: boolean
   productName?: boolean
   spec?: boolean
   unit?: boolean
@@ -993,6 +1022,7 @@ export type StockInventorySelectScalar = {
   imageUrl?: boolean
   imageStoredName?: boolean
   imageOriginalName?: boolean
+  imageHash?: boolean
   productName?: boolean
   spec?: boolean
   unit?: boolean
@@ -1011,7 +1041,7 @@ export type StockInventorySelectScalar = {
   updatedAt?: boolean
 }
 
-export type StockInventoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "imageUrl" | "imageStoredName" | "imageOriginalName" | "productName" | "spec" | "unit" | "stock" | "stockMax" | "effectiveDate" | "priceOver500man" | "priceOver100man" | "wholesalePrice" | "associatePrice" | "category" | "openStock" | "boxName" | "postWeight" | "createdAt" | "updatedAt", ExtArgs["result"]["stockInventory"]>
+export type StockInventoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "imageUrl" | "imageStoredName" | "imageOriginalName" | "imageHash" | "productName" | "spec" | "unit" | "stock" | "stockMax" | "effectiveDate" | "priceOver500man" | "priceOver100man" | "wholesalePrice" | "associatePrice" | "category" | "openStock" | "boxName" | "postWeight" | "createdAt" | "updatedAt", ExtArgs["result"]["stockInventory"]>
 export type StockInventoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ledgers?: boolean | Prisma.StockInventory$ledgersArgs<ExtArgs>
   _count?: boolean | Prisma.StockInventoryCountOutputTypeDefaultArgs<ExtArgs>
@@ -1030,6 +1060,7 @@ export type $StockInventoryPayload<ExtArgs extends runtime.Types.Extensions.Inte
     imageUrl: string | null
     imageStoredName: string | null
     imageOriginalName: string | null
+    imageHash: string | null
     productName: string
     spec: string | null
     unit: number
@@ -1475,6 +1506,7 @@ export interface StockInventoryFieldRefs {
   readonly imageUrl: Prisma.FieldRef<"StockInventory", 'String'>
   readonly imageStoredName: Prisma.FieldRef<"StockInventory", 'String'>
   readonly imageOriginalName: Prisma.FieldRef<"StockInventory", 'String'>
+  readonly imageHash: Prisma.FieldRef<"StockInventory", 'String'>
   readonly productName: Prisma.FieldRef<"StockInventory", 'String'>
   readonly spec: Prisma.FieldRef<"StockInventory", 'String'>
   readonly unit: Prisma.FieldRef<"StockInventory", 'Int'>

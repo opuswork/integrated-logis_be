@@ -1428,6 +1428,7 @@ export const StockInventoryScalarFieldEnum = {
   imageUrl: 'imageUrl',
   imageStoredName: 'imageStoredName',
   imageOriginalName: 'imageOriginalName',
+  imageHash: 'imageHash',
   productName: 'productName',
   spec: 'spec',
   unit: 'unit',
