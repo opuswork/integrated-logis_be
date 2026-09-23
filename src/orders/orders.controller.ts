@@ -149,6 +149,18 @@ export class OrdersController {
     );
   }
 
+  // ':id' 보다 위에 둔다. 아래에 있으면 ParseIntPipe 가 먼저 먹고 400 이 난다.
+  @Get('new-group-key')
+  @ApiOperation({
+    summary: '주문 그룹키 발급',
+    description:
+      '분할 접수 전에 형제가 공유할 키를 미리 받아 간다. SYN + 10자리 난수.',
+  })
+  @ApiOkResponse({ description: '{ orderGroupKey: "SYN0123456789" }' })
+  newGroupKey() {
+    return this.ordersService.issueOrderGroupKey();
+  }
+
   @Get(':id')
   @ApiOperation({ summary: '주문 상세' })
   findOne(@Param('id', ParseIntPipe) id: number) {

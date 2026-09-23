@@ -141,7 +141,11 @@ model Church {
 
 model Order {
   id              Int          @id @default(autoincrement())
-  orderNumber     String       @unique // E.g., "ORD-2026-000001"
+  orderNumber     String       @unique // 표시용. SYN + 10자리 난수, 분할이면 SYN…-1
+  /** 분할 주문 형제가 공유하는 키. 형제는 이 컬럼으로 찾는다(번호 문자열을 파싱하지 않는다) */
+  orderGroupKey   String       @map("order_group_key")
+  /** 분할 순번. 단일 주문이면 1 */
+  splitIndex      Int          @default(1) @map("split_index")
   status          OrderStatus  @default(PLACED)
   totalAmount     Float        @default(0.0)
   notes           String?
@@ -203,6 +207,7 @@ model Order {
   @@index([readyForShipment])
   @@index([requestedShipDate])
   @@index([packDept])
+  @@index([orderGroupKey])
 }
 
 /// 관리자 액션 알림 피드

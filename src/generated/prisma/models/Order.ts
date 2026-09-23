@@ -28,12 +28,14 @@ export type AggregateOrder = {
 
 export type OrderAvgAggregateOutputType = {
   id: number | null
+  splitIndex: number | null
   totalAmount: number | null
   userId: number | null
 }
 
 export type OrderSumAggregateOutputType = {
   id: number | null
+  splitIndex: number | null
   totalAmount: number | null
   userId: number | null
 }
@@ -41,6 +43,8 @@ export type OrderSumAggregateOutputType = {
 export type OrderMinAggregateOutputType = {
   id: number | null
   orderNumber: string | null
+  orderGroupKey: string | null
+  splitIndex: number | null
   status: $Enums.OrderStatus | null
   totalAmount: number | null
   notes: string | null
@@ -74,6 +78,8 @@ export type OrderMinAggregateOutputType = {
 export type OrderMaxAggregateOutputType = {
   id: number | null
   orderNumber: string | null
+  orderGroupKey: string | null
+  splitIndex: number | null
   status: $Enums.OrderStatus | null
   totalAmount: number | null
   notes: string | null
@@ -107,6 +113,8 @@ export type OrderMaxAggregateOutputType = {
 export type OrderCountAggregateOutputType = {
   id: number
   orderNumber: number
+  orderGroupKey: number
+  splitIndex: number
   status: number
   totalAmount: number
   notes: number
@@ -141,12 +149,14 @@ export type OrderCountAggregateOutputType = {
 
 export type OrderAvgAggregateInputType = {
   id?: true
+  splitIndex?: true
   totalAmount?: true
   userId?: true
 }
 
 export type OrderSumAggregateInputType = {
   id?: true
+  splitIndex?: true
   totalAmount?: true
   userId?: true
 }
@@ -154,6 +164,8 @@ export type OrderSumAggregateInputType = {
 export type OrderMinAggregateInputType = {
   id?: true
   orderNumber?: true
+  orderGroupKey?: true
+  splitIndex?: true
   status?: true
   totalAmount?: true
   notes?: true
@@ -187,6 +199,8 @@ export type OrderMinAggregateInputType = {
 export type OrderMaxAggregateInputType = {
   id?: true
   orderNumber?: true
+  orderGroupKey?: true
+  splitIndex?: true
   status?: true
   totalAmount?: true
   notes?: true
@@ -220,6 +234,8 @@ export type OrderMaxAggregateInputType = {
 export type OrderCountAggregateInputType = {
   id?: true
   orderNumber?: true
+  orderGroupKey?: true
+  splitIndex?: true
   status?: true
   totalAmount?: true
   notes?: true
@@ -340,6 +356,8 @@ export type OrderGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type OrderGroupByOutputType = {
   id: number
   orderNumber: string
+  orderGroupKey: string
+  splitIndex: number
   status: $Enums.OrderStatus
   totalAmount: number
   notes: string | null
@@ -396,6 +414,8 @@ export type OrderWhereInput = {
   NOT?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
   id?: Prisma.IntFilter<"Order"> | number
   orderNumber?: Prisma.StringFilter<"Order"> | string
+  orderGroupKey?: Prisma.StringFilter<"Order"> | string
+  splitIndex?: Prisma.IntFilter<"Order"> | number
   status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFilter<"Order"> | number
   notes?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -433,6 +453,8 @@ export type OrderWhereInput = {
 export type OrderOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   orderNumber?: Prisma.SortOrder
+  orderGroupKey?: Prisma.SortOrder
+  splitIndex?: Prisma.SortOrder
   status?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -473,6 +495,8 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
   OR?: Prisma.OrderWhereInput[]
   NOT?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
+  orderGroupKey?: Prisma.StringFilter<"Order"> | string
+  splitIndex?: Prisma.IntFilter<"Order"> | number
   status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFilter<"Order"> | number
   notes?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -510,6 +534,8 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
 export type OrderOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   orderNumber?: Prisma.SortOrder
+  orderGroupKey?: Prisma.SortOrder
+  splitIndex?: Prisma.SortOrder
   status?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -551,6 +577,8 @@ export type OrderScalarWhereWithAggregatesInput = {
   NOT?: Prisma.OrderScalarWhereWithAggregatesInput | Prisma.OrderScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Order"> | number
   orderNumber?: Prisma.StringWithAggregatesFilter<"Order"> | string
+  orderGroupKey?: Prisma.StringWithAggregatesFilter<"Order"> | string
+  splitIndex?: Prisma.IntWithAggregatesFilter<"Order"> | number
   status?: Prisma.EnumOrderStatusWithAggregatesFilter<"Order"> | $Enums.OrderStatus
   totalAmount?: Prisma.FloatWithAggregatesFilter<"Order"> | number
   notes?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
@@ -583,6 +611,8 @@ export type OrderScalarWhereWithAggregatesInput = {
 
 export type OrderCreateInput = {
   orderNumber: string
+  orderGroupKey: string
+  splitIndex?: number
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
@@ -619,6 +649,8 @@ export type OrderCreateInput = {
 export type OrderUncheckedCreateInput = {
   id?: number
   orderNumber: string
+  orderGroupKey: string
+  splitIndex?: number
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
@@ -654,6 +686,8 @@ export type OrderUncheckedCreateInput = {
 
 export type OrderUpdateInput = {
   orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  orderGroupKey?: Prisma.StringFieldUpdateOperationsInput | string
+  splitIndex?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -690,6 +724,8 @@ export type OrderUpdateInput = {
 export type OrderUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  orderGroupKey?: Prisma.StringFieldUpdateOperationsInput | string
+  splitIndex?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -726,6 +762,8 @@ export type OrderUncheckedUpdateInput = {
 export type OrderCreateManyInput = {
   id?: number
   orderNumber: string
+  orderGroupKey: string
+  splitIndex?: number
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
@@ -758,6 +796,8 @@ export type OrderCreateManyInput = {
 
 export type OrderUpdateManyMutationInput = {
   orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  orderGroupKey?: Prisma.StringFieldUpdateOperationsInput | string
+  splitIndex?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -790,6 +830,8 @@ export type OrderUpdateManyMutationInput = {
 export type OrderUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  orderGroupKey?: Prisma.StringFieldUpdateOperationsInput | string
+  splitIndex?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -833,6 +875,8 @@ export type OrderOrderByRelationAggregateInput = {
 export type OrderCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   orderNumber?: Prisma.SortOrder
+  orderGroupKey?: Prisma.SortOrder
+  splitIndex?: Prisma.SortOrder
   status?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -865,6 +909,7 @@ export type OrderCountOrderByAggregateInput = {
 
 export type OrderAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  splitIndex?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
@@ -872,6 +917,8 @@ export type OrderAvgOrderByAggregateInput = {
 export type OrderMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   orderNumber?: Prisma.SortOrder
+  orderGroupKey?: Prisma.SortOrder
+  splitIndex?: Prisma.SortOrder
   status?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -905,6 +952,8 @@ export type OrderMaxOrderByAggregateInput = {
 export type OrderMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   orderNumber?: Prisma.SortOrder
+  orderGroupKey?: Prisma.SortOrder
+  splitIndex?: Prisma.SortOrder
   status?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -937,6 +986,7 @@ export type OrderMinOrderByAggregateInput = {
 
 export type OrderSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  splitIndex?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
@@ -1063,6 +1113,8 @@ export type OrderUpdateOneWithoutGreetingFormsNestedInput = {
 
 export type OrderCreateWithoutUserInput = {
   orderNumber: string
+  orderGroupKey: string
+  splitIndex?: number
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
@@ -1098,6 +1150,8 @@ export type OrderCreateWithoutUserInput = {
 export type OrderUncheckedCreateWithoutUserInput = {
   id?: number
   orderNumber: string
+  orderGroupKey: string
+  splitIndex?: number
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
@@ -1162,6 +1216,8 @@ export type OrderScalarWhereInput = {
   NOT?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
   id?: Prisma.IntFilter<"Order"> | number
   orderNumber?: Prisma.StringFilter<"Order"> | string
+  orderGroupKey?: Prisma.StringFilter<"Order"> | string
+  splitIndex?: Prisma.IntFilter<"Order"> | number
   status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFilter<"Order"> | number
   notes?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -1194,6 +1250,8 @@ export type OrderScalarWhereInput = {
 
 export type OrderCreateWithoutShipmentInput = {
   orderNumber: string
+  orderGroupKey: string
+  splitIndex?: number
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
@@ -1229,6 +1287,8 @@ export type OrderCreateWithoutShipmentInput = {
 export type OrderUncheckedCreateWithoutShipmentInput = {
   id?: number
   orderNumber: string
+  orderGroupKey: string
+  splitIndex?: number
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
@@ -1279,6 +1339,8 @@ export type OrderUpdateToOneWithWhereWithoutShipmentInput = {
 
 export type OrderUpdateWithoutShipmentInput = {
   orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  orderGroupKey?: Prisma.StringFieldUpdateOperationsInput | string
+  splitIndex?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1314,6 +1376,8 @@ export type OrderUpdateWithoutShipmentInput = {
 export type OrderUncheckedUpdateWithoutShipmentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  orderGroupKey?: Prisma.StringFieldUpdateOperationsInput | string
+  splitIndex?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1348,6 +1412,8 @@ export type OrderUncheckedUpdateWithoutShipmentInput = {
 
 export type OrderCreateWithoutItemsInput = {
   orderNumber: string
+  orderGroupKey: string
+  splitIndex?: number
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
@@ -1383,6 +1449,8 @@ export type OrderCreateWithoutItemsInput = {
 export type OrderUncheckedCreateWithoutItemsInput = {
   id?: number
   orderNumber: string
+  orderGroupKey: string
+  splitIndex?: number
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
@@ -1433,6 +1501,8 @@ export type OrderUpdateToOneWithWhereWithoutItemsInput = {
 
 export type OrderUpdateWithoutItemsInput = {
   orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  orderGroupKey?: Prisma.StringFieldUpdateOperationsInput | string
+  splitIndex?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1468,6 +1538,8 @@ export type OrderUpdateWithoutItemsInput = {
 export type OrderUncheckedUpdateWithoutItemsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  orderGroupKey?: Prisma.StringFieldUpdateOperationsInput | string
+  splitIndex?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1502,6 +1574,8 @@ export type OrderUncheckedUpdateWithoutItemsInput = {
 
 export type OrderCreateWithoutGreetingFormsInput = {
   orderNumber: string
+  orderGroupKey: string
+  splitIndex?: number
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
@@ -1537,6 +1611,8 @@ export type OrderCreateWithoutGreetingFormsInput = {
 export type OrderUncheckedCreateWithoutGreetingFormsInput = {
   id?: number
   orderNumber: string
+  orderGroupKey: string
+  splitIndex?: number
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
@@ -1587,6 +1663,8 @@ export type OrderUpdateToOneWithWhereWithoutGreetingFormsInput = {
 
 export type OrderUpdateWithoutGreetingFormsInput = {
   orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  orderGroupKey?: Prisma.StringFieldUpdateOperationsInput | string
+  splitIndex?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1622,6 +1700,8 @@ export type OrderUpdateWithoutGreetingFormsInput = {
 export type OrderUncheckedUpdateWithoutGreetingFormsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  orderGroupKey?: Prisma.StringFieldUpdateOperationsInput | string
+  splitIndex?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1657,6 +1737,8 @@ export type OrderUncheckedUpdateWithoutGreetingFormsInput = {
 export type OrderCreateManyUserInput = {
   id?: number
   orderNumber: string
+  orderGroupKey: string
+  splitIndex?: number
   status?: $Enums.OrderStatus
   totalAmount?: number
   notes?: string | null
@@ -1688,6 +1770,8 @@ export type OrderCreateManyUserInput = {
 
 export type OrderUpdateWithoutUserInput = {
   orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  orderGroupKey?: Prisma.StringFieldUpdateOperationsInput | string
+  splitIndex?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1723,6 +1807,8 @@ export type OrderUpdateWithoutUserInput = {
 export type OrderUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  orderGroupKey?: Prisma.StringFieldUpdateOperationsInput | string
+  splitIndex?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1758,6 +1844,8 @@ export type OrderUncheckedUpdateWithoutUserInput = {
 export type OrderUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  orderGroupKey?: Prisma.StringFieldUpdateOperationsInput | string
+  splitIndex?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1830,6 +1918,8 @@ export type OrderCountOutputTypeCountGreetingFormsArgs<ExtArgs extends runtime.T
 export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   orderNumber?: boolean
+  orderGroupKey?: boolean
+  splitIndex?: boolean
   status?: boolean
   totalAmount?: boolean
   notes?: boolean
@@ -1868,6 +1958,8 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   orderNumber?: boolean
+  orderGroupKey?: boolean
+  splitIndex?: boolean
   status?: boolean
   totalAmount?: boolean
   notes?: boolean
@@ -1902,6 +1994,8 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   orderNumber?: boolean
+  orderGroupKey?: boolean
+  splitIndex?: boolean
   status?: boolean
   totalAmount?: boolean
   notes?: boolean
@@ -1936,6 +2030,8 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type OrderSelectScalar = {
   id?: boolean
   orderNumber?: boolean
+  orderGroupKey?: boolean
+  splitIndex?: boolean
   status?: boolean
   totalAmount?: boolean
   notes?: boolean
@@ -1966,7 +2062,7 @@ export type OrderSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "status" | "totalAmount" | "notes" | "extraNote" | "factoryAlert" | "storeRegion" | "packagingWorker" | "orderConfirmedAt" | "orderConfirmedBy" | "paymentDone" | "paymentAuthor" | "greetingDone" | "slipDone" | "slipAuthor" | "readyForShipment" | "requestedShipDate" | "packDept" | "packDate" | "packPt" | "storagePlace" | "packDone" | "releaseDone" | "releaseDoneAt" | "finalCompleteDone" | "finalConfirmDone" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "orderGroupKey" | "splitIndex" | "status" | "totalAmount" | "notes" | "extraNote" | "factoryAlert" | "storeRegion" | "packagingWorker" | "orderConfirmedAt" | "orderConfirmedBy" | "paymentDone" | "paymentAuthor" | "greetingDone" | "slipDone" | "slipAuthor" | "readyForShipment" | "requestedShipDate" | "packDept" | "packDate" | "packPt" | "storagePlace" | "packDone" | "releaseDone" | "releaseDoneAt" | "finalCompleteDone" | "finalConfirmDone" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   items?: boolean | Prisma.Order$itemsArgs<ExtArgs>
@@ -1992,6 +2088,14 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     orderNumber: string
+    /**
+     * * 분할 주문 형제가 공유하는 키. 형제는 이 컬럼으로 찾는다(번호 문자열을 파싱하지 않는다)
+     */
+    orderGroupKey: string
+    /**
+     * * 분할 순번. 단일 주문이면 1
+     */
+    splitIndex: number
     status: $Enums.OrderStatus
     totalAmount: number
     notes: string | null
@@ -2476,6 +2580,8 @@ export interface Prisma__OrderClient<T, Null = never, ExtArgs extends runtime.Ty
 export interface OrderFieldRefs {
   readonly id: Prisma.FieldRef<"Order", 'Int'>
   readonly orderNumber: Prisma.FieldRef<"Order", 'String'>
+  readonly orderGroupKey: Prisma.FieldRef<"Order", 'String'>
+  readonly splitIndex: Prisma.FieldRef<"Order", 'Int'>
   readonly status: Prisma.FieldRef<"Order", 'OrderStatus'>
   readonly totalAmount: Prisma.FieldRef<"Order", 'Float'>
   readonly notes: Prisma.FieldRef<"Order", 'String'>

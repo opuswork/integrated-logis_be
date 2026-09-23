@@ -1345,6 +1345,8 @@ export type ChurchScalarFieldEnum = (typeof ChurchScalarFieldEnum)[keyof typeof 
 export const OrderScalarFieldEnum = {
   id: 'id',
   orderNumber: 'orderNumber',
+  orderGroupKey: 'orderGroupKey',
+  splitIndex: 'splitIndex',
   status: 'status',
   totalAmount: 'totalAmount',
   notes: 'notes',
