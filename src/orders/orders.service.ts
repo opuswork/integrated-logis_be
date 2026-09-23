@@ -812,6 +812,32 @@ export class OrdersService {
     );
   }
 
+  /**
+   * 출고요청일: 공장관리자 + 최고관리자 + 관할 매장관리자.
+   *
+   * 포장·출고와 달리 현장 작업이 아니라 "언제까지 내보내 달라"는 요청이라,
+   * 주문을 받은 매장이 직접 잡는 편이 맞다. 관할 밖 주문은 여전히 막는다.
+   */
+  private assertCanWriteShipDate(
+    actor: AuthUserPayload,
+    order: { storeRegion: AdminRegion | null },
+    canApproveGreeting: boolean,
+  ) {
+    if (canApproveGreeting) {
+      throw new ForbiddenException(
+        'Factory-G는 인사장완료만 처리할 수 있습니다.',
+      );
+    }
+    if (actor.role === 'factory') {
+      return;
+    }
+    if (actor.role === 'admin') {
+      this.assertCanMutateOrderRegion(order, actor);
+      return;
+    }
+    throw new ForbiddenException('출고요청일을 변경할 권한이 없습니다.');
+  }
+
   /** 배송관리 최종완료·최종확인: 관할 매장관리자 + 최고관리자 (공장 불가) */
   private assertCanPressShipmentFinalActions(
     actor: AuthUserPayload,
@@ -1242,6 +1268,8 @@ export class OrdersService {
         order,
         canApproveGreeting,
       );
+    } else if (dto.action === 'setShipDate') {
+      this.assertCanWriteShipDate(actor, order, canApproveGreeting);
     } else {
       this.assertCanWriteShipmentOps(actor, canApproveGreeting);
     }

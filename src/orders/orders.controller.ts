@@ -186,7 +186,9 @@ export class OrdersController {
   @ApiOperation({
     summary: '배송·출고·포장 운영 액션',
     description:
-      'setShipDate | setPackDept | completePack | completeRelease | finalComplete | finalConfirm. 공장관리자(비-G) 및 최고관리자만.',
+      'setShipDate | setPackDept | completePack | completeRelease | finalComplete | finalConfirm. ' +
+      'setPackDept·completePack·completeRelease 는 공장관리자(비-G) 및 최고관리자만. ' +
+      'setShipDate 는 관할 매장관리자도 가능. finalComplete·finalConfirm 은 관할 매장관리자(및 최고관리자)만.',
   })
   @ApiOkResponse({ description: '갱신된 주문' })
   updateShipmentOps(
