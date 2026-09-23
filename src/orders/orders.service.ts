@@ -35,6 +35,10 @@ import {
   CreateShipmentDto,
 } from './dto/create-order.dto';
 import type { DeliveryAction } from './dto/delivery-action.dto';
+import {
+  canEditOrderStatus,
+  describeOrderEditLock,
+} from './order-edit-guard';
 import type { UpdateAdminChecklistDto } from './dto/update-admin-checklist.dto';
 import type { UpdateShipmentOpsDto } from './dto/update-shipment-ops.dto';
 import {
@@ -628,6 +632,15 @@ export class OrdersService {
       shipment,
     } = updateOrderDto;
 
+    // 수량·배송방식 같은 주문 내용은 현장 작업이 시작되기 전까지만 고칠 수 있다.
+    // 특이사항만 고치는 호출은 막지 않는다.
+    if (items !== undefined || notes !== undefined || shipment !== undefined) {
+      const lockReason = describeOrderEditLock(existing);
+      if (lockReason) {
+        throw new BadRequestException(lockReason);
+      }
+    }
+
     const notifyFactory = this.shouldNotifyFactoryOnEdit(existing.status);
 
     return this.prisma.$transaction(async (tx) => {
@@ -689,14 +702,9 @@ export class OrdersService {
     });
   }
 
-  /** 배송중 이전만 주문 내용 수정 가능 */
+  /** 배송중 이전만 주문 내용 수정 가능 (규칙은 order-edit-guard 에 모아 둔다) */
   private canEditOrderStatus(status: OrderStatus) {
-    return (
-      status === OrderStatus.PLACED ||
-      status === OrderStatus.WAITING_FOR_SHIPMENT ||
-      status === OrderStatus.PREPARED ||
-      status === OrderStatus.LOAD_NOTIFIED
-    );
+    return canEditOrderStatus(status);
   }
 
   private assertCanMutateOrderRegion(
