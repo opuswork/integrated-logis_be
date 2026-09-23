@@ -277,6 +277,7 @@ model StockInventory {
   imageUrl          String? // Blob URL or /assets/products/gift_sets/...
   imageStoredName   String? // 날짜+random 저장 파일명
   imageOriginalName String? // 원본 파일명
+  imageHash         String? @map("image_hash") // 엑셀 업로드 이미지 sha256. 같으면 재업로드 생략
   productName       String // 품명
   spec              String? // 규격
   unit              Int // 판매 단위
