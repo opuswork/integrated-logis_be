@@ -35,6 +35,11 @@ import {
   CreateShipmentDto,
 } from './dto/create-order.dto';
 import type { DeliveryAction } from './dto/delivery-action.dto';
+import {
+  canEditOrderStatus,
+  describeOrderEditLock,
+} from './order-edit-guard';
+import { buildOrderNumber, generateOrderGroupKey } from './order-number';
 import type { UpdateAdminChecklistDto } from './dto/update-admin-checklist.dto';
 import type { UpdateShipmentOpsDto } from './dto/update-shipment-ops.dto';
 import {
@@ -211,6 +216,7 @@ export class OrdersService {
 
   async create(createOrderDto: CreateOrderDto, actor?: AuthUserPayload) {
     const ownerPlan = await this.planOrderOwner(createOrderDto, actor);
+    const numbering = await this.planOrderNumbering(createOrderDto);
 
     return this.prisma.$transaction(async (tx) => {
       const userId = await this.resolveOrderOwner(tx, ownerPlan);
@@ -219,7 +225,9 @@ export class OrdersService {
 
       return tx.order.create({
         data: {
-          orderNumber: createOrderDto.orderNumber,
+          orderNumber: numbering.orderNumber,
+          orderGroupKey: numbering.orderGroupKey,
+          splitIndex: numbering.splitIndex,
           userId,
           status: createOrderDto.status,
           totalAmount: createOrderDto.totalAmount,
@@ -242,6 +250,66 @@ export class OrdersService {
         include: orderInclude,
       });
     });
+  }
+
+  /**
+   * 주문번호를 정합니다.
+   *
+   * - 엑셀 일괄등록처럼 번호가 이미 정해진 경우엔 그대로 쓰고 그룹키도 같은 값으로 둔다.
+   * - 분할 접수는 프론트가 먼저 받아 둔 orderGroupKey 를 형제끼리 돌려쓴다.
+   * - 그 외에는 여기서 새로 발급한다.
+   */
+  private async planOrderNumbering(dto: CreateOrderDto): Promise<{
+    orderNumber: string;
+    orderGroupKey: string;
+    splitIndex: number;
+  }> {
+    const explicit = dto.orderNumber?.trim();
+    if (explicit) {
+      return {
+        orderNumber: explicit,
+        orderGroupKey: dto.orderGroupKey?.trim() || explicit,
+        splitIndex: dto.splitIndex ?? 1,
+      };
+    }
+
+    const groupKey = dto.orderGroupKey?.trim() || (await this.allocateOrderGroupKey());
+    const splitIndex = dto.splitIndex ?? 1;
+    return {
+      orderNumber: buildOrderNumber(groupKey, splitIndex, dto.splitCount ?? 1),
+      orderGroupKey: groupKey,
+      splitIndex,
+    };
+  }
+
+  /**
+   * 쓰이지 않은 그룹키를 발급합니다. 난수라 충돌이 가능하므로 DB 를 확인하고 재시도합니다.
+   * 분할 접수는 형제가 -1/-2 로 갈리니 그룹키 자체와 첫 형제 번호를 함께 확인합니다.
+   */
+  private async allocateOrderGroupKey(): Promise<string> {
+    for (let attempt = 0; attempt < 30; attempt += 1) {
+      const candidate = generateOrderGroupKey();
+      const taken = await this.prisma.order.findFirst({
+        where: {
+          OR: [
+            { orderGroupKey: candidate },
+            { orderNumber: { startsWith: candidate } },
+          ],
+        },
+        select: { id: true },
+      });
+      if (!taken) {
+        return candidate;
+      }
+    }
+    throw new BadRequestException(
+      '주문번호를 발급하지 못했습니다. 잠시 후 다시 시도해 주세요.',
+    );
+  }
+
+  /** 분할 접수 전에 프론트가 그룹키를 미리 받아 갈 때 쓴다 */
+  async issueOrderGroupKey(): Promise<{ orderGroupKey: string }> {
+    return { orderGroupKey: await this.allocateOrderGroupKey() };
   }
 
   /**
@@ -628,6 +696,15 @@ export class OrdersService {
       shipment,
     } = updateOrderDto;
 
+    // 수량·배송방식 같은 주문 내용은 현장 작업이 시작되기 전까지만 고칠 수 있다.
+    // 특이사항만 고치는 호출은 막지 않는다.
+    if (items !== undefined || notes !== undefined || shipment !== undefined) {
+      const lockReason = describeOrderEditLock(existing);
+      if (lockReason) {
+        throw new BadRequestException(lockReason);
+      }
+    }
+
     const notifyFactory = this.shouldNotifyFactoryOnEdit(existing.status);
 
     return this.prisma.$transaction(async (tx) => {
@@ -689,14 +766,9 @@ export class OrdersService {
     });
   }
 
-  /** 배송중 이전만 주문 내용 수정 가능 */
+  /** 배송중 이전만 주문 내용 수정 가능 (규칙은 order-edit-guard 에 모아 둔다) */
   private canEditOrderStatus(status: OrderStatus) {
-    return (
-      status === OrderStatus.PLACED ||
-      status === OrderStatus.WAITING_FOR_SHIPMENT ||
-      status === OrderStatus.PREPARED ||
-      status === OrderStatus.LOAD_NOTIFIED
-    );
+    return canEditOrderStatus(status);
   }
 
   private assertCanMutateOrderRegion(
@@ -1788,9 +1860,7 @@ export class OrdersService {
         return preferred.trim();
       }
       for (let attempt = 0; attempt < 30; attempt += 1) {
-        const candidate = `ORD-${new Date().getFullYear()}-${String(Date.now() + attempt + summary.created * 17)
-          .slice(-6)
-          .padStart(6, '0')}`;
+        const candidate = generateOrderGroupKey();
         if (usedOrderNumbers.has(candidate)) {
           continue;
         }
@@ -1968,6 +2038,9 @@ export class OrdersService {
         const createdOrder = await this.prisma.order.create({
           data: {
             orderNumber,
+            // 일괄등록은 분할이 없다. 그룹키는 번호 그대로 두면 형제가 저 혼자다.
+            orderGroupKey: orderNumber,
+            splitIndex: 1,
             userId,
             status,
             totalAmount,

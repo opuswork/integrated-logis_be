@@ -101,9 +101,36 @@ export class OrdererProfileDto {
 }
 
 export class CreateOrderDto {
-  @ApiProperty({ example: 'ORD-2026-000001' })
+  /**
+   * 표시용 주문번호. 보통은 서버가 채번하므로 보내지 않는다.
+   * 엑셀 일괄등록처럼 번호가 이미 정해진 경우에만 실어 보낸다.
+   */
+  @ApiPropertyOptional({ example: 'SYN0123456789' })
+  @IsOptional()
   @IsString()
-  orderNumber!: string;
+  orderNumber?: string;
+
+  /** 분할 주문 형제가 공유하는 키. 없으면 서버가 새로 발급한다 */
+  @ApiPropertyOptional({ example: 'SYN0123456789' })
+  @IsOptional()
+  @IsString()
+  orderGroupKey?: string;
+
+  /** 분할 순번 (1부터) */
+  @ApiPropertyOptional({ example: 1, default: 1 })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  splitIndex?: number;
+
+  /** 이번 접수로 만들어지는 형제 개수. 1이면 접미사를 붙이지 않는다 */
+  @ApiPropertyOptional({ example: 2, default: 1 })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  splitCount?: number;
 
   @ApiProperty({ example: 1 })
   @Type(() => Number)
