@@ -82,6 +82,7 @@ model User {
   adminActivities AdminActivity[]
   partners Partner[]
   chatMessages ChatMessage[]
+  voiceRecordings VoiceRecording[]
 
   // Relation to the Church model (Moved inside the block)
   churchId  Int?
@@ -397,3 +398,24 @@ enum AdminActivityAction {
 }
 
 
+
+/** 사용자 음성 불편·오류 신고 녹음 (m4a) */
+model VoiceRecording {
+  id          Int      @id @default(autoincrement())
+  userId      Int?     @map("user_id")
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  /** 주문자 성명 (녹음한 로그인 사용자) */
+  ordererName String   @map("orderer_name")
+  /** 중앙 (User.church.name) */
+  churchName  String?  @map("church_name")
+  /** 녹음한 화면 (예: 제품주문서(신규작성)) */
+  screen      String
+  fileName    String   @map("file_name")
+  fileUrl     String   @map("file_url")
+  mimeType    String   @map("mime_type")
+  sizeBytes   Int      @map("size_bytes")
+  durationSec Int?     @map("duration_sec")
+  recordedAt  DateTime @default(now()) @map("recorded_at")
+
+  @@index([recordedAt])
+}

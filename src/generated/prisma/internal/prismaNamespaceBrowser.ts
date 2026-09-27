@@ -61,7 +61,8 @@ export const ModelName = {
   OrderItem: 'OrderItem',
   StockInventory: 'StockInventory',
   StockInventoryLedger: 'StockInventoryLedger',
-  GreetingForm: 'GreetingForm'
+  GreetingForm: 'GreetingForm',
+  VoiceRecording: 'VoiceRecording'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -294,6 +295,23 @@ export const GreetingFormScalarFieldEnum = {
 } as const
 
 export type GreetingFormScalarFieldEnum = (typeof GreetingFormScalarFieldEnum)[keyof typeof GreetingFormScalarFieldEnum]
+
+
+export const VoiceRecordingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  ordererName: 'ordererName',
+  churchName: 'churchName',
+  screen: 'screen',
+  fileName: 'fileName',
+  fileUrl: 'fileUrl',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  durationSec: 'durationSec',
+  recordedAt: 'recordedAt'
+} as const
+
+export type VoiceRecordingScalarFieldEnum = (typeof VoiceRecordingScalarFieldEnum)[keyof typeof VoiceRecordingScalarFieldEnum]
 
 
 export const SortOrder = {
