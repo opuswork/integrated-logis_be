@@ -15,6 +15,7 @@ import { PostOfficeModule } from './post-office/post-office.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ShipmentsModule } from './shipments/shipments.module';
 import { StockInventoryModule } from './stock-inventory/stock-inventory.module';
+import { VoiceRecordingModule } from './voice-recording/voice-recording.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { StockInventoryModule } from './stock-inventory/stock-inventory.module';
     PostOfficeModule,
     PartnersModule,
     ChatModule,
+    VoiceRecordingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -407,7 +407,8 @@ export const ModelName = {
   OrderItem: 'OrderItem',
   StockInventory: 'StockInventory',
   StockInventoryLedger: 'StockInventoryLedger',
-  GreetingForm: 'GreetingForm'
+  GreetingForm: 'GreetingForm',
+  VoiceRecording: 'VoiceRecording'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -423,7 +424,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "chatMessage" | "partner" | "church" | "order" | "adminActivity" | "shipment" | "orderItem" | "stockInventory" | "stockInventoryLedger" | "greetingForm"
+    modelProps: "user" | "chatMessage" | "partner" | "church" | "order" | "adminActivity" | "shipment" | "orderItem" | "stockInventory" | "stockInventoryLedger" | "greetingForm" | "voiceRecording"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1241,6 +1242,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    VoiceRecording: {
+      payload: Prisma.$VoiceRecordingPayload<ExtArgs>
+      fields: Prisma.VoiceRecordingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.VoiceRecordingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VoiceRecordingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.VoiceRecordingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VoiceRecordingPayload>
+        }
+        findFirst: {
+          args: Prisma.VoiceRecordingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VoiceRecordingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.VoiceRecordingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VoiceRecordingPayload>
+        }
+        findMany: {
+          args: Prisma.VoiceRecordingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VoiceRecordingPayload>[]
+        }
+        create: {
+          args: Prisma.VoiceRecordingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VoiceRecordingPayload>
+        }
+        createMany: {
+          args: Prisma.VoiceRecordingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.VoiceRecordingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VoiceRecordingPayload>[]
+        }
+        delete: {
+          args: Prisma.VoiceRecordingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VoiceRecordingPayload>
+        }
+        update: {
+          args: Prisma.VoiceRecordingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VoiceRecordingPayload>
+        }
+        deleteMany: {
+          args: Prisma.VoiceRecordingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.VoiceRecordingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.VoiceRecordingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VoiceRecordingPayload>[]
+        }
+        upsert: {
+          args: Prisma.VoiceRecordingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VoiceRecordingPayload>
+        }
+        aggregate: {
+          args: Prisma.VoiceRecordingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVoiceRecording>
+        }
+        groupBy: {
+          args: Prisma.VoiceRecordingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VoiceRecordingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.VoiceRecordingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VoiceRecordingCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1494,6 +1569,23 @@ export const GreetingFormScalarFieldEnum = {
 } as const
 
 export type GreetingFormScalarFieldEnum = (typeof GreetingFormScalarFieldEnum)[keyof typeof GreetingFormScalarFieldEnum]
+
+
+export const VoiceRecordingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  ordererName: 'ordererName',
+  churchName: 'churchName',
+  screen: 'screen',
+  fileName: 'fileName',
+  fileUrl: 'fileUrl',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  durationSec: 'durationSec',
+  recordedAt: 'recordedAt'
+} as const
+
+export type VoiceRecordingScalarFieldEnum = (typeof VoiceRecordingScalarFieldEnum)[keyof typeof VoiceRecordingScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1904,6 +1996,7 @@ export type GlobalOmitConfig = {
   stockInventory?: Prisma.StockInventoryOmit
   stockInventoryLedger?: Prisma.StockInventoryLedgerOmit
   greetingForm?: Prisma.GreetingFormOmit
+  voiceRecording?: Prisma.VoiceRecordingOmit
 }
 
 /* Types for Logging */

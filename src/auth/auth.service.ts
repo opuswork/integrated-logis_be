@@ -23,12 +23,34 @@ import {
 } from '../common/member-auth';
 import { PrismaService } from '../prisma/prisma.service';
 import { LoginDto } from './dto/login.dto';
-import type { AuthUserPayload, JwtPayload } from './jwt.strategy';
+import type {
+  AdminRegionCode,
+  AppRole,
+  AuthUserPayload,
+  JwtPayload,
+} from './jwt.strategy';
 import {
   isSuperAdminUser,
   toAdminRegion,
   toAppRole,
 } from './jwt.strategy';
+
+/** 로그인·토큰 재발급이 같은 JWT 내용을 쓰도록 한 곳에서 만든다. */
+function buildJwtPayload(
+  sub: number,
+  username: string,
+  role: AppRole,
+  adminRegion: AdminRegionCode | null,
+): JwtPayload {
+  return {
+    sub,
+    username,
+    role,
+    adminRegion,
+    // 중복로그인 방지 (비활성)
+    // sv: bumped.sessionVersion,
+  };
+}
 
 const SMS_OTP_TTL_MS = 3 * 60 * 1000;
 const SMS_VERIFIED_TTL_MS = 10 * 60 * 1000;
@@ -225,14 +247,12 @@ export class AuthService {
 
       const role = toAppRole(user.role);
       const adminRegion = toAdminRegion(user.adminRegion);
-      const payload: JwtPayload = {
-        sub: user.id,
-        username: user.username,
+      const payload = buildJwtPayload(
+        user.id,
+        user.username,
         role,
         adminRegion,
-        // 중복로그인 방지 (비활성)
-        // sv: bumped.sessionVersion,
-      };
+      );
 
       // 중복로그인 방지 (비활성): 로그인할 때마다 sessionVersion을 올려 기존 JWT를 끊음
       // const bumped = await this.prisma.user.update({
@@ -338,6 +358,33 @@ export class AuthService {
         '회원 정보를 불러오지 못했습니다.',
       );
     }
+  }
+
+  /**
+   * 사용 중인 토큰을 새 만료시간으로 다시 발급한다 (슬라이딩 세션).
+   * 클라이언트는 실제 사용자 활동이 있을 때만 호출하므로,
+   * 토큰은 마지막 활동 후 JWT_EXPIRES_SECONDS(기본 24시간)가 지나면 만료된다.
+   */
+  async refresh(currentUser: AuthUserPayload) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: currentUser.id },
+      select: { id: true, username: true, role: true, adminRegion: true },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException(
+        '로그인이 만료되었습니다. 다시 로그인해 주세요.',
+      );
+    }
+
+    const payload = buildJwtPayload(
+      user.id,
+      user.username,
+      toAppRole(user.role),
+      toAdminRegion(user.adminRegion),
+    );
+
+    return { accessToken: await this.jwtService.signAsync(payload) };
   }
 
   private assertValidMobilePhone(phone: string) {

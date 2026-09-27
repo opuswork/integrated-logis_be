@@ -94,3 +94,8 @@ export type StockInventoryLedger = Prisma.StockInventoryLedgerModel
  * 인사장 작성 폼 (제품주문 연계 / 인사장만 의뢰)
  */
 export type GreetingForm = Prisma.GreetingFormModel
+/**
+ * Model VoiceRecording
+ * * 사용자 음성 불편·오류 신고 녹음 (m4a)
+ */
+export type VoiceRecording = Prisma.VoiceRecordingModel
