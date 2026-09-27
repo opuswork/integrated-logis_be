@@ -53,4 +53,14 @@ export class AuthController {
   me(@CurrentUser() user: AuthUserPayload) {
     return this.authService.me(user);
   }
+
+  @Post('refresh')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: '토큰 재발급 (JWT 필요, 마지막 활동 기준으로 만료 연장)',
+  })
+  refresh(@CurrentUser() user: AuthUserPayload) {
+    return this.authService.refresh(user);
+  }
 }
