@@ -4,6 +4,8 @@ import { randomInt } from 'crypto';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 
+import { decodeUploadFilename } from '../common/upload-filename';
+
 const LOCAL_PUBLIC_PREFIX = '/assets/products/gift_sets';
 const BLOB_PREFIX = 'products/gift_sets';
 
@@ -43,7 +45,11 @@ export class ProductImageStorageService {
   }
 
   async store(file: Express.Multer.File) {
-    return this.storeBuffer(file.buffer, file.originalname, file.mimetype);
+    return this.storeBuffer(
+      file.buffer,
+      decodeUploadFilename(file.originalname),
+      file.mimetype,
+    );
   }
 
   /**

@@ -4,6 +4,8 @@ import { randomInt } from 'crypto';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 
+import { decodeUploadFilename } from '../common/upload-filename';
+
 @Injectable()
 export class GreetingImageStorageService {
   private readonly logger = new Logger(GreetingImageStorageService.name);
@@ -45,7 +47,7 @@ export class GreetingImageStorageService {
   }> {
     return this.storeBuffer({
       buffer: file.buffer,
-      originalName: file.originalname,
+      originalName: decodeUploadFilename(file.originalname),
       mimeType: file.mimetype,
     });
   }
