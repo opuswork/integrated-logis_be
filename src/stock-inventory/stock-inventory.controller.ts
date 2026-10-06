@@ -90,6 +90,27 @@ export class StockInventoryController {
         priceOver100man: { type: 'number' },
         wholesalePrice: { type: 'number' },
         associatePrice: { type: 'number' },
+        unitPriceShow: {
+          type: 'boolean',
+          nullable: true,
+          description: '단가노출여부',
+        },
+        retailPrice: { type: 'number', nullable: true, description: '소매' },
+        supermarketPrice: {
+          type: 'number',
+          nullable: true,
+          description: '슈퍼 납품가',
+        },
+        schoolServePrice: {
+          type: 'number',
+          nullable: true,
+          description: '급식',
+        },
+        taxExemption: {
+          type: 'boolean',
+          nullable: true,
+          description: '비과세',
+        },
         category: { type: 'string' },
         openStock: {
           type: 'boolean',
@@ -111,7 +132,7 @@ export class StockInventoryController {
   @ApiOperation({
     summary: '재고/상품 Excel 일괄 등록',
     description:
-      '.xlsx / .csv 파일을 업로드합니다. 헤더: 코드, 사진(선택), 품명, 규격, 단위, 재고(선택), 입고수량(선택), 적용일자, 500만원이상 할인가, 100만원이상 할인가, 도매, 준회원, 구분. 이미 등록된 코드는 비어 있는 칸에 기존 값을 그대로 쓰며, 입고수량은 현재 재고에 가산됩니다.',
+      '.xlsx / .csv 파일을 업로드합니다. 헤더: 코드, 단가노출여부(Y/N), 사진(선택), 품명, 규격, 단위, 재고(선택), 입고수량(선택), 적용일자, 소매, 오백가(500만원이상 할인가), 슈퍼, 도매, 준회원, 백만가(100만원이상 할인가), 급식, 비과세(Y/N), 구분. 이미 등록된 코드는 비어 있는 칸에 기존 값을 그대로 쓰며, 입고수량은 현재 재고에 가산됩니다.',
   })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
