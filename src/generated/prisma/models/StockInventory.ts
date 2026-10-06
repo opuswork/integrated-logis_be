@@ -35,6 +35,9 @@ export type StockInventoryAvgAggregateOutputType = {
   priceOver100man: number | null
   wholesalePrice: number | null
   associatePrice: number | null
+  retailPrice: number | null
+  supermarketPrice: number | null
+  schoolServePrice: number | null
   postWeight: number | null
 }
 
@@ -47,6 +50,9 @@ export type StockInventorySumAggregateOutputType = {
   priceOver100man: number | null
   wholesalePrice: number | null
   associatePrice: number | null
+  retailPrice: number | null
+  supermarketPrice: number | null
+  schoolServePrice: number | null
   postWeight: number | null
 }
 
@@ -67,6 +73,11 @@ export type StockInventoryMinAggregateOutputType = {
   priceOver100man: number | null
   wholesalePrice: number | null
   associatePrice: number | null
+  unitPriceShow: boolean | null
+  retailPrice: number | null
+  supermarketPrice: number | null
+  schoolServePrice: number | null
+  taxExemption: boolean | null
   category: string | null
   openStock: boolean | null
   boxName: string | null
@@ -92,6 +103,11 @@ export type StockInventoryMaxAggregateOutputType = {
   priceOver100man: number | null
   wholesalePrice: number | null
   associatePrice: number | null
+  unitPriceShow: boolean | null
+  retailPrice: number | null
+  supermarketPrice: number | null
+  schoolServePrice: number | null
+  taxExemption: boolean | null
   category: string | null
   openStock: boolean | null
   boxName: string | null
@@ -117,6 +133,11 @@ export type StockInventoryCountAggregateOutputType = {
   priceOver100man: number
   wholesalePrice: number
   associatePrice: number
+  unitPriceShow: number
+  retailPrice: number
+  supermarketPrice: number
+  schoolServePrice: number
+  taxExemption: number
   category: number
   openStock: number
   boxName: number
@@ -136,6 +157,9 @@ export type StockInventoryAvgAggregateInputType = {
   priceOver100man?: true
   wholesalePrice?: true
   associatePrice?: true
+  retailPrice?: true
+  supermarketPrice?: true
+  schoolServePrice?: true
   postWeight?: true
 }
 
@@ -148,6 +172,9 @@ export type StockInventorySumAggregateInputType = {
   priceOver100man?: true
   wholesalePrice?: true
   associatePrice?: true
+  retailPrice?: true
+  supermarketPrice?: true
+  schoolServePrice?: true
   postWeight?: true
 }
 
@@ -168,6 +195,11 @@ export type StockInventoryMinAggregateInputType = {
   priceOver100man?: true
   wholesalePrice?: true
   associatePrice?: true
+  unitPriceShow?: true
+  retailPrice?: true
+  supermarketPrice?: true
+  schoolServePrice?: true
+  taxExemption?: true
   category?: true
   openStock?: true
   boxName?: true
@@ -193,6 +225,11 @@ export type StockInventoryMaxAggregateInputType = {
   priceOver100man?: true
   wholesalePrice?: true
   associatePrice?: true
+  unitPriceShow?: true
+  retailPrice?: true
+  supermarketPrice?: true
+  schoolServePrice?: true
+  taxExemption?: true
   category?: true
   openStock?: true
   boxName?: true
@@ -218,6 +255,11 @@ export type StockInventoryCountAggregateInputType = {
   priceOver100man?: true
   wholesalePrice?: true
   associatePrice?: true
+  unitPriceShow?: true
+  retailPrice?: true
+  supermarketPrice?: true
+  schoolServePrice?: true
+  taxExemption?: true
   category?: true
   openStock?: true
   boxName?: true
@@ -330,6 +372,11 @@ export type StockInventoryGroupByOutputType = {
   priceOver100man: number
   wholesalePrice: number
   associatePrice: number
+  unitPriceShow: boolean | null
+  retailPrice: number | null
+  supermarketPrice: number | null
+  schoolServePrice: number | null
+  taxExemption: boolean | null
   category: string
   openStock: boolean
   boxName: string | null
@@ -378,6 +425,11 @@ export type StockInventoryWhereInput = {
   priceOver100man?: Prisma.FloatFilter<"StockInventory"> | number
   wholesalePrice?: Prisma.FloatFilter<"StockInventory"> | number
   associatePrice?: Prisma.FloatFilter<"StockInventory"> | number
+  unitPriceShow?: Prisma.BoolNullableFilter<"StockInventory"> | boolean | null
+  retailPrice?: Prisma.FloatNullableFilter<"StockInventory"> | number | null
+  supermarketPrice?: Prisma.FloatNullableFilter<"StockInventory"> | number | null
+  schoolServePrice?: Prisma.FloatNullableFilter<"StockInventory"> | number | null
+  taxExemption?: Prisma.BoolNullableFilter<"StockInventory"> | boolean | null
   category?: Prisma.StringFilter<"StockInventory"> | string
   openStock?: Prisma.BoolFilter<"StockInventory"> | boolean
   boxName?: Prisma.StringNullableFilter<"StockInventory"> | string | null
@@ -404,6 +456,11 @@ export type StockInventoryOrderByWithRelationInput = {
   priceOver100man?: Prisma.SortOrder
   wholesalePrice?: Prisma.SortOrder
   associatePrice?: Prisma.SortOrder
+  unitPriceShow?: Prisma.SortOrderInput | Prisma.SortOrder
+  retailPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  supermarketPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  schoolServePrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  taxExemption?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
   openStock?: Prisma.SortOrder
   boxName?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -433,6 +490,11 @@ export type StockInventoryWhereUniqueInput = Prisma.AtLeast<{
   priceOver100man?: Prisma.FloatFilter<"StockInventory"> | number
   wholesalePrice?: Prisma.FloatFilter<"StockInventory"> | number
   associatePrice?: Prisma.FloatFilter<"StockInventory"> | number
+  unitPriceShow?: Prisma.BoolNullableFilter<"StockInventory"> | boolean | null
+  retailPrice?: Prisma.FloatNullableFilter<"StockInventory"> | number | null
+  supermarketPrice?: Prisma.FloatNullableFilter<"StockInventory"> | number | null
+  schoolServePrice?: Prisma.FloatNullableFilter<"StockInventory"> | number | null
+  taxExemption?: Prisma.BoolNullableFilter<"StockInventory"> | boolean | null
   category?: Prisma.StringFilter<"StockInventory"> | string
   openStock?: Prisma.BoolFilter<"StockInventory"> | boolean
   boxName?: Prisma.StringNullableFilter<"StockInventory"> | string | null
@@ -459,6 +521,11 @@ export type StockInventoryOrderByWithAggregationInput = {
   priceOver100man?: Prisma.SortOrder
   wholesalePrice?: Prisma.SortOrder
   associatePrice?: Prisma.SortOrder
+  unitPriceShow?: Prisma.SortOrderInput | Prisma.SortOrder
+  retailPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  supermarketPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  schoolServePrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  taxExemption?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
   openStock?: Prisma.SortOrder
   boxName?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -492,6 +559,11 @@ export type StockInventoryScalarWhereWithAggregatesInput = {
   priceOver100man?: Prisma.FloatWithAggregatesFilter<"StockInventory"> | number
   wholesalePrice?: Prisma.FloatWithAggregatesFilter<"StockInventory"> | number
   associatePrice?: Prisma.FloatWithAggregatesFilter<"StockInventory"> | number
+  unitPriceShow?: Prisma.BoolNullableWithAggregatesFilter<"StockInventory"> | boolean | null
+  retailPrice?: Prisma.FloatNullableWithAggregatesFilter<"StockInventory"> | number | null
+  supermarketPrice?: Prisma.FloatNullableWithAggregatesFilter<"StockInventory"> | number | null
+  schoolServePrice?: Prisma.FloatNullableWithAggregatesFilter<"StockInventory"> | number | null
+  taxExemption?: Prisma.BoolNullableWithAggregatesFilter<"StockInventory"> | boolean | null
   category?: Prisma.StringWithAggregatesFilter<"StockInventory"> | string
   openStock?: Prisma.BoolWithAggregatesFilter<"StockInventory"> | boolean
   boxName?: Prisma.StringNullableWithAggregatesFilter<"StockInventory"> | string | null
@@ -516,6 +588,11 @@ export type StockInventoryCreateInput = {
   priceOver100man: number
   wholesalePrice: number
   associatePrice: number
+  unitPriceShow?: boolean | null
+  retailPrice?: number | null
+  supermarketPrice?: number | null
+  schoolServePrice?: number | null
+  taxExemption?: boolean | null
   category: string
   openStock?: boolean
   boxName?: string | null
@@ -542,6 +619,11 @@ export type StockInventoryUncheckedCreateInput = {
   priceOver100man: number
   wholesalePrice: number
   associatePrice: number
+  unitPriceShow?: boolean | null
+  retailPrice?: number | null
+  supermarketPrice?: number | null
+  schoolServePrice?: number | null
+  taxExemption?: boolean | null
   category: string
   openStock?: boolean
   boxName?: string | null
@@ -567,6 +649,11 @@ export type StockInventoryUpdateInput = {
   priceOver100man?: Prisma.FloatFieldUpdateOperationsInput | number
   wholesalePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   associatePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  unitPriceShow?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  retailPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  supermarketPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  schoolServePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  taxExemption?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
   openStock?: Prisma.BoolFieldUpdateOperationsInput | boolean
   boxName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -593,6 +680,11 @@ export type StockInventoryUncheckedUpdateInput = {
   priceOver100man?: Prisma.FloatFieldUpdateOperationsInput | number
   wholesalePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   associatePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  unitPriceShow?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  retailPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  supermarketPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  schoolServePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  taxExemption?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
   openStock?: Prisma.BoolFieldUpdateOperationsInput | boolean
   boxName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -619,6 +711,11 @@ export type StockInventoryCreateManyInput = {
   priceOver100man: number
   wholesalePrice: number
   associatePrice: number
+  unitPriceShow?: boolean | null
+  retailPrice?: number | null
+  supermarketPrice?: number | null
+  schoolServePrice?: number | null
+  taxExemption?: boolean | null
   category: string
   openStock?: boolean
   boxName?: string | null
@@ -643,6 +740,11 @@ export type StockInventoryUpdateManyMutationInput = {
   priceOver100man?: Prisma.FloatFieldUpdateOperationsInput | number
   wholesalePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   associatePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  unitPriceShow?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  retailPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  supermarketPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  schoolServePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  taxExemption?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
   openStock?: Prisma.BoolFieldUpdateOperationsInput | boolean
   boxName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -668,6 +770,11 @@ export type StockInventoryUncheckedUpdateManyInput = {
   priceOver100man?: Prisma.FloatFieldUpdateOperationsInput | number
   wholesalePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   associatePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  unitPriceShow?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  retailPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  supermarketPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  schoolServePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  taxExemption?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
   openStock?: Prisma.BoolFieldUpdateOperationsInput | boolean
   boxName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -693,6 +800,11 @@ export type StockInventoryCountOrderByAggregateInput = {
   priceOver100man?: Prisma.SortOrder
   wholesalePrice?: Prisma.SortOrder
   associatePrice?: Prisma.SortOrder
+  unitPriceShow?: Prisma.SortOrder
+  retailPrice?: Prisma.SortOrder
+  supermarketPrice?: Prisma.SortOrder
+  schoolServePrice?: Prisma.SortOrder
+  taxExemption?: Prisma.SortOrder
   category?: Prisma.SortOrder
   openStock?: Prisma.SortOrder
   boxName?: Prisma.SortOrder
@@ -710,6 +822,9 @@ export type StockInventoryAvgOrderByAggregateInput = {
   priceOver100man?: Prisma.SortOrder
   wholesalePrice?: Prisma.SortOrder
   associatePrice?: Prisma.SortOrder
+  retailPrice?: Prisma.SortOrder
+  supermarketPrice?: Prisma.SortOrder
+  schoolServePrice?: Prisma.SortOrder
   postWeight?: Prisma.SortOrder
 }
 
@@ -730,6 +845,11 @@ export type StockInventoryMaxOrderByAggregateInput = {
   priceOver100man?: Prisma.SortOrder
   wholesalePrice?: Prisma.SortOrder
   associatePrice?: Prisma.SortOrder
+  unitPriceShow?: Prisma.SortOrder
+  retailPrice?: Prisma.SortOrder
+  supermarketPrice?: Prisma.SortOrder
+  schoolServePrice?: Prisma.SortOrder
+  taxExemption?: Prisma.SortOrder
   category?: Prisma.SortOrder
   openStock?: Prisma.SortOrder
   boxName?: Prisma.SortOrder
@@ -755,6 +875,11 @@ export type StockInventoryMinOrderByAggregateInput = {
   priceOver100man?: Prisma.SortOrder
   wholesalePrice?: Prisma.SortOrder
   associatePrice?: Prisma.SortOrder
+  unitPriceShow?: Prisma.SortOrder
+  retailPrice?: Prisma.SortOrder
+  supermarketPrice?: Prisma.SortOrder
+  schoolServePrice?: Prisma.SortOrder
+  taxExemption?: Prisma.SortOrder
   category?: Prisma.SortOrder
   openStock?: Prisma.SortOrder
   boxName?: Prisma.SortOrder
@@ -772,12 +897,27 @@ export type StockInventorySumOrderByAggregateInput = {
   priceOver100man?: Prisma.SortOrder
   wholesalePrice?: Prisma.SortOrder
   associatePrice?: Prisma.SortOrder
+  retailPrice?: Prisma.SortOrder
+  supermarketPrice?: Prisma.SortOrder
+  schoolServePrice?: Prisma.SortOrder
   postWeight?: Prisma.SortOrder
 }
 
 export type StockInventoryScalarRelationFilter = {
   is?: Prisma.StockInventoryWhereInput
   isNot?: Prisma.StockInventoryWhereInput
+}
+
+export type NullableBoolFieldUpdateOperationsInput = {
+  set?: boolean | null
+}
+
+export type NullableFloatFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type StockInventoryCreateNestedOneWithoutLedgersInput = {
@@ -810,6 +950,11 @@ export type StockInventoryCreateWithoutLedgersInput = {
   priceOver100man: number
   wholesalePrice: number
   associatePrice: number
+  unitPriceShow?: boolean | null
+  retailPrice?: number | null
+  supermarketPrice?: number | null
+  schoolServePrice?: number | null
+  taxExemption?: boolean | null
   category: string
   openStock?: boolean
   boxName?: string | null
@@ -835,6 +980,11 @@ export type StockInventoryUncheckedCreateWithoutLedgersInput = {
   priceOver100man: number
   wholesalePrice: number
   associatePrice: number
+  unitPriceShow?: boolean | null
+  retailPrice?: number | null
+  supermarketPrice?: number | null
+  schoolServePrice?: number | null
+  taxExemption?: boolean | null
   category: string
   openStock?: boolean
   boxName?: string | null
@@ -875,6 +1025,11 @@ export type StockInventoryUpdateWithoutLedgersInput = {
   priceOver100man?: Prisma.FloatFieldUpdateOperationsInput | number
   wholesalePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   associatePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  unitPriceShow?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  retailPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  supermarketPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  schoolServePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  taxExemption?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
   openStock?: Prisma.BoolFieldUpdateOperationsInput | boolean
   boxName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -900,6 +1055,11 @@ export type StockInventoryUncheckedUpdateWithoutLedgersInput = {
   priceOver100man?: Prisma.FloatFieldUpdateOperationsInput | number
   wholesalePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   associatePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  unitPriceShow?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  retailPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  supermarketPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  schoolServePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  taxExemption?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
   openStock?: Prisma.BoolFieldUpdateOperationsInput | boolean
   boxName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -956,6 +1116,11 @@ export type StockInventorySelect<ExtArgs extends runtime.Types.Extensions.Intern
   priceOver100man?: boolean
   wholesalePrice?: boolean
   associatePrice?: boolean
+  unitPriceShow?: boolean
+  retailPrice?: boolean
+  supermarketPrice?: boolean
+  schoolServePrice?: boolean
+  taxExemption?: boolean
   category?: boolean
   openStock?: boolean
   boxName?: boolean
@@ -983,6 +1148,11 @@ export type StockInventorySelectCreateManyAndReturn<ExtArgs extends runtime.Type
   priceOver100man?: boolean
   wholesalePrice?: boolean
   associatePrice?: boolean
+  unitPriceShow?: boolean
+  retailPrice?: boolean
+  supermarketPrice?: boolean
+  schoolServePrice?: boolean
+  taxExemption?: boolean
   category?: boolean
   openStock?: boolean
   boxName?: boolean
@@ -1008,6 +1178,11 @@ export type StockInventorySelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   priceOver100man?: boolean
   wholesalePrice?: boolean
   associatePrice?: boolean
+  unitPriceShow?: boolean
+  retailPrice?: boolean
+  supermarketPrice?: boolean
+  schoolServePrice?: boolean
+  taxExemption?: boolean
   category?: boolean
   openStock?: boolean
   boxName?: boolean
@@ -1033,6 +1208,11 @@ export type StockInventorySelectScalar = {
   priceOver100man?: boolean
   wholesalePrice?: boolean
   associatePrice?: boolean
+  unitPriceShow?: boolean
+  retailPrice?: boolean
+  supermarketPrice?: boolean
+  schoolServePrice?: boolean
+  taxExemption?: boolean
   category?: boolean
   openStock?: boolean
   boxName?: boolean
@@ -1041,7 +1221,7 @@ export type StockInventorySelectScalar = {
   updatedAt?: boolean
 }
 
-export type StockInventoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "imageUrl" | "imageStoredName" | "imageOriginalName" | "imageHash" | "productName" | "spec" | "unit" | "stock" | "stockMax" | "effectiveDate" | "priceOver500man" | "priceOver100man" | "wholesalePrice" | "associatePrice" | "category" | "openStock" | "boxName" | "postWeight" | "createdAt" | "updatedAt", ExtArgs["result"]["stockInventory"]>
+export type StockInventoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "imageUrl" | "imageStoredName" | "imageOriginalName" | "imageHash" | "productName" | "spec" | "unit" | "stock" | "stockMax" | "effectiveDate" | "priceOver500man" | "priceOver100man" | "wholesalePrice" | "associatePrice" | "unitPriceShow" | "retailPrice" | "supermarketPrice" | "schoolServePrice" | "taxExemption" | "category" | "openStock" | "boxName" | "postWeight" | "createdAt" | "updatedAt", ExtArgs["result"]["stockInventory"]>
 export type StockInventoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ledgers?: boolean | Prisma.StockInventory$ledgersArgs<ExtArgs>
   _count?: boolean | Prisma.StockInventoryCountOutputTypeDefaultArgs<ExtArgs>
@@ -1071,6 +1251,11 @@ export type $StockInventoryPayload<ExtArgs extends runtime.Types.Extensions.Inte
     priceOver100man: number
     wholesalePrice: number
     associatePrice: number
+    unitPriceShow: boolean | null
+    retailPrice: number | null
+    supermarketPrice: number | null
+    schoolServePrice: number | null
+    taxExemption: boolean | null
     category: string
     openStock: boolean
     boxName: string | null
@@ -1517,6 +1702,11 @@ export interface StockInventoryFieldRefs {
   readonly priceOver100man: Prisma.FieldRef<"StockInventory", 'Float'>
   readonly wholesalePrice: Prisma.FieldRef<"StockInventory", 'Float'>
   readonly associatePrice: Prisma.FieldRef<"StockInventory", 'Float'>
+  readonly unitPriceShow: Prisma.FieldRef<"StockInventory", 'Boolean'>
+  readonly retailPrice: Prisma.FieldRef<"StockInventory", 'Float'>
+  readonly supermarketPrice: Prisma.FieldRef<"StockInventory", 'Float'>
+  readonly schoolServePrice: Prisma.FieldRef<"StockInventory", 'Float'>
+  readonly taxExemption: Prisma.FieldRef<"StockInventory", 'Boolean'>
   readonly category: Prisma.FieldRef<"StockInventory", 'String'>
   readonly openStock: Prisma.FieldRef<"StockInventory", 'Boolean'>
   readonly boxName: Prisma.FieldRef<"StockInventory", 'String'>

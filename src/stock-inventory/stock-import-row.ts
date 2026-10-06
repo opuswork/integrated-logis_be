@@ -22,6 +22,11 @@ export type StockImportDefaults = {
   priceOver100man: number | { toNumber(): number };
   wholesalePrice: number | { toNumber(): number };
   associatePrice: number | { toNumber(): number };
+  unitPriceShow?: boolean | null;
+  retailPrice?: number | null;
+  supermarketPrice?: number | null;
+  schoolServePrice?: number | null;
+  taxExemption?: boolean | null;
   category: string;
 };
 
@@ -44,8 +49,21 @@ export type ParsedRow = {
   priceOver100man: number;
   wholesalePrice: number;
   associatePrice: number;
+  /** 단가노출여부 · 소매 · 슈퍼 · 급식 · 비과세. 빈 칸이면 기존 값, 신규면 null. */
+  unitPriceShow: boolean | null;
+  retailPrice: number | null;
+  supermarketPrice: number | null;
+  schoolServePrice: number | null;
+  taxExemption: boolean | null;
   category: string;
 };
+
+type OptionalImportKey =
+  | 'unitPriceShow'
+  | 'retailPrice'
+  | 'supermarketPrice'
+  | 'schoolServePrice'
+  | 'taxExemption';
 
 export function normalizeHeader(value: unknown) {
   return toDisplayString(value)
@@ -73,6 +91,28 @@ export function parsePrice(value: unknown): number {
     throw new Error(`가격을 파싱할 수 없습니다: ${toDisplayString(value)}`);
   }
   return n;
+}
+
+/** 빈 칸 / '-' / 'null' 은 null, 그 외는 가격으로 파싱한다. */
+export function parseOptionalPrice(value: unknown): number | null {
+  const raw = toDisplayString(value);
+  if (raw === '' || raw === '-' || raw.toLowerCase() === 'null') {
+    return null;
+  }
+  return parsePrice(value);
+}
+
+const YES_TOKENS = new Set(['y', 'yes', 'o', '1', 'true', '예', '노출']);
+const NO_TOKENS = new Set(['n', 'no', 'x', '0', 'false', '아니오', '미노출']);
+
+/** 단가노출여부 · 비과세 같은 Y/N 칸. 빈 칸 / '-' 는 null. */
+export function parseYesNo(value: unknown): boolean | null {
+  if (typeof value === 'boolean') return value;
+  const raw = toDisplayString(value).toLowerCase();
+  if (raw === '' || raw === '-') return null;
+  if (YES_TOKENS.has(raw)) return true;
+  if (NO_TOKENS.has(raw)) return false;
+  throw new Error(`Y/N 값을 파싱할 수 없습니다: ${toDisplayString(value)}`);
 }
 
 export function parseOptionalStock(value: unknown): number | null {
@@ -294,6 +334,19 @@ export function mapExcelRow(
         : null,
     );
 
+  /** 선택 항목: 빈 칸이면 기존 값(없으면 null)을 쓴다. */
+  const optional = <K extends OptionalImportKey>(
+    aliases: string[],
+    parse: (value: unknown) => ParsedRow[K],
+    key: K,
+  ): ParsedRow[K] => {
+    const raw = pickField(row, aliases);
+    if (raw === undefined || raw === null || toDisplayString(raw) === '') {
+      return (existing?.[key] ?? null) as ParsedRow[K];
+    }
+    return parse(raw);
+  };
+
   return {
     code,
     imageUrl: parseImageCell(imageRaw),
@@ -317,6 +370,7 @@ export function mapExcelRow(
     priceOver500man: price(
       [
         '전체500만원이상주문시할인가격',
+        '오백가',
         '500만원이상',
         'priceOver500man',
         'price_500',
@@ -326,6 +380,7 @@ export function mapExcelRow(
     priceOver100man: price(
       [
         '전체100만원이상주문시할인가격',
+        '백만가',
         '100만원이상',
         'priceOver100man',
         'price_100',
@@ -337,6 +392,31 @@ export function mapExcelRow(
       'wholesalePrice',
     ),
     associatePrice: price(['준회원', 'associatePrice'], 'associatePrice'),
+    unitPriceShow: optional(
+      ['단가노출여부', '단가노출', 'unitPriceShow'],
+      parseYesNo,
+      'unitPriceShow',
+    ),
+    retailPrice: optional(
+      ['소매', '소매가', 'retailPrice'],
+      parseOptionalPrice,
+      'retailPrice',
+    ),
+    supermarketPrice: optional(
+      ['슈퍼', '슈퍼납품가', 'supermarketPrice'],
+      parseOptionalPrice,
+      'supermarketPrice',
+    ),
+    schoolServePrice: optional(
+      ['급식', 'schoolServePrice'],
+      parseOptionalPrice,
+      'schoolServePrice',
+    ),
+    taxExemption: optional(
+      ['비과세', 'taxExemption'],
+      parseYesNo,
+      'taxExemption',
+    ),
     category,
   };
 }

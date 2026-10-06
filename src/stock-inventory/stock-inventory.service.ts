@@ -46,6 +46,11 @@ const IMPORT_DEFAULT_SELECT = {
   priceOver100man: true,
   wholesalePrice: true,
   associatePrice: true,
+  unitPriceShow: true,
+  retailPrice: true,
+  supermarketPrice: true,
+  schoolServePrice: true,
+  taxExemption: true,
   category: true,
   imageUrl: true,
   imageHash: true,
@@ -83,11 +88,40 @@ export type StockImportPreviewRow = {
   nextStock: number | null;
   effectiveDate: string | null;
   wholesalePrice: number | null;
+  retailPrice: number | null;
+  supermarketPrice: number | null;
+  schoolServePrice: number | null;
   imageStatus: StockImageStatus;
   /** data URI. 응답 크기를 위해 앞쪽 행·작은 이미지만 채운다 */
   imageThumbnail: string | null;
   error?: string;
 };
+
+type ExtraPriceFields = Pick<
+  CreateStockInventoryDto,
+  | 'unitPriceShow'
+  | 'retailPrice'
+  | 'supermarketPrice'
+  | 'schoolServePrice'
+  | 'taxExemption'
+>;
+
+/**
+ * 단가노출여부 · 소매 · 슈퍼 · 급식 · 비과세를 Prisma data 로 옮긴다.
+ * 보내지 않은 항목은 신규 등록이면 null, 수정이면 건드리지 않는다
+ * (예전 화면이 값을 지우지 않도록).
+ */
+function extraPriceFields(dto: ExtraPriceFields, isCreate: boolean) {
+  const pick = <T>(value: T | null | undefined) =>
+    value !== undefined ? value : isCreate ? null : undefined;
+  return {
+    unitPriceShow: pick(dto.unitPriceShow),
+    retailPrice: pick(dto.retailPrice),
+    supermarketPrice: pick(dto.supermarketPrice),
+    schoolServePrice: pick(dto.schoolServePrice),
+    taxExemption: pick(dto.taxExemption),
+  };
+}
 
 @Injectable()
 export class StockInventoryService {
@@ -153,6 +187,7 @@ export class StockInventoryService {
         priceOver100man: dto.priceOver100man,
         wholesalePrice: dto.wholesalePrice,
         associatePrice: dto.associatePrice,
+        ...extraPriceFields(dto, true),
         category: dto.category.trim(),
         openStock: dto.openStock ?? true,
       },
@@ -363,6 +398,7 @@ export class StockInventoryService {
         priceOver100man: dto.priceOver100man,
         wholesalePrice: dto.wholesalePrice,
         associatePrice: dto.associatePrice,
+        ...extraPriceFields(dto, false),
         category: dto.category.trim(),
         openStock: dto.openStock ?? true,
       },
@@ -451,6 +487,7 @@ export class StockInventoryService {
         ...(dto.associatePrice !== undefined
           ? { associatePrice: dto.associatePrice }
           : {}),
+        ...extraPriceFields(dto, false),
         ...(dto.category !== undefined
           ? { category: dto.category.trim() }
           : {}),
@@ -715,6 +752,9 @@ export class StockInventoryService {
           nextStock: next.stock,
           effectiveDate: parsed.effectiveDate.toISOString(),
           wholesalePrice: parsed.wholesalePrice,
+          retailPrice: parsed.retailPrice,
+          supermarketPrice: parsed.supermarketPrice,
+          schoolServePrice: parsed.schoolServePrice,
           imageStatus,
           imageThumbnail,
         });
@@ -736,6 +776,9 @@ export class StockInventoryService {
           nextStock: null,
           effectiveDate: null,
           wholesalePrice: null,
+          retailPrice: null,
+          supermarketPrice: null,
+          schoolServePrice: null,
           imageStatus: 'NONE',
           imageThumbnail: null,
           error:
@@ -825,6 +868,7 @@ export class StockInventoryService {
               priceOver100man: parsed.priceOver100man,
               wholesalePrice: parsed.wholesalePrice,
               associatePrice: parsed.associatePrice,
+              ...extraPriceFields(parsed, false),
               category: parsed.category,
             },
           });
@@ -869,6 +913,7 @@ export class StockInventoryService {
             priceOver100man: parsed.priceOver100man,
             wholesalePrice: parsed.wholesalePrice,
             associatePrice: parsed.associatePrice,
+            ...extraPriceFields(parsed, true),
             category: parsed.category,
           },
         });

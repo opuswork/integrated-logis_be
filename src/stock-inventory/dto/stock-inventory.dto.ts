@@ -64,6 +64,28 @@ function toOptionalBoolean(value: unknown): boolean | undefined {
   return toBoolean(value);
 }
 
+/** Missing → undefined (PATCH omit). Empty → null (미지정). */
+function toNullableBoolean(value: unknown): boolean | null | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+  if (value === null || value === '' || value === 'null') {
+    return null;
+  }
+  return toBoolean(value);
+}
+
+/** Missing → undefined (PATCH omit). Empty → null (가격 없음). */
+function toNullablePrice(value: unknown): number | null | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+  if (value === null || (typeof value === 'string' && value.trim() === '')) {
+    return null;
+  }
+  return toNumber(value);
+}
+
 export class CreateStockInventoryDto {
   @ApiProperty({ example: '8809240150143', description: '코드' })
   @IsString()
@@ -175,6 +197,42 @@ export class CreateStockInventoryDto {
   @IsOptional()
   @IsBoolean()
   openStock?: boolean;
+
+  @ApiPropertyOptional({
+    example: true,
+    description: '단가노출여부 (빈 값 = 미지정)',
+  })
+  @Transform(({ value }) => toNullableBoolean(value))
+  @IsOptional()
+  @IsBoolean()
+  unitPriceShow?: boolean | null;
+
+  @ApiPropertyOptional({ example: 12000, description: '소매' })
+  @Transform(({ value }) => toNullablePrice(value))
+  @IsOptional()
+  @IsNumber()
+  retailPrice?: number | null;
+
+  @ApiPropertyOptional({ example: 10500, description: '슈퍼 납품가' })
+  @Transform(({ value }) => toNullablePrice(value))
+  @IsOptional()
+  @IsNumber()
+  supermarketPrice?: number | null;
+
+  @ApiPropertyOptional({ example: 9800, description: '급식' })
+  @Transform(({ value }) => toNullablePrice(value))
+  @IsOptional()
+  @IsNumber()
+  schoolServePrice?: number | null;
+
+  @ApiPropertyOptional({
+    example: false,
+    description: '비과세 (빈 값 = 미지정)',
+  })
+  @Transform(({ value }) => toNullableBoolean(value))
+  @IsOptional()
+  @IsBoolean()
+  taxExemption?: boolean | null;
 }
 
 export class UpdateStockInventoryDto extends PartialType(

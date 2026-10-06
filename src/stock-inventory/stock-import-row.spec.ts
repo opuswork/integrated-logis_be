@@ -1,6 +1,7 @@
 import {
   mapExcelRow,
   parseImageCell,
+  parseYesNo,
   pickCode,
   pickRowNumber,
   type StockImportDefaults,
@@ -119,6 +120,75 @@ describe('mapExcelRow (재고/상품 엑셀 일괄 업로드 행 파싱)', () =>
     expect(parsed.wholesalePrice).toBe(50000);
   });
 
+  it('사용자 양식의 짧은 헤더(오백가/백만가/소매/슈퍼/급식)와 Y/N 칸을 읽는다', () => {
+    const parsed = mapExcelRow({
+      코드: 'B-001',
+      단가노출여부: 'Y',
+      품명: '간장 1.8L',
+      규격: '1.8L',
+      단위: 1,
+      적용일자: '20261001',
+      소매: '12,000',
+      오백가: 9000,
+      슈퍼: 10500,
+      도매: 10000,
+      준회원: 11000,
+      백만가: 9500,
+      급식: 9800,
+      비과세: 'N',
+      구분: '일반품',
+    });
+    expect(parsed.unitPriceShow).toBe(true);
+    expect(parsed.retailPrice).toBe(12000);
+    expect(parsed.priceOver500man).toBe(9000);
+    expect(parsed.supermarketPrice).toBe(10500);
+    expect(parsed.wholesalePrice).toBe(10000);
+    expect(parsed.associatePrice).toBe(11000);
+    expect(parsed.priceOver100man).toBe(9500);
+    expect(parsed.schoolServePrice).toBe(9800);
+    expect(parsed.taxExemption).toBe(false);
+  });
+
+  it('신규 행의 빈 소매/슈퍼/급식/Y-N 칸은 null 이다', () => {
+    const parsed = mapExcelRow(FULL_ROW);
+    expect(parsed.unitPriceShow).toBeNull();
+    expect(parsed.retailPrice).toBeNull();
+    expect(parsed.supermarketPrice).toBeNull();
+    expect(parsed.schoolServePrice).toBeNull();
+    expect(parsed.taxExemption).toBeNull();
+  });
+
+  it('기존 상품의 빈 소매/슈퍼/급식/Y-N 칸은 기존 값을 유지한다', () => {
+    const parsed = mapExcelRow(
+      { 코드: 'A-001', 소매: '', 비과세: '' },
+      {
+        ...EXISTING,
+        unitPriceShow: false,
+        retailPrice: 60000,
+        supermarketPrice: 55000,
+        schoolServePrice: null,
+        taxExemption: true,
+      },
+    );
+    expect(parsed.unitPriceShow).toBe(false);
+    expect(parsed.retailPrice).toBe(60000);
+    expect(parsed.supermarketPrice).toBe(55000);
+    expect(parsed.schoolServePrice).toBeNull();
+    expect(parsed.taxExemption).toBe(true);
+  });
+
+  it("'-' 는 기존 소매가를 지운다", () => {
+    const parsed = mapExcelRow(
+      { 코드: 'A-001', 소매: '-' },
+      { ...EXISTING, retailPrice: 60000 },
+    );
+    expect(parsed.retailPrice).toBeNull();
+  });
+
+  it('잘못된 Y/N 값은 실패한다', () => {
+    expect(() => mapExcelRow({ ...FULL_ROW, 비과세: '모름' })).toThrow(/Y\/N/);
+  });
+
   it('pickCode 는 헤더 별칭과 공백을 흡수한다', () => {
     expect(pickCode({ ' 코드 ': ' A-001 ' })).toBe('A-001');
     expect(pickCode({ code: 'B-002' })).toBe('B-002');
@@ -162,5 +232,22 @@ describe('pickRowNumber', () => {
     const parsed = mapExcelRow({ __rowNum__: 5, 코드: 'A-001' }, EXISTING);
     expect(parsed.code).toBe('A-001');
     expect(parsed.productName).toBe('감사1호');
+  });
+});
+
+describe('parseYesNo (단가노출여부 · 비과세)', () => {
+  it('Y/O/1/true/예 는 true, N/X/0/false/아니오 는 false', () => {
+    for (const v of ['Y', 'y', 'O', 1, true, '예', '노출']) {
+      expect(parseYesNo(v)).toBe(true);
+    }
+    for (const v of ['N', 'n', 'X', 0, false, '아니오', '미노출']) {
+      expect(parseYesNo(v)).toBe(false);
+    }
+  });
+
+  it("빈 칸과 '-' 는 null", () => {
+    expect(parseYesNo('')).toBeNull();
+    expect(parseYesNo('-')).toBeNull();
+    expect(parseYesNo(undefined)).toBeNull();
   });
 });
