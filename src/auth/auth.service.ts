@@ -16,6 +16,7 @@ import { MessageNotReceivedError, SolapiMessageService } from 'solapi';
 
 import { announceLogin } from '../chat/chat-presence';
 import {
+  loginIdFromPhone,
   normalizeEmail,
   normalizePhone,
   normalizeUsername,
@@ -29,11 +30,7 @@ import type {
   AuthUserPayload,
   JwtPayload,
 } from './jwt.strategy';
-import {
-  isSuperAdminUser,
-  toAdminRegion,
-  toAppRole,
-} from './jwt.strategy';
+import { isSuperAdminUser, toAdminRegion, toAppRole } from './jwt.strategy';
 
 /** 로그인·토큰 재발급이 같은 JWT 내용을 쓰도록 한 곳에서 만든다. */
 function buildJwtPayload(
@@ -81,9 +78,7 @@ export class AuthService {
     const cooldownKey = this.smsCooldownKey(normalizedPhone);
 
     if (await this.cache.get<number>(cooldownKey)) {
-      throw new BadRequestException(
-        '잠시 후 다시 인증번호를 요청해 주세요.',
-      );
+      throw new BadRequestException('잠시 후 다시 인증번호를 요청해 주세요.');
     }
 
     const code = String(Math.floor(100000 + Math.random() * 900000));
@@ -150,9 +145,7 @@ export class AuthService {
     const cooldownKey = this.emailCooldownKey(normalizedEmail);
 
     if (await this.cache.get<number>(cooldownKey)) {
-      throw new BadRequestException(
-        '잠시 후 다시 인증번호를 요청해 주세요.',
-      );
+      throw new BadRequestException('잠시 후 다시 인증번호를 요청해 주세요.');
     }
 
     const code = String(Math.floor(100000 + Math.random() * 900000));
@@ -222,24 +215,9 @@ export class AuthService {
     }
 
     try {
-      const user = await this.prisma.user.findUnique({
-        where: { username },
-        select: {
-          id: true,
-          username: true,
-          password: true,
-          fullname: true,
-          phone: true,
-          role: true,
-          adminRegion: true,
-          canApproveGreeting: true,
-        },
-      });
+      const user = await this.findLoginUser(username, password);
 
-      const passwordValid =
-        !!user && (await verifyPassword(password, user.password));
-
-      if (!user || !passwordValid) {
+      if (!user) {
         throw new UnauthorizedException(
           '아이디 또는 비밀번호가 올바르지 않습니다.',
         );
@@ -297,6 +275,52 @@ export class AuthService {
         '로그인에 실패했습니다. 잠시 후 다시 시도해 주세요.',
       );
     }
+  }
+
+  /**
+   * 아이디 + 비밀번호가 맞는 회원을 찾는다.
+   * 1) username 그대로 (연락처 전체 숫자, admin 등)
+   * 2) 휴대폰 가운데 자리 아이디 (예: 4463). 가운데 자리가 같은 회원이 있어
+   *    후보 중 비밀번호가 맞는 회원 하나만 인정한다.
+   */
+  private async findLoginUser(username: string, password: string) {
+    const select = {
+      id: true,
+      username: true,
+      password: true,
+      fullname: true,
+      phone: true,
+      role: true,
+      adminRegion: true,
+      canApproveGreeting: true,
+    } as const;
+
+    const exact = await this.prisma.user.findUnique({
+      where: { username },
+      select,
+    });
+    if (exact) {
+      return (await verifyPassword(password, exact.password)) ? exact : null;
+    }
+
+    if (!/^\d{3,4}$/.test(username)) {
+      return null;
+    }
+
+    const candidates = (
+      await this.prisma.user.findMany({
+        where: { phone: { contains: username } },
+        select,
+      })
+    ).filter((user) => loginIdFromPhone(user.phone) === username);
+
+    const matches: typeof candidates = [];
+    for (const user of candidates) {
+      if (await verifyPassword(password, user.password)) {
+        matches.push(user);
+      }
+    }
+    return matches.length === 1 ? matches[0] : null;
   }
 
   async me(currentUser: AuthUserPayload) {
@@ -440,8 +464,7 @@ export class AuthService {
   private solapiErrorDetail(error: unknown): string {
     if (error instanceof MessageNotReceivedError) {
       const failed = error.failedMessageList?.[0] as
-        | { statusMessage?: string; statusCode?: string }
-        | undefined;
+        { statusMessage?: string; statusCode?: string } | undefined;
       return failed?.statusMessage ?? error.message;
     }
     if (error instanceof Error) {
@@ -514,7 +537,9 @@ export class AuthService {
 
   private getSolapiClient() {
     const apiKey = this.configService.get<string>('SOLAPI_API_KEY')?.trim();
-    const apiSecret = this.configService.get<string>('SOLAPI_API_SECRET')?.trim();
+    const apiSecret = this.configService
+      .get<string>('SOLAPI_API_SECRET')
+      ?.trim();
 
     if (!apiKey || !apiSecret) {
       return null;

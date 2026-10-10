@@ -12,6 +12,7 @@ import {
   formatPhone,
   hashPassword,
   initialPasswordFromPhone,
+  mobilePhoneDigits,
   normalizePhone,
   normalizeUsername,
   verifyPassword,
@@ -302,7 +303,7 @@ export class MembersService {
   }
 
   /**
-   * 비밀번호가 아직 초기값(연락처 숫자)인지 확인합니다.
+   * 비밀번호가 아직 초기값(연락처 가운데+뒷자리)인지 확인합니다.
    * 초기값이면 이미 로그인 가능한 상태라 초기화가 필요 없습니다.
    */
   async getPasswordState(id: number, actor: AuthUserPayload) {
@@ -319,7 +320,7 @@ export class MembersService {
 
     const initialPassword = initialPasswordFromPhone(member.phone);
     const resettable =
-      member.role === 'MEMBER' && /^01[016789]\d{8}$/.test(initialPassword);
+      member.role === 'MEMBER' && mobilePhoneDigits(member.phone) !== null;
 
     return {
       resettable,
@@ -328,7 +329,7 @@ export class MembersService {
     };
   }
 
-  /** 비밀번호를 초기값(연락처 숫자)으로 되돌립니다. 대리 생성 계정 구제용. */
+  /** 비밀번호를 초기값(연락처 가운데+뒷자리)으로 되돌립니다. 대리 생성 계정 구제용. */
   async resetPasswordToPhone(id: number, actor: AuthUserPayload) {
     this.assertAdmin(actor);
 
@@ -348,7 +349,7 @@ export class MembersService {
     }
 
     const initialPassword = initialPasswordFromPhone(member.phone);
-    if (!/^01[016789]\d{8}$/.test(initialPassword)) {
+    if (mobilePhoneDigits(member.phone) === null) {
       throw new BadRequestException(
         '연락처가 휴대폰 번호 형식이 아니어서 초기화할 수 없습니다. 연락처를 먼저 수정해 주세요.',
       );
@@ -365,7 +366,7 @@ export class MembersService {
       });
 
       return {
-        message: '비밀번호를 연락처 숫자로 초기화했습니다.',
+        message: '비밀번호를 연락처 가운데+뒷자리 숫자로 초기화했습니다.',
         username: member.username,
         initialPassword,
       };
@@ -418,8 +419,7 @@ export class MembersService {
       console.error('check-username failed:', error);
       throw new InternalServerErrorException({
         available: false,
-        message:
-          '아이디 중복 확인에 실패했습니다. 잠시 후 다시 시도해 주세요.',
+        message: '아이디 중복 확인에 실패했습니다. 잠시 후 다시 시도해 주세요.',
       });
     }
   }
@@ -674,7 +674,9 @@ export class MembersService {
     const churchIdByName = new Map<string, number>();
 
     const uniqueChurchNames = [
-      ...new Set(dto.members.map((row) => row.churchName.trim()).filter(Boolean)),
+      ...new Set(
+        dto.members.map((row) => row.churchName.trim()).filter(Boolean),
+      ),
     ];
 
     for (const churchName of uniqueChurchNames) {

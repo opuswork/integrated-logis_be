@@ -91,7 +91,7 @@ export class MembersController {
   @ApiOperation({
     summary: '비밀번호 초기값 여부 확인 (관리자 JWT)',
     description:
-      '현재 비밀번호가 초기값(연락처 숫자)인지 반환합니다. 초기값이면 초기화가 필요 없습니다.',
+      '현재 비밀번호가 초기값(연락처 가운데+뒷자리)인지 반환합니다. 초기값이면 초기화가 필요 없습니다.',
   })
   passwordState(
     @Param('id', ParseIntPipe) id: number,
@@ -127,7 +127,7 @@ export class MembersController {
   @ApiOperation({
     summary: '비밀번호 초기화 (관리자 JWT)',
     description:
-      '개인회원의 비밀번호를 초기값(연락처 숫자)으로 되돌립니다. 주문서에서 대리 생성한 계정 구제용.',
+      '개인회원의 비밀번호를 초기값(연락처 가운데+뒷자리)으로 되돌립니다. 주문서에서 대리 생성한 계정 구제용.',
   })
   resetPassword(
     @Param('id', ParseIntPipe) id: number,
