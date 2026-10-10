@@ -23,12 +23,27 @@ export function normalizePhone(phone: string) {
   return phone.replace(/[^\d]/g, '');
 }
 
+/** 휴대폰 번호(01X…)면 숫자만 돌려주고, 아니면 null */
+export function mobilePhoneDigits(phone: string): string | null {
+  const digits = normalizePhone(phone);
+  return /^01[016789]\d{7,8}$/.test(digits) ? digits : null;
+}
+
 /**
- * 관리자가 대리 생성한 계정의 초기 비밀번호. 아이디(연락처 숫자)와 같습니다.
+ * 로그인 아이디: 휴대폰 가운데 자리 (010-4463-1440 → 4463).
+ * 겹치는 회원이 있어 DB username 은 그대로 두고, 로그인할 때만 이 값으로 찾는다.
+ */
+export function loginIdFromPhone(phone: string): string | null {
+  const digits = mobilePhoneDigits(phone);
+  return digits ? digits.slice(3, -4) : null;
+}
+
+/**
+ * 초기 비밀번호: 휴대폰 가운데 + 뒷자리 (010-4463-1440 → 44631440).
  * 휴대폰 인증 로그인이 붙기 전까지 쓰는 임시 규칙입니다.
  */
 export function initialPasswordFromPhone(phone: string) {
-  return normalizePhone(phone);
+  return normalizePhone(phone).slice(3);
 }
 
 export function normalizeEmail(email: string) {

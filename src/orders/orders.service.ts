@@ -357,7 +357,7 @@ export class OrdersService {
       phone: formatPhone(digits),
       phoneDigits: digits,
       churchId: profile?.churchId ?? null,
-      // 휴대폰 인증 전까지 쓰는 초기 비밀번호 = 아이디와 같은 연락처 숫자
+      // 휴대폰 인증 전까지 쓰는 초기 비밀번호 = 연락처 가운데+뒷자리 숫자
       passwordHash: await hashPassword(initialPasswordFromPhone(digits)),
     };
   }
