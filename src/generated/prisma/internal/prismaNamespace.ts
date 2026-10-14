@@ -408,7 +408,8 @@ export const ModelName = {
   StockInventory: 'StockInventory',
   StockInventoryLedger: 'StockInventoryLedger',
   GreetingForm: 'GreetingForm',
-  VoiceRecording: 'VoiceRecording'
+  VoiceRecording: 'VoiceRecording',
+  KakaoReceiverOrder: 'KakaoReceiverOrder'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -424,7 +425,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "chatMessage" | "partner" | "church" | "order" | "adminActivity" | "shipment" | "orderItem" | "stockInventory" | "stockInventoryLedger" | "greetingForm" | "voiceRecording"
+    modelProps: "user" | "chatMessage" | "partner" | "church" | "order" | "adminActivity" | "shipment" | "orderItem" | "stockInventory" | "stockInventoryLedger" | "greetingForm" | "voiceRecording" | "kakaoReceiverOrder"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1316,6 +1317,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    KakaoReceiverOrder: {
+      payload: Prisma.$KakaoReceiverOrderPayload<ExtArgs>
+      fields: Prisma.KakaoReceiverOrderFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.KakaoReceiverOrderFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KakaoReceiverOrderPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.KakaoReceiverOrderFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KakaoReceiverOrderPayload>
+        }
+        findFirst: {
+          args: Prisma.KakaoReceiverOrderFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KakaoReceiverOrderPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.KakaoReceiverOrderFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KakaoReceiverOrderPayload>
+        }
+        findMany: {
+          args: Prisma.KakaoReceiverOrderFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KakaoReceiverOrderPayload>[]
+        }
+        create: {
+          args: Prisma.KakaoReceiverOrderCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KakaoReceiverOrderPayload>
+        }
+        createMany: {
+          args: Prisma.KakaoReceiverOrderCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.KakaoReceiverOrderCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KakaoReceiverOrderPayload>[]
+        }
+        delete: {
+          args: Prisma.KakaoReceiverOrderDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KakaoReceiverOrderPayload>
+        }
+        update: {
+          args: Prisma.KakaoReceiverOrderUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KakaoReceiverOrderPayload>
+        }
+        deleteMany: {
+          args: Prisma.KakaoReceiverOrderDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.KakaoReceiverOrderUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.KakaoReceiverOrderUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KakaoReceiverOrderPayload>[]
+        }
+        upsert: {
+          args: Prisma.KakaoReceiverOrderUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KakaoReceiverOrderPayload>
+        }
+        aggregate: {
+          args: Prisma.KakaoReceiverOrderAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateKakaoReceiverOrder>
+        }
+        groupBy: {
+          args: Prisma.KakaoReceiverOrderGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.KakaoReceiverOrderGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.KakaoReceiverOrderCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.KakaoReceiverOrderCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1593,12 +1668,35 @@ export const VoiceRecordingScalarFieldEnum = {
 export type VoiceRecordingScalarFieldEnum = (typeof VoiceRecordingScalarFieldEnum)[keyof typeof VoiceRecordingScalarFieldEnum]
 
 
+export const KakaoReceiverOrderScalarFieldEnum = {
+  id: 'id',
+  owner: 'owner',
+  fingerprint: 'fingerprint',
+  payload: 'payload',
+  preview: 'preview',
+  status: 'status',
+  orderNo: 'orderNo',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  expiresAt: 'expiresAt'
+} as const
+
+export type KakaoReceiverOrderScalarFieldEnum = (typeof KakaoReceiverOrderScalarFieldEnum)[keyof typeof KakaoReceiverOrderScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -1615,6 +1713,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -1839,6 +1946,20 @@ export type EnumStockLedgerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$
 export type ListEnumStockLedgerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StockLedgerType[]'>
     
 
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -2002,6 +2123,7 @@ export type GlobalOmitConfig = {
   stockInventoryLedger?: Prisma.StockInventoryLedgerOmit
   greetingForm?: Prisma.GreetingFormOmit
   voiceRecording?: Prisma.VoiceRecordingOmit
+  kakaoReceiverOrder?: Prisma.KakaoReceiverOrderOmit
 }
 
 /* Types for Logging */
