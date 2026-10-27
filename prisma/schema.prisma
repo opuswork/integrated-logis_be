@@ -424,3 +424,27 @@ model VoiceRecording {
 
   @@index([recordedAt])
 }
+
+/**
+ * Kakao-Python-Order-Receiver(FastAPI) 주문 초안. 수신 서버가 직접 읽고 쓴다.
+ * status: draft | posting | submitted | unknown | rejected | cancelled
+ * (CHECK 제약조건은 마이그레이션 SQL에 직접 추가)
+ */
+model KakaoReceiverOrder {
+  id          String   @id
+  owner       String
+  /** 같은 주문의 중복 접수 방지 */
+  fingerprint String   @unique
+  payload     Json
+  /** 사용자 확인용 미리보기 텍스트 */
+  preview     String
+  status      String   @default("draft")
+  /** 접수 완료 후 물류 주문번호 */
+  orderNo     String?  @map("order_no")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamptz
+  /** 초안 만료 시각 (생성 후 15분) */
+  expiresAt   DateTime @default(dbgenerated("(now() + '00:15:00'::interval)")) @map("expires_at") @db.Timestamptz
+
+  @@map("kakao_receiver_orders")
+}

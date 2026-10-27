@@ -99,3 +99,11 @@ export type GreetingForm = Prisma.GreetingFormModel
  * * 사용자 음성 불편·오류 신고 녹음 (m4a)
  */
 export type VoiceRecording = Prisma.VoiceRecordingModel
+/**
+ * Model KakaoReceiverOrder
+ * *
+ *  * Kakao-Python-Order-Receiver(FastAPI) 주문 초안. 수신 서버가 직접 읽고 쓴다.
+ *  * status: draft | posting | submitted | unknown | rejected | cancelled
+ *  * (CHECK 제약조건은 마이그레이션 SQL에 직접 추가)
+ */
+export type KakaoReceiverOrder = Prisma.KakaoReceiverOrderModel
