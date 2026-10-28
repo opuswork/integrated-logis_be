@@ -9,10 +9,11 @@ import {
   Post,
   Query,
   UploadedFile,
+  UploadedFiles,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -54,6 +55,49 @@ export class OrdersController {
     @CurrentUser() user: AuthUserPayload,
   ) {
     return this.ordersService.create(createOrderDto, user);
+  }
+
+  @Post('attachments')
+  @ApiOperation({
+    summary: '주문 첨부 사진 업로드',
+    description:
+      '대량 택배 명단 등 사진을 주문에 첨부합니다. 같은 사진을 orderIds의 모든 주문(분할 형제)에 연결합니다. 주문당 최대 5장, 장당 10MB.',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      required: ['orderIds', 'images'],
+      properties: {
+        orderIds: {
+          type: 'string',
+          description: '쉼표로 구분한 주문 id (예: 12,13)',
+          example: '12,13',
+        },
+        images: {
+          type: 'array',
+          items: { type: 'string', format: 'binary' },
+        },
+      },
+    },
+  })
+  @UseInterceptors(
+    FilesInterceptor('images', 5, {
+      storage: memoryStorage(),
+      limits: { fileSize: 10 * 1024 * 1024 },
+    }),
+  )
+  addAttachments(
+    @UploadedFiles() files: Express.Multer.File[],
+    @Body('orderIds') orderIds: string | string[] | undefined,
+    @CurrentUser() user: AuthUserPayload,
+  ) {
+    const raw = Array.isArray(orderIds) ? orderIds.join(',') : (orderIds ?? '');
+    const ids = raw
+      .split(',')
+      .map((value) => Number(value.trim()))
+      .filter((value) => Number.isInteger(value) && value > 0);
+    return this.ordersService.addAttachments(ids, files, user);
   }
 
   @Post('bulk-import')

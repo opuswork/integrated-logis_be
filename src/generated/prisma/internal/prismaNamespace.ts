@@ -402,6 +402,7 @@ export const ModelName = {
   Partner: 'Partner',
   Church: 'Church',
   Order: 'Order',
+  OrderAttachment: 'OrderAttachment',
   AdminActivity: 'AdminActivity',
   Shipment: 'Shipment',
   OrderItem: 'OrderItem',
@@ -425,7 +426,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "chatMessage" | "partner" | "church" | "order" | "adminActivity" | "shipment" | "orderItem" | "stockInventory" | "stockInventoryLedger" | "greetingForm" | "voiceRecording" | "kakaoReceiverOrder"
+    modelProps: "user" | "chatMessage" | "partner" | "church" | "order" | "orderAttachment" | "adminActivity" | "shipment" | "orderItem" | "stockInventory" | "stockInventoryLedger" | "greetingForm" | "voiceRecording" | "kakaoReceiverOrder"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -796,6 +797,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.OrderCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.OrderCountAggregateOutputType> | number
+        }
+      }
+    }
+    OrderAttachment: {
+      payload: Prisma.$OrderAttachmentPayload<ExtArgs>
+      fields: Prisma.OrderAttachmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OrderAttachmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderAttachmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OrderAttachmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderAttachmentPayload>
+        }
+        findFirst: {
+          args: Prisma.OrderAttachmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderAttachmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OrderAttachmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderAttachmentPayload>
+        }
+        findMany: {
+          args: Prisma.OrderAttachmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderAttachmentPayload>[]
+        }
+        create: {
+          args: Prisma.OrderAttachmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderAttachmentPayload>
+        }
+        createMany: {
+          args: Prisma.OrderAttachmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OrderAttachmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderAttachmentPayload>[]
+        }
+        delete: {
+          args: Prisma.OrderAttachmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderAttachmentPayload>
+        }
+        update: {
+          args: Prisma.OrderAttachmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderAttachmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.OrderAttachmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OrderAttachmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OrderAttachmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderAttachmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.OrderAttachmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderAttachmentPayload>
+        }
+        aggregate: {
+          args: Prisma.OrderAttachmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOrderAttachment>
+        }
+        groupBy: {
+          args: Prisma.OrderAttachmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OrderAttachmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OrderAttachmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OrderAttachmentCountAggregateOutputType> | number
         }
       }
     }
@@ -1530,6 +1605,19 @@ export const OrderScalarFieldEnum = {
 export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
 
 
+export const OrderAttachmentScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  imageUrl: 'imageUrl',
+  storedName: 'storedName',
+  originalName: 'originalName',
+  uploadedById: 'uploadedById',
+  createdAt: 'createdAt'
+} as const
+
+export type OrderAttachmentScalarFieldEnum = (typeof OrderAttachmentScalarFieldEnum)[keyof typeof OrderAttachmentScalarFieldEnum]
+
+
 export const AdminActivityScalarFieldEnum = {
   id: 'id',
   actorUserId: 'actorUserId',
@@ -2116,6 +2204,7 @@ export type GlobalOmitConfig = {
   partner?: Prisma.PartnerOmit
   church?: Prisma.ChurchOmit
   order?: Prisma.OrderOmit
+  orderAttachment?: Prisma.OrderAttachmentOmit
   adminActivity?: Prisma.AdminActivityOmit
   shipment?: Prisma.ShipmentOmit
   orderItem?: Prisma.OrderItemOmit

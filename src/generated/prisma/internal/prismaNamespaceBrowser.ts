@@ -56,6 +56,7 @@ export const ModelName = {
   Partner: 'Partner',
   Church: 'Church',
   Order: 'Order',
+  OrderAttachment: 'OrderAttachment',
   AdminActivity: 'AdminActivity',
   Shipment: 'Shipment',
   OrderItem: 'OrderItem',
@@ -180,6 +181,19 @@ export const OrderScalarFieldEnum = {
 } as const
 
 export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+
+
+export const OrderAttachmentScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  imageUrl: 'imageUrl',
+  storedName: 'storedName',
+  originalName: 'originalName',
+  uploadedById: 'uploadedById',
+  createdAt: 'createdAt'
+} as const
+
+export type OrderAttachmentScalarFieldEnum = (typeof OrderAttachmentScalarFieldEnum)[keyof typeof OrderAttachmentScalarFieldEnum]
 
 
 export const AdminActivityScalarFieldEnum = {
