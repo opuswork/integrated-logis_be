@@ -196,6 +196,8 @@ model Order {
   user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   items           OrderItem[]
   greetingForms   GreetingForm[]
+  /** 회원이 첨부한 사진 (대량 택배 명단 등) */
+  attachments     OrderAttachment[]
   
   // One-to-One: Every order has exactly one shipment profile
   shipment        Shipment?
@@ -209,6 +211,21 @@ model Order {
   @@index([requestedShipDate])
   @@index([packDept])
   @@index([orderGroupKey])
+}
+
+/// 주문 첨부 사진 (대량 택배 명단 촬영 등)
+model OrderAttachment {
+  id           Int      @id @default(autoincrement())
+  orderId      Int      @map("order_id")
+  order        Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  imageUrl     String   @map("image_url") // Blob URL or /assets/order_attachments/...
+  storedName   String   @map("stored_name")
+  originalName String   @map("original_name")
+  uploadedById Int?     @map("uploaded_by_id")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("order_attachment")
+  @@index([orderId])
 }
 
 /// 관리자 액션 알림 피드

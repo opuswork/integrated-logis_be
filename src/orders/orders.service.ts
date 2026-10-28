@@ -34,6 +34,7 @@ import {
   CreateOrderDto,
   CreateShipmentDto,
 } from './dto/create-order.dto';
+import { OrderAttachmentStorageService } from './order-attachment-storage.service';
 import type { DeliveryAction } from './dto/delivery-action.dto';
 import {
   canEditOrderStatus,
@@ -67,9 +68,20 @@ const ASSIGNMENT_ALERT_MESSAGES = [
   WORKER_CHANGE_ALERT,
   STORE_REGION_CHANGE_ALERT,
 ] as const;
+/** 직접수령(매장 방문 수령) 주문: notes 줄 태그 [직접수령] */
+export function isPickupOrderNotes(notes: string | null | undefined) {
+  return (notes ?? '').includes('[직접수령]');
+}
+
+const MAX_ORDER_ATTACHMENTS = 5;
+
 const orderInclude = {
   items: true,
   shipment: true,
+  attachments: {
+    select: { id: true, imageUrl: true, originalName: true, createdAt: true },
+    orderBy: { id: 'asc' as const },
+  },
   greetingForms: {
     select: {
       id: true,
@@ -212,6 +224,7 @@ export class OrdersService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly greetingImages: GreetingImageStorageService,
+    private readonly attachmentStorage: OrderAttachmentStorageService,
   ) {}
 
   async create(createOrderDto: CreateOrderDto, actor?: AuthUserPayload) {
@@ -996,6 +1009,14 @@ export class OrdersService {
       if (!dto.packagingWorker) {
         throw new BadRequestException('작업자(매장/공장)를 선택해 주세요.');
       }
+      if (
+        dto.packagingWorker === PackagingWorker.FACTORY &&
+        isPickupOrderNotes(order.notes)
+      ) {
+        throw new BadRequestException(
+          '직접수령 주문은 공장을 작업자로 지정할 수 없습니다.',
+        );
+      }
       data.packagingWorker = dto.packagingWorker;
       activityAction = AdminActivityAction.WORKER_SAVE;
       summarySuffix = `작업자 ${dto.packagingWorker === 'STORE' ? '매장' : '공장'} 저장`;
@@ -1231,6 +1252,10 @@ export class OrdersService {
     const notes = order.notes ?? '';
     // notes 배달 우선: fulfillmentType이 PARCEL로 남아 있어도 상차
     if (notes.includes('[배달]') || notes.includes('배달업체명:')) {
+      return false;
+    }
+    // 직접수령: 매장에서 가져가므로 택배(운송장) 아님
+    if (isPickupOrderNotes(notes)) {
       return false;
     }
     return order.shipment?.fulfillmentType === FulfillmentType.PARCEL;
@@ -1777,6 +1802,81 @@ export class OrdersService {
       default:
         throw new BadRequestException('Unknown action');
     }
+  }
+
+  /**
+   * 주문 첨부 사진 업로드. 파일은 한 번 저장하고, 같은 사진을 여러 주문(분할 형제)에 연결한다.
+   * 회원은 본인 주문에만, 관리자는 모든 주문에 첨부할 수 있다.
+   */
+  async addAttachments(
+    orderIds: number[],
+    files: Express.Multer.File[],
+    actor: AuthUserPayload,
+  ) {
+    const ids = [...new Set(orderIds)].filter(
+      (id) => Number.isInteger(id) && id > 0,
+    );
+    if (ids.length === 0) {
+      throw new BadRequestException('사진을 연결할 주문을 지정해 주세요.');
+    }
+    if (!files?.length) {
+      throw new BadRequestException('첨부할 사진을 선택해 주세요.');
+    }
+    if (files.some((file) => !file.mimetype?.startsWith('image/'))) {
+      throw new BadRequestException('사진(이미지) 파일만 첨부할 수 있습니다.');
+    }
+
+    const orders = await this.prisma.order.findMany({
+      where: { id: { in: ids } },
+      select: {
+        id: true,
+        userId: true,
+        _count: { select: { attachments: true } },
+      },
+    });
+    if (orders.length !== ids.length) {
+      throw new NotFoundException('주문을 찾을 수 없습니다.');
+    }
+    const isAdmin = actor.role === 'admin';
+    if (!isAdmin && orders.some((order) => order.userId !== actor.id)) {
+      throw new ForbiddenException(
+        '본인 또는 관리자만 사진을 첨부할 수 있습니다.',
+      );
+    }
+    if (
+      orders.some(
+        (order) =>
+          order._count.attachments + files.length > MAX_ORDER_ATTACHMENTS,
+      )
+    ) {
+      throw new BadRequestException(
+        `사진은 주문당 최대 ${MAX_ORDER_ATTACHMENTS}장까지 첨부할 수 있습니다.`,
+      );
+    }
+
+    const stored = await Promise.all(
+      files.map((file) => this.attachmentStorage.store(file)),
+    );
+
+    await this.prisma.orderAttachment.createMany({
+      data: ids.flatMap((orderId) =>
+        stored.map((item) => ({
+          orderId,
+          imageUrl: item.imageUrl,
+          storedName: item.storedName,
+          originalName: item.originalName,
+          uploadedById: actor.id,
+        })),
+      ),
+    });
+
+    return {
+      orderIds: ids,
+      attachments: stored.map((item) => ({
+        imageUrl: item.imageUrl,
+        originalName: item.originalName,
+      })),
+    };
   }
 
   async remove(id: number, actor: AuthUserPayload) {

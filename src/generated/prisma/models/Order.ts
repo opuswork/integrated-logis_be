@@ -447,6 +447,7 @@ export type OrderWhereInput = {
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   items?: Prisma.OrderItemListRelationFilter
   greetingForms?: Prisma.GreetingFormListRelationFilter
+  attachments?: Prisma.OrderAttachmentListRelationFilter
   shipment?: Prisma.XOR<Prisma.ShipmentNullableScalarRelationFilter, Prisma.ShipmentWhereInput> | null
 }
 
@@ -486,6 +487,7 @@ export type OrderOrderByWithRelationInput = {
   user?: Prisma.UserOrderByWithRelationInput
   items?: Prisma.OrderItemOrderByRelationAggregateInput
   greetingForms?: Prisma.GreetingFormOrderByRelationAggregateInput
+  attachments?: Prisma.OrderAttachmentOrderByRelationAggregateInput
   shipment?: Prisma.ShipmentOrderByWithRelationInput
 }
 
@@ -528,6 +530,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   items?: Prisma.OrderItemListRelationFilter
   greetingForms?: Prisma.GreetingFormListRelationFilter
+  attachments?: Prisma.OrderAttachmentListRelationFilter
   shipment?: Prisma.XOR<Prisma.ShipmentNullableScalarRelationFilter, Prisma.ShipmentWhereInput> | null
 }, "id" | "orderNumber">
 
@@ -643,6 +646,7 @@ export type OrderCreateInput = {
   user: Prisma.UserCreateNestedOneWithoutOrdersInput
   items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   greetingForms?: Prisma.GreetingFormCreateNestedManyWithoutOrderInput
+  attachments?: Prisma.OrderAttachmentCreateNestedManyWithoutOrderInput
   shipment?: Prisma.ShipmentCreateNestedOneWithoutOrderInput
 }
 
@@ -681,6 +685,7 @@ export type OrderUncheckedCreateInput = {
   updatedAt?: Date | string
   items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
   greetingForms?: Prisma.GreetingFormUncheckedCreateNestedManyWithoutOrderInput
+  attachments?: Prisma.OrderAttachmentUncheckedCreateNestedManyWithoutOrderInput
   shipment?: Prisma.ShipmentUncheckedCreateNestedOneWithoutOrderInput
 }
 
@@ -718,6 +723,7 @@ export type OrderUpdateInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
   items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   greetingForms?: Prisma.GreetingFormUpdateManyWithoutOrderNestedInput
+  attachments?: Prisma.OrderAttachmentUpdateManyWithoutOrderNestedInput
   shipment?: Prisma.ShipmentUpdateOneWithoutOrderNestedInput
 }
 
@@ -756,6 +762,7 @@ export type OrderUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
   greetingForms?: Prisma.GreetingFormUncheckedUpdateManyWithoutOrderNestedInput
+  attachments?: Prisma.OrderAttachmentUncheckedUpdateManyWithoutOrderNestedInput
   shipment?: Prisma.ShipmentUncheckedUpdateOneWithoutOrderNestedInput
 }
 
@@ -1067,6 +1074,20 @@ export type NullableEnumPackDeptFieldUpdateOperationsInput = {
   set?: $Enums.PackDept | null
 }
 
+export type OrderCreateNestedOneWithoutAttachmentsInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutAttachmentsInput, Prisma.OrderUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutAttachmentsInput
+  connect?: Prisma.OrderWhereUniqueInput
+}
+
+export type OrderUpdateOneRequiredWithoutAttachmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutAttachmentsInput, Prisma.OrderUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutAttachmentsInput
+  upsert?: Prisma.OrderUpsertWithoutAttachmentsInput
+  connect?: Prisma.OrderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrderUpdateToOneWithWhereWithoutAttachmentsInput, Prisma.OrderUpdateWithoutAttachmentsInput>, Prisma.OrderUncheckedUpdateWithoutAttachmentsInput>
+}
+
 export type OrderCreateNestedOneWithoutShipmentInput = {
   create?: Prisma.XOR<Prisma.OrderCreateWithoutShipmentInput, Prisma.OrderUncheckedCreateWithoutShipmentInput>
   connectOrCreate?: Prisma.OrderCreateOrConnectWithoutShipmentInput
@@ -1144,6 +1165,7 @@ export type OrderCreateWithoutUserInput = {
   updatedAt?: Date | string
   items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   greetingForms?: Prisma.GreetingFormCreateNestedManyWithoutOrderInput
+  attachments?: Prisma.OrderAttachmentCreateNestedManyWithoutOrderInput
   shipment?: Prisma.ShipmentCreateNestedOneWithoutOrderInput
 }
 
@@ -1181,6 +1203,7 @@ export type OrderUncheckedCreateWithoutUserInput = {
   updatedAt?: Date | string
   items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
   greetingForms?: Prisma.GreetingFormUncheckedCreateNestedManyWithoutOrderInput
+  attachments?: Prisma.OrderAttachmentUncheckedCreateNestedManyWithoutOrderInput
   shipment?: Prisma.ShipmentUncheckedCreateNestedOneWithoutOrderInput
 }
 
@@ -1248,6 +1271,172 @@ export type OrderScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
 }
 
+export type OrderCreateWithoutAttachmentsInput = {
+  orderNumber: string
+  orderGroupKey: string
+  splitIndex?: number
+  status?: $Enums.OrderStatus
+  totalAmount?: number
+  notes?: string | null
+  extraNote?: string | null
+  factoryAlert?: string | null
+  storeRegion?: $Enums.AdminRegion | null
+  packagingWorker?: $Enums.PackagingWorker | null
+  orderConfirmedAt?: Date | string | null
+  orderConfirmedBy?: string | null
+  paymentDone?: boolean
+  paymentAuthor?: string | null
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: string | null
+  readyForShipment?: boolean
+  requestedShipDate?: Date | string | null
+  packDept?: $Enums.PackDept | null
+  packDate?: Date | string | null
+  packPt?: string | null
+  storagePlace?: string | null
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: Date | string | null
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutOrdersInput
+  items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
+  greetingForms?: Prisma.GreetingFormCreateNestedManyWithoutOrderInput
+  shipment?: Prisma.ShipmentCreateNestedOneWithoutOrderInput
+}
+
+export type OrderUncheckedCreateWithoutAttachmentsInput = {
+  id?: number
+  orderNumber: string
+  orderGroupKey: string
+  splitIndex?: number
+  status?: $Enums.OrderStatus
+  totalAmount?: number
+  notes?: string | null
+  extraNote?: string | null
+  factoryAlert?: string | null
+  storeRegion?: $Enums.AdminRegion | null
+  packagingWorker?: $Enums.PackagingWorker | null
+  orderConfirmedAt?: Date | string | null
+  orderConfirmedBy?: string | null
+  paymentDone?: boolean
+  paymentAuthor?: string | null
+  greetingDone?: boolean
+  slipDone?: boolean
+  slipAuthor?: string | null
+  readyForShipment?: boolean
+  requestedShipDate?: Date | string | null
+  packDept?: $Enums.PackDept | null
+  packDate?: Date | string | null
+  packPt?: string | null
+  storagePlace?: string | null
+  packDone?: boolean
+  releaseDone?: boolean
+  releaseDoneAt?: Date | string | null
+  finalCompleteDone?: boolean
+  finalConfirmDone?: boolean
+  userId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
+  greetingForms?: Prisma.GreetingFormUncheckedCreateNestedManyWithoutOrderInput
+  shipment?: Prisma.ShipmentUncheckedCreateNestedOneWithoutOrderInput
+}
+
+export type OrderCreateOrConnectWithoutAttachmentsInput = {
+  where: Prisma.OrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderCreateWithoutAttachmentsInput, Prisma.OrderUncheckedCreateWithoutAttachmentsInput>
+}
+
+export type OrderUpsertWithoutAttachmentsInput = {
+  update: Prisma.XOR<Prisma.OrderUpdateWithoutAttachmentsInput, Prisma.OrderUncheckedUpdateWithoutAttachmentsInput>
+  create: Prisma.XOR<Prisma.OrderCreateWithoutAttachmentsInput, Prisma.OrderUncheckedCreateWithoutAttachmentsInput>
+  where?: Prisma.OrderWhereInput
+}
+
+export type OrderUpdateToOneWithWhereWithoutAttachmentsInput = {
+  where?: Prisma.OrderWhereInput
+  data: Prisma.XOR<Prisma.OrderUpdateWithoutAttachmentsInput, Prisma.OrderUncheckedUpdateWithoutAttachmentsInput>
+}
+
+export type OrderUpdateWithoutAttachmentsInput = {
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  orderGroupKey?: Prisma.StringFieldUpdateOperationsInput | string
+  splitIndex?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extraNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orderConfirmedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requestedShipDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packDept?: Prisma.NullableEnumPackDeptFieldUpdateOperationsInput | $Enums.PackDept | null
+  packDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packPt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storagePlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDoneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  finalCompleteDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  finalConfirmDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
+  items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
+  greetingForms?: Prisma.GreetingFormUpdateManyWithoutOrderNestedInput
+  shipment?: Prisma.ShipmentUpdateOneWithoutOrderNestedInput
+}
+
+export type OrderUncheckedUpdateWithoutAttachmentsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  orderGroupKey?: Prisma.StringFieldUpdateOperationsInput | string
+  splitIndex?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extraNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  factoryAlert?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
+  packagingWorker?: Prisma.NullableEnumPackagingWorkerFieldUpdateOperationsInput | $Enums.PackagingWorker | null
+  orderConfirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orderConfirmedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slipAuthor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readyForShipment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requestedShipDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packDept?: Prisma.NullableEnumPackDeptFieldUpdateOperationsInput | $Enums.PackDept | null
+  packDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  packPt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storagePlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  releaseDoneAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  finalCompleteDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  finalConfirmDone?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
+  greetingForms?: Prisma.GreetingFormUncheckedUpdateManyWithoutOrderNestedInput
+  shipment?: Prisma.ShipmentUncheckedUpdateOneWithoutOrderNestedInput
+}
+
 export type OrderCreateWithoutShipmentInput = {
   orderNumber: string
   orderGroupKey: string
@@ -1282,6 +1471,7 @@ export type OrderCreateWithoutShipmentInput = {
   user: Prisma.UserCreateNestedOneWithoutOrdersInput
   items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   greetingForms?: Prisma.GreetingFormCreateNestedManyWithoutOrderInput
+  attachments?: Prisma.OrderAttachmentCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutShipmentInput = {
@@ -1319,6 +1509,7 @@ export type OrderUncheckedCreateWithoutShipmentInput = {
   updatedAt?: Date | string
   items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
   greetingForms?: Prisma.GreetingFormUncheckedCreateNestedManyWithoutOrderInput
+  attachments?: Prisma.OrderAttachmentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutShipmentInput = {
@@ -1371,6 +1562,7 @@ export type OrderUpdateWithoutShipmentInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
   items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   greetingForms?: Prisma.GreetingFormUpdateManyWithoutOrderNestedInput
+  attachments?: Prisma.OrderAttachmentUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutShipmentInput = {
@@ -1408,6 +1600,7 @@ export type OrderUncheckedUpdateWithoutShipmentInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
   greetingForms?: Prisma.GreetingFormUncheckedUpdateManyWithoutOrderNestedInput
+  attachments?: Prisma.OrderAttachmentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderCreateWithoutItemsInput = {
@@ -1443,6 +1636,7 @@ export type OrderCreateWithoutItemsInput = {
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutOrdersInput
   greetingForms?: Prisma.GreetingFormCreateNestedManyWithoutOrderInput
+  attachments?: Prisma.OrderAttachmentCreateNestedManyWithoutOrderInput
   shipment?: Prisma.ShipmentCreateNestedOneWithoutOrderInput
 }
 
@@ -1480,6 +1674,7 @@ export type OrderUncheckedCreateWithoutItemsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   greetingForms?: Prisma.GreetingFormUncheckedCreateNestedManyWithoutOrderInput
+  attachments?: Prisma.OrderAttachmentUncheckedCreateNestedManyWithoutOrderInput
   shipment?: Prisma.ShipmentUncheckedCreateNestedOneWithoutOrderInput
 }
 
@@ -1532,6 +1727,7 @@ export type OrderUpdateWithoutItemsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
   greetingForms?: Prisma.GreetingFormUpdateManyWithoutOrderNestedInput
+  attachments?: Prisma.OrderAttachmentUpdateManyWithoutOrderNestedInput
   shipment?: Prisma.ShipmentUpdateOneWithoutOrderNestedInput
 }
 
@@ -1569,6 +1765,7 @@ export type OrderUncheckedUpdateWithoutItemsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   greetingForms?: Prisma.GreetingFormUncheckedUpdateManyWithoutOrderNestedInput
+  attachments?: Prisma.OrderAttachmentUncheckedUpdateManyWithoutOrderNestedInput
   shipment?: Prisma.ShipmentUncheckedUpdateOneWithoutOrderNestedInput
 }
 
@@ -1605,6 +1802,7 @@ export type OrderCreateWithoutGreetingFormsInput = {
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutOrdersInput
   items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
+  attachments?: Prisma.OrderAttachmentCreateNestedManyWithoutOrderInput
   shipment?: Prisma.ShipmentCreateNestedOneWithoutOrderInput
 }
 
@@ -1642,6 +1840,7 @@ export type OrderUncheckedCreateWithoutGreetingFormsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
+  attachments?: Prisma.OrderAttachmentUncheckedCreateNestedManyWithoutOrderInput
   shipment?: Prisma.ShipmentUncheckedCreateNestedOneWithoutOrderInput
 }
 
@@ -1694,6 +1893,7 @@ export type OrderUpdateWithoutGreetingFormsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
   items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
+  attachments?: Prisma.OrderAttachmentUpdateManyWithoutOrderNestedInput
   shipment?: Prisma.ShipmentUpdateOneWithoutOrderNestedInput
 }
 
@@ -1731,6 +1931,7 @@ export type OrderUncheckedUpdateWithoutGreetingFormsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
+  attachments?: Prisma.OrderAttachmentUncheckedUpdateManyWithoutOrderNestedInput
   shipment?: Prisma.ShipmentUncheckedUpdateOneWithoutOrderNestedInput
 }
 
@@ -1801,6 +2002,7 @@ export type OrderUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   greetingForms?: Prisma.GreetingFormUpdateManyWithoutOrderNestedInput
+  attachments?: Prisma.OrderAttachmentUpdateManyWithoutOrderNestedInput
   shipment?: Prisma.ShipmentUpdateOneWithoutOrderNestedInput
 }
 
@@ -1838,6 +2040,7 @@ export type OrderUncheckedUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
   greetingForms?: Prisma.GreetingFormUncheckedUpdateManyWithoutOrderNestedInput
+  attachments?: Prisma.OrderAttachmentUncheckedUpdateManyWithoutOrderNestedInput
   shipment?: Prisma.ShipmentUncheckedUpdateOneWithoutOrderNestedInput
 }
 
@@ -1883,11 +2086,13 @@ export type OrderUncheckedUpdateManyWithoutUserInput = {
 export type OrderCountOutputType = {
   items: number
   greetingForms: number
+  attachments: number
 }
 
 export type OrderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   items?: boolean | OrderCountOutputTypeCountItemsArgs
   greetingForms?: boolean | OrderCountOutputTypeCountGreetingFormsArgs
+  attachments?: boolean | OrderCountOutputTypeCountAttachmentsArgs
 }
 
 /**
@@ -1912,6 +2117,13 @@ export type OrderCountOutputTypeCountItemsArgs<ExtArgs extends runtime.Types.Ext
  */
 export type OrderCountOutputTypeCountGreetingFormsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.GreetingFormWhereInput
+}
+
+/**
+ * OrderCountOutputType without action
+ */
+export type OrderCountOutputTypeCountAttachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderAttachmentWhereInput
 }
 
 
@@ -1951,6 +2163,7 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   items?: boolean | Prisma.Order$itemsArgs<ExtArgs>
   greetingForms?: boolean | Prisma.Order$greetingFormsArgs<ExtArgs>
+  attachments?: boolean | Prisma.Order$attachmentsArgs<ExtArgs>
   shipment?: boolean | Prisma.Order$shipmentArgs<ExtArgs>
   _count?: boolean | Prisma.OrderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
@@ -2067,6 +2280,7 @@ export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   items?: boolean | Prisma.Order$itemsArgs<ExtArgs>
   greetingForms?: boolean | Prisma.Order$greetingFormsArgs<ExtArgs>
+  attachments?: boolean | Prisma.Order$attachmentsArgs<ExtArgs>
   shipment?: boolean | Prisma.Order$shipmentArgs<ExtArgs>
   _count?: boolean | Prisma.OrderCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -2083,6 +2297,10 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     user: Prisma.$UserPayload<ExtArgs>
     items: Prisma.$OrderItemPayload<ExtArgs>[]
     greetingForms: Prisma.$GreetingFormPayload<ExtArgs>[]
+    /**
+     * * 회원이 첨부한 사진 (대량 택배 명단 등)
+     */
+    attachments: Prisma.$OrderAttachmentPayload<ExtArgs>[]
     shipment: Prisma.$ShipmentPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -2548,6 +2766,7 @@ export interface Prisma__OrderClient<T, Null = never, ExtArgs extends runtime.Ty
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   items<T extends Prisma.Order$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   greetingForms<T extends Prisma.Order$greetingFormsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$greetingFormsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GreetingFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attachments<T extends Prisma.Order$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shipment<T extends Prisma.Order$shipmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$shipmentArgs<ExtArgs>>): Prisma.Prisma__ShipmentClient<runtime.Types.Result.GetResult<Prisma.$ShipmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3056,6 +3275,30 @@ export type Order$greetingFormsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.GreetingFormScalarFieldEnum | Prisma.GreetingFormScalarFieldEnum[]
+}
+
+/**
+ * Order.attachments
+ */
+export type Order$attachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OrderAttachment
+   */
+  select?: Prisma.OrderAttachmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OrderAttachment
+   */
+  omit?: Prisma.OrderAttachmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderAttachmentInclude<ExtArgs> | null
+  where?: Prisma.OrderAttachmentWhereInput
+  orderBy?: Prisma.OrderAttachmentOrderByWithRelationInput | Prisma.OrderAttachmentOrderByWithRelationInput[]
+  cursor?: Prisma.OrderAttachmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderAttachmentScalarFieldEnum | Prisma.OrderAttachmentScalarFieldEnum[]
 }
 
 /**

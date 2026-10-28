@@ -65,6 +65,11 @@ export type Church = Prisma.ChurchModel
  */
 export type Order = Prisma.OrderModel
 /**
+ * Model OrderAttachment
+ * 주문 첨부 사진 (대량 택배 명단 촬영 등)
+ */
+export type OrderAttachment = Prisma.OrderAttachmentModel
+/**
  * Model AdminActivity
  * 관리자 액션 알림 피드
  */
