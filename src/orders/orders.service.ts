@@ -38,6 +38,7 @@ import { OrderAttachmentStorageService } from './order-attachment-storage.servic
 import type { DeliveryAction } from './dto/delivery-action.dto';
 import {
   canEditOrderStatus,
+  describeMemberOrderLock,
   describeOrderEditLock,
 } from './order-edit-guard';
 import { buildOrderNumber, generateOrderGroupKey } from './order-number';
@@ -715,6 +716,13 @@ export class OrdersService {
       const lockReason = describeOrderEditLock(existing);
       if (lockReason) {
         throw new BadRequestException(lockReason);
+      }
+      // 회원 본인은 접수·접수완료 + 포장 지정/발송완료 전까지만
+      if (actor && actor.role !== 'admin') {
+        const memberLock = describeMemberOrderLock(existing);
+        if (memberLock) {
+          throw new BadRequestException(memberLock);
+        }
       }
     }
 
@@ -1622,6 +1630,12 @@ export class OrdersService {
         throw new BadRequestException(
           '주문서 취소는 배송중 이전 상태에서만 가능합니다.',
         );
+      }
+      if (!isAdmin) {
+        const memberLock = describeMemberOrderLock(order);
+        if (memberLock) {
+          throw new BadRequestException(memberLock);
+        }
       }
       return this.prisma.$transaction(async (tx) => {
         await this.restoreStockForItems(tx, order.items);

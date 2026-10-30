@@ -1,6 +1,7 @@
 import {
   canEditOrderContent,
   canEditOrderStatus,
+  describeMemberOrderLock,
   describeOrderEditLock,
 } from './order-edit-guard';
 
@@ -70,5 +71,47 @@ describe('describeOrderEditLock (수량·배송방식 수정 가능 여부)', ()
         finalConfirmDone: undefined,
       }),
     ).toBeNull();
+  });
+});
+
+describe('describeMemberOrderLock (회원 수정·삭제 가능 여부)', () => {
+  const PLACED = {
+    status: 'PLACED',
+    packagingWorker: null,
+    packDept: null,
+    finalConfirmDone: false,
+  };
+
+  it('작업자 미지정 접수·접수완료는 가능하다', () => {
+    expect(describeMemberOrderLock(PLACED)).toBeNull();
+    expect(
+      describeMemberOrderLock({ ...PLACED, status: 'WAITING_FOR_SHIPMENT' }),
+    ).toBeNull();
+  });
+
+  it('발송대기 이후는 막는다', () => {
+    for (const status of ['PREPARED', 'LOAD_NOTIFIED', 'SHIPPING', 'CANCELLED']) {
+      expect(describeMemberOrderLock({ ...PLACED, status })).toMatch(
+        /접수·접수완료/,
+      );
+    }
+  });
+
+  it('작업자 매장은 발송완료 전까지만 가능하다', () => {
+    const store = { ...PLACED, packagingWorker: 'STORE' };
+    expect(describeMemberOrderLock(store)).toBeNull();
+    expect(
+      describeMemberOrderLock({ ...store, finalConfirmDone: true }),
+    ).toMatch(/발송완료/);
+  });
+
+  it('작업자 공장은 포장 전(packDept 없음)까지만 가능하다', () => {
+    const factory = { ...PLACED, packagingWorker: 'FACTORY' };
+    expect(describeMemberOrderLock(factory)).toBeNull();
+    for (const packDept of ['FACTORY_PACK', 'SOCK_PACK']) {
+      expect(describeMemberOrderLock({ ...factory, packDept })).toMatch(
+        /포장이 시작된/,
+      );
+    }
   });
 });

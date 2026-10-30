@@ -44,6 +44,38 @@ export function describeOrderEditLock(
   return null;
 }
 
+export type MemberOrderLockInput = {
+  status: OrderStatus | string;
+  packagingWorker?: 'STORE' | 'FACTORY' | string | null;
+  packDept?: string | null;
+  finalConfirmDone?: boolean | null;
+};
+
+/**
+ * 회원(주문자 본인)이 주문을 수정·취소할 수 있는지. 관리자보다 좁다.
+ * - 접수·접수완료(PLACED / WAITING_FOR_SHIPMENT) 상태에서만
+ * - 작업자 매장: 배송관리 '발송완료'(finalConfirmDone) 전까지
+ * - 작업자 공장: 포장관리 '포장 전' 동안 (공장포장/양말부포장 지정되면 packDept 가 생긴다)
+ * - 작업자 미지정: 가능
+ */
+export function describeMemberOrderLock(
+  order: MemberOrderLockInput,
+): string | null {
+  if (
+    order.status !== OrderStatus.PLACED &&
+    order.status !== OrderStatus.WAITING_FOR_SHIPMENT
+  ) {
+    return '접수·접수완료 상태에서만 수정·삭제할 수 있습니다.';
+  }
+  if (order.packagingWorker === 'STORE' && order.finalConfirmDone) {
+    return '발송완료된 주문은 수정·삭제할 수 없습니다.';
+  }
+  if (order.packagingWorker === 'FACTORY' && order.packDept) {
+    return '포장이 시작된 주문은 수정·삭제할 수 없습니다.';
+  }
+  return null;
+}
+
 /** 포장완료·발송완료 전까지만 주문 내용을 고칠 수 있다 */
 export function canEditOrderContent(order: OrderEditLockInput): boolean {
   return describeOrderEditLock(order) === null;
