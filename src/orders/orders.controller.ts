@@ -59,9 +59,9 @@ export class OrdersController {
 
   @Post('attachments')
   @ApiOperation({
-    summary: '주문 첨부 사진 업로드',
+    summary: '주문 첨부 파일 업로드',
     description:
-      '대량 택배 명단 등 사진을 주문에 첨부합니다. 같은 사진을 orderIds의 모든 주문(분할 형제)에 연결합니다. 주문당 최대 5장, 장당 10MB.',
+      '대량 택배 명단 등 사진·PDF·엑셀(xlsx/xls/csv) 파일을 주문에 첨부합니다. 같은 파일을 orderIds의 모든 주문(분할 형제)에 연결합니다. 주문당 최대 5개, 개당 10MB. 필드 이름은 호환을 위해 images 그대로입니다.',
   })
   @ApiConsumes('multipart/form-data')
   @ApiBody({

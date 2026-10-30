@@ -6,7 +6,7 @@ import * as path from 'path';
 
 import { decodeUploadFilename } from '../common/upload-filename';
 
-/** 주문 첨부 사진 저장 (GreetingImageStorageService와 같은 방식: Blob, 없으면 로컬) */
+/** 주문 첨부 파일(사진·PDF·엑셀) 저장 (GreetingImageStorageService와 같은 방식: Blob, 없으면 로컬) */
 @Injectable()
 export class OrderAttachmentStorageService {
   private readonly logger = new Logger(OrderAttachmentStorageService.name);
@@ -53,7 +53,7 @@ export class OrderAttachmentStorageService {
       const blob = await put(`order_attachments/${storedName}`, file.buffer, {
         access: 'public',
         token: process.env.BLOB_READ_WRITE_TOKEN,
-        contentType: file.mimetype || 'image/jpeg',
+        contentType: file.mimetype || 'application/octet-stream',
       });
       return { imageUrl: blob.url, storedName, originalName };
     }
