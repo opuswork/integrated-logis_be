@@ -41,6 +41,7 @@ import {
   describeMemberOrderLock,
   describeOrderEditLock,
 } from './order-edit-guard';
+import { isAllowedOrderAttachment } from './order-attachment-types';
 import { buildOrderNumber, generateOrderGroupKey } from './order-number';
 import type { UpdateAdminChecklistDto } from './dto/update-admin-checklist.dto';
 import type { UpdateShipmentOpsDto } from './dto/update-shipment-ops.dto';
@@ -1819,7 +1820,7 @@ export class OrdersService {
   }
 
   /**
-   * 주문 첨부 사진 업로드. 파일은 한 번 저장하고, 같은 사진을 여러 주문(분할 형제)에 연결한다.
+   * 주문 첨부 파일(사진·PDF·엑셀) 업로드. 파일은 한 번 저장하고, 같은 파일을 여러 주문(분할 형제)에 연결한다.
    * 회원은 본인 주문에만, 관리자는 모든 주문에 첨부할 수 있다.
    */
   async addAttachments(
@@ -1831,13 +1832,15 @@ export class OrdersService {
       (id) => Number.isInteger(id) && id > 0,
     );
     if (ids.length === 0) {
-      throw new BadRequestException('사진을 연결할 주문을 지정해 주세요.');
+      throw new BadRequestException('파일을 연결할 주문을 지정해 주세요.');
     }
     if (!files?.length) {
-      throw new BadRequestException('첨부할 사진을 선택해 주세요.');
+      throw new BadRequestException('첨부할 파일을 선택해 주세요.');
     }
-    if (files.some((file) => !file.mimetype?.startsWith('image/'))) {
-      throw new BadRequestException('사진(이미지) 파일만 첨부할 수 있습니다.');
+    if (files.some((file) => !isAllowedOrderAttachment(file))) {
+      throw new BadRequestException(
+        '사진·PDF·엑셀 파일만 첨부할 수 있습니다.',
+      );
     }
 
     const orders = await this.prisma.order.findMany({
@@ -1854,7 +1857,7 @@ export class OrdersService {
     const isAdmin = actor.role === 'admin';
     if (!isAdmin && orders.some((order) => order.userId !== actor.id)) {
       throw new ForbiddenException(
-        '본인 또는 관리자만 사진을 첨부할 수 있습니다.',
+        '본인 또는 관리자만 파일을 첨부할 수 있습니다.',
       );
     }
     if (
@@ -1864,7 +1867,7 @@ export class OrdersService {
       )
     ) {
       throw new BadRequestException(
-        `사진은 주문당 최대 ${MAX_ORDER_ATTACHMENTS}장까지 첨부할 수 있습니다.`,
+        `파일은 주문당 최대 ${MAX_ORDER_ATTACHMENTS}개까지 첨부할 수 있습니다.`,
       );
     }
 
