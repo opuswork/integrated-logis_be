@@ -7,11 +7,12 @@ import {
 import JSZip from 'jszip';
 
 import type { AuthUserPayload } from '../auth/jwt.strategy';
+import { TOP_ADMIN_USERNAME } from '../common/member-auth';
 import { PrismaService } from '../prisma/prisma.service';
 import { VoiceRecordingStorageService } from './voice-recording-storage.service';
 
 /** 파일관리(음성 녹음 목록)는 최고관리자 한 명만 사용한다. */
-export const TOP_ADMIN_USERNAME = '01044631440';
+export { TOP_ADMIN_USERNAME };
 
 const MAX_DURATION_SEC = 60 * 60;
 

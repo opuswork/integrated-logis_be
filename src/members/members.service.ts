@@ -15,13 +15,35 @@ import {
   mobilePhoneDigits,
   normalizePhone,
   normalizeUsername,
+  TOP_ADMIN_USERNAME,
   verifyPassword,
 } from '../common/member-auth';
-import { MemberType } from '../generated/prisma/client';
+import { MemberType, Prisma } from '../generated/prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { BulkImportMembersDto } from './dto/bulk-import.dto';
+import { BulkUpdateMembersDto } from './dto/bulk-update.dto';
 import { PutMemberDto, UpdateMemberDto } from './dto/update-member.dto';
+
+const MEMBER_TYPE_LABEL: Record<MemberType, string> = {
+  GWANJANG: '관장',
+  GENERAL: '일반',
+  CHONGMU: '총무',
+  SAJANG: '사장',
+  BUSAJANG: '부사장',
+  SANGMU: '상무',
+};
+
+/** 엑셀 직분 칸: 한글(관장…) 또는 코드(GWANJANG…) */
+function toMemberType(value: string): MemberType | null {
+  const trimmed = value.trim();
+  const upper = trimmed.toUpperCase();
+  if (upper in MEMBER_TYPE_LABEL) return upper as MemberType;
+  const found = (Object.keys(MEMBER_TYPE_LABEL) as MemberType[]).find(
+    (key) => MEMBER_TYPE_LABEL[key] === trimmed,
+  );
+  return found ?? null;
+}
 
 const userPublicSelect = {
   id: true,
@@ -790,6 +812,223 @@ export class MembersService {
       createdMembers: created,
       skippedUsernames: skipped,
       failed,
+    };
+  }
+
+  /**
+   * 회원명단 엑셀(아이디·이름·중앙·직분·연락처) 재업로드로 기존 회원을 일괄 수정한다.
+   * - 아이디로 찾는다. DB에 없는 아이디 → skipped (새 회원은 만들지 않음)
+   * - 빈 칸은 변경하지 않는다
+   * - 없는 중앙·잘못된 직분/연락처/이름 → 그 행은 error (적용 안 함)
+   * - dryRun(기본 true)이면 저장하지 않고 미리보기만 돌려준다
+   */
+  async bulkUpdate(dto: BulkUpdateMembersDto, actor: AuthUserPayload) {
+    if (actor.username !== TOP_ADMIN_USERNAME) {
+      throw new ForbiddenException(
+        '최고관리자만 회원명단을 일괄 수정할 수 있습니다.',
+      );
+    }
+    const dryRun = dto.dryRun ?? true;
+
+    const usernames = [
+      ...new Set(
+        dto.rows
+          .map((row) => normalizeUsername(row.username ?? ''))
+          .filter(Boolean),
+      ),
+    ];
+    const [users, churches] = await Promise.all([
+      this.prisma.user.findMany({
+        where: { username: { in: usernames } },
+        select: {
+          id: true,
+          username: true,
+          fullname: true,
+          phone: true,
+          role: true,
+          adminRegion: true,
+          memberType: true,
+          churchId: true,
+          church: { select: { name: true } },
+        },
+      }),
+      this.prisma.church.findMany({ select: { id: true, name: true } }),
+    ]);
+    const userByUsername = new Map(users.map((user) => [user.username, user]));
+    const churchByName = new Map(
+      churches.map((church) => [church.name.trim(), church]),
+    );
+
+    type Change = {
+      field: string;
+      label: string;
+      before: string;
+      after: string;
+    };
+    type Result = {
+      rowNumber: number | null;
+      username: string;
+      fullname: string;
+      status: 'update' | 'unchanged' | 'skipped' | 'error';
+      changes: Change[];
+      reason?: string;
+    };
+    const results: Result[] = [];
+    const updates: Array<{ id: number; data: Prisma.UserUpdateInput }> = [];
+    const seen = new Set<string>();
+
+    for (const row of dto.rows) {
+      const username = normalizeUsername(row.username ?? '');
+      const base = {
+        rowNumber: row.rowNumber ?? null,
+        username,
+        fullname: row.fullname?.trim() ?? '',
+        changes: [] as Change[],
+      };
+      if (!username) {
+        results.push({
+          ...base,
+          status: 'error',
+          reason: '아이디가 비어 있습니다.',
+        });
+        continue;
+      }
+      if (seen.has(username)) {
+        results.push({
+          ...base,
+          status: 'error',
+          reason: '파일 안에 같은 아이디가 또 있습니다.',
+        });
+        continue;
+      }
+      seen.add(username);
+
+      const user = userByUsername.get(username);
+      if (!user) {
+        results.push({
+          ...base,
+          status: 'skipped',
+          reason: 'DB에 없는 아이디 (건너뜀)',
+        });
+        continue;
+      }
+      if (user.role === 'ADMIN' && user.adminRegion == null) {
+        results.push({
+          ...base,
+          status: 'skipped',
+          reason: '최고관리자 계정은 수정하지 않습니다.',
+        });
+        continue;
+      }
+      base.fullname = base.fullname || user.fullname;
+
+      const errors: string[] = [];
+      const data: Prisma.UserUpdateInput = {};
+      const changes: Change[] = [];
+
+      const fullname = row.fullname?.trim() ?? '';
+      if (fullname) {
+        if (fullname.length < 2) {
+          errors.push('이름은 2자 이상이어야 합니다.');
+        } else if (fullname !== user.fullname) {
+          data.fullname = fullname;
+          changes.push({
+            field: 'fullname',
+            label: '이름',
+            before: user.fullname,
+            after: fullname,
+          });
+        }
+      }
+
+      const churchName = row.churchName?.trim() ?? '';
+      if (churchName) {
+        const church = churchByName.get(churchName);
+        if (!church) {
+          errors.push(`중앙을 찾을 수 없습니다: ${churchName}`);
+        } else if (church.id !== user.churchId) {
+          data.church = { connect: { id: church.id } };
+          changes.push({
+            field: 'churchName',
+            label: '중앙',
+            before: user.church?.name ?? '',
+            after: church.name,
+          });
+        }
+      }
+
+      const memberTypeRaw = row.memberType?.trim() ?? '';
+      if (memberTypeRaw) {
+        const memberType = toMemberType(memberTypeRaw);
+        if (!memberType) {
+          errors.push(
+            `직분을 확인해 주세요: ${memberTypeRaw} (관장/일반/총무/사장/부사장/상무)`,
+          );
+        } else if (memberType !== user.memberType) {
+          data.memberType = memberType;
+          changes.push({
+            field: 'memberType',
+            label: '직분',
+            before: MEMBER_TYPE_LABEL[user.memberType],
+            after: MEMBER_TYPE_LABEL[memberType],
+          });
+        }
+      }
+
+      const phoneRaw = row.phone?.trim() ?? '';
+      if (phoneRaw) {
+        const digits = normalizePhone(phoneRaw);
+        if (!/^01[016789]\d{8}$/.test(digits)) {
+          errors.push(`연락처는 010-1234-5678 형식이어야 합니다: ${phoneRaw}`);
+        } else if (digits !== normalizePhone(user.phone)) {
+          const phone = formatPhone(digits);
+          data.phone = phone;
+          changes.push({
+            field: 'phone',
+            label: '연락처',
+            before: user.phone,
+            after: phone,
+          });
+        }
+      }
+
+      if (errors.length > 0) {
+        results.push({ ...base, status: 'error', reason: errors.join(' / ') });
+      } else if (changes.length === 0) {
+        results.push({ ...base, status: 'unchanged' });
+      } else {
+        results.push({ ...base, status: 'update', changes });
+        updates.push({ id: user.id, data });
+      }
+    }
+
+    if (!dryRun && updates.length > 0) {
+      try {
+        await this.prisma.$transaction(
+          updates.map(({ id, data }) =>
+            this.prisma.user.update({ where: { id }, data }),
+          ),
+        );
+      } catch (error) {
+        console.error('member bulk update failed:', error);
+        throw new InternalServerErrorException(
+          '회원 일괄 수정에 실패했습니다. 잠시 후 다시 시도해 주세요.',
+        );
+      }
+    }
+
+    const count = (status: Result['status']) =>
+      results.filter((result) => result.status === status).length;
+    return {
+      dryRun,
+      summary: {
+        total: results.length,
+        updated: count('update'),
+        unchanged: count('unchanged'),
+        skipped: count('skipped'),
+        errors: count('error'),
+      },
+      results,
     };
   }
 }

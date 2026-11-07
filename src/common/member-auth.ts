@@ -15,6 +15,9 @@ export async function verifyPassword(password: string, passwordHash: string) {
   return bcrypt.compare(password, passwordHash);
 }
 
+/** 최고관리자 아이디 (파일관리·회원명단 엑셀 등 한 명만 쓰는 기능) */
+export const TOP_ADMIN_USERNAME = '01044631440';
+
 export function normalizeUsername(username: string) {
   return username.trim().toLowerCase();
 }
