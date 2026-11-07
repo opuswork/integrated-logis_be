@@ -25,6 +25,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import type { AuthUserPayload } from '../auth/jwt.strategy';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { BulkImportMembersDto } from './dto/bulk-import.dto';
+import { BulkUpdateMembersDto } from './dto/bulk-update.dto';
 import {
   MemberByUsernameResponseDto,
   MembersListResponseDto,
@@ -53,6 +54,23 @@ export class MembersController {
   })
   bulkImport(@Body() dto: BulkImportMembersDto) {
     return this.membersService.bulkImport(dto);
+  }
+
+  @Post('bulk-update')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: '회원명단 엑셀 일괄 수정 (최고관리자 JWT)',
+    description:
+      '아이디로 기존 회원을 찾아 이름·중앙·직분·연락처를 수정합니다. 빈 칸은 변경하지 않습니다. ' +
+      'DB에 없는 아이디는 건너뛰고, 없는 중앙은 오류로 표시합니다. dryRun=true(기본)면 미리보기만 합니다.',
+  })
+  bulkUpdate(
+    @Body() dto: BulkUpdateMembersDto,
+    @CurrentUser() user: AuthUserPayload,
+  ) {
+    return this.membersService.bulkUpdate(dto, user);
   }
 
   @Get()
