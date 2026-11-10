@@ -72,6 +72,19 @@ export class PartnersService {
       const [items, total] = await Promise.all([
         this.prisma.partner.findMany({
           where,
+          // 목록·수정에 쓰는 칸만 (응답 크기 축소)
+          select: {
+            id: true,
+            name: true,
+            contactName: true,
+            phone: true,
+            address: true,
+            email: true,
+            source: true,
+            category: true,
+            subCategory: true,
+            centerName: true,
+          },
           orderBy: [{ source: 'desc' }, { name: 'asc' }, { id: 'desc' }],
           skip: (page - 1) * pageSize,
           take: pageSize,
