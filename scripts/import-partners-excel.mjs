@@ -60,6 +60,17 @@ function cellText(value) {
   return String(value).trim();
 }
 
+/** 도로명+건물번호(+참고항목) 뒤의 층·호수·건물명을 상세주소로 나눈다 (마이그레이션 20261111150000 과 같은 규칙) */
+const ADDRESS_SPLIT_RE =
+  /^(.*?(?:로|길)\s?\d+(?:-\d+)?(?:\s?\([^)]*\))?)(?:[\s,]+(.*))?$/;
+
+function splitAddress(raw) {
+  const m = raw.match(ADDRESS_SPLIT_RE);
+  if (!m || !m[2]) return [raw, null];
+  const detail = m[2].replace(/^[\s,.]+|[\s,.]+$/g, '');
+  return [m[1], detail || null];
+}
+
 function salesRepFrom(manager, center) {
   if (!manager || !center || !manager.startsWith(center)) return null;
   const rest = manager.slice(center.length).replace(/^[\s\-]+/, '').trim();
@@ -98,11 +109,13 @@ async function readRows() {
     }
     const center = get('중앙') || null;
     const manager = get('담당자');
+    const [address, addressDetail] = splitAddress(get('주소'));
     rows.push({
       name,
       contactName: manager,
       phone: get('유선번호') || null,
-      address: get('주소'),
+      address,
+      addressDetail,
       externalId: get('고객사ID') || null,
       category: get('구분') || null,
       subCategory: get('구분2') || null,
@@ -118,6 +131,7 @@ const COLS = [
   'contactName',
   'phone',
   'address',
+  'addressDetail',
   'externalId',
   'category',
   'subCategory',

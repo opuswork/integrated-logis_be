@@ -117,7 +117,8 @@ model Partner {
   name        String   // 거래처명
   contactName String   // 담당자명
   phone       String?  // 연락처 (엑셀 입력분은 비어 있을 수 있음)
-  address     String   // 주소
+  address     String   // 주소 (도로명 + 건물번호)
+  addressDetail String? // 상세주소 (층·호수·건물명)
   email       String?  // 이메일 (optional)
   /** 등록한 회원. 엑셀 일괄입력분은 null */
   userId      Int?
