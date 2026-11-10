@@ -81,6 +81,7 @@ model User {
   greetingForms GreetingForm[]
   adminActivities AdminActivity[]
   partners Partner[]
+  salesPartners Partner[] @relation("PartnerSalesUser")
   chatMessages ChatMessage[]
   voiceRecordings VoiceRecording[]
 
@@ -115,16 +116,30 @@ model Partner {
   id          Int      @id @default(autoincrement())
   name        String   // 거래처명
   contactName String   // 담당자명
-  phone       String   // 연락처
+  phone       String?  // 연락처 (엑셀 입력분은 비어 있을 수 있음)
   address     String   // 주소
   email       String?  // 이메일 (optional)
-  userId      Int
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  /** 등록한 회원. 엑셀 일괄입력분은 null */
+  userId      Int?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  /** 입력 경로: MANUAL(직접 등록) / EXCEL_FINGER_202608 등 */
+  source       String  @default("MANUAL")
+  externalId   String? // 엑셀 고객사ID
+  category     String? // 구분 (은행, 신용조합 …)
+  subCategory  String? // 구분2 (NH농협은행, 지역농협지점 …)
+  centerName   String? // 중앙 (서울8, 청주 …)
+  salesRepName String? // 담당자에서 중앙을 뺀 이름 (영업앱 매핑용)
+  /** 영업앱 회원 매핑 (추후) */
+  salesUserId  Int?
+  salesUser    User?   @relation("PartnerSalesUser", fields: [salesUserId], references: [id], onDelete: SetNull)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@index([userId])
   @@index([userId, name])
+  @@index([source])
+  @@index([centerName])
+  @@index([salesUserId])
 }
 
 model Church {

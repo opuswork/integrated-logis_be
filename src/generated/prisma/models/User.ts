@@ -308,6 +308,7 @@ export type UserWhereInput = {
   greetingForms?: Prisma.GreetingFormListRelationFilter
   adminActivities?: Prisma.AdminActivityListRelationFilter
   partners?: Prisma.PartnerListRelationFilter
+  salesPartners?: Prisma.PartnerListRelationFilter
   chatMessages?: Prisma.ChatMessageListRelationFilter
   voiceRecordings?: Prisma.VoiceRecordingListRelationFilter
   church?: Prisma.XOR<Prisma.ChurchNullableScalarRelationFilter, Prisma.ChurchWhereInput> | null
@@ -333,6 +334,7 @@ export type UserOrderByWithRelationInput = {
   greetingForms?: Prisma.GreetingFormOrderByRelationAggregateInput
   adminActivities?: Prisma.AdminActivityOrderByRelationAggregateInput
   partners?: Prisma.PartnerOrderByRelationAggregateInput
+  salesPartners?: Prisma.PartnerOrderByRelationAggregateInput
   chatMessages?: Prisma.ChatMessageOrderByRelationAggregateInput
   voiceRecordings?: Prisma.VoiceRecordingOrderByRelationAggregateInput
   church?: Prisma.ChurchOrderByWithRelationInput
@@ -361,6 +363,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   greetingForms?: Prisma.GreetingFormListRelationFilter
   adminActivities?: Prisma.AdminActivityListRelationFilter
   partners?: Prisma.PartnerListRelationFilter
+  salesPartners?: Prisma.PartnerListRelationFilter
   chatMessages?: Prisma.ChatMessageListRelationFilter
   voiceRecordings?: Prisma.VoiceRecordingListRelationFilter
   church?: Prisma.XOR<Prisma.ChurchNullableScalarRelationFilter, Prisma.ChurchWhereInput> | null
@@ -428,6 +431,7 @@ export type UserCreateInput = {
   greetingForms?: Prisma.GreetingFormCreateNestedManyWithoutUserInput
   adminActivities?: Prisma.AdminActivityCreateNestedManyWithoutActorInput
   partners?: Prisma.PartnerCreateNestedManyWithoutUserInput
+  salesPartners?: Prisma.PartnerCreateNestedManyWithoutSalesUserInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
   voiceRecordings?: Prisma.VoiceRecordingCreateNestedManyWithoutUserInput
   church?: Prisma.ChurchCreateNestedOneWithoutUsersInput
@@ -453,6 +457,7 @@ export type UserUncheckedCreateInput = {
   greetingForms?: Prisma.GreetingFormUncheckedCreateNestedManyWithoutUserInput
   adminActivities?: Prisma.AdminActivityUncheckedCreateNestedManyWithoutActorInput
   partners?: Prisma.PartnerUncheckedCreateNestedManyWithoutUserInput
+  salesPartners?: Prisma.PartnerUncheckedCreateNestedManyWithoutSalesUserInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
   voiceRecordings?: Prisma.VoiceRecordingUncheckedCreateNestedManyWithoutUserInput
 }
@@ -475,6 +480,7 @@ export type UserUpdateInput = {
   greetingForms?: Prisma.GreetingFormUpdateManyWithoutUserNestedInput
   adminActivities?: Prisma.AdminActivityUpdateManyWithoutActorNestedInput
   partners?: Prisma.PartnerUpdateManyWithoutUserNestedInput
+  salesPartners?: Prisma.PartnerUpdateManyWithoutSalesUserNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
   voiceRecordings?: Prisma.VoiceRecordingUpdateManyWithoutUserNestedInput
   church?: Prisma.ChurchUpdateOneWithoutUsersNestedInput
@@ -500,6 +506,7 @@ export type UserUncheckedUpdateInput = {
   greetingForms?: Prisma.GreetingFormUncheckedUpdateManyWithoutUserNestedInput
   adminActivities?: Prisma.AdminActivityUncheckedUpdateManyWithoutActorNestedInput
   partners?: Prisma.PartnerUncheckedUpdateManyWithoutUserNestedInput
+  salesPartners?: Prisma.PartnerUncheckedUpdateManyWithoutSalesUserNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   voiceRecordings?: Prisma.VoiceRecordingUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -627,11 +634,6 @@ export type UserNullableScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput | null
 }
 
-export type UserScalarRelationFilter = {
-  is?: Prisma.UserWhereInput
-  isNot?: Prisma.UserWhereInput
-}
-
 export type UserListRelationFilter = {
   every?: Prisma.UserWhereInput
   some?: Prisma.UserWhereInput
@@ -640,6 +642,11 @@ export type UserListRelationFilter = {
 
 export type UserOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -712,12 +719,30 @@ export type UserCreateNestedOneWithoutPartnersInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutPartnersNestedInput = {
+export type UserCreateNestedOneWithoutSalesPartnersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSalesPartnersInput, Prisma.UserUncheckedCreateWithoutSalesPartnersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSalesPartnersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutPartnersNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutPartnersInput, Prisma.UserUncheckedCreateWithoutPartnersInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutPartnersInput
   upsert?: Prisma.UserUpsertWithoutPartnersInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPartnersInput, Prisma.UserUpdateWithoutPartnersInput>, Prisma.UserUncheckedUpdateWithoutPartnersInput>
+}
+
+export type UserUpdateOneWithoutSalesPartnersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSalesPartnersInput, Prisma.UserUncheckedCreateWithoutSalesPartnersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSalesPartnersInput
+  upsert?: Prisma.UserUpsertWithoutSalesPartnersInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSalesPartnersInput, Prisma.UserUpdateWithoutSalesPartnersInput>, Prisma.UserUncheckedUpdateWithoutSalesPartnersInput>
 }
 
 export type UserCreateNestedManyWithoutChurchInput = {
@@ -842,6 +867,7 @@ export type UserCreateWithoutChatMessagesInput = {
   greetingForms?: Prisma.GreetingFormCreateNestedManyWithoutUserInput
   adminActivities?: Prisma.AdminActivityCreateNestedManyWithoutActorInput
   partners?: Prisma.PartnerCreateNestedManyWithoutUserInput
+  salesPartners?: Prisma.PartnerCreateNestedManyWithoutSalesUserInput
   voiceRecordings?: Prisma.VoiceRecordingCreateNestedManyWithoutUserInput
   church?: Prisma.ChurchCreateNestedOneWithoutUsersInput
 }
@@ -866,6 +892,7 @@ export type UserUncheckedCreateWithoutChatMessagesInput = {
   greetingForms?: Prisma.GreetingFormUncheckedCreateNestedManyWithoutUserInput
   adminActivities?: Prisma.AdminActivityUncheckedCreateNestedManyWithoutActorInput
   partners?: Prisma.PartnerUncheckedCreateNestedManyWithoutUserInput
+  salesPartners?: Prisma.PartnerUncheckedCreateNestedManyWithoutSalesUserInput
   voiceRecordings?: Prisma.VoiceRecordingUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -903,6 +930,7 @@ export type UserUpdateWithoutChatMessagesInput = {
   greetingForms?: Prisma.GreetingFormUpdateManyWithoutUserNestedInput
   adminActivities?: Prisma.AdminActivityUpdateManyWithoutActorNestedInput
   partners?: Prisma.PartnerUpdateManyWithoutUserNestedInput
+  salesPartners?: Prisma.PartnerUpdateManyWithoutSalesUserNestedInput
   voiceRecordings?: Prisma.VoiceRecordingUpdateManyWithoutUserNestedInput
   church?: Prisma.ChurchUpdateOneWithoutUsersNestedInput
 }
@@ -927,6 +955,7 @@ export type UserUncheckedUpdateWithoutChatMessagesInput = {
   greetingForms?: Prisma.GreetingFormUncheckedUpdateManyWithoutUserNestedInput
   adminActivities?: Prisma.AdminActivityUncheckedUpdateManyWithoutActorNestedInput
   partners?: Prisma.PartnerUncheckedUpdateManyWithoutUserNestedInput
+  salesPartners?: Prisma.PartnerUncheckedUpdateManyWithoutSalesUserNestedInput
   voiceRecordings?: Prisma.VoiceRecordingUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -947,6 +976,7 @@ export type UserCreateWithoutPartnersInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
   greetingForms?: Prisma.GreetingFormCreateNestedManyWithoutUserInput
   adminActivities?: Prisma.AdminActivityCreateNestedManyWithoutActorInput
+  salesPartners?: Prisma.PartnerCreateNestedManyWithoutSalesUserInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
   voiceRecordings?: Prisma.VoiceRecordingCreateNestedManyWithoutUserInput
   church?: Prisma.ChurchCreateNestedOneWithoutUsersInput
@@ -971,6 +1001,7 @@ export type UserUncheckedCreateWithoutPartnersInput = {
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
   greetingForms?: Prisma.GreetingFormUncheckedCreateNestedManyWithoutUserInput
   adminActivities?: Prisma.AdminActivityUncheckedCreateNestedManyWithoutActorInput
+  salesPartners?: Prisma.PartnerUncheckedCreateNestedManyWithoutSalesUserInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
   voiceRecordings?: Prisma.VoiceRecordingUncheckedCreateNestedManyWithoutUserInput
 }
@@ -978,6 +1009,58 @@ export type UserUncheckedCreateWithoutPartnersInput = {
 export type UserCreateOrConnectWithoutPartnersInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutPartnersInput, Prisma.UserUncheckedCreateWithoutPartnersInput>
+}
+
+export type UserCreateWithoutSalesPartnersInput = {
+  username: string
+  password: string
+  fullname: string
+  phone: string
+  email?: string | null
+  role?: $Enums.Role
+  adminRegion?: $Enums.AdminRegion | null
+  canApproveGreeting?: boolean
+  sessionVersion?: number
+  accountSource?: $Enums.AccountSource
+  memberType?: $Enums.MemberType
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  greetingForms?: Prisma.GreetingFormCreateNestedManyWithoutUserInput
+  adminActivities?: Prisma.AdminActivityCreateNestedManyWithoutActorInput
+  partners?: Prisma.PartnerCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  voiceRecordings?: Prisma.VoiceRecordingCreateNestedManyWithoutUserInput
+  church?: Prisma.ChurchCreateNestedOneWithoutUsersInput
+}
+
+export type UserUncheckedCreateWithoutSalesPartnersInput = {
+  id?: number
+  username: string
+  password: string
+  fullname: string
+  phone: string
+  email?: string | null
+  role?: $Enums.Role
+  adminRegion?: $Enums.AdminRegion | null
+  canApproveGreeting?: boolean
+  sessionVersion?: number
+  accountSource?: $Enums.AccountSource
+  memberType?: $Enums.MemberType
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  churchId?: number | null
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  greetingForms?: Prisma.GreetingFormUncheckedCreateNestedManyWithoutUserInput
+  adminActivities?: Prisma.AdminActivityUncheckedCreateNestedManyWithoutActorInput
+  partners?: Prisma.PartnerUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  voiceRecordings?: Prisma.VoiceRecordingUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSalesPartnersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSalesPartnersInput, Prisma.UserUncheckedCreateWithoutSalesPartnersInput>
 }
 
 export type UserUpsertWithoutPartnersInput = {
@@ -1008,6 +1091,7 @@ export type UserUpdateWithoutPartnersInput = {
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
   greetingForms?: Prisma.GreetingFormUpdateManyWithoutUserNestedInput
   adminActivities?: Prisma.AdminActivityUpdateManyWithoutActorNestedInput
+  salesPartners?: Prisma.PartnerUpdateManyWithoutSalesUserNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
   voiceRecordings?: Prisma.VoiceRecordingUpdateManyWithoutUserNestedInput
   church?: Prisma.ChurchUpdateOneWithoutUsersNestedInput
@@ -1032,6 +1116,65 @@ export type UserUncheckedUpdateWithoutPartnersInput = {
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
   greetingForms?: Prisma.GreetingFormUncheckedUpdateManyWithoutUserNestedInput
   adminActivities?: Prisma.AdminActivityUncheckedUpdateManyWithoutActorNestedInput
+  salesPartners?: Prisma.PartnerUncheckedUpdateManyWithoutSalesUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  voiceRecordings?: Prisma.VoiceRecordingUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutSalesPartnersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSalesPartnersInput, Prisma.UserUncheckedUpdateWithoutSalesPartnersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSalesPartnersInput, Prisma.UserUncheckedCreateWithoutSalesPartnersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSalesPartnersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSalesPartnersInput, Prisma.UserUncheckedUpdateWithoutSalesPartnersInput>
+}
+
+export type UserUpdateWithoutSalesPartnersInput = {
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  adminRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
+  canApproveGreeting?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sessionVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  accountSource?: Prisma.EnumAccountSourceFieldUpdateOperationsInput | $Enums.AccountSource
+  memberType?: Prisma.EnumMemberTypeFieldUpdateOperationsInput | $Enums.MemberType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  greetingForms?: Prisma.GreetingFormUpdateManyWithoutUserNestedInput
+  adminActivities?: Prisma.AdminActivityUpdateManyWithoutActorNestedInput
+  partners?: Prisma.PartnerUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  voiceRecordings?: Prisma.VoiceRecordingUpdateManyWithoutUserNestedInput
+  church?: Prisma.ChurchUpdateOneWithoutUsersNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSalesPartnersInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  adminRegion?: Prisma.NullableEnumAdminRegionFieldUpdateOperationsInput | $Enums.AdminRegion | null
+  canApproveGreeting?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sessionVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  accountSource?: Prisma.EnumAccountSourceFieldUpdateOperationsInput | $Enums.AccountSource
+  memberType?: Prisma.EnumMemberTypeFieldUpdateOperationsInput | $Enums.MemberType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  churchId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  greetingForms?: Prisma.GreetingFormUncheckedUpdateManyWithoutUserNestedInput
+  adminActivities?: Prisma.AdminActivityUncheckedUpdateManyWithoutActorNestedInput
+  partners?: Prisma.PartnerUncheckedUpdateManyWithoutUserNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   voiceRecordings?: Prisma.VoiceRecordingUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1054,6 +1197,7 @@ export type UserCreateWithoutChurchInput = {
   greetingForms?: Prisma.GreetingFormCreateNestedManyWithoutUserInput
   adminActivities?: Prisma.AdminActivityCreateNestedManyWithoutActorInput
   partners?: Prisma.PartnerCreateNestedManyWithoutUserInput
+  salesPartners?: Prisma.PartnerCreateNestedManyWithoutSalesUserInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
   voiceRecordings?: Prisma.VoiceRecordingCreateNestedManyWithoutUserInput
 }
@@ -1077,6 +1221,7 @@ export type UserUncheckedCreateWithoutChurchInput = {
   greetingForms?: Prisma.GreetingFormUncheckedCreateNestedManyWithoutUserInput
   adminActivities?: Prisma.AdminActivityUncheckedCreateNestedManyWithoutActorInput
   partners?: Prisma.PartnerUncheckedCreateNestedManyWithoutUserInput
+  salesPartners?: Prisma.PartnerUncheckedCreateNestedManyWithoutSalesUserInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
   voiceRecordings?: Prisma.VoiceRecordingUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1145,6 +1290,7 @@ export type UserCreateWithoutOrdersInput = {
   greetingForms?: Prisma.GreetingFormCreateNestedManyWithoutUserInput
   adminActivities?: Prisma.AdminActivityCreateNestedManyWithoutActorInput
   partners?: Prisma.PartnerCreateNestedManyWithoutUserInput
+  salesPartners?: Prisma.PartnerCreateNestedManyWithoutSalesUserInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
   voiceRecordings?: Prisma.VoiceRecordingCreateNestedManyWithoutUserInput
   church?: Prisma.ChurchCreateNestedOneWithoutUsersInput
@@ -1169,6 +1315,7 @@ export type UserUncheckedCreateWithoutOrdersInput = {
   greetingForms?: Prisma.GreetingFormUncheckedCreateNestedManyWithoutUserInput
   adminActivities?: Prisma.AdminActivityUncheckedCreateNestedManyWithoutActorInput
   partners?: Prisma.PartnerUncheckedCreateNestedManyWithoutUserInput
+  salesPartners?: Prisma.PartnerUncheckedCreateNestedManyWithoutSalesUserInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
   voiceRecordings?: Prisma.VoiceRecordingUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1206,6 +1353,7 @@ export type UserUpdateWithoutOrdersInput = {
   greetingForms?: Prisma.GreetingFormUpdateManyWithoutUserNestedInput
   adminActivities?: Prisma.AdminActivityUpdateManyWithoutActorNestedInput
   partners?: Prisma.PartnerUpdateManyWithoutUserNestedInput
+  salesPartners?: Prisma.PartnerUpdateManyWithoutSalesUserNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
   voiceRecordings?: Prisma.VoiceRecordingUpdateManyWithoutUserNestedInput
   church?: Prisma.ChurchUpdateOneWithoutUsersNestedInput
@@ -1230,6 +1378,7 @@ export type UserUncheckedUpdateWithoutOrdersInput = {
   greetingForms?: Prisma.GreetingFormUncheckedUpdateManyWithoutUserNestedInput
   adminActivities?: Prisma.AdminActivityUncheckedUpdateManyWithoutActorNestedInput
   partners?: Prisma.PartnerUncheckedUpdateManyWithoutUserNestedInput
+  salesPartners?: Prisma.PartnerUncheckedUpdateManyWithoutSalesUserNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   voiceRecordings?: Prisma.VoiceRecordingUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1251,6 +1400,7 @@ export type UserCreateWithoutAdminActivitiesInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
   greetingForms?: Prisma.GreetingFormCreateNestedManyWithoutUserInput
   partners?: Prisma.PartnerCreateNestedManyWithoutUserInput
+  salesPartners?: Prisma.PartnerCreateNestedManyWithoutSalesUserInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
   voiceRecordings?: Prisma.VoiceRecordingCreateNestedManyWithoutUserInput
   church?: Prisma.ChurchCreateNestedOneWithoutUsersInput
@@ -1275,6 +1425,7 @@ export type UserUncheckedCreateWithoutAdminActivitiesInput = {
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
   greetingForms?: Prisma.GreetingFormUncheckedCreateNestedManyWithoutUserInput
   partners?: Prisma.PartnerUncheckedCreateNestedManyWithoutUserInput
+  salesPartners?: Prisma.PartnerUncheckedCreateNestedManyWithoutSalesUserInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
   voiceRecordings?: Prisma.VoiceRecordingUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1312,6 +1463,7 @@ export type UserUpdateWithoutAdminActivitiesInput = {
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
   greetingForms?: Prisma.GreetingFormUpdateManyWithoutUserNestedInput
   partners?: Prisma.PartnerUpdateManyWithoutUserNestedInput
+  salesPartners?: Prisma.PartnerUpdateManyWithoutSalesUserNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
   voiceRecordings?: Prisma.VoiceRecordingUpdateManyWithoutUserNestedInput
   church?: Prisma.ChurchUpdateOneWithoutUsersNestedInput
@@ -1336,6 +1488,7 @@ export type UserUncheckedUpdateWithoutAdminActivitiesInput = {
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
   greetingForms?: Prisma.GreetingFormUncheckedUpdateManyWithoutUserNestedInput
   partners?: Prisma.PartnerUncheckedUpdateManyWithoutUserNestedInput
+  salesPartners?: Prisma.PartnerUncheckedUpdateManyWithoutSalesUserNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   voiceRecordings?: Prisma.VoiceRecordingUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1357,6 +1510,7 @@ export type UserCreateWithoutGreetingFormsInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
   adminActivities?: Prisma.AdminActivityCreateNestedManyWithoutActorInput
   partners?: Prisma.PartnerCreateNestedManyWithoutUserInput
+  salesPartners?: Prisma.PartnerCreateNestedManyWithoutSalesUserInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
   voiceRecordings?: Prisma.VoiceRecordingCreateNestedManyWithoutUserInput
   church?: Prisma.ChurchCreateNestedOneWithoutUsersInput
@@ -1381,6 +1535,7 @@ export type UserUncheckedCreateWithoutGreetingFormsInput = {
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
   adminActivities?: Prisma.AdminActivityUncheckedCreateNestedManyWithoutActorInput
   partners?: Prisma.PartnerUncheckedCreateNestedManyWithoutUserInput
+  salesPartners?: Prisma.PartnerUncheckedCreateNestedManyWithoutSalesUserInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
   voiceRecordings?: Prisma.VoiceRecordingUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1418,6 +1573,7 @@ export type UserUpdateWithoutGreetingFormsInput = {
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
   adminActivities?: Prisma.AdminActivityUpdateManyWithoutActorNestedInput
   partners?: Prisma.PartnerUpdateManyWithoutUserNestedInput
+  salesPartners?: Prisma.PartnerUpdateManyWithoutSalesUserNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
   voiceRecordings?: Prisma.VoiceRecordingUpdateManyWithoutUserNestedInput
   church?: Prisma.ChurchUpdateOneWithoutUsersNestedInput
@@ -1442,6 +1598,7 @@ export type UserUncheckedUpdateWithoutGreetingFormsInput = {
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
   adminActivities?: Prisma.AdminActivityUncheckedUpdateManyWithoutActorNestedInput
   partners?: Prisma.PartnerUncheckedUpdateManyWithoutUserNestedInput
+  salesPartners?: Prisma.PartnerUncheckedUpdateManyWithoutSalesUserNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   voiceRecordings?: Prisma.VoiceRecordingUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1464,6 +1621,7 @@ export type UserCreateWithoutVoiceRecordingsInput = {
   greetingForms?: Prisma.GreetingFormCreateNestedManyWithoutUserInput
   adminActivities?: Prisma.AdminActivityCreateNestedManyWithoutActorInput
   partners?: Prisma.PartnerCreateNestedManyWithoutUserInput
+  salesPartners?: Prisma.PartnerCreateNestedManyWithoutSalesUserInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
   church?: Prisma.ChurchCreateNestedOneWithoutUsersInput
 }
@@ -1488,6 +1646,7 @@ export type UserUncheckedCreateWithoutVoiceRecordingsInput = {
   greetingForms?: Prisma.GreetingFormUncheckedCreateNestedManyWithoutUserInput
   adminActivities?: Prisma.AdminActivityUncheckedCreateNestedManyWithoutActorInput
   partners?: Prisma.PartnerUncheckedCreateNestedManyWithoutUserInput
+  salesPartners?: Prisma.PartnerUncheckedCreateNestedManyWithoutSalesUserInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
 }
 
@@ -1525,6 +1684,7 @@ export type UserUpdateWithoutVoiceRecordingsInput = {
   greetingForms?: Prisma.GreetingFormUpdateManyWithoutUserNestedInput
   adminActivities?: Prisma.AdminActivityUpdateManyWithoutActorNestedInput
   partners?: Prisma.PartnerUpdateManyWithoutUserNestedInput
+  salesPartners?: Prisma.PartnerUpdateManyWithoutSalesUserNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
   church?: Prisma.ChurchUpdateOneWithoutUsersNestedInput
 }
@@ -1549,6 +1709,7 @@ export type UserUncheckedUpdateWithoutVoiceRecordingsInput = {
   greetingForms?: Prisma.GreetingFormUncheckedUpdateManyWithoutUserNestedInput
   adminActivities?: Prisma.AdminActivityUncheckedUpdateManyWithoutActorNestedInput
   partners?: Prisma.PartnerUncheckedUpdateManyWithoutUserNestedInput
+  salesPartners?: Prisma.PartnerUncheckedUpdateManyWithoutSalesUserNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
@@ -1587,6 +1748,7 @@ export type UserUpdateWithoutChurchInput = {
   greetingForms?: Prisma.GreetingFormUpdateManyWithoutUserNestedInput
   adminActivities?: Prisma.AdminActivityUpdateManyWithoutActorNestedInput
   partners?: Prisma.PartnerUpdateManyWithoutUserNestedInput
+  salesPartners?: Prisma.PartnerUpdateManyWithoutSalesUserNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
   voiceRecordings?: Prisma.VoiceRecordingUpdateManyWithoutUserNestedInput
 }
@@ -1610,6 +1772,7 @@ export type UserUncheckedUpdateWithoutChurchInput = {
   greetingForms?: Prisma.GreetingFormUncheckedUpdateManyWithoutUserNestedInput
   adminActivities?: Prisma.AdminActivityUncheckedUpdateManyWithoutActorNestedInput
   partners?: Prisma.PartnerUncheckedUpdateManyWithoutUserNestedInput
+  salesPartners?: Prisma.PartnerUncheckedUpdateManyWithoutSalesUserNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   voiceRecordings?: Prisma.VoiceRecordingUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1641,6 +1804,7 @@ export type UserCountOutputType = {
   greetingForms: number
   adminActivities: number
   partners: number
+  salesPartners: number
   chatMessages: number
   voiceRecordings: number
 }
@@ -1650,6 +1814,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   greetingForms?: boolean | UserCountOutputTypeCountGreetingFormsArgs
   adminActivities?: boolean | UserCountOutputTypeCountAdminActivitiesArgs
   partners?: boolean | UserCountOutputTypeCountPartnersArgs
+  salesPartners?: boolean | UserCountOutputTypeCountSalesPartnersArgs
   chatMessages?: boolean | UserCountOutputTypeCountChatMessagesArgs
   voiceRecordings?: boolean | UserCountOutputTypeCountVoiceRecordingsArgs
 }
@@ -1695,6 +1860,13 @@ export type UserCountOutputTypeCountPartnersArgs<ExtArgs extends runtime.Types.E
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountSalesPartnersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PartnerWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountChatMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ChatMessageWhereInput
 }
@@ -1727,6 +1899,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   greetingForms?: boolean | Prisma.User$greetingFormsArgs<ExtArgs>
   adminActivities?: boolean | Prisma.User$adminActivitiesArgs<ExtArgs>
   partners?: boolean | Prisma.User$partnersArgs<ExtArgs>
+  salesPartners?: boolean | Prisma.User$salesPartnersArgs<ExtArgs>
   chatMessages?: boolean | Prisma.User$chatMessagesArgs<ExtArgs>
   voiceRecordings?: boolean | Prisma.User$voiceRecordingsArgs<ExtArgs>
   church?: boolean | Prisma.User$churchArgs<ExtArgs>
@@ -1795,6 +1968,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   greetingForms?: boolean | Prisma.User$greetingFormsArgs<ExtArgs>
   adminActivities?: boolean | Prisma.User$adminActivitiesArgs<ExtArgs>
   partners?: boolean | Prisma.User$partnersArgs<ExtArgs>
+  salesPartners?: boolean | Prisma.User$salesPartnersArgs<ExtArgs>
   chatMessages?: boolean | Prisma.User$chatMessagesArgs<ExtArgs>
   voiceRecordings?: boolean | Prisma.User$voiceRecordingsArgs<ExtArgs>
   church?: boolean | Prisma.User$churchArgs<ExtArgs>
@@ -1814,6 +1988,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     greetingForms: Prisma.$GreetingFormPayload<ExtArgs>[]
     adminActivities: Prisma.$AdminActivityPayload<ExtArgs>[]
     partners: Prisma.$PartnerPayload<ExtArgs>[]
+    salesPartners: Prisma.$PartnerPayload<ExtArgs>[]
     chatMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
     voiceRecordings: Prisma.$VoiceRecordingPayload<ExtArgs>[]
     church: Prisma.$ChurchPayload<ExtArgs> | null
@@ -2244,6 +2419,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   greetingForms<T extends Prisma.User$greetingFormsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$greetingFormsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GreetingFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   adminActivities<T extends Prisma.User$adminActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$adminActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdminActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   partners<T extends Prisma.User$partnersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$partnersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PartnerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  salesPartners<T extends Prisma.User$salesPartnersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$salesPartnersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PartnerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   chatMessages<T extends Prisma.User$chatMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   voiceRecordings<T extends Prisma.User$voiceRecordingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$voiceRecordingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VoiceRecordingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   church<T extends Prisma.User$churchArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$churchArgs<ExtArgs>>): Prisma.Prisma__ChurchClient<runtime.Types.Result.GetResult<Prisma.$ChurchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -2767,6 +2943,30 @@ export type User$adminActivitiesArgs<ExtArgs extends runtime.Types.Extensions.In
  * User.partners
  */
 export type User$partnersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Partner
+   */
+  select?: Prisma.PartnerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Partner
+   */
+  omit?: Prisma.PartnerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PartnerInclude<ExtArgs> | null
+  where?: Prisma.PartnerWhereInput
+  orderBy?: Prisma.PartnerOrderByWithRelationInput | Prisma.PartnerOrderByWithRelationInput[]
+  cursor?: Prisma.PartnerWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PartnerScalarFieldEnum | Prisma.PartnerScalarFieldEnum[]
+}
+
+/**
+ * User.salesPartners
+ */
+export type User$salesPartnersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Partner
    */
