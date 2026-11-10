@@ -2,6 +2,7 @@ import {
   BadRequestException,
   ForbiddenException,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 
@@ -12,6 +13,8 @@ import { UpdatePartnerDto } from './dto/update-partner.dto';
 
 @Injectable()
 export class PartnersService {
+  private readonly logger = new Logger(PartnersService.name);
+
   constructor(private readonly prisma: PrismaService) {}
 
   findAll(user: AuthUserPayload, q?: string) {
@@ -63,17 +66,26 @@ export class PartnersService {
         : {}),
     };
 
-    const [items, total] = await this.prisma.$transaction([
-      this.prisma.partner.findMany({
-        where,
-        orderBy: [{ source: 'desc' }, { name: 'asc' }, { id: 'desc' }],
-        skip: (page - 1) * pageSize,
-        take: pageSize,
-      }),
-      this.prisma.partner.count({ where }),
-    ]);
-
-    return { items, total, page, pageSize };
+    // 읽기 전용이라 트랜잭션 없이 두 쿼리를 함께 실행한다
+    // (배포 환경에서 배치 $transaction 이 500 을 내던 문제)
+    try {
+      const [items, total] = await Promise.all([
+        this.prisma.partner.findMany({
+          where,
+          orderBy: [{ source: 'desc' }, { name: 'asc' }, { id: 'desc' }],
+          skip: (page - 1) * pageSize,
+          take: pageSize,
+        }),
+        this.prisma.partner.count({ where }),
+      ]);
+      return { items, total, page, pageSize };
+    } catch (err) {
+      this.logger.error(
+        `거래처 페이지 조회 실패 page=${page} pageSize=${pageSize} search=${search ?? ''}`,
+        err instanceof Error ? err.stack : String(err),
+      );
+      throw err;
+    }
   }
 
   async create(userId: number, dto: CreatePartnerDto) {
