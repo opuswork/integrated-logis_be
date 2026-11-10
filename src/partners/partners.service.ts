@@ -79,6 +79,7 @@ export class PartnersService {
             contactName: true,
             phone: true,
             address: true,
+            addressDetail: true,
             email: true,
             source: true,
             category: true,
@@ -106,6 +107,7 @@ export class PartnersService {
     const contactName = dto.contactName.trim();
     const phone = dto.phone.trim();
     const address = dto.address.trim();
+    const addressDetail = dto.addressDetail?.trim() || null;
     const email = dto.email?.trim() || null;
 
     if (!name || !contactName || !phone || !address) {
@@ -118,6 +120,7 @@ export class PartnersService {
         contactName,
         phone,
         address,
+        addressDetail,
         email,
         userId,
       },
@@ -132,6 +135,7 @@ export class PartnersService {
       contactName?: string;
       phone?: string;
       address?: string;
+      addressDetail?: string | null;
       email?: string | null;
     } = {};
 
@@ -156,6 +160,9 @@ export class PartnersService {
       const address = dto.address.trim();
       if (!address) throw new BadRequestException('주소를 입력해 주세요.');
       data.address = address;
+    }
+    if (dto.addressDetail !== undefined) {
+      data.addressDetail = dto.addressDetail?.trim() || null;
     }
     if (dto.email !== undefined) {
       data.email = dto.email?.trim() || null;

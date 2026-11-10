@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  MaxLength,
 } from 'class-validator';
 
 export class CreatePartnerDto {
@@ -26,6 +27,12 @@ export class CreatePartnerDto {
   @IsString()
   @IsNotEmpty({ message: '주소를 입력해 주세요.' })
   address!: string;
+
+  @ApiPropertyOptional({ example: '3층 301호', nullable: true })
+  @IsOptional()
+  @IsString()
+  @MaxLength(200)
+  addressDetail?: string | null;
 
   @ApiPropertyOptional({ example: 'partner@example.com', nullable: true })
   @IsOptional()
