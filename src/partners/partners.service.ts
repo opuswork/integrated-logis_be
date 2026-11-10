@@ -25,8 +25,55 @@ export class PartnersService {
           : {}),
       },
       take: query ? 30 : undefined,
-      orderBy: [{ name: 'asc' }, { id: 'desc' }],
+      // source desc: 'MANUAL'(직접 등록)이 'EXCEL_…'(엑셀 입력)보다 먼저 온다
+      orderBy: [{ source: 'desc' }, { name: 'asc' }, { id: 'desc' }],
     });
+  }
+
+  /** 관리자 거래처관리 화면용 페이지 목록 (엑셀 입력분 포함 전체) */
+  async findPage(opts: {
+    page: number;
+    pageSize: number;
+    search?: string;
+    source?: string;
+  }) {
+    const page = Math.max(1, Math.floor(opts.page) || 1);
+    const pageSize = Math.min(
+      200,
+      Math.max(1, Math.floor(opts.pageSize) || 50),
+    );
+    const search = opts.search?.trim();
+    const source = opts.source?.trim();
+    const contains = (value: string) => ({
+      contains: value,
+      mode: 'insensitive' as const,
+    });
+
+    const where = {
+      ...(source ? { source } : {}),
+      ...(search
+        ? {
+            OR: [
+              { name: contains(search) },
+              { contactName: contains(search) },
+              { address: contains(search) },
+              { centerName: contains(search) },
+            ],
+          }
+        : {}),
+    };
+
+    const [items, total] = await this.prisma.$transaction([
+      this.prisma.partner.findMany({
+        where,
+        orderBy: [{ source: 'desc' }, { name: 'asc' }, { id: 'desc' }],
+        skip: (page - 1) * pageSize,
+        take: pageSize,
+      }),
+      this.prisma.partner.count({ where }),
+    ]);
+
+    return { items, total, page, pageSize };
   }
 
   async create(userId: number, dto: CreatePartnerDto) {

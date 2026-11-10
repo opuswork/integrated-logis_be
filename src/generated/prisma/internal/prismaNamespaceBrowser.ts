@@ -125,6 +125,13 @@ export const PartnerScalarFieldEnum = {
   address: 'address',
   email: 'email',
   userId: 'userId',
+  source: 'source',
+  externalId: 'externalId',
+  category: 'category',
+  subCategory: 'subCategory',
+  centerName: 'centerName',
+  salesRepName: 'salesRepName',
+  salesUserId: 'salesUserId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

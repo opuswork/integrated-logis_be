@@ -29,11 +29,13 @@ export type AggregatePartner = {
 export type PartnerAvgAggregateOutputType = {
   id: number | null
   userId: number | null
+  salesUserId: number | null
 }
 
 export type PartnerSumAggregateOutputType = {
   id: number | null
   userId: number | null
+  salesUserId: number | null
 }
 
 export type PartnerMinAggregateOutputType = {
@@ -44,6 +46,13 @@ export type PartnerMinAggregateOutputType = {
   address: string | null
   email: string | null
   userId: number | null
+  source: string | null
+  externalId: string | null
+  category: string | null
+  subCategory: string | null
+  centerName: string | null
+  salesRepName: string | null
+  salesUserId: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -56,6 +65,13 @@ export type PartnerMaxAggregateOutputType = {
   address: string | null
   email: string | null
   userId: number | null
+  source: string | null
+  externalId: string | null
+  category: string | null
+  subCategory: string | null
+  centerName: string | null
+  salesRepName: string | null
+  salesUserId: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -68,6 +84,13 @@ export type PartnerCountAggregateOutputType = {
   address: number
   email: number
   userId: number
+  source: number
+  externalId: number
+  category: number
+  subCategory: number
+  centerName: number
+  salesRepName: number
+  salesUserId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -77,11 +100,13 @@ export type PartnerCountAggregateOutputType = {
 export type PartnerAvgAggregateInputType = {
   id?: true
   userId?: true
+  salesUserId?: true
 }
 
 export type PartnerSumAggregateInputType = {
   id?: true
   userId?: true
+  salesUserId?: true
 }
 
 export type PartnerMinAggregateInputType = {
@@ -92,6 +117,13 @@ export type PartnerMinAggregateInputType = {
   address?: true
   email?: true
   userId?: true
+  source?: true
+  externalId?: true
+  category?: true
+  subCategory?: true
+  centerName?: true
+  salesRepName?: true
+  salesUserId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -104,6 +136,13 @@ export type PartnerMaxAggregateInputType = {
   address?: true
   email?: true
   userId?: true
+  source?: true
+  externalId?: true
+  category?: true
+  subCategory?: true
+  centerName?: true
+  salesRepName?: true
+  salesUserId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -116,6 +155,13 @@ export type PartnerCountAggregateInputType = {
   address?: true
   email?: true
   userId?: true
+  source?: true
+  externalId?: true
+  category?: true
+  subCategory?: true
+  centerName?: true
+  salesRepName?: true
+  salesUserId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -211,10 +257,17 @@ export type PartnerGroupByOutputType = {
   id: number
   name: string
   contactName: string
-  phone: string
+  phone: string | null
   address: string
   email: string | null
-  userId: number
+  userId: number | null
+  source: string
+  externalId: string | null
+  category: string | null
+  subCategory: string | null
+  centerName: string | null
+  salesRepName: string | null
+  salesUserId: number | null
   createdAt: Date
   updatedAt: Date
   _count: PartnerCountAggregateOutputType | null
@@ -246,26 +299,42 @@ export type PartnerWhereInput = {
   id?: Prisma.IntFilter<"Partner"> | number
   name?: Prisma.StringFilter<"Partner"> | string
   contactName?: Prisma.StringFilter<"Partner"> | string
-  phone?: Prisma.StringFilter<"Partner"> | string
+  phone?: Prisma.StringNullableFilter<"Partner"> | string | null
   address?: Prisma.StringFilter<"Partner"> | string
   email?: Prisma.StringNullableFilter<"Partner"> | string | null
-  userId?: Prisma.IntFilter<"Partner"> | number
+  userId?: Prisma.IntNullableFilter<"Partner"> | number | null
+  source?: Prisma.StringFilter<"Partner"> | string
+  externalId?: Prisma.StringNullableFilter<"Partner"> | string | null
+  category?: Prisma.StringNullableFilter<"Partner"> | string | null
+  subCategory?: Prisma.StringNullableFilter<"Partner"> | string | null
+  centerName?: Prisma.StringNullableFilter<"Partner"> | string | null
+  salesRepName?: Prisma.StringNullableFilter<"Partner"> | string | null
+  salesUserId?: Prisma.IntNullableFilter<"Partner"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Partner"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Partner"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  salesUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type PartnerOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   contactName?: Prisma.SortOrder
-  phone?: Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
-  userId?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
+  source?: Prisma.SortOrder
+  externalId?: Prisma.SortOrderInput | Prisma.SortOrder
+  category?: Prisma.SortOrderInput | Prisma.SortOrder
+  subCategory?: Prisma.SortOrderInput | Prisma.SortOrder
+  centerName?: Prisma.SortOrderInput | Prisma.SortOrder
+  salesRepName?: Prisma.SortOrderInput | Prisma.SortOrder
+  salesUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  salesUser?: Prisma.UserOrderByWithRelationInput
 }
 
 export type PartnerWhereUniqueInput = Prisma.AtLeast<{
@@ -275,23 +344,38 @@ export type PartnerWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.PartnerWhereInput | Prisma.PartnerWhereInput[]
   name?: Prisma.StringFilter<"Partner"> | string
   contactName?: Prisma.StringFilter<"Partner"> | string
-  phone?: Prisma.StringFilter<"Partner"> | string
+  phone?: Prisma.StringNullableFilter<"Partner"> | string | null
   address?: Prisma.StringFilter<"Partner"> | string
   email?: Prisma.StringNullableFilter<"Partner"> | string | null
-  userId?: Prisma.IntFilter<"Partner"> | number
+  userId?: Prisma.IntNullableFilter<"Partner"> | number | null
+  source?: Prisma.StringFilter<"Partner"> | string
+  externalId?: Prisma.StringNullableFilter<"Partner"> | string | null
+  category?: Prisma.StringNullableFilter<"Partner"> | string | null
+  subCategory?: Prisma.StringNullableFilter<"Partner"> | string | null
+  centerName?: Prisma.StringNullableFilter<"Partner"> | string | null
+  salesRepName?: Prisma.StringNullableFilter<"Partner"> | string | null
+  salesUserId?: Prisma.IntNullableFilter<"Partner"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Partner"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Partner"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  salesUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type PartnerOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   contactName?: Prisma.SortOrder
-  phone?: Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
-  userId?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
+  source?: Prisma.SortOrder
+  externalId?: Prisma.SortOrderInput | Prisma.SortOrder
+  category?: Prisma.SortOrderInput | Prisma.SortOrder
+  subCategory?: Prisma.SortOrderInput | Prisma.SortOrder
+  centerName?: Prisma.SortOrderInput | Prisma.SortOrder
+  salesRepName?: Prisma.SortOrderInput | Prisma.SortOrder
+  salesUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PartnerCountOrderByAggregateInput
@@ -308,10 +392,17 @@ export type PartnerScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Partner"> | number
   name?: Prisma.StringWithAggregatesFilter<"Partner"> | string
   contactName?: Prisma.StringWithAggregatesFilter<"Partner"> | string
-  phone?: Prisma.StringWithAggregatesFilter<"Partner"> | string
+  phone?: Prisma.StringNullableWithAggregatesFilter<"Partner"> | string | null
   address?: Prisma.StringWithAggregatesFilter<"Partner"> | string
   email?: Prisma.StringNullableWithAggregatesFilter<"Partner"> | string | null
-  userId?: Prisma.IntWithAggregatesFilter<"Partner"> | number
+  userId?: Prisma.IntNullableWithAggregatesFilter<"Partner"> | number | null
+  source?: Prisma.StringWithAggregatesFilter<"Partner"> | string
+  externalId?: Prisma.StringNullableWithAggregatesFilter<"Partner"> | string | null
+  category?: Prisma.StringNullableWithAggregatesFilter<"Partner"> | string | null
+  subCategory?: Prisma.StringNullableWithAggregatesFilter<"Partner"> | string | null
+  centerName?: Prisma.StringNullableWithAggregatesFilter<"Partner"> | string | null
+  salesRepName?: Prisma.StringNullableWithAggregatesFilter<"Partner"> | string | null
+  salesUserId?: Prisma.IntNullableWithAggregatesFilter<"Partner"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Partner"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Partner"> | Date | string
 }
@@ -319,22 +410,36 @@ export type PartnerScalarWhereWithAggregatesInput = {
 export type PartnerCreateInput = {
   name: string
   contactName: string
-  phone: string
+  phone?: string | null
   address: string
   email?: string | null
+  source?: string
+  externalId?: string | null
+  category?: string | null
+  subCategory?: string | null
+  centerName?: string | null
+  salesRepName?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutPartnersInput
+  user?: Prisma.UserCreateNestedOneWithoutPartnersInput
+  salesUser?: Prisma.UserCreateNestedOneWithoutSalesPartnersInput
 }
 
 export type PartnerUncheckedCreateInput = {
   id?: number
   name: string
   contactName: string
-  phone: string
+  phone?: string | null
   address: string
   email?: string | null
-  userId: number
+  userId?: number | null
+  source?: string
+  externalId?: string | null
+  category?: string | null
+  subCategory?: string | null
+  centerName?: string | null
+  salesRepName?: string | null
+  salesUserId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -342,22 +447,36 @@ export type PartnerUncheckedCreateInput = {
 export type PartnerUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   contactName?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  centerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesRepName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutPartnersNestedInput
+  user?: Prisma.UserUpdateOneWithoutPartnersNestedInput
+  salesUser?: Prisma.UserUpdateOneWithoutSalesPartnersNestedInput
 }
 
 export type PartnerUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   contactName?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  centerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesRepName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesUserId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -366,10 +485,17 @@ export type PartnerCreateManyInput = {
   id?: number
   name: string
   contactName: string
-  phone: string
+  phone?: string | null
   address: string
   email?: string | null
-  userId: number
+  userId?: number | null
+  source?: string
+  externalId?: string | null
+  category?: string | null
+  subCategory?: string | null
+  centerName?: string | null
+  salesRepName?: string | null
+  salesUserId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -377,9 +503,15 @@ export type PartnerCreateManyInput = {
 export type PartnerUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   contactName?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  centerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesRepName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -388,10 +520,17 @@ export type PartnerUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   contactName?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  centerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesRepName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesUserId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -414,6 +553,13 @@ export type PartnerCountOrderByAggregateInput = {
   address?: Prisma.SortOrder
   email?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  source?: Prisma.SortOrder
+  externalId?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  subCategory?: Prisma.SortOrder
+  centerName?: Prisma.SortOrder
+  salesRepName?: Prisma.SortOrder
+  salesUserId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -421,6 +567,7 @@ export type PartnerCountOrderByAggregateInput = {
 export type PartnerAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  salesUserId?: Prisma.SortOrder
 }
 
 export type PartnerMaxOrderByAggregateInput = {
@@ -431,6 +578,13 @@ export type PartnerMaxOrderByAggregateInput = {
   address?: Prisma.SortOrder
   email?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  source?: Prisma.SortOrder
+  externalId?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  subCategory?: Prisma.SortOrder
+  centerName?: Prisma.SortOrder
+  salesRepName?: Prisma.SortOrder
+  salesUserId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -443,6 +597,13 @@ export type PartnerMinOrderByAggregateInput = {
   address?: Prisma.SortOrder
   email?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  source?: Prisma.SortOrder
+  externalId?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  subCategory?: Prisma.SortOrder
+  centerName?: Prisma.SortOrder
+  salesRepName?: Prisma.SortOrder
+  salesUserId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -450,6 +611,7 @@ export type PartnerMinOrderByAggregateInput = {
 export type PartnerSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  salesUserId?: Prisma.SortOrder
 }
 
 export type PartnerCreateNestedManyWithoutUserInput = {
@@ -459,10 +621,24 @@ export type PartnerCreateNestedManyWithoutUserInput = {
   connect?: Prisma.PartnerWhereUniqueInput | Prisma.PartnerWhereUniqueInput[]
 }
 
+export type PartnerCreateNestedManyWithoutSalesUserInput = {
+  create?: Prisma.XOR<Prisma.PartnerCreateWithoutSalesUserInput, Prisma.PartnerUncheckedCreateWithoutSalesUserInput> | Prisma.PartnerCreateWithoutSalesUserInput[] | Prisma.PartnerUncheckedCreateWithoutSalesUserInput[]
+  connectOrCreate?: Prisma.PartnerCreateOrConnectWithoutSalesUserInput | Prisma.PartnerCreateOrConnectWithoutSalesUserInput[]
+  createMany?: Prisma.PartnerCreateManySalesUserInputEnvelope
+  connect?: Prisma.PartnerWhereUniqueInput | Prisma.PartnerWhereUniqueInput[]
+}
+
 export type PartnerUncheckedCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.PartnerCreateWithoutUserInput, Prisma.PartnerUncheckedCreateWithoutUserInput> | Prisma.PartnerCreateWithoutUserInput[] | Prisma.PartnerUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.PartnerCreateOrConnectWithoutUserInput | Prisma.PartnerCreateOrConnectWithoutUserInput[]
   createMany?: Prisma.PartnerCreateManyUserInputEnvelope
+  connect?: Prisma.PartnerWhereUniqueInput | Prisma.PartnerWhereUniqueInput[]
+}
+
+export type PartnerUncheckedCreateNestedManyWithoutSalesUserInput = {
+  create?: Prisma.XOR<Prisma.PartnerCreateWithoutSalesUserInput, Prisma.PartnerUncheckedCreateWithoutSalesUserInput> | Prisma.PartnerCreateWithoutSalesUserInput[] | Prisma.PartnerUncheckedCreateWithoutSalesUserInput[]
+  connectOrCreate?: Prisma.PartnerCreateOrConnectWithoutSalesUserInput | Prisma.PartnerCreateOrConnectWithoutSalesUserInput[]
+  createMany?: Prisma.PartnerCreateManySalesUserInputEnvelope
   connect?: Prisma.PartnerWhereUniqueInput | Prisma.PartnerWhereUniqueInput[]
 }
 
@@ -480,6 +656,20 @@ export type PartnerUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.PartnerScalarWhereInput | Prisma.PartnerScalarWhereInput[]
 }
 
+export type PartnerUpdateManyWithoutSalesUserNestedInput = {
+  create?: Prisma.XOR<Prisma.PartnerCreateWithoutSalesUserInput, Prisma.PartnerUncheckedCreateWithoutSalesUserInput> | Prisma.PartnerCreateWithoutSalesUserInput[] | Prisma.PartnerUncheckedCreateWithoutSalesUserInput[]
+  connectOrCreate?: Prisma.PartnerCreateOrConnectWithoutSalesUserInput | Prisma.PartnerCreateOrConnectWithoutSalesUserInput[]
+  upsert?: Prisma.PartnerUpsertWithWhereUniqueWithoutSalesUserInput | Prisma.PartnerUpsertWithWhereUniqueWithoutSalesUserInput[]
+  createMany?: Prisma.PartnerCreateManySalesUserInputEnvelope
+  set?: Prisma.PartnerWhereUniqueInput | Prisma.PartnerWhereUniqueInput[]
+  disconnect?: Prisma.PartnerWhereUniqueInput | Prisma.PartnerWhereUniqueInput[]
+  delete?: Prisma.PartnerWhereUniqueInput | Prisma.PartnerWhereUniqueInput[]
+  connect?: Prisma.PartnerWhereUniqueInput | Prisma.PartnerWhereUniqueInput[]
+  update?: Prisma.PartnerUpdateWithWhereUniqueWithoutSalesUserInput | Prisma.PartnerUpdateWithWhereUniqueWithoutSalesUserInput[]
+  updateMany?: Prisma.PartnerUpdateManyWithWhereWithoutSalesUserInput | Prisma.PartnerUpdateManyWithWhereWithoutSalesUserInput[]
+  deleteMany?: Prisma.PartnerScalarWhereInput | Prisma.PartnerScalarWhereInput[]
+}
+
 export type PartnerUncheckedUpdateManyWithoutUserNestedInput = {
   create?: Prisma.XOR<Prisma.PartnerCreateWithoutUserInput, Prisma.PartnerUncheckedCreateWithoutUserInput> | Prisma.PartnerCreateWithoutUserInput[] | Prisma.PartnerUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.PartnerCreateOrConnectWithoutUserInput | Prisma.PartnerCreateOrConnectWithoutUserInput[]
@@ -494,23 +684,51 @@ export type PartnerUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.PartnerScalarWhereInput | Prisma.PartnerScalarWhereInput[]
 }
 
+export type PartnerUncheckedUpdateManyWithoutSalesUserNestedInput = {
+  create?: Prisma.XOR<Prisma.PartnerCreateWithoutSalesUserInput, Prisma.PartnerUncheckedCreateWithoutSalesUserInput> | Prisma.PartnerCreateWithoutSalesUserInput[] | Prisma.PartnerUncheckedCreateWithoutSalesUserInput[]
+  connectOrCreate?: Prisma.PartnerCreateOrConnectWithoutSalesUserInput | Prisma.PartnerCreateOrConnectWithoutSalesUserInput[]
+  upsert?: Prisma.PartnerUpsertWithWhereUniqueWithoutSalesUserInput | Prisma.PartnerUpsertWithWhereUniqueWithoutSalesUserInput[]
+  createMany?: Prisma.PartnerCreateManySalesUserInputEnvelope
+  set?: Prisma.PartnerWhereUniqueInput | Prisma.PartnerWhereUniqueInput[]
+  disconnect?: Prisma.PartnerWhereUniqueInput | Prisma.PartnerWhereUniqueInput[]
+  delete?: Prisma.PartnerWhereUniqueInput | Prisma.PartnerWhereUniqueInput[]
+  connect?: Prisma.PartnerWhereUniqueInput | Prisma.PartnerWhereUniqueInput[]
+  update?: Prisma.PartnerUpdateWithWhereUniqueWithoutSalesUserInput | Prisma.PartnerUpdateWithWhereUniqueWithoutSalesUserInput[]
+  updateMany?: Prisma.PartnerUpdateManyWithWhereWithoutSalesUserInput | Prisma.PartnerUpdateManyWithWhereWithoutSalesUserInput[]
+  deleteMany?: Prisma.PartnerScalarWhereInput | Prisma.PartnerScalarWhereInput[]
+}
+
 export type PartnerCreateWithoutUserInput = {
   name: string
   contactName: string
-  phone: string
+  phone?: string | null
   address: string
   email?: string | null
+  source?: string
+  externalId?: string | null
+  category?: string | null
+  subCategory?: string | null
+  centerName?: string | null
+  salesRepName?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  salesUser?: Prisma.UserCreateNestedOneWithoutSalesPartnersInput
 }
 
 export type PartnerUncheckedCreateWithoutUserInput = {
   id?: number
   name: string
   contactName: string
-  phone: string
+  phone?: string | null
   address: string
   email?: string | null
+  source?: string
+  externalId?: string | null
+  category?: string | null
+  subCategory?: string | null
+  centerName?: string | null
+  salesRepName?: string | null
+  salesUserId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -522,6 +740,51 @@ export type PartnerCreateOrConnectWithoutUserInput = {
 
 export type PartnerCreateManyUserInputEnvelope = {
   data: Prisma.PartnerCreateManyUserInput | Prisma.PartnerCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type PartnerCreateWithoutSalesUserInput = {
+  name: string
+  contactName: string
+  phone?: string | null
+  address: string
+  email?: string | null
+  source?: string
+  externalId?: string | null
+  category?: string | null
+  subCategory?: string | null
+  centerName?: string | null
+  salesRepName?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user?: Prisma.UserCreateNestedOneWithoutPartnersInput
+}
+
+export type PartnerUncheckedCreateWithoutSalesUserInput = {
+  id?: number
+  name: string
+  contactName: string
+  phone?: string | null
+  address: string
+  email?: string | null
+  userId?: number | null
+  source?: string
+  externalId?: string | null
+  category?: string | null
+  subCategory?: string | null
+  centerName?: string | null
+  salesRepName?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PartnerCreateOrConnectWithoutSalesUserInput = {
+  where: Prisma.PartnerWhereUniqueInput
+  create: Prisma.XOR<Prisma.PartnerCreateWithoutSalesUserInput, Prisma.PartnerUncheckedCreateWithoutSalesUserInput>
+}
+
+export type PartnerCreateManySalesUserInputEnvelope = {
+  data: Prisma.PartnerCreateManySalesUserInput | Prisma.PartnerCreateManySalesUserInput[]
   skipDuplicates?: boolean
 }
 
@@ -548,21 +811,69 @@ export type PartnerScalarWhereInput = {
   id?: Prisma.IntFilter<"Partner"> | number
   name?: Prisma.StringFilter<"Partner"> | string
   contactName?: Prisma.StringFilter<"Partner"> | string
-  phone?: Prisma.StringFilter<"Partner"> | string
+  phone?: Prisma.StringNullableFilter<"Partner"> | string | null
   address?: Prisma.StringFilter<"Partner"> | string
   email?: Prisma.StringNullableFilter<"Partner"> | string | null
-  userId?: Prisma.IntFilter<"Partner"> | number
+  userId?: Prisma.IntNullableFilter<"Partner"> | number | null
+  source?: Prisma.StringFilter<"Partner"> | string
+  externalId?: Prisma.StringNullableFilter<"Partner"> | string | null
+  category?: Prisma.StringNullableFilter<"Partner"> | string | null
+  subCategory?: Prisma.StringNullableFilter<"Partner"> | string | null
+  centerName?: Prisma.StringNullableFilter<"Partner"> | string | null
+  salesRepName?: Prisma.StringNullableFilter<"Partner"> | string | null
+  salesUserId?: Prisma.IntNullableFilter<"Partner"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Partner"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Partner"> | Date | string
+}
+
+export type PartnerUpsertWithWhereUniqueWithoutSalesUserInput = {
+  where: Prisma.PartnerWhereUniqueInput
+  update: Prisma.XOR<Prisma.PartnerUpdateWithoutSalesUserInput, Prisma.PartnerUncheckedUpdateWithoutSalesUserInput>
+  create: Prisma.XOR<Prisma.PartnerCreateWithoutSalesUserInput, Prisma.PartnerUncheckedCreateWithoutSalesUserInput>
+}
+
+export type PartnerUpdateWithWhereUniqueWithoutSalesUserInput = {
+  where: Prisma.PartnerWhereUniqueInput
+  data: Prisma.XOR<Prisma.PartnerUpdateWithoutSalesUserInput, Prisma.PartnerUncheckedUpdateWithoutSalesUserInput>
+}
+
+export type PartnerUpdateManyWithWhereWithoutSalesUserInput = {
+  where: Prisma.PartnerScalarWhereInput
+  data: Prisma.XOR<Prisma.PartnerUpdateManyMutationInput, Prisma.PartnerUncheckedUpdateManyWithoutSalesUserInput>
 }
 
 export type PartnerCreateManyUserInput = {
   id?: number
   name: string
   contactName: string
-  phone: string
+  phone?: string | null
   address: string
   email?: string | null
+  source?: string
+  externalId?: string | null
+  category?: string | null
+  subCategory?: string | null
+  centerName?: string | null
+  salesRepName?: string | null
+  salesUserId?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PartnerCreateManySalesUserInput = {
+  id?: number
+  name: string
+  contactName: string
+  phone?: string | null
+  address: string
+  email?: string | null
+  userId?: number | null
+  source?: string
+  externalId?: string | null
+  category?: string | null
+  subCategory?: string | null
+  centerName?: string | null
+  salesRepName?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -570,20 +881,34 @@ export type PartnerCreateManyUserInput = {
 export type PartnerUpdateWithoutUserInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   contactName?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  centerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesRepName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salesUser?: Prisma.UserUpdateOneWithoutSalesPartnersNestedInput
 }
 
 export type PartnerUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   contactName?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  centerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesRepName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesUserId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -592,9 +917,69 @@ export type PartnerUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   contactName?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  centerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesRepName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesUserId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PartnerUpdateWithoutSalesUserInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  contactName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  centerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesRepName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneWithoutPartnersNestedInput
+}
+
+export type PartnerUncheckedUpdateWithoutSalesUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  contactName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  centerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesRepName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PartnerUncheckedUpdateManyWithoutSalesUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  contactName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  centerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesRepName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -609,9 +994,17 @@ export type PartnerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   address?: boolean
   email?: boolean
   userId?: boolean
+  source?: boolean
+  externalId?: boolean
+  category?: boolean
+  subCategory?: boolean
+  centerName?: boolean
+  salesRepName?: boolean
+  salesUserId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Partner$userArgs<ExtArgs>
+  salesUser?: boolean | Prisma.Partner$salesUserArgs<ExtArgs>
 }, ExtArgs["result"]["partner"]>
 
 export type PartnerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -622,9 +1015,17 @@ export type PartnerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   address?: boolean
   email?: boolean
   userId?: boolean
+  source?: boolean
+  externalId?: boolean
+  category?: boolean
+  subCategory?: boolean
+  centerName?: boolean
+  salesRepName?: boolean
+  salesUserId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Partner$userArgs<ExtArgs>
+  salesUser?: boolean | Prisma.Partner$salesUserArgs<ExtArgs>
 }, ExtArgs["result"]["partner"]>
 
 export type PartnerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -635,9 +1036,17 @@ export type PartnerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   address?: boolean
   email?: boolean
   userId?: boolean
+  source?: boolean
+  externalId?: boolean
+  category?: boolean
+  subCategory?: boolean
+  centerName?: boolean
+  salesRepName?: boolean
+  salesUserId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Partner$userArgs<ExtArgs>
+  salesUser?: boolean | Prisma.Partner$salesUserArgs<ExtArgs>
 }, ExtArgs["result"]["partner"]>
 
 export type PartnerSelectScalar = {
@@ -648,34 +1057,61 @@ export type PartnerSelectScalar = {
   address?: boolean
   email?: boolean
   userId?: boolean
+  source?: boolean
+  externalId?: boolean
+  category?: boolean
+  subCategory?: boolean
+  centerName?: boolean
+  salesRepName?: boolean
+  salesUserId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PartnerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "contactName" | "phone" | "address" | "email" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["partner"]>
+export type PartnerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "contactName" | "phone" | "address" | "email" | "userId" | "source" | "externalId" | "category" | "subCategory" | "centerName" | "salesRepName" | "salesUserId" | "createdAt" | "updatedAt", ExtArgs["result"]["partner"]>
 export type PartnerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Partner$userArgs<ExtArgs>
+  salesUser?: boolean | Prisma.Partner$salesUserArgs<ExtArgs>
 }
 export type PartnerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Partner$userArgs<ExtArgs>
+  salesUser?: boolean | Prisma.Partner$salesUserArgs<ExtArgs>
 }
 export type PartnerIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Partner$userArgs<ExtArgs>
+  salesUser?: boolean | Prisma.Partner$salesUserArgs<ExtArgs>
 }
 
 export type $PartnerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Partner"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs> | null
+    salesUser: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
     contactName: string
-    phone: string
+    phone: string | null
     address: string
     email: string | null
-    userId: number
+    /**
+     * * 등록한 회원. 엑셀 일괄입력분은 null
+     */
+    userId: number | null
+    /**
+     * * 입력 경로: MANUAL(직접 등록) / EXCEL_FINGER_202608 등
+     */
+    source: string
+    externalId: string | null
+    category: string | null
+    subCategory: string | null
+    centerName: string | null
+    salesRepName: string | null
+    /**
+     * * 영업앱 회원 매핑 (추후)
+     */
+    salesUserId: number | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["partner"]>
@@ -1072,7 +1508,8 @@ readonly fields: PartnerFieldRefs;
  */
 export interface Prisma__PartnerClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.Partner$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Partner$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  salesUser<T extends Prisma.Partner$salesUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Partner$salesUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1109,6 +1546,13 @@ export interface PartnerFieldRefs {
   readonly address: Prisma.FieldRef<"Partner", 'String'>
   readonly email: Prisma.FieldRef<"Partner", 'String'>
   readonly userId: Prisma.FieldRef<"Partner", 'Int'>
+  readonly source: Prisma.FieldRef<"Partner", 'String'>
+  readonly externalId: Prisma.FieldRef<"Partner", 'String'>
+  readonly category: Prisma.FieldRef<"Partner", 'String'>
+  readonly subCategory: Prisma.FieldRef<"Partner", 'String'>
+  readonly centerName: Prisma.FieldRef<"Partner", 'String'>
+  readonly salesRepName: Prisma.FieldRef<"Partner", 'String'>
+  readonly salesUserId: Prisma.FieldRef<"Partner", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Partner", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Partner", 'DateTime'>
 }
@@ -1509,6 +1953,44 @@ export type PartnerDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Partners to delete.
    */
   limit?: number
+}
+
+/**
+ * Partner.user
+ */
+export type Partner$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * Partner.salesUser
+ */
+export type Partner$salesUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

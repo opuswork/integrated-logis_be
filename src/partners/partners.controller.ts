@@ -39,7 +39,20 @@ export class PartnersController {
   findAll(
     @CurrentUser() user: AuthUserPayload,
     @Query('q') q?: string,
+    @Query('page') page?: string,
+    @Query('pageSize') pageSize?: string,
+    @Query('search') search?: string,
+    @Query('source') source?: string,
   ) {
+    // 관리자 + page 지정 → 페이지 응답 { items, total, page, pageSize }
+    if (user.role === 'admin' && page !== undefined) {
+      return this.partnersService.findPage({
+        page: Number(page),
+        pageSize: Number(pageSize ?? 50),
+        search,
+        source,
+      });
+    }
     return this.partnersService.findAll(user, q);
   }
 
