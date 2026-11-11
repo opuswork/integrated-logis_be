@@ -61,6 +61,8 @@ export class PartnersService {
               { contactName: contains(search) },
               { address: contains(search) },
               { centerName: contains(search) },
+              { customerType: contains(search) },
+              { regionGroup: contains(search) },
             ],
           }
         : {}),
@@ -84,7 +86,9 @@ export class PartnersService {
             source: true,
             category: true,
             subCategory: true,
+            customerType: true,
             centerName: true,
+            regionGroup: true,
           },
           orderBy: [{ source: 'desc' }, { name: 'asc' }, { id: 'desc' }],
           skip: (page - 1) * pageSize,

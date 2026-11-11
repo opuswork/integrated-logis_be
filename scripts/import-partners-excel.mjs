@@ -2,14 +2,18 @@
  * 금융권 고객사 엑셀(시트 "고객사-최종") → Partner 테이블 일괄 입력.
  *
  * Usage (from be/):
- *   node scripts/import-partners-excel.mjs "<xlsx 경로>" [--dry-run]
+ *   node scripts/import-partners-excel.mjs "<xlsx 경로>" [--dry-run] [--replace-all] [--confirm-prod]
  *
  * DATABASE_URL 환경변수(또는 .env)의 DB에 입력한다.
- * 같은 source 값으로 넣은 기존 행은 먼저 지우고 다시 넣으므로 여러 번 실행해도 중복되지 않는다.
- * 직접 등록한 거래처(source = 'MANUAL')는 건드리지 않는다.
+ * - 기본: 같은 source 값으로 넣은 기존 행만 지우고 다시 넣는다 (직접 등록한 MANUAL 행은 유지).
+ * - --replace-all: Partner 테이블의 모든 행(MANUAL 포함)을 지우고 엑셀 데이터만 남긴다.
+ *   로컬이 아닌 DB에서는 --confirm-prod 가 함께 있어야 실행된다.
+ * - --dry-run: DB에 쓰지 않고 요약만 보여준다.
+ * 삭제와 입력은 한 트랜잭션이라, 중간에 실패하면 전부 되돌아간다.
  *
- * 매핑: 고객사명→name, 담당자→contactName, 유선번호→phone, 주소→address,
- *       구분→category, 구분2→subCategory, 중앙→centerName, 고객사ID→externalId,
+ * 매핑: 고객사명→name, 담당자→contactName, 유선번호→phone(정규화), 주소→address/addressDetail,
+ *       구분→category, 구분2→subCategory, 고객사 구분→customerType, 중앙→centerName,
+ *       중서남부→regionGroup, 고객사ID→externalId,
  *       담당자에서 중앙을 뺀 이름→salesRepName (예: 수원이지원 - 수원 = 이지원)
  */
 import 'dotenv/config';
@@ -17,20 +21,28 @@ import ExcelJS from 'exceljs';
 import pg from 'pg';
 
 const SHEET_NAME = '고객사-최종';
-const SOURCE = process.env.PARTNER_IMPORT_SOURCE ?? 'EXCEL_FINGER_202608';
+const SOURCE = process.env.PARTNER_IMPORT_SOURCE ?? 'EXCEL_FINAL_202611';
 const BATCH_SIZE = 1000;
 
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
+const replaceAll = args.includes('--replace-all');
+const confirmProd = args.includes('--confirm-prod');
 const filePath = args.find((a) => !a.startsWith('--'));
 
 if (!filePath) {
-  console.error('Usage: node scripts/import-partners-excel.mjs "<xlsx 경로>" [--dry-run]');
+  console.error(
+    'Usage: node scripts/import-partners-excel.mjs "<xlsx 경로>" [--dry-run] [--replace-all] [--confirm-prod]',
+  );
   process.exit(1);
 }
 
+function isLocalDb(connectionString) {
+  return /@(localhost|127\.0\.0\.1)(:|\/)/.test(connectionString);
+}
+
 function buildPoolConfig(connectionString) {
-  if (/@(localhost|127\.0\.0\.1)(:|\/)/.test(connectionString)) {
+  if (isLocalDb(connectionString)) {
     return { connectionString };
   }
   try {
@@ -71,6 +83,39 @@ function splitAddress(raw) {
   return [m[1], detail || null];
 }
 
+/** 숫자만 있는 유선번호에 하이픈을 넣는다. 형식에 맞지 않으면 null */
+function formatLandline(d) {
+  const split = (head, rest) => {
+    if (rest.length === 7) return `${head}-${rest.slice(0, 3)}-${rest.slice(3)}`;
+    if (rest.length === 8) return `${head}-${rest.slice(0, 4)}-${rest.slice(4)}`;
+    return null;
+  };
+  if (d.startsWith('02')) return split('02', d.slice(2));
+  if (/^050\d/.test(d)) return split(d.slice(0, 4), d.slice(4)); // 0502·0507 안심번호
+  if (/^1[5-9]\d{6}$/.test(d)) return `${d.slice(0, 4)}-${d.slice(4)}`; // 1588-0000
+  if (/^0\d{2}/.test(d)) return split(d.slice(0, 3), d.slice(3));
+  return null;
+}
+
+/**
+ * 유선번호 정규화.
+ * kind: empty | ok(원본 그대로) | fixed(형식 수정) | kept(형식 불명, 원본 유지) | mobile(휴대폰 → 비움)
+ */
+function normalizePhone(raw) {
+  const original = raw.trim();
+  if (!original) return { value: null, kind: 'empty' };
+  const first = original.split(/[~/,]/)[0].trim();
+  let digits = first.replace(/\D/g, '');
+  // 엑셀 숫자 셀이라 앞의 0이 빠진 번호 (312415771 → 0312415771)
+  if (/^[2-6]\d{7,9}$/.test(first)) digits = `0${digits}`;
+  if (/^01[016789]/.test(digits)) return { value: null, kind: 'mobile' };
+  const formatted = formatLandline(digits);
+  if (formatted) {
+    return { value: formatted, kind: formatted === original ? 'ok' : 'fixed' };
+  }
+  return { value: first.replace(/[.\s]+/g, '-'), kind: 'kept' };
+}
+
 function salesRepFrom(manager, center) {
   if (!manager || !center || !manager.startsWith(center)) return null;
   const rest = manager.slice(center.length).replace(/^[\s\-]+/, '').trim();
@@ -87,11 +132,26 @@ async function readRows() {
   ws.getRow(1).eachCell((cell, col) => {
     header[cellText(cell.value)] = col;
   });
-  const need = ['고객사ID', '구분', '고객사명', '구분2', '유선번호', '주소', '중앙', '담당자'];
+  const need = [
+    '고객사ID',
+    '구분',
+    '고객사명',
+    '구분2',
+    '고객사 구분',
+    '유선번호',
+    '주소',
+    '중앙',
+    '중서남부',
+    '담당자',
+  ];
   const missing = need.filter((h) => !header[h]);
   if (missing.length) throw new Error(`헤더 없음: ${missing.join(', ')}`);
 
   const rows = [];
+  const phoneStats = { empty: 0, ok: 0, fixed: 0, kept: 0, mobile: 0 };
+  const phoneFixed = [];
+  const phoneKept = [];
+  const phoneMobile = [];
   let skippedEmpty = 0;
   let skippedNoName = 0;
   for (let r = 2; r <= ws.rowCount; r += 1) {
@@ -110,20 +170,36 @@ async function readRows() {
     const center = get('중앙') || null;
     const manager = get('담당자');
     const [address, addressDetail] = splitAddress(get('주소'));
+    const rawPhone = get('유선번호');
+    const phone = normalizePhone(rawPhone);
+    phoneStats[phone.kind] += 1;
+    if (phone.kind === 'fixed') phoneFixed.push(`${rawPhone} → ${phone.value}`);
+    if (phone.kind === 'kept') phoneKept.push(`${name}: ${rawPhone}`);
+    if (phone.kind === 'mobile') phoneMobile.push(`${name}: ${rawPhone}`);
     rows.push({
       name,
       contactName: manager,
-      phone: get('유선번호') || null,
+      phone: phone.value,
       address,
       addressDetail,
       externalId: get('고객사ID') || null,
       category: get('구분') || null,
       subCategory: get('구분2') || null,
+      customerType: get('고객사 구분') || null,
       centerName: center,
+      regionGroup: get('중서남부') || null,
       salesRepName: salesRepFrom(manager, center),
     });
   }
-  return { rows, skippedEmpty, skippedNoName };
+  return {
+    rows,
+    skippedEmpty,
+    skippedNoName,
+    phoneStats,
+    phoneFixed,
+    phoneKept,
+    phoneMobile,
+  };
 }
 
 const COLS = [
@@ -135,19 +211,28 @@ const COLS = [
   'externalId',
   'category',
   'subCategory',
+  'customerType',
   'centerName',
+  'regionGroup',
   'salesRepName',
 ];
 
 async function main() {
-  const { rows, skippedEmpty, skippedNoName } = await readRows();
+  const { rows, skippedEmpty, skippedNoName, phoneStats, phoneFixed, phoneKept, phoneMobile } =
+    await readRows();
   console.log(`source        : ${SOURCE}`);
+  console.log(`모드          : ${replaceAll ? '전체 교체(MANUAL 포함 삭제)' : `${SOURCE} 행만 교체`}`);
   console.log(`입력 대상     : ${rows.length}`);
   console.log(`건너뜀(빈 행) : ${skippedEmpty}`);
   console.log(`건너뜀(이름無): ${skippedNoName}`);
-  console.log(`연락처 없음   : ${rows.filter((r) => !r.phone).length}`);
+  console.log(`상세주소 분리 : ${rows.filter((r) => r.addressDetail).length}`);
   console.log(`담당자 없음   : ${rows.filter((r) => !r.contactName).length}`);
   console.log(`salesRepName  : ${rows.filter((r) => r.salesRepName).length}`);
+  console.log('연락처 정규화 :', phoneStats);
+  console.log(`  형식 수정 예: ${phoneFixed.slice(0, 10).join(' | ')}`);
+  console.log(`  원본 유지(${phoneKept.length}):`);
+  phoneKept.forEach((line) => console.log(`    ${line}`));
+  console.log(`  휴대폰→비움(${phoneMobile.length}): ${phoneMobile.join(' | ')}`);
   console.log('샘플:', rows.slice(0, 2));
 
   if (dryRun) {
@@ -165,13 +250,20 @@ async function main() {
     }
   })();
   console.log(`DB host       : ${host}`);
+  if (replaceAll && !isLocalDb(connectionString) && !confirmProd) {
+    throw new Error(
+      '로컬이 아닌 DB에서 --replace-all 을 실행하려면 --confirm-prod 를 함께 주세요.',
+    );
+  }
 
   const pool = new pg.Pool(buildPoolConfig(connectionString));
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
-    const del = await client.query('DELETE FROM "Partner" WHERE "source" = $1', [SOURCE]);
-    console.log(`기존 ${SOURCE} 삭제: ${del.rowCount}`);
+    const del = replaceAll
+      ? await client.query('DELETE FROM "Partner"')
+      : await client.query('DELETE FROM "Partner" WHERE "source" = $1', [SOURCE]);
+    console.log(`기존 행 삭제  : ${del.rowCount}`);
 
     const insertCols = [...COLS, 'source', 'updatedAt'];
     const colSql = insertCols.map((c) => `"${c}"`).join(', ');

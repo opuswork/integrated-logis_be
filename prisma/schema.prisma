@@ -128,7 +128,9 @@ model Partner {
   externalId   String? // 엑셀 고객사ID
   category     String? // 구분 (은행, 신용조합 …)
   subCategory  String? // 구분2 (NH농협은행, 지역농협지점 …)
+  customerType String? // 고객사 구분 (은행(금융), 산림조합 …)
   centerName   String? // 중앙 (서울8, 청주 …)
+  regionGroup  String? // 중서남부 (중부, 서부, 남부, 본사 …)
   salesRepName String? // 담당자에서 중앙을 뺀 이름 (영업앱 매핑용)
   /** 영업앱 회원 매핑 (추후) */
   salesUserId  Int?
