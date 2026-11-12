@@ -23,8 +23,12 @@ export class PartnersService {
     return this.prisma.partner.findMany({
       where: {
         ...(listAll ? {} : { userId: user.id }),
+        // 검색(새 주문 고객사 검색)에서는 숨김 표시된 거래처를 빼고 보여준다
         ...(query
-          ? { name: { contains: query, mode: 'insensitive' as const } }
+          ? {
+              name: { contains: query, mode: 'insensitive' as const },
+              hideInSearch: false,
+            }
           : {}),
       },
       take: query ? 30 : undefined,
