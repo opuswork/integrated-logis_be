@@ -13,15 +13,45 @@ export class CreatePartnerDto {
   @IsNotEmpty({ message: '거래처명을 입력해 주세요.' })
   name!: string;
 
+  @ApiPropertyOptional({ example: '은행', nullable: true })
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  category?: string | null;
+
+  @ApiPropertyOptional({ example: 'NH농협은행', nullable: true })
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  subCategory?: string | null;
+
+  @ApiPropertyOptional({ example: '서울5', nullable: true })
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  centerName?: string | null;
+
   @ApiProperty({ example: '홍길동' })
   @IsString()
   @IsNotEmpty({ message: '담당자명을 입력해 주세요.' })
   contactName!: string;
 
-  @ApiProperty({ example: '010-1234-5678' })
+  /** 휴대폰·유선전화 중 하나는 필요하다 (서비스에서 검사) */
+  @ApiPropertyOptional({ example: '010-1234-5678', nullable: true })
+  @IsOptional()
   @IsString()
-  @IsNotEmpty({ message: '연락처를 입력해 주세요.' })
-  phone!: string;
+  @MaxLength(20)
+  mobile?: string | null;
+
+  @ApiPropertyOptional({
+    description: '유선전화',
+    example: '02-123-4567',
+    nullable: true,
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(30)
+  phone?: string | null;
 
   @ApiProperty({ example: '서울시 강남구 테헤란로 1' })
   @IsString()

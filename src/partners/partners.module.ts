@@ -2,12 +2,13 @@ import { Module } from '@nestjs/common';
 
 import { AuthModule } from '../auth/auth.module';
 import { PartnersController } from './partners.controller';
+import { PartnerEvidenceStorageService } from './partner-evidence-storage.service';
 import { PartnersService } from './partners.service';
 
 @Module({
   imports: [AuthModule],
   controllers: [PartnersController],
-  providers: [PartnersService],
+  providers: [PartnersService, PartnerEvidenceStorageService],
   exports: [PartnersService],
 })
 export class PartnersModule {}
