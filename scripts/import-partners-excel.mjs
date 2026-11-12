@@ -21,6 +21,7 @@ import ExcelJS from 'exceljs';
 import pg from 'pg';
 
 import {
+  backfillPartnerOwners,
   buildPoolConfig,
   cellText,
   dbHost,
@@ -234,6 +235,12 @@ async function main() {
       );
       inserted += res.rowCount;
     }
+    // 개인앱 고객사 검색용 소유자 칸 (사람 담당자 / 지역)
+    const owners = await backfillPartnerOwners(client, {
+      whereSql: '"source" = $1',
+      params: [SOURCE],
+    });
+    console.log(`소유자 판정   : 사람 ${owners.person}건(${owners.people}명) / 지역 ${owners.region}건 / 없음 ${owners.none}건`);
     await client.query('COMMIT');
     console.log(`입력 완료     : ${inserted}`);
 
