@@ -118,7 +118,8 @@ model Partner {
   id          Int      @id @default(autoincrement())
   name        String   // 거래처명
   contactName String   // 담당자명
-  phone       String?  // 연락처 (엑셀 입력분은 비어 있을 수 있음)
+  phone       String?  // 유선전화 (엑셀 입력분은 비어 있을 수 있음)
+  mobile      String?  // 휴대폰 (010-xxxx-xxxx)
   address     String   // 주소 (도로명 + 건물번호)
   addressDetail String? // 상세주소 (층·호수·건물명)
   email       String?  // 이메일 (optional)
@@ -140,6 +141,9 @@ model Partner {
   /** 지역 담당자 (교회 이름). 이 교회 회원만 검색에서 본다 */
   ownerRegion  String?
   salesRepName String? // 담당자에서 중앙을 뺀 이름 (영업앱 매핑용)
+  /** 거래처 증거자료 이미지 (명함·계약서) */
+  evidenceImageUrl  String?
+  evidenceImageName String?
   /** 영업앱 회원 매핑 (추후) */
   salesUserId  Int?
   salesUser    User?   @relation("PartnerSalesUser", fields: [salesUserId], references: [id], onDelete: SetNull)
