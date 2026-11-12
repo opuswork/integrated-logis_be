@@ -21,6 +21,7 @@ import ExcelJS from 'exceljs';
 import pg from 'pg';
 
 import {
+  backfillPartnerOwners,
   buildPoolConfig,
   cellText,
   dbHost,
@@ -138,9 +139,8 @@ async function readRows() {
       centerName: center,
       regionGroup: get('중서남부') || null,
       salesRepName: salesRepFrom(manager, center),
-      // 본사·관리자·관리자 고객사는 개인앱 검색에서 숨긴다 (마이그레이션 20261112100000 과 같은 규칙)
-      hideInSearch:
-        get('중서남부') === '본사' && center === '관리자' && manager === '관리자',
+      // 중서남부=본사 고객사는 개인앱 검색에서 숨긴다 (마이그레이션 20261112110000 과 같은 규칙)
+      hideInSearch: get('중서남부') === '본사',
     });
   }
   return {
@@ -235,6 +235,12 @@ async function main() {
       );
       inserted += res.rowCount;
     }
+    // 개인앱 고객사 검색용 소유자 칸 (사람 담당자 / 지역)
+    const owners = await backfillPartnerOwners(client, {
+      whereSql: '"source" = $1',
+      params: [SOURCE],
+    });
+    console.log(`소유자 판정   : 사람 ${owners.person}건(${owners.people}명) / 지역 ${owners.region}건 / 없음 ${owners.none}건`);
     await client.query('COMMIT');
     console.log(`입력 완료     : ${inserted}`);
 

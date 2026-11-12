@@ -69,6 +69,8 @@ model User {
   adminRegion  AdminRegion?  // ADMIN일 때만 사용. null이면 Super admin
   /** Factory-G: 인사장완료 승인 가능 (username 01029647088) */
   canApproveGreeting Boolean @default(false)
+  /** 본사 전용 계정: 개인앱 고객사 검색에서 중서남부=본사 고객사만 본다 */
+  hqPartnerAccess Boolean @default(false)
   /** 중복로그인 방지용. 현재 검증은 주석 처리되어 사용하지 않음. */
   sessionVersion Int @default(0)
   /** 계정 생성 경로 (직접가입 / 주문서 대리생성 / 일괄등록) */
@@ -131,8 +133,12 @@ model Partner {
   customerType String? // 고객사 구분 (은행(금융), 산림조합 …)
   centerName   String? // 중앙 (서울8, 청주 …)
   regionGroup  String? // 중서남부 (중부, 서부, 남부, 본사 …)
-  /** 개인앱 고객사 검색(?q=)에서 숨김. 본사·관리자·관리자 고객사 */
+  /** 개인앱 고객사 검색(?q=)에서 숨김. 중서남부=본사 고객사 */
   hideInSearch Boolean @default(false)
+  /** 사람 담당자 이름 (담당자에서 지역을 뗀 이름). 이 이름의 회원만 검색에서 본다 */
+  ownerName    String?
+  /** 지역 담당자 (교회 이름). 이 교회 회원만 검색에서 본다 */
+  ownerRegion  String?
   salesRepName String? // 담당자에서 중앙을 뺀 이름 (영업앱 매핑용)
   /** 영업앱 회원 매핑 (추후) */
   salesUserId  Int?
@@ -147,6 +153,8 @@ model Partner {
   @@index([source(sort: Desc), name, id(sort: Desc)], map: "Partner_source_name_id_idx")
   @@index([centerName])
   @@index([salesUserId])
+  @@index([ownerName])
+  @@index([ownerRegion])
 }
 
 model Church {
