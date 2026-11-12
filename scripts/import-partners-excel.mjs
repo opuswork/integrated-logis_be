@@ -138,9 +138,8 @@ async function readRows() {
       centerName: center,
       regionGroup: get('중서남부') || null,
       salesRepName: salesRepFrom(manager, center),
-      // 본사·관리자·관리자 고객사는 개인앱 검색에서 숨긴다 (마이그레이션 20261112100000 과 같은 규칙)
-      hideInSearch:
-        get('중서남부') === '본사' && center === '관리자' && manager === '관리자',
+      // 중서남부=본사 고객사는 개인앱 검색에서 숨긴다 (마이그레이션 20261112110000 과 같은 규칙)
+      hideInSearch: get('중서남부') === '본사',
     });
   }
   return {
